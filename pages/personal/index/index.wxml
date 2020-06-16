@@ -1,0 +1,8 @@
+<!--pages/personal/index/index.wxml-->
+<view class="box">
+    <image class="avator" src="/icon/qb.png" style="border:8rpx solid #999;"></image>
+    <button class="login-btn" size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo">立即登录</button>
+</view>
+<navigator url="/pages/personal/infomation/infomation">
+	geren
+</navigator>

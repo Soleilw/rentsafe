@@ -1,0 +1,19 @@
+.box {
+  height: 30vw;
+  margin: 10rpx;
+  border-radius: 10rpx;
+  background-color: #2a9f93;
+}
+
+.avator {
+    width: 100rpx;
+    height: 100rpx;
+    margin: 20rpx;
+    border:8rpx solid #fff;
+    border-radius: 50%;
+  }
+
+  /* .login-btn {
+    font-size: 32rpx;
+    background-color:#f6f5fa;
+  } */

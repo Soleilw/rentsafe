@@ -1,14 +1,32 @@
 {
-  "pages":[
-    "pages/index/index",
-    "pages/logs/logs"
+  "pages": [
+      "pages/personal/index/index",
+      "pages/personal/infomation/infomation",
+      "pages/personal/infomation/address"
+
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+  "window": {
+      "backgroundTextStyle": "light",
+      "navigationBarBackgroundColor": "#2a9f93",
+      "navigationBarTitleText": "校园智慧",
+      "navigationBarTextStyle": "white"
   },
-  "style": "v2",
+  "tabBar": {
+      "selectedColor": "#2a9f93",
+      "list": [
+          {
+              "pagePath": "pages/personal/index/index",
+              "text": "首页"
+          },
+          {
+              "pagePath": "pages/personal/index/index",
+              "text": "生活圈"
+          },
+          {
+              "pagePath": "pages/personal/index/index",
+              "text": "我的"
+          }
+      ]
+  },
   "sitemapLocation": "sitemap.json"
 }

@@ -1,0 +1,88 @@
+<!--pages/personal/infomation/infomation.wxml-->
+<view class="form">
+	<!-- 头像 -->
+	<view class="form-item" style="justify-content: flex-start;">
+		<image mode="aspectFill" class="left-icon" src="{{userInfo.avatarUrl}}" style="width:120rpx;height:120rpx;" />
+		<text>{{userInfo.nickname}}</text>
+	</view>
+	<!-- 真实姓名 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/my1.png" />
+		<text>姓名</text>
+		<input class="input" bindblur='nameInput' bindfocus="changeSubmit" type="text" maxlength='10' placeholder='请输入' value='{{userInfo.name}}'></input>
+	</view>
+	<!-- 性别 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/sex1.png" />
+		<text>性别</text>
+		<radio-group bindchange="user_sex" bindtap="changeSubmit" class="sex-box">
+			<radio value="1" checked="{{userInfo.sex== 1?'true':''}}" />男
+			<radio value="2" checked="{{userInfo.sex== 2?'true':''}}" />女
+		</radio-group>
+	</view>
+	<!-- 身份证号 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/my1.png" />
+		<text>姓名</text>
+		<input class="input" bindblur='nameInput' bindfocus="changeSubmit" type="text" maxlength='10' placeholder='请输入' value='{{userInfo.id_card}}'></input>
+	</view>
+	<!-- 手机 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/iphone.png" />
+		<text>手机</text>
+		<input class="input" bindblur='iphoneInput' bindfocus="changeSubmit" type="number" maxlength='11' placeholder='请输入' value='{{userInfo.phone}}'></input>
+	</view>
+	<!-- 身份类型 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/authentication.png" />
+		<text>身份类型</text>
+		<picker bindchange="bindSchoolChange" range="{{identityList}}" range-key="name" value="{{index}}">
+			<input class="input" placeholder='请选择' disabled="true"></input>
+		</picker>
+	</view>
+	<!-- 选择地址 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/authentication.png" />
+		<text>选择地址</text>
+		<navigator url="/pages/personal/infomation/address">
+			<input class="input" placeholder="选择地址或在下方输入地址" disabled="true"></input>
+		</navigator>
+	</view>
+	<view class="form-item">
+		<textarea class="textarea" value="{{userInfo.address}}" placeholder="请填写具体地址" auto-height></textarea>
+	</view>
+
+	<!-- 人脸上传 -->
+	<view class="form-item" style="border:none;justify-content: flex-start; ">
+		<image class="left-icon" src="/icon/recognition.png"></image>
+		<text style="width:500rpx;">人脸数据(点击图片更换)</text>
+	</view>
+	<view class="portrait-box">
+		<view data-type="1" bindtap='cameraDisable'>
+			<image mode="aspectFill" src="{{userInfo.href}}"></image>
+			<image class="image" wx:if="{{!userInfo.href}}" mode="aspectFill" src="/icon/head.png"></image>
+		</view>
+	</view>
+</view>
+
+
+<!-- 相机 -->
+<camera wx:if="{{showCamera}}" device-position="{{cameraConfig.position}}" flash="{{cameraConfig.flash}}" bindstop="cameraStop" binderror="cameraError" class="cameraBox">
+	<cover-view class="viewBox">
+		<cover-view style='background-color: #fff;flex:1;'></cover-view>
+		<cover-view class="content">
+			<cover-image mode='widthFix' class="faceImg" src="/icon/face.png" />
+			<cover-view class="circle"></cover-view>
+		</cover-view>
+		<cover-view style='background-color: #fff;flex:1;'></cover-view>
+	</cover-view>
+
+	<cover-view class="cameraTab">
+		<cover-image class="tabImg" src="/icon/{{cameraConfig.flash}}.png" bindtap='flashChange'></cover-image>
+		<cover-image class="tabImg" src="/icon/switch.png" bindtap='positionChange'></cover-image>
+		<cover-view bindtap='cameraDisable'>取消</cover-view>
+	</cover-view>
+	<cover-view class="photographBtn" bindtap='takePhoto'>
+		<cover-image class="cameraImg" src="/icon/camera.png"></cover-image>
+	</cover-view>
+</camera>
