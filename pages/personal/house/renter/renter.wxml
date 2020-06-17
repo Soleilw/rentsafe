@@ -1,0 +1,17 @@
+<view class="box">
+  <view class="list">
+    <view class="infoList">
+      <view>
+        <image src="/icon/children.png"></image>
+        <text class="guardian">{{item.parent.name}}</text>
+      </view>
+      <!-- <view >
+        <image src="/icon/children2.png"></image>
+        <text class="children">{{item.name}}</text>
+      </view> -->
+    </view>
+    <button bindtap="toAudit">去审核</button>
+    <!-- <button wx:else disabled='true'>已审核</button>  -->
+  </view>
+  <view class="notData">暂无审核的租客~</view>
+</view>
