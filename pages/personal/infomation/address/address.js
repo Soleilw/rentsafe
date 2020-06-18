@@ -1,4 +1,5 @@
-// pages/personal/infomation/address.js
+var address = require('../../../../model/personal/address')
+
 Page({
 
     /**
@@ -7,6 +8,23 @@ Page({
     data: {
         addressList: [] // 搜索列表
     },
+
+    onLoad() {
+        this.getAddress();
+    },
+
+    bindRegionChange() {
+
+    },
+
+    // 获取地址列表
+    getAddress(){
+        var self = this;
+        address.areas(1, 10, 0).then(res => {
+debugger
+        })
+    },
+
     handleFocus() {
         this.search();
     },

@@ -1,3 +1,6 @@
+var user = require('../../../model/user')
+
+
 Page({
 
     /**
@@ -17,16 +20,24 @@ Page({
     },
 
     getUserInfo(e) {
-        var self = this
+        var self = this,
+            u_info = e.detail.userInfo;
         wx.login({
             success(res) {
                 var code = res.code;
                 if (code) {
                     wx.getUserInfo({
                         success: (res) => {
-                            console.log(res.userInfo)
-                            self.setData({
-                                userInfo: res.userInfo
+                            user.login(code, res.iv, res.encryptedData).then(res => {
+                                console.log(res)
+                                wx.setStorage({
+                                    data: res.token,
+                                    key: 'token',
+                                })
+                                app.globalData.userInfo = res.user
+                                self.setData({
+                                    userInfo: res.user
+                                })
                             })
                         }
                     })

@@ -2,9 +2,10 @@ const url = {
     'Login': '/login', // 手机号授权登录
     'UserInfo': '/user/info', // 后台获取个人用户信息
 
-    // 名校风采
-    'Banners': '/banners', // 轮播图
-    'DocumentTypes': '/document/types', // 资讯分类
+    // 获取地址
+    'Addresses': '/Addresses', // 获取出租屋列表
+    'Areas': '/areas', // 获取地址列表
+
     'Documents': '/documents', // 资讯列表
     'Document': '/document', // 资讯详情
 

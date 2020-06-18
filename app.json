@@ -1,12 +1,14 @@
 {
   "pages": [
+    "pages/personal/infomation/address/address",
+
     "pages/personal/index/index",
     "pages/personal/house/renter/renter",
+    "pages/personal/house/renterDedail/renterDedail",
     "pages/personal/house/house/house",
     "pages/personal/house/address-manage/search/address",
     "pages/personal/house/address-manage/show/address",
-    "pages/personal/infomation/infomation/infomation",
-    "pages/personal/infomation/address/address"
+    "pages/personal/infomation/infomation/infomation"
 
   ],
   "window": {

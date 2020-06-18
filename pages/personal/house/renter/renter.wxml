@@ -1,9 +1,9 @@
 <view class="box">
   <view class="list">
     <view class="infoList">
-      <view>
+      <view bindtap="renterDetail">
         <image src="/icon/children.png"></image>
-        <text class="guardian">{{item.parent.name}}</text>
+        <text class="guardian">查看租客详情</text>
       </view>
       <!-- <view >
         <image src="/icon/children2.png"></image>

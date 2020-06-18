@@ -1,4 +1,4 @@
-<view class="search">
+<!-- <view class="search">
     <input  placeholder='请输入地址' bindfocus="handleFocus" confirm-type="search"></input>
     <button size="mini" type="primary" bindtap="search">搜索</button>
 </view>
@@ -7,4 +7,9 @@
 
 <view class="search-item" wx:for="{{addressList}}" wx:key="{{index}}">
     <text bindtap="toInfomation" data-index="{{index}}">{{addressList[index]}}</text>
-</view>
+</view> -->
+<picker mode="region" bindchange="bindRegionChange" value="{{addressList}}" custom-item="{{customItem}}">
+    <view class="picker">
+      当前选择：{{region[0]}}，{{region[1]}}，{{region[2]}}
+    </view>
+  </picker>

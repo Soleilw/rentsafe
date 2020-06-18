@@ -32,17 +32,11 @@ Page({
         },
         id_card_select: '', // 身份类型选择
         identityList: [{
-            'name': '物业管理',
+            'name': '户主',
             'type': 1
         }, {
-            'name': '户主',
-            'type': 2
-        }, {
-            'name': '家庭成员',
-            'type': 3
-        }, {
             'name': '租客',
-            'type': 4
+            'type': 2
         }], // 身份类型列表
         showCamera: false, // 显示相机
         cameraConfig: {
@@ -149,6 +143,9 @@ Page({
                     title: '上传中...',
                     icon: 'loading',
                     duration: 100000
+                });
+                qiniuUploader.upload(res.tempImagePath, res => {
+                    console.log(res)
                 })
             }
         })

@@ -7,6 +7,12 @@ Page({
     data: {
 
     },
+    // 查看租客详情
+    renterDetail() {
+        wx.navigateTo({
+          url: '../renterDedail/renterDedail',
+        })
+    },
     // 审核
     toAudit() {
         let self = this;
