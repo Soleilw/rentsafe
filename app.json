@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/personal/index/index",
     "pages/personal/infomation/address/address",
 
-    "pages/personal/index/index",
+    
     "pages/personal/house/renter/renter",
     "pages/personal/house/renterDedail/renterDedail",
     "pages/personal/house/house/house",

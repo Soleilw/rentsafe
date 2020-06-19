@@ -2,7 +2,7 @@ var api = require('../../api/index')
 
 var address = {};
 
-address.importAddress = function(page, limit, area_id) {
+address.addresses = function(page, limit, area_id) {
     return new Promise((resolve, reject) => {
         api.get(api.baseUrl.host, api.url.Addresses, {
             page: page,

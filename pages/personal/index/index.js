@@ -1,5 +1,5 @@
 var user = require('../../../model/user')
-
+const app = getApp()
 
 Page({
 
@@ -15,8 +15,9 @@ Page({
      */
     onLoad: function (options) {},
     onShow() {
-
-
+        this.setData({
+            userInfo: wx.getStorageSync('userInfo')
+        })
     },
 
     getUserInfo(e) {
@@ -34,9 +35,10 @@ Page({
                                     data: res.token,
                                     key: 'token',
                                 })
-                                app.globalData.userInfo = res.user
+                                // 全局
+                                wx.setStorageSync('userInfo', res.info)
                                 self.setData({
-                                    userInfo: res.user
+                                    userInfo: res.info
                                 })
                             })
                         }

@@ -31,3 +31,71 @@
     padding: 5rpx 10rpx;
     font-size: 26rpx;
 }
+
+
+.form {
+    padding: 0 20rpx;
+    background-color: #fff;
+}
+
+.form-item {
+    position: relative;
+    padding: 25rpx 40rpx 25rpx 0;
+    border-bottom: 2rpx solid #dcdcdc;
+    background-color: #fff;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 35rpx;
+}
+
+.form-item view {
+    width: 400rpx;
+    text-align: right;
+}
+
+.form-item text {
+    width: 200rpx;
+    font-size: 32rpx;
+    margin-left: 14rpx;
+}
+
+.form-item .left-icon {
+    width: 40rpx;
+    min-width: 40rpx;
+    height: 40rpx;
+    min-height: 40rpx;
+    object-fit: cover;
+}
+
+.form-item .right-icon {
+    width: 50rpx;
+    height: 50rpx;
+}
+
+.form-item .input {
+    display: block;
+    width: 400rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    font-size: 30rpx;
+    text-align: right;
+}
+
+.form-item .textarea {
+    padding: 10rpx;
+    font-size: 28rpx;
+}
+
+.sumbit {
+    margin-top: 30rpx;
+    padding: 0 30rpx;
+}
+
+.sumbit button {
+    /* height: 60rpx;
+    line-height: 60rpx; */
+    font-size: 28rpx;
+}
+

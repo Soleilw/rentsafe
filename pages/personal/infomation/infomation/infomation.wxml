@@ -2,8 +2,8 @@
 	<view class="form">
 		<!-- 头像 -->
 		<view class="form-item" style="justify-content: flex-start;">
-			<image mode="aspectFill" class="left-icon" src="/icon/recognition.png" style="width:120rpx;height:120rpx;" />
-			<text>{{userInfo.nickname}}</text>
+			<image mode="aspectFill" class="left-icon" src="{{userInfo.avatarUrl}}" style="width:120rpx;height:120rpx;" />
+			<text name="nickName">{{userInfo.nickName}}</text>
 		</view>
 		<!-- 真实姓名 -->
 		<view class="form-item">

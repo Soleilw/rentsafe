@@ -3,7 +3,7 @@ const url = {
     'UserInfo': '/user/info', // 后台获取个人用户信息
 
     // 获取地址
-    'Addresses': '/Addresses', // 获取出租屋列表
+    'Addresses': '/addresses', // 获取出租屋列表
     'Areas': '/areas', // 获取地址列表
 
     'Documents': '/documents', // 资讯列表

@@ -8,8 +8,50 @@
 <view class="search-item" wx:for="{{addressList}}" wx:key="{{index}}">
     <text bindtap="toInfomation" data-index="{{index}}">{{addressList[index]}}</text>
 </view> -->
-<picker mode="region" bindchange="bindRegionChange" value="{{addressList}}" custom-item="{{customItem}}">
-    <view class="picker">
-      当前选择：{{region[0]}}，{{region[1]}}，{{region[2]}}
-    </view>
-  </picker>
+<form bindsubmit="sumAddress">
+<view class="form">
+	<view class="form-item">
+		<!-- <image class="left-icon" src="/icon/ID.png" /> -->
+		<text>省份</text>
+		<picker bindchange="ProChange" range="{{proList}}" range-key="title" value="{{index}}">
+			<input class="input" placeholder='请选择省份' disabled="true" name="province" value="{{province ? province : proList[is_pro].title}}"></input>
+		</picker>
+	</view>
+    <view class="form-item">
+		<!-- <image class="left-icon" src="/icon/ID.png" /> -->
+		<text>市级</text>
+		<picker bindchange="cityChange" range="{{cityList}}" range-key="title"  value="{{index}}">
+			<input class="input" placeholder='请选择市级' disabled="true" name="city" value="{{city ? city : cityList[is_city].title}}"></input>
+		</picker>
+	</view>
+    <view class="form-item">
+		<!-- <image class="left-icon" src="/icon/ID.png" /> -->
+		<text>区级</text>
+		<picker bindchange="areaChange" range="{{areaList}}" range-key="title" value="{{index}}">
+			<input class="input" placeholder='请选择区级' disabled="true" name="area" value="{{area ? area : areaList[is_area].title}}"></input>
+		</picker>
+	</view>
+      <view class="form-item">
+		<!-- <image class="left-icon" src="/icon/ID.png" /> -->
+		<text>社区</text>
+		<picker bindchange="communityChange" range="{{communityList}}" range-key="title" value="{{index}}">
+			<input class="input" placeholder='请选择区级' disabled="true" name="community" value="{{community ? community : communityList[is_community].title}}"></input>
+		</picker>
+	</view>
+    <view class="form-item">
+		<!-- <image class="left-icon" src="/icon/ID.png" /> -->
+		<text>详细地址</text>
+		<picker bindchange="detailChange" range="{{detailList}}" range-key="address" value="{{index}}">
+			<input class="input" placeholder='请选择详细地址' disabled="true"></input>
+		</picker>
+	</view>
+    <view class="form-item">
+			<textarea class="textarea" name="detail" value="{{detail ? detail : detailList[is_detail].address}}" placeholder='请选择详细地址' auto-height></textarea>
+		</view>
+</view>
+
+<view class="sumbit">
+ <button type="primary" form-type='submit'>确定</button>
+</view>
+
+</form>

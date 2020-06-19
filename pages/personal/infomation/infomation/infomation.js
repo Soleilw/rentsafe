@@ -21,7 +21,7 @@ Page({
      */
     data: {
         userInfo: {
-            nickname: '',
+            nickName: '',
             name: 'soleil',
             sex: 1,
             id_card: '',
@@ -48,7 +48,8 @@ Page({
     onLoad(options) {
         var address = 'userInfo.address';
         this.setData({
-            [address]: options.address
+            [address]: options.address,
+            userInfo: wx.getStorageSync('userInfo')
         })
         // 初始化
         this.showCamera = false //是否显示照相机
