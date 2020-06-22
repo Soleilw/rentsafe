@@ -1,6 +1,8 @@
 const REG_PHONE = /^1[3-9]\d{9}$/;
 const REG_ID = /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
 const qiniuUploader = require("../../../../utils/qiniu");
+var infomation = require('../../../../model/personal/infomation');
+
 
 function getQiniuToken() {
     var options = {
@@ -21,36 +23,56 @@ Page({
      */
     data: {
         userInfo: {
-            nickName: '',
-            name: 'soleil',
+            id: '',
+            name: '',
             sex: 1,
-            id_card: '',
-            phone: '123456',
-            id_type: '',
+            card_number: '',
+            phone: '',
+            type: '',
+            address_id: '',
             address: '',
-            href: ''
         },
+        href: '',
+
+        wxInfo: null,
         id_card_select: '', // 身份类型选择
-        identityList: [{
+        identityList: [{ // 身份类型列表
             'name': '户主',
             'type': 1
         }, {
             'name': '租客',
             'type': 2
-        }], // 身份类型列表
+        }, {
+            'name': '家庭成员',
+            'type': 3
+        }, {
+            'name': '物业',
+            'type': 4
+        }],
         showCamera: false, // 显示相机
         cameraConfig: {
             position: 'front',
             flash: 'off'
         },
+        showFace: false, // 开启人脸
+        showSubmit: false, // 提交按钮
     },
 
     onLoad(options) {
+        this.getPersonalInfo();
         var address = 'userInfo.address';
+        var address_id = 'userInfo.address_id';
+        if(wx.getStorageSync('openFace') == 'open') {
+            this.setData({
+                showFace:  true
+            });
+        }
         this.setData({
             [address]: options.address,
-            userInfo: wx.getStorageSync('userInfo')
-        })
+            // [address_id]: options.address_id,
+            wxInfo: wx.getStorageSync('wxInfo')
+        });
+
         // 初始化
         this.showCamera = false //是否显示照相机
         this.cameraConfig = { //照相机参数配置
@@ -60,27 +82,65 @@ Page({
     },
 
     onShow() {},
+    getPersonalInfo() {
+        var self = this;
+        infomation.userInfo(wx.getStorageSync('token')).then(res => {
+            self.setData({
+                userInfo: res,
+                href: res.href,
+                showSubmit: res.state ? false : true
+            })
+        })
+    },
 
     subInfomation(e) {
         var self = this;
         console.log(e)
+        // 验证手机号
+        var phone = e.detail.value.phone;
+        if (!REG_PHONE.test(phone)) {
+            wx.showToast({
+                icon: "none",
+                title: '请正确的手机号',
+            })
+        }
+        // 验证身份证
+        var card_number = e.detail.value.card_number;
+        if (!REG_ID.test(card_number)) {
+            wx.showToast({
+                icon: "none",
+                title: '请输入有效的身份证号码'
+            })
+        }
+        var id = self.data.userInfo.id;
+        var name = e.detail.value.name;
+        var sex = e.detail.value.sex;
+        var type = self.data.userInfo.type;
+        var address = e.detail.value.address;
+        var address_id = self.data.userInfo.address_id;
+        var token = wx.getStorageSync('token');
+        var href = self.data.href;
 
-        // var phone = e.detail.value.phone;
-        // if (!REG_PHONE.test(phone)) {
-        //     wx.showToast({
-        //         icon: "none",
-        //         title: '请正确的手机号',
-        //     })
-        // }
+        infomation.register(id, token, name, sex, card_number, phone, type, address_id, address, href).then(res => {
+            console.log(res);
+            wx.showToast({
+                icon: "none",
+                title: '提交成功'
+            });
+            self.setData({
+                showSubmit: false
+            });
+            wx.navigateTo({
+              url: '/pages/personal/index/index',
+            });
+        })
+    },
 
-        // var id_card = e.detail.value.id_card;
-        // if (!REG_ID.test(id_card)) {
-        //     wx.showToast({
-        //         icon: "none",
-        //         title: '请输入有效的身份证号码',
-        //     })
-        // }
-
+    // 修改个人信息
+    changeInfo() {
+        this.setData({
+            showSubmit: true
+        })
     },
 
     // 验证身份证号
@@ -107,10 +167,11 @@ Page({
 
     bindIdentityChange(e) {
         var self = this;
-        console.log(e)
-        console.log(self.data.identityList)
+        self.data.userInfo.type = self.data.identityList[e.detail.value].type;
+        self.data.userInfo.typeString = self.data.identityList[e.detail.value].name;
         self.setData({
-            id_card_select: e.detail.value
+            id_card_select: e.detail.value,
+            showSubmit: true
         })
     },
 
@@ -118,6 +179,9 @@ Page({
     toChooseAddress() {
         wx.navigateTo({
             url: '../address/address'
+        })
+        this.setData({
+            showSubmit: true
         })
     },
 
@@ -143,10 +207,23 @@ Page({
                 wx.showToast({
                     title: '上传中...',
                     icon: 'loading',
-                    duration: 100000
+                    duration: 1000
                 });
                 qiniuUploader.upload(res.tempImagePath, res => {
-                    console.log(res)
+                    wx.hideToast();
+                    self.setData({
+                        href: res.fileURL,
+                        showSubmit: true
+                    })
+                    console.log(self.data.userInfo.href)
+                }, error => { 
+                    wx.showModal({
+                        title: '错误提示',
+                        content: '上传失败！',
+                        showCancel: false,
+                        success: function (res) {
+                        }
+                    })
                 })
             }
         })

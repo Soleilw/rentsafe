@@ -2,91 +2,93 @@
 	<view class="form">
 		<!-- 头像 -->
 		<view class="form-item" style="justify-content: flex-start;">
-			<image mode="aspectFill" class="left-icon" src="{{userInfo.avatarUrl}}" style="width:120rpx;height:120rpx;" />
-			<text name="nickName">{{userInfo.nickName}}</text>
+			<image mode="aspectFill" class="left-icon" src="{{wxInfo.avatarUrl}}" style="width:120rpx;height:120rpx;" />
+			<text name="nickName">{{wxInfo.nickName}}</text>
 		</view>
 		<!-- 真实姓名 -->
 		<view class="form-item">
 			<image class="left-icon" src="/icon/my1.png" />
-			<text>真实姓名</text>
-			<input class="input" type="text" maxlength='10' placeholder='请输入' name="name" value='{{userInfo.name}}'></input>
+			<text>姓名</text>
+			<input class="input" type="text" maxlength='10' placeholder='请输入' bindfocus="changeInfo" name="name" value='{{userInfo.name}}'></input>
 		</view>
 		<!-- 性别 -->
 		<view class="form-item">
 			<image class="left-icon" src="/icon/sex1.png" />
 			<text>性别</text>
-			<radio-group name="sex" class="sex-box">
+			<radio-group name="sex" class="sex-box" bindtap="changeInfo">
 				<radio value="1" checked="{{userInfo.sex== 1?'true':''}}" />男
 				<radio value="2" checked="{{userInfo.sex== 2?'true':''}}" />女
 			</radio-group>
 		</view>
 		<!-- 身份证号 -->
-		<view class="form-item">
+		<view class="form-item" wx:if="{{showFace}}">
 			<image class="left-icon" src="/icon/ID.png" />
 			<text>身份证号</text>
-			<input class="input" type="text" maxlength='20' placeholder='请输入' bindblur="regIdentity" name="id_card" value='{{userInfo.id_card}}'></input>
+			<input class="input" type="text" maxlength='20' placeholder='请输入' bindblur="regIdentity" bindfocus="changeInfo" name="card_number" value='{{userInfo.card_number}}'></input>
 		</view>
 		<!-- 手机 -->
-		<view class="form-item">
+		<view class="form-item" wx:if="{{showFace}}">
 			<image class="left-icon" src="/icon/iphone.png" />
 			<text>手机</text>
-			<input class="input" type="number" maxlength='11' placeholder='请输入' bindblur="regPhone" name="phone" value='{{userInfo.phone}}'></input>
+			<input class="input" type="number" maxlength='11' placeholder='请输入' bindblur="regPhone" bindfocus="changeInfo" name="phone" value='{{userInfo.phone}}'></input>
 		</view>
 		<!-- 身份类型 -->
 		<view class="form-item">
 			<image class="left-icon" src="/icon/ID.png" />
 			<text>身份类型</text>
-			<picker bindchange="bindIdentityChange" range="{{identityList}}" range-key="name" name="index" value="{{index}}">
-				<input class="input" placeholder='请选择' disabled="true" value="{{userInfo.id_type ? userInfo.id_type : identityList[id_card_select].name}}"></input>
+			<picker bindchange="bindIdentityChange" range="{{identityList}}" range-key="name" value="{{index}}" bindfocus="changeInfo">
+				<input class="input" disabled="true" placeholder="请选择身份类型" value="{{userInfo.typeString ? userInfo.typeString : identityList[id_card_select].name}}"></input>
 			</picker>
 		</view>
 		<!-- 选择地址 -->
+		<!-- <view class="form-item">
+			<image class="left-icon" src="/icon/address3.png" />
+			<text bindtap="toChooseAddress">地址</text>
+			<input class="input" placeholder="请选择地址" bindtap="toChooseAddress"></input>
+		</view> -->
 		<view class="form-item">
 			<image class="left-icon" src="/icon/address3.png" />
-			<text>地址</text>
-			<!-- <navigator url="/pages/personal/infomation/address"> -->
-			<input class="input" bindtap="toChooseAddress" placeholder="选择地址" disabled="true"></input>
-			<!-- </navigator> -->
-		</view>
-		<view class="form-item">
-			<textarea class="textarea" name="address" value="{{userInfo.address}}" placeholder="点击选择地址或请在此处填写具体地址" auto-height></textarea>
+			<text bindtap="toChooseAddress">地址</text>
+			<textarea class="textarea" name="address" value="{{userInfo.address}}" bindtap="toChooseAddress" placeholder="请选择地址" auto-height disabled="true"></textarea>
 		</view>
 
 		<!-- 人脸上传 -->
-		<view class="form-item" style="border:none;justify-content: flex-start; ">
-			<image class="left-icon" src="/icon/recognition.png"></image>
-			<text style="width:500rpx;">大头照(点击图片更换)</text>
-		</view>
-		<view class="portrait-box">
-			<view data-type="1" bindtap='cameraDisable'>
-				<image mode="aspectFill" src="{{userInfo.href}}"></image>
-				<image class="image" wx:if="{{!userInfo.href}}" mode="aspectFill" src="/icon/head.png"></image>
+		<block wx:if="{{showFace}}">
+			<view class="form-item" style="border:none;justify-content: flex-start; ">
+				<image class="left-icon" src="/icon/recognition.png"></image>
+				<text style="width:500rpx;">大头照(点击图片更换)</text>
 			</view>
-		</view>
+			<view class="portrait-box">
+				<view data-type="1" bindtap='cameraDisable'>
+					<image mode="aspectFill" src="{{href}}"></image>
+					<image class="image" wx:if="{{!href}}" mode="aspectFill" src="/icon/head.png"></image>
+				</view>
+			</view>
+		</block>
 	</view>
 
-	<view class="btn">
-		<button class="submit" form-type='submit'>立即注册</button>
+	<view class="btn" wx:if="{{showSubmit}}">
+		<button class="submit" form-type='submit'>提交</button>
 	</view>
 </form>
 
 <!-- 相机 -->
 <camera wx:if="{{showCamera}}" device-position="{{cameraConfig.position}}" flash="{{cameraConfig.flash}}" bindstop="cameraStop" binderror="cameraError" class="cameraBox">
- <cover-view class="viewBox">
-    <cover-view style='background-color: #fff;flex:1;'></cover-view>
-    <cover-view class="content">
-      <cover-image mode='widthFix' class="faceImg" src="/icon/face.png" />
-      <cover-view class="circle"></cover-view>
-    </cover-view>
-    <cover-view style='background-color: #fff;flex:1;'></cover-view>
-  </cover-view>
+	<cover-view class="viewBox">
+		<cover-view style='background-color: #fff;flex:1;'></cover-view>
+		<cover-view class="content">
+			<cover-image mode='widthFix' class="faceImg" src="/icon/face.png" />
+			<cover-view class="circle"></cover-view>
+		</cover-view>
+		<cover-view style='background-color: #fff;flex:1;'></cover-view>
+	</cover-view>
 
-  <cover-view class="cameraTab">
-    <cover-image class="tabImg" src="/icon/{{cameraConfig.flash}}.png" bindtap='flashChange'></cover-image>
-    <cover-image class="tabImg" src="/icon/switch.png" bindtap='positionChange'></cover-image>
-    <cover-view bindtap='cameraDisable'>取消</cover-view>
-  </cover-view>
-  <cover-view class="photographBtn" bindtap='takePhoto'>
-    <cover-image class="cameraImg" src="/icon/camera.png"></cover-image>
-  </cover-view>
-  </camera>
+	<cover-view class="cameraTab">
+		<cover-image class="tabImg" src="/icon/{{cameraConfig.flash}}.png" bindtap='flashChange'></cover-image>
+		<cover-image class="tabImg" src="/icon/switch.png" bindtap='positionChange'></cover-image>
+		<cover-view bindtap='cameraDisable'>取消</cover-view>
+	</cover-view>
+	<cover-view class="photographBtn" bindtap='takePhoto'>
+		<cover-image class="cameraImg" src="/icon/camera.png"></cover-image>
+	</cover-view>
+</camera>

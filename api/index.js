@@ -4,12 +4,12 @@ const baseUrl = require("./baseUrl.js");
 
 var header = {
     'Accept': 'application/json',
-    'content-type': 'application/x-www-form-urlencoded',
-    'Authorization': null,
-    'token': ''
+    'content-type': 'application/x-www-form-urlencoded'
+    // 'Authorization': null,
+    // 'token': ''
 }
 
-header.token = wx.getStorageSync('token')
+// header.token = wx.getStorageSync('token')
 
 function queryData(data) {
     var str = '';
@@ -29,7 +29,21 @@ function get(baseUrl, url, data, cb) {
       method: 'get',
       header: header,
       success: function(res) {
-        tools.isFunction(cb) && cb(res.data);
+        if(res.statusCode === 200) {
+          tools.isFunction(cb) && cb(res.data);
+        }
+        if(res.statusCode === 401) {
+          wx.clearStorageSync();
+          wx.reLaunch({
+            url: "/pages/personal/index/index"
+          });
+        }
+        if(res.statusCode === 403) {
+          console.log('请先登录')
+        }
+        if(res.statusCode === 500) {
+          console.log('服务器错误')
+        }
       },
       fail(res) {
         wx.showModal({
@@ -48,7 +62,21 @@ function get(baseUrl, url, data, cb) {
       data: data,
       header: header,
       success: function(res) {
-        tools.isFunction(cb) && cb(res.data);
+        if(res.statusCode === 200) {
+          tools.isFunction(cb) && cb(res.data);
+        }
+        if(res.statusCode === 401) {
+          wx.clearStorageSync();
+          wx.reLaunch({
+            url: "/pages/personal/index/index"
+          });
+        }
+        if(res.statusCode === 403) {
+          console.log('请先登录')
+        }
+        if(res.statusCode === 500) {
+          console.log('服务器错误')
+        }
       },
       fail(res) {
         wx.showModal({

@@ -1,2 +1,53 @@
 <!--pages/personal/house/renterDedail/renterDedail.wxml-->
-<text>pages/personal/house/renterDedail/renterDedail.wxml</text>
+<view class="form">
+	<!-- 头像 -->
+	<!-- <view class="form-item" style="justify-content: flex-start;">
+		<image mode="aspectFill" class="left-icon" src="{{wxInfo.avatarUrl}}" style="width:120rpx;height:120rpx;" />
+		<text name="nickName">{{wxInfo.nickName}}</text>
+	</view> -->
+	<!-- 真实姓名 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/my1.png" />
+		<text>姓名</text>
+		<input class="input" type="text" maxlength='10' value='{{userInfo.name}}'></input>
+	</view>
+	<!-- 性别 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/sex1.png" />
+		<text>性别</text>
+		<radio-group class="sex-box">
+			<radio value="1" checked="{{userInfo.sex== 1?'true':''}}" />男
+			<radio value="2" checked="{{userInfo.sex== 2?'true':''}}" />女
+		</radio-group>
+	</view>
+	<!-- 身份证号 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/ID.png" />
+		<text>身份证号</text>
+		<input class="input" type="text" value='{{userInfo.card_number}}'></input>
+	</view>
+	<!-- 手机 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/iphone.png" />
+		<text>手机</text>
+		<input class="input" type="number" value='{{userInfo.phone}}'></input>
+	</view>
+	<!-- 地址 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/address3.png" />
+		<text>地址</text>
+		<textarea class="textarea" value="{{userInfo.address}}" auto-height disabled="true"></textarea>
+	</view>
+
+	<block wx:if="{{showFace}}">
+		<view class="form-item" style="border:none;justify-content: flex-start; ">
+			<image class="left-icon" src="/icon/recognition.png"></image>
+			<text style="width:500rpx;">大头照</text>
+		</view>
+		<view class="portrait-box">
+			<view>
+				<image mode="aspectFill" src="{{userInfo.href}}"></image>
+			</view>
+		</view>
+	</block>
+</view>

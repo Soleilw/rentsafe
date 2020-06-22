@@ -39,14 +39,13 @@
 		</picker>
 	</view>
     <view class="form-item">
-		<!-- <image class="left-icon" src="/icon/ID.png" /> -->
 		<text>详细地址</text>
 		<picker bindchange="detailChange" range="{{detailList}}" range-key="address" value="{{index}}">
-			<input class="input" placeholder='请选择详细地址' disabled="true"></input>
+			<input class="input" placeholder='请选择详细地址' value="{{detail ? detail : detailList[is_detail].address}}" disabled="true"></input>
 		</picker>
 	</view>
     <view class="form-item">
-			<textarea class="textarea" name="detail" value="{{detail ? detail : detailList[is_detail].address}}" placeholder='请选择详细地址' auto-height></textarea>
+			<textarea class="textarea" name="detail" value="{{detail ? detail : detailList[is_detail].address}}" placeholder='地址详情' auto-height></textarea>
 		</view>
 </view>
 

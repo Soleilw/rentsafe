@@ -73,3 +73,13 @@ page {
     font-size: 30rpx;
     text-align: center;
 }
+
+/* 技术支持文字 */
+.supportText{
+    width:100%;
+    height:80rpx;
+    line-height: 80rpx;
+    text-align: center;
+    font-size: 25rpx;
+    color: #aaa;
+  }

@@ -1,5 +1,5 @@
 const baseUrl = {
-    'host': 'http://192.168.0.107/FaceCommunity/public/api'
+    'host': 'https://chu.fengniaotuangou.cn/api'
 }
 
 module.exports = baseUrl;

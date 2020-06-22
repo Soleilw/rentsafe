@@ -1,17 +1,17 @@
 <view class="box">
-  <view class="list">
+  <view wx:for="{{renterList}}" wx:key="{{index}}" class="list">
     <view class="infoList">
-      <view bindtap="renterDetail">
+      <view data-name="{{item.name}}" data-sex="{{item.sex}}" data-card_number="{{item.card_number}}" data-href="{{item.href}}" data-address="{{item.address}}" data-phone="{{item.phone}}" bindtap="renterDetail">
         <image src="/icon/children.png"></image>
-        <text class="guardian">查看租客详情</text>
+        <text class="guardian">{{item.name}}</text>
       </view>
       <!-- <view >
         <image src="/icon/children2.png"></image>
         <text class="children">{{item.name}}</text>
       </view> -->
     </view>
-    <button bindtap="toAudit">去审核</button>
-    <!-- <button wx:else disabled='true'>已审核</button>  -->
+    <button wx:if="{{item.state == 1}}" data-id="{{item.id}}" bindtap="toAudit">去审核</button>
+    <button wx:else disabled='true'>已审核</button> 
   </view>
   <view class="notData">暂无审核的租客~</view>
 </view>

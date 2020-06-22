@@ -27,8 +27,8 @@ page{
   }
   
   .tableviewcell .right-icon {
-    width: 50rpx;
-    height: 50rpx;
+    width: 40rpx;
+    height: 40rpx;
     margin: 0 0 0 10rpx;
   }
   

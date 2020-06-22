@@ -4,9 +4,9 @@
 		<text>租客审核</text>
 		<image class="right-icon" src="/icon/right.png" />
 	</view>
-  <view bindtap="toHouseManage" class="tableviewcell">
+  <!-- <view bindtap="toHouseManage" class="tableviewcell">
 		<image class="left-icon" src="/icon/address.png" />
 		<text>房屋地址管理</text>
 		<image class="right-icon" src="/icon/right.png" />
-	</view>
+	</view> -->
 </view>

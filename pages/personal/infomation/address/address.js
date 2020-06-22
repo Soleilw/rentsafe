@@ -22,6 +22,7 @@ Page({
         is_area: '', // 选中区级
         is_community: '', // 选中社区
         is_detail: '', // 选中详细地址
+        address_id: ''
 
     },
 
@@ -35,8 +36,11 @@ Page({
         var pages = getCurrentPages();
         var prevPage = pages[pages.length - 2];
         var address = 'userInfo.address';
+        var address_id = 'userInfo.address_id';
+        console.log(self.data.address_id)
         prevPage.setData({
-            [address]: all_address
+            [address]: all_address,
+            [address_id]: self.data.address_id
         })
         wx.navigateBack({
             delta: 1
@@ -139,7 +143,8 @@ Page({
     detailChange(e) {
         var self = this;
         self.setData({
-            is_detail: e.detail.value
+            is_detail: e.detail.value,
+            address_id: self.data.detailList[e.detail.value].id
         })
     }
 })

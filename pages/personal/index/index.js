@@ -1,5 +1,5 @@
-var user = require('../../../model/user')
-const app = getApp()
+var user = require('../../../model/user');
+var infomation = require('../../../model/personal/infomation');
 
 Page({
 
@@ -7,39 +7,61 @@ Page({
      * 页面的初始数据
      */
     data: {
-        userInfo: null
+        wxInfo: null,
+        showHouse: false, // 只有户主才显示房屋管理
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {},
+    onLoad: function (options) {
+
+    },
     onShow() {
+        this.getPersonalInfo();
         this.setData({
-            userInfo: wx.getStorageSync('userInfo')
+            wxInfo: wx.getStorageSync('wxInfo')
+        })
+    },
+    getPersonalInfo() {
+        var self = this;
+        infomation.userInfo(wx.getStorageSync('token')).then(res => {
+            if (res.type === 1) {
+                self.setData({
+                    showHouse: true
+                })
+            }
         })
     },
 
     getUserInfo(e) {
-        var self = this,
-            u_info = e.detail.userInfo;
+        var self = this;
         wx.login({
             success(res) {
                 var code = res.code;
                 if (code) {
                     wx.getUserInfo({
                         success: (res) => {
+                            console.log(code)
+                            console.log(res.iv)
+                            console.log(res.encryptedData)
+
                             user.login(code, res.iv, res.encryptedData).then(res => {
-                                console.log(res)
                                 wx.setStorage({
                                     data: res.token,
                                     key: 'token',
                                 })
                                 // 全局
-                                wx.setStorageSync('userInfo', res.info)
+                                var wxInfo = {
+                                    avatarUrl: res.info.avatarUrl,
+                                    nickName: res.info.nickName
+                                };
+                                wx.setStorageSync('wxInfo', wxInfo)
                                 self.setData({
-                                    userInfo: res.info
-                                })
+                                    wxInfo: wxInfo
+                                });
+                                self.getPersonalInfo();
+
                             })
                         }
                     })
