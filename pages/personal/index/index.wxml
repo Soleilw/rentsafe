@@ -1,13 +1,16 @@
 <!--pages/personal/index/index.wxml-->
 <view style="min-height: 88vh;">
 	<view class="box">
+		<!-- <view class="change">
+			<view bindtap="changeUser">切换账号</view>
+		</view> -->
 		<view class="user" wx:if="{{wxInfo}}">
 			<image class="avator" src="{{wxInfo.avatarUrl}}" style="border:8rpx solid #fff;"></image>
 			<text class="nickname">{{wxInfo.nickName}}</text>
 		</view>
 		<view class="user" wx:else>
-			<image class="avator" src="/icon/qb.png" style="border:8rpx solid #999;"></image>
-			<button class="login-btn" size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo">立即登录</button>
+			<text class="nickname">未登录</text>
+
 		</view>
 	</view>
 
@@ -28,9 +31,24 @@
 			</view>
 		</view>
 	</view>
+
+	<view class="plate">
+		<view class="title">账号管理</view>
+		<view class="list">
+			<view bindtap="toRegister">
+				<image src="/icon/information.png" />
+				<text>添加身份</text>
+			</view>
+			<!-- <view>
+				<image src="/icon/unit.png" />
+				<text>注销账号</text>
+			</view> -->
+		</view>
+	</view>
+
 </view>
 
-<view class="supportText">安域安防智慧提供技术支持v1.0.0</view>
+<view class="supportText">安域智慧安防提供技术支持v1.0.0</view>
 
 
 

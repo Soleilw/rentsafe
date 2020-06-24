@@ -1,5 +1,6 @@
 App({
   onShow: function () {
+    this.getUserInfo();
     var global = require('./model/global');
     var self = this;
     // 开关配置
@@ -39,6 +40,15 @@ App({
         content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
       })
     };
+  },
+
+  // 获取用户信息
+  getUserInfo() {
+    if(!wx.getStorageSync('token')) {
+      wx.reLaunch({
+        url: "pages/personal/index/change-user/change-user"
+      })
+    }
   },
 
 

@@ -1,0 +1,13 @@
+<view class="list">
+	<block wx:for="{{idenInfoList}}" wx:key="{{index}}">
+		<button class="iden-btn" open-type="getUserInfo" bindgetuserinfo="toIndex">
+			<view class="tableviewcell" >
+				<text>{{item.typeString}}/{{item.address.address}}</text>
+				<image class="right-icon" src="/icon/right.png" />
+			</view>
+		</button>
+	</block>
+
+	<button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="new-user">注册新身份</button>
+
+</view>

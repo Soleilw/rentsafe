@@ -1,14 +1,14 @@
 <view class="box">
   <view wx:for="{{renterList}}" wx:key="{{index}}" class="list">
     <view class="infoList">
-      <view data-name="{{item.name}}" data-sex="{{item.sex}}" data-card_number="{{item.card_number}}" data-href="{{item.href}}" data-address="{{item.address}}" data-phone="{{item.phone}}" bindtap="renterDetail">
+      <view data-name="{{item.snapshot.name}}" data-sex="{{item.snapshot.sex}}" data-card_number="{{item.snapshot.card_number}}" data-href="{{item.snapshot.href}}" data-address="{{item.address.address}}" data-phone="{{item.snapshot.phone}}" bindtap="renterDetail">
         <image src="/icon/children.png"></image>
-        <text class="guardian">{{item.name}}</text>
+        <text class="guardian">{{item.snapshot.name}}</text>
       </view>
-      <!-- <view >
-        <image src="/icon/children2.png"></image>
-        <text class="children">{{item.name}}</text>
-      </view> -->
+      <view>
+        <image src="/icon/unit.png"></image>
+        <text>{{item.room_id}}</text>
+      </view>
     </view>
     <button wx:if="{{item.state == 1}}" data-id="{{item.id}}" bindtap="toAudit">去审核</button>
     <button wx:else disabled='true'>已审核</button> 

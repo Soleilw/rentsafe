@@ -10,12 +10,18 @@ Page({
         wxInfo: null,
         showHouse: false, // 只有户主才显示房屋管理
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
+    // 切换账号
+    toRegister() {
+        wx.navigateTo({
+          url: './change-user/change-user',
+        })
+    },
     onLoad: function (options) {
-
+        if(!wx.getStorageSync('token')) {
+            wx.reLaunch({
+              url: './change-user/change-user',
+            })
+        }
     },
     onShow() {
         this.getPersonalInfo();
@@ -25,12 +31,15 @@ Page({
     },
     getPersonalInfo() {
         var self = this;
-        infomation.userInfo(wx.getStorageSync('token')).then(res => {
-            if (res.type === 1) {
-                self.setData({
-                    showHouse: true
-                })
-            }
+        infomation.idenInfo(wx.getStorageSync('token')).then(res => {
+            console.log(res)
+            res.data.forEach(item => {
+                if(item.type === 1 && item.state === 2) {
+                    self.setData({
+                        showHouse: true
+                    })
+                }
+            })
         })
     },
 
@@ -72,15 +81,31 @@ Page({
 
     // 去个人信息
     toInfomation() {
-        wx.navigateTo({
-            url: '../infomation/infomation/infomation'
-        })
+        if (!wx.getStorageSync('token')) {
+            wx.showToast({
+                icon: "none",
+                title: '请先登录'
+            })
+            wx.removeStorageSync('wxInfo')
+        } else {
+            wx.navigateTo({
+                url: '../infomation/infomation/infomation'
+            })
+        }
     },
     // 去房屋管理
     toHouse() {
-        wx.navigateTo({
-            url: '../house/house/house'
-        })
+        if (!wx.getStorageSync('token')) {
+            wx.showToast({
+                icon: "none",
+                title: '请先登录'
+            });
+            wx.removeStorageSync('wxInfo')
+        } else {
+            wx.navigateTo({
+                url: '../house/house/house'
+            })
+        }
     },
 
     callPhone() {

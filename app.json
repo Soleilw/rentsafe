@@ -1,21 +1,32 @@
 {
   "pages": [
     "pages/personal/index/index",
+
+    "pages/personal/index/change-user/change-user",
+
+
     "pages/personal/infomation/address/address",
+
+
+
+    "pages/personal/infomation/infomation/infomation",
+    "pages/personal/infomation/register/register",
+
+
+
 
     
     "pages/personal/house/renter/renter",
     "pages/personal/house/renterDedail/renterDedail",
     "pages/personal/house/house/house",
     "pages/personal/house/address-manage/search/address",
-    "pages/personal/house/address-manage/show/address",
-    "pages/personal/infomation/infomation/infomation"
+    "pages/personal/house/address-manage/show/address"
 
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#2a9f93",
-    "navigationBarTitleText": "安域安防智慧",
+    "navigationBarTitleText": "安域智慧安防",
     "navigationBarTextStyle": "white"
   },
 

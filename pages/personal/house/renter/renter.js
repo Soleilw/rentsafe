@@ -33,7 +33,6 @@ Page({
         var address = e.currentTarget.dataset.address;
         var href = e.currentTarget.dataset.href;
 
-
         wx.navigateTo({
           url: '../renterDedail/renterDedail?name=' + name + '&sex=' + sex + '&card_number=' + card_number + '&phone=' + phone + '&address=' + address + '&href=' + href,
         })

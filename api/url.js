@@ -7,6 +7,8 @@ const url = {
 
     // 个人信息
     'Household': '/household', // post提交个人信息,get获取个人信息
+    'MyHouseholds': '/my/households', // post提交个人信息,get获取个人信息
+
     'Households': '/households', // 获取审核列表
     'CheckHousehold': '/check/household', // 审核租客
 
@@ -16,6 +18,8 @@ const url = {
     // 获取地址
     'Addresses': '/addresses', // 获取出租屋列表
     'Areas': '/areas', // 获取地址列表
+    'Rooms': '/rooms', // 门牌号
+
 
     
 };

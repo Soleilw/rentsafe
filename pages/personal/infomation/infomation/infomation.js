@@ -22,18 +22,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-        userInfo: {
-            id: '',
-            name: '',
-            sex: 1,
-            card_number: '',
-            phone: '',
-            type: '',
-            address_id: '',
-            address: '',
-        },
-        href: '',
-
+        userInfo: {},
+        state: '', // 审核状态
         wxInfo: null,
         id_card_select: '', // 身份类型选择
         identityList: [{ // 身份类型列表
@@ -56,19 +46,23 @@ Page({
         },
         showFace: false, // 开启人脸
         showSubmit: false, // 提交按钮
+        disabled: false
     },
 
     onLoad(options) {
+        console.log(options)
         this.getPersonalInfo();
-        var address = 'userInfo.address';
-        var address_id = 'userInfo.address_id';
-        if(wx.getStorageSync('openFace') == 'open') {
+        // var address = 'userInfo.address';
+        // var address_id = 'userInfo.address_id';
+        // var room_id = 'userInfo.room_id';
+
+        if (wx.getStorageSync('openFace') == 'open') {
             this.setData({
-                showFace:  true
+                showFace: true
             });
         }
         this.setData({
-            [address]: options.address,
+            // [address]: options.address,
             // [address_id]: options.address_id,
             wxInfo: wx.getStorageSync('wxInfo')
         });
@@ -81,19 +75,75 @@ Page({
         }
     },
 
-    onShow() {},
+    onShow(e) {
+        this.getPersonalInfo();
+        // if (!wx.getStorageSync('token')) {
+        //     wx.showToast({
+        //         icon: "none",
+        //         title: '请先登录',
+        //         success() {
+        //             setTimeout(function () {
+        //                 wx.removeStorageSync('wxInfo');
+        //                 wx.reLaunch({
+        //                     url: "pages/personal/index/change-user/change-user"
+        //                 });
+        //             }, 2000);
+        //         }
+        //     });
+
+        // }
+    },
     getPersonalInfo() {
         var self = this;
         infomation.userInfo(wx.getStorageSync('token')).then(res => {
             self.setData({
                 userInfo: res,
-                href: res.href,
-                showSubmit: res.state ? false : true
+                state: res.state,
+                disabled: true
             })
         })
     },
 
+    // 订阅消息
     subInfomation(e) {
+        var self = this;
+        var templateId = '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM';
+        wx.requestSubscribeMessage({
+            tmplIds: [templateId],
+            success(res) {
+                if (res[templateId] == 'accept') {
+                    //用户同意了订阅，允许订阅消息
+                    wx.showToast({
+                        title: '订阅成功',
+                        success() {
+                            setTimeout(() => {
+                                self.subInfo(e);
+                            }, 1000);
+                        }
+                    })
+                } else {
+                    //用户拒绝了订阅，禁用订阅消息
+                    wx.showToast({
+                        title: '订阅失败',
+                        success() {
+                            setTimeout(() => {
+                                self.subInfo(e);
+                            }, 1000);
+                        }
+                    })
+                }
+            },
+            fail(res) {
+                console.log(res)
+            },
+            complete(res) {
+                console.log(res)
+            }
+        })
+    },
+
+
+    subInfo(e) {
         var self = this;
         console.log(e)
         // 验证手机号
@@ -115,30 +165,36 @@ Page({
         var id = self.data.userInfo.id;
         var name = e.detail.value.name;
         var sex = e.detail.value.sex;
-        var type = self.data.userInfo.type;
-        var address = e.detail.value.address;
-        var address_id = self.data.userInfo.address_id;
         var token = wx.getStorageSync('token');
-        var href = self.data.href;
-
-        infomation.register(id, token, name, sex, card_number, phone, type, address_id, address, href).then(res => {
-            console.log(res);
+        var href = self.data.userInfo.href;
+        infomation.register(id, token, name, sex, card_number, phone, href).then(res => {
             wx.showToast({
                 icon: "none",
-                title: '提交成功'
-            });
-            self.setData({
-                showSubmit: false
-            });
-            wx.navigateTo({
-              url: '/pages/personal/index/index',
+                title: '提交成功',
+                success() {
+                    setTimeout(function () {
+                        wx.navigateTo({
+                            url: '../register/register',
+                        })
+                        self.setData({
+                            disabled: true
+                        })
+                    }, 2000);
+                }
             });
         })
     },
 
     // 修改个人信息
-    changeInfo() {
-        this.setData({
+    changeInfo(e) {
+        // this.setData({
+        //     showSubmit: true
+        // })
+    },
+
+    next() {
+         this.setData({
+            disabled: false,
             showSubmit: true
         })
     },
@@ -163,26 +219,6 @@ Page({
                 title: '请正确的手机号',
             })
         }
-    },
-
-    bindIdentityChange(e) {
-        var self = this;
-        self.data.userInfo.type = self.data.identityList[e.detail.value].type;
-        self.data.userInfo.typeString = self.data.identityList[e.detail.value].name;
-        self.setData({
-            id_card_select: e.detail.value,
-            showSubmit: true
-        })
-    },
-
-
-    toChooseAddress() {
-        wx.navigateTo({
-            url: '../address/address'
-        })
-        this.setData({
-            showSubmit: true
-        })
     },
 
     // 调用相机
@@ -211,18 +247,19 @@ Page({
                 });
                 qiniuUploader.upload(res.tempImagePath, res => {
                     wx.hideToast();
+                    console.log(res.fileURL);
+                    var href = "userInfo.href";
                     self.setData({
-                        href: res.fileURL,
+                        [href]: res.fileURL,
                         showSubmit: true
                     })
                     console.log(self.data.userInfo.href)
-                }, error => { 
+                }, error => {
                     wx.showModal({
                         title: '错误提示',
                         content: '上传失败！',
                         showCancel: false,
-                        success: function (res) {
-                        }
+                        success: function (res) {}
                     })
                 })
             }

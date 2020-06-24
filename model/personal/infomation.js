@@ -2,18 +2,16 @@ var api = require('../../api/index')
 
 var infomation = {};
 
-infomation.register = function(id, token, name, sex, card_number, phone, type, address_id, address, href) {
+// 新增/修改个人信息
+infomation.register = function(id, token, name, sex, card_number, phone, href) {
     return new Promise((resolve, reject) => {
-        api.post(api.baseUrl.host, api.url.Household, {
+        api.post(api.baseUrl.host, api.url.UserInfo, {
             id: id,
             token: token,
             name: name,
             sex: sex,
             card_number: card_number,
             phone: phone,
-            type: type,
-            address_id: address_id,
-            address: address,
             href: href
         }, function(response) {
             if(response.msg === 'ok') {
@@ -29,7 +27,7 @@ infomation.register = function(id, token, name, sex, card_number, phone, type, a
 // 获取个人信息
 infomation.userInfo = function(token) {
     return new Promise((resolve, reject) => {
-        api.get(api.baseUrl.host, api.url.Household, {
+        api.get(api.baseUrl.host, api.url.UserInfo, {
             token: token
         }, function(response) {
             if(response.msg === 'ok') {
@@ -41,6 +39,43 @@ infomation.userInfo = function(token) {
         })
     })
 },
+
+infomation.user = function(token, type, address_id, address, room_id) {
+    return new Promise((resolve, reject) => {
+        api.post(api.baseUrl.host, api.url.Household, {
+            token: token,
+            type: type,
+            address_id: address_id,
+            address: address,
+            room_id: room_id
+        }, function(response) {
+            if(response.msg === 'ok') {
+                var res = response.data;
+                resolve(res);
+            } else {
+                reject(response);
+            }
+        })
+    })
+}
+
+// 获取个人信息
+infomation.idenInfo = function(token) {
+    return new Promise((resolve, reject) => {
+        api.get(api.baseUrl.host, api.url.MyHouseholds, {
+            token: token
+        }, function(response) {
+            if(response.msg === 'ok') {
+                var res = response.data;
+                resolve(res);
+            } else {
+                reject(response);
+            }
+        })
+    })
+},
+
+
 
 // 获取审核列表
 infomation.auditList = function(token) {
