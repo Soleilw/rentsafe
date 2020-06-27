@@ -67,16 +67,21 @@
 			</view>
 		</block>
 	</view>
+<block wx:if="{{showRegister}}">
+	<view class="btn">
+		<button class="submit" form-type='submit'>提交信息并下一步</button>
+	</view>
+</block>
 
-	<!-- <view class="btn" wx:if="{{showSubmit && !state == 2}}">
-		<button class="submit" form-type='submit'>提交</button>
-	</view> -->
-	<view class="btn" wx:if="{{showSubmit}}">
+	<block wx:else>
+		<view class="btn" wx:if="{{showSubmit}}">
 		<button class="submit" form-type='submit'>提交信息并下一步</button>
 	</view>
 	<view class="btn" wx:else>
 		<button class="submit" bindtap="next">修改信息</button>
 	</view>
+	</block>
+
 </form>
 
 <!-- 相机 -->

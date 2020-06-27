@@ -1,16 +1,17 @@
 <!--pages/personal/index/index.wxml-->
 <view style="min-height: 88vh;">
 	<view class="box">
-		<!-- <view class="change">
-			<view bindtap="changeUser">切换账号</view>
-		</view> -->
+		<view class="change">
+			<view bindtap="changeUser">户主</view>
+		</view>
 		<view class="user" wx:if="{{wxInfo}}">
 			<image class="avator" src="{{wxInfo.avatarUrl}}" style="border:8rpx solid #fff;"></image>
 			<text class="nickname">{{wxInfo.nickName}}</text>
 		</view>
 		<view class="user" wx:else>
-			<text class="nickname">未登录</text>
-
+			<!-- <text class="nickname">未登录</text> -->
+			<image class="avator" src="/icon/qb.png" style="border:8rpx solid #fff;"></image>
+			<button size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo">立即登录</button>
 		</view>
 	</view>
 

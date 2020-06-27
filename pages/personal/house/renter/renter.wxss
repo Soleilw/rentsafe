@@ -14,16 +14,16 @@
     justify-content: space-between;
   }
   
-  .box .list .infoList {
+  .box .list .info-list {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .box .list .infoList view {
+  .box .list .info-list view {
     display: flex;
     align-items: center;
   }
-  .box .list .infoList image {
+  .box .list .info-list image {
    width:50rpx;
    height:50rpx;
    margin:0 10rpx;

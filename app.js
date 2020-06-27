@@ -1,6 +1,6 @@
 App({
   onShow: function () {
-    this.getUserInfo();
+    // this.getUserInfo();
     var global = require('./model/global');
     var self = this;
     // 开关配置

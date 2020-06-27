@@ -10,18 +10,13 @@ Page({
         wxInfo: null,
         showHouse: false, // 只有户主才显示房屋管理
     },
-    // 切换账号
-    toRegister() {
-        wx.navigateTo({
-          url: './change-user/change-user',
-        })
-    },
+   
     onLoad: function (options) {
-        if(!wx.getStorageSync('token')) {
-            wx.reLaunch({
-              url: './change-user/change-user',
-            })
-        }
+        // if(!wx.getStorageSync('token')) {
+        //     wx.reLaunch({
+        //       url: './change-user/change-user',
+        //     })
+        // }
     },
     onShow() {
         this.getPersonalInfo();
@@ -31,16 +26,18 @@ Page({
     },
     getPersonalInfo() {
         var self = this;
-        infomation.idenInfo(wx.getStorageSync('token')).then(res => {
-            console.log(res)
-            res.data.forEach(item => {
-                if(item.type === 1 && item.state === 2) {
-                    self.setData({
-                        showHouse: true
-                    })
-                }
+        if(wx.getStorageSync('token')) {
+            infomation.idenInfo(wx.getStorageSync('token')).then(res => {
+                console.log(res)
+                res.data.forEach(item => {
+                    if(item.type === 1 && item.state === 2) {
+                        self.setData({
+                            showHouse: true
+                        })
+                    }
+                })
             })
-        })
+        } 
     },
 
     getUserInfo(e) {
@@ -106,6 +103,22 @@ Page({
                 url: '../house/house/house'
             })
         }
+    },
+
+     // 切换账号
+     toRegister() {
+        if (!wx.getStorageSync('token')) {
+            wx.showToast({
+                icon: "none",
+                title: '请先登录'
+            });
+            wx.removeStorageSync('wxInfo')
+        } else {
+            wx.navigateTo({
+                url: './change-user/change-user',
+              })
+        }
+       
     },
 
     callPhone() {

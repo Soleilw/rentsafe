@@ -45,6 +45,7 @@ Page({
             flash: 'off'
         },
         showFace: false, // 开启人脸
+        showRegister: false, // 初次注册提交
         showSubmit: false, // 提交按钮
         disabled: false
     },
@@ -96,11 +97,18 @@ Page({
     getPersonalInfo() {
         var self = this;
         infomation.userInfo(wx.getStorageSync('token')).then(res => {
-            self.setData({
-                userInfo: res,
-                state: res.state,
-                disabled: true
-            })
+            if(res) {
+                self.setData({
+                    userInfo: res,
+                    state: res.state,
+                    disabled: true
+                })
+            } else {
+                self.setData({
+                    showRegister: true
+                })
+            }
+           
         })
     },
 
