@@ -15,8 +15,8 @@
 		<view class="form-item">
 			<image class="left-icon" src="/icon/sex1.png" />
 			<text>性别</text>
-			<radio-group name="sex" class="sex-box" bindtap="changeInfo" >
-				<radio value="1" checked="{{userInfo.sex== 1?'true':''}}" disabled="{{disabled}}"/>男
+			<radio-group name="sex" class="sex-box" bindtap="changeInfo">
+				<radio value="1" checked="{{userInfo.sex== 1?'true':''}}" disabled="{{disabled}}" />男
 				<radio value="2" checked="{{userInfo.sex== 2?'true':''}}" disabled="{{disabled}}" />女
 			</radio-group>
 		</view>
@@ -67,19 +67,27 @@
 			</view>
 		</block>
 	</view>
-<block wx:if="{{showRegister}}">
-	<view class="btn">
-		<button class="submit" form-type='submit'>提交信息并下一步</button>
-	</view>
-</block>
-
+	<block wx:if="{{showRegister}}">
+		<view class="btn">
+			<button class="submit" form-type='submit'>提交信息并下一步</button>
+		</view>
+	</block>
 	<block wx:else>
 		<view class="btn" wx:if="{{showSubmit}}">
-		<button class="submit" form-type='submit'>提交信息并下一步</button>
-	</view>
-	<view class="btn" wx:else>
-		<button class="submit" bindtap="next">修改信息</button>
-	</view>
+			<button class="submit" type="primary" form-type='submit' bindtap="saveInfo">保存信息</button>
+			<button class="submit" type="primary" bindtap="addIden">添加身份</button>
+		</view>
+		<view class="btn" wx:else>
+			<button class="submit" type="primary" bindtap="changeInfo">修改信息</button>
+			<button class="submit" type="primary" bindtap="addIden">添加身份</button>
+		</view>
+
+		<!-- <view class="btn" wx:if="{{showSubmit}}">
+			<button class="submit" form-type='submit'>提交信息并下一步</button>
+		</view>
+		<view class="btn" wx:else>
+			<button class="submit" bindtap="next">修改信息</button>
+		</view> -->
 	</block>
 
 </form>

@@ -2,9 +2,20 @@ App({
   onShow: function () {
     // this.getUserInfo();
     var global = require('./model/global');
+    var imfomation = require('./model/personal/infomation')
     var self = this;
+    // 获取用户信息
+    if (wx.getStorageSync('token')) {
+      imfomation.userInfo(wx.getStorageSync('token')).then(res => {
+        if (res) {
+          wx.reLaunch({
+            url: "pages/personal/index/change-user/change-user"
+          })
+        }
+      })
+    }
     // 开关配置
-    var version = '1.0.0';
+    var version = '1.0.4';
     global.configs(version).then(res => {
       wx.setStorageSync('openFace', res.config_value);
     })
@@ -43,13 +54,17 @@ App({
   },
 
   // 获取用户信息
-  getUserInfo() {
-    if(!wx.getStorageSync('token')) {
-      wx.reLaunch({
-        url: "pages/personal/index/change-user/change-user"
-      })
-    }
-  },
+  // getUserInfo() {
+  //   if(wx.getStorageSync('token')) {
+  //     imfomation.userInfo(wx.getStorageSync('token')).then(res => {
+  //       if(res) {
+  //         wx.reLaunch({
+  //           url: "pages/personal/index/change-user/change-user"
+  //         })
+  //       }
+  //     })
+  //   }
+  // },
 
 
   globalData: {

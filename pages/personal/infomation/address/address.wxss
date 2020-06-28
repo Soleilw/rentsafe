@@ -11,7 +11,13 @@
 }
 
 .return {
-    color: #2a9f93;
+    height: 60rpx;
+    line-height: 60rpx;
+    color: #fff;
+    background: #2a9f93;
+    border-radius: 0;
+    font-size: 28rpx;
+    margin-top: 1rpx;
 }
 
 .search input {
@@ -32,10 +38,10 @@
 }
 
 .search-item {
-    margin-left: 20rpx;
+    /* margin-left: 20rpx; */
     margin-top: 20rpx;
     padding: 5rpx 10rpx;
-    border-bottom: 1rpx solid #ccc;
+    border-bottom: 1rpx solid #f0f0f0;
     font-size: 30rpx;
 }
 
@@ -109,6 +115,3 @@
     color: #fff;
     background: #2a9f93;
 }
-
-
-

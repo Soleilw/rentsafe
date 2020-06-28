@@ -30,7 +30,7 @@
   }
   
   .box .list text {
-    width: 140rpx;
+    width: 200rpx;
     text-align: left;
   }
   

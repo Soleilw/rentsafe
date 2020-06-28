@@ -22,7 +22,9 @@ Page({
      * 页面的初始数据
      */
     data: {
-        userInfo: {},
+        userInfo: {
+            sex: 1
+        },
         state: '', // 审核状态
         wxInfo: null,
         id_card_select: '', // 身份类型选择
@@ -97,7 +99,7 @@ Page({
     getPersonalInfo() {
         var self = this;
         infomation.userInfo(wx.getStorageSync('token')).then(res => {
-            if(res) {
+            if (res) {
                 self.setData({
                     userInfo: res,
                     state: res.state,
@@ -108,50 +110,50 @@ Page({
                     showRegister: true
                 })
             }
-           
+
         })
     },
 
-    // 订阅消息
+    // // 订阅消息
+    // subInfomation(e) {
+    //     var self = this;
+    //     var templateId = '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM';
+    //     wx.requestSubscribeMessage({
+    //         tmplIds: [templateId],
+    //         success(res) {
+    //             if (res[templateId] == 'accept') {
+    //                 //用户同意了订阅，允许订阅消息
+    //                 wx.showToast({
+    //                     title: '订阅成功',
+    //                     success() {
+    //                         setTimeout(() => {
+    //                             self.subInfo(e);
+    //                         }, 1000);
+    //                     }
+    //                 })
+    //             } else {
+    //                 //用户拒绝了订阅，禁用订阅消息
+    //                 wx.showToast({
+    //                     title: '订阅失败',
+    //                     success() {
+    //                         setTimeout(() => {
+    //                             self.subInfo(e);
+    //                         }, 1000);
+    //                     }
+    //                 })
+    //             }
+    //         },
+    //         fail(res) {
+    //             console.log(res)
+    //         },
+    //         complete(res) {
+    //             console.log(res)
+    //         }
+    //     })
+    // },
+
+
     subInfomation(e) {
-        var self = this;
-        var templateId = '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM';
-        wx.requestSubscribeMessage({
-            tmplIds: [templateId],
-            success(res) {
-                if (res[templateId] == 'accept') {
-                    //用户同意了订阅，允许订阅消息
-                    wx.showToast({
-                        title: '订阅成功',
-                        success() {
-                            setTimeout(() => {
-                                self.subInfo(e);
-                            }, 1000);
-                        }
-                    })
-                } else {
-                    //用户拒绝了订阅，禁用订阅消息
-                    wx.showToast({
-                        title: '订阅失败',
-                        success() {
-                            setTimeout(() => {
-                                self.subInfo(e);
-                            }, 1000);
-                        }
-                    })
-                }
-            },
-            fail(res) {
-                console.log(res)
-            },
-            complete(res) {
-                console.log(res)
-            }
-        })
-    },
-
-
-    subInfo(e) {
         var self = this;
         console.log(e)
         // 验证手机号
@@ -176,20 +178,38 @@ Page({
         var token = wx.getStorageSync('token');
         var href = self.data.userInfo.href;
         infomation.register(id, token, name, sex, card_number, phone, href).then(res => {
-            wx.showToast({
-                icon: "none",
-                title: '提交成功',
-                success() {
-                    setTimeout(function () {
-                        wx.navigateTo({
-                            url: '../register/register',
-                        })
-                        self.setData({
-                            disabled: true
-                        })
-                    }, 2000);
-                }
-            });
+            if (self.data.userInfo) {
+                wx.showToast({
+                    icon: "none",
+                    title: '提交成功',
+                    success() {
+                        setTimeout(function () {
+                            wx.navigateTo({
+                                url: '../../index/index',
+                            })
+                            self.setData({
+                                disabled: true
+                            })
+                        }, 2000);
+                    }
+                });
+            } else {
+                wx.showToast({
+                    icon: "none",
+                    title: '提交成功',
+                    success() {
+                        setTimeout(function () {
+                            wx.navigateTo({
+                                url: '../register/register',
+                            })
+                            self.setData({
+                                disabled: true
+                            })
+                        }, 2000);
+                    }
+                });
+            }
+
         })
     },
 
@@ -200,10 +220,16 @@ Page({
         // })
     },
 
-    next() {
-         this.setData({
+    changeInfo() {
+        this.setData({
             disabled: false,
             showSubmit: true
+        })
+    },
+
+    addIden() {
+        wx.navigateTo({
+            url: '../register/register',
         })
     },
 

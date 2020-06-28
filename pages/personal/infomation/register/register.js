@@ -26,24 +26,105 @@ Page({
         }, {
             'name': '物业',
             'type': 4
-        }]
+        }],
+        typeString: '',
+        disabled: false,
+        showSubmit: true
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.getUserInfo()
         console.log(options)
         var address = 'userInfo.address';
         var address_id = 'userInfo.address_id';
         var room_id = 'userInfo.room_id';
 
         this.setData({
-            [address]: options.address
+            [address]: options.address,
+            typeString: options.typestring
         });
+        // 查看身份
+        if(options.typestring && options.address) {
+            this.setData({
+                disabled: true,
+                showSubmit: false
+            });
+        }
     },
 
+    onShow() {
+        this.getUserInfo()
+        console.log(this.data.disabled)
+        console.log(this.data.showSubmit)
+
+    },
+
+    getUserInfo() {
+        infomation.idenInfo(wx.getStorageSync('token')).then(res => {
+            res.data.forEach(item => {
+                for(var i = 0; i < res.data.length; i++) {
+                    if (res.data[i].typeString == "户主") {
+                        var identities = [{
+                            'name': '租客',
+                            'type': 2
+                        }, {
+                            'name': '家庭成员',
+                            'type': 3
+                        }, {
+                            'name': '物业',
+                            'type': 4
+                        }]
+                        this.setData({
+                            identityList: identities
+                        })
+                        break;
+                    }
+                }
+               
+            })
+        })
+    },
     subInfomation(e) {
+        var self = this;
+        var templateId = '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM';
+        wx.requestSubscribeMessage({
+            tmplIds: [templateId],
+            success(res) {
+                if (res[templateId] == 'accept') {
+                    //用户同意了订阅，允许订阅消息
+                    wx.showToast({
+                        title: '订阅成功',
+                        success() {
+                            setTimeout(() => {
+                                self.subInfo(e);
+                            }, 1000);
+                        }
+                    })
+                } else {
+                    //用户拒绝了订阅，禁用订阅消息
+                    wx.showToast({
+                        title: '订阅失败',
+                        success() {
+                            setTimeout(() => {
+                                self.subInfo(e);
+                            }, 1000);
+                        }
+                    })
+                }
+            },
+            fail(res) {
+                console.log(res)
+            },
+            complete(res) {
+                console.log(res)
+            }
+        })
+    },
+
+    subInfo(e) {
         var self = this;
         console.log(e)
 
@@ -60,7 +141,7 @@ Page({
                 success() {
                     setTimeout(function () {
                         wx.navigateTo({
-                            url: '/pages/personal/index/index',
+                            url: '../../index/change-user/change-user',
                         });
                     }, 2000);
                 }
@@ -69,7 +150,6 @@ Page({
             //     showSubmit: false
             // });
         })
-
     },
 
     // 验证身份证号
@@ -99,11 +179,26 @@ Page({
 
 
     toChooseAddress() {
-        wx.navigateTo({
-            url: '../address/address?type=' + this.data.userInfo.type
-        })
+        if(this.data.disabled == false) {
+            wx.navigateTo({
+                url: '../address/address?type=' + this.data.userInfo.type
+            })
+        }
+       
         // this.setData({
         //     showSubmit: true
         // })
     },
+
+    toIndex() {
+        wx.navigateTo({
+            url: '../../index/index?typestring=' + this.data.typeString
+        })
+    },
+
+    toIden() {
+        wx.navigateTo({
+            url: '../register/register'
+        })
+    }
 })

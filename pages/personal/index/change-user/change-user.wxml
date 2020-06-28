@@ -1,6 +1,6 @@
 <view class="list">
 	<block wx:for="{{idenInfoList}}" wx:key="{{index}}">
-		<button class="iden-btn" open-type="getUserInfo" bindgetuserinfo="toIndex">
+		<button class="iden-btn" data-typestring="{{item.typeString}}" data-address="{{item.address.address}}"  bindtap="toIndex">
 			<view class="tableviewcell" >
 				<text>{{item.typeString}}/{{item.address.address}}</text>
 				<image class="right-icon" src="/icon/right.png" />

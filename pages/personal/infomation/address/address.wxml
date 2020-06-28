@@ -58,7 +58,7 @@
 </form>
 
 <view class="searchPage" wx:else>
-	<view class="return" bindtap="hideSearch"> {{return}} </view>
+	<button class="return" bindtap="hideSearch">返回</button>
 
 	<view class="search">
 		<input placeholder='请输入地址' bindblur="getDetail" name="search_detail" confirm-type="search"></input>
@@ -66,6 +66,7 @@
 	</view>
 
 	<view class="no-address" wx:if="{{detailList && detailList.length == 0}}">搜索不到该地址</view>
+
 
 	<view class="search-item" wx:for="{{detailList}}" wx:key="{{index}}">
 		<text bindtap="toDetail" data-address="{{item.address}}" data-id="{{item.id}}" data-address_id="{{item.address_id}}" >{{item.address}}</text>

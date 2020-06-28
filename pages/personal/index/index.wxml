@@ -1,8 +1,9 @@
 <!--pages/personal/index/index.wxml-->
-<view style="min-height: 88vh;">
+<!-- <view style="min-height: 92vh;"> -->
+<view>
 	<view class="box">
-		<view class="change">
-			<view bindtap="changeUser">户主</view>
+		<view class="change" wx:if="{{typestring}}">
+			<view bindtap="changeUser">{{typestring}}</view>
 		</view>
 		<view class="user" wx:if="{{wxInfo}}">
 			<image class="avator" src="{{wxInfo.avatarUrl}}" style="border:8rpx solid #fff;"></image>
@@ -49,7 +50,7 @@
 
 </view>
 
-<view class="supportText">安域智慧安防提供技术支持v1.0.0</view>
+<view class="supportText">安域智慧安防提供技术支持v1.0.4</view>
 
 
 

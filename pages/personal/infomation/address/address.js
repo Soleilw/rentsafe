@@ -10,7 +10,7 @@ Page({
         cityList: [], // 市级列表
         areaList: [], // 区级列表
         communityList: [], // 社区列表
-        detailList: [], // 详细列表
+        detailList: null, // 详细列表
         roomList: [], // 门牌列表
         province: '',
         city: '',
@@ -30,7 +30,7 @@ Page({
         room_id: '',
         showRoom: true, // 户主type为1不显示房屋编号
         showForm: true,
-        return: '< 返回',
+        // return: '< 返回',
         search_detail: '',
         type: ''
     },
@@ -39,8 +39,9 @@ Page({
         this.getPro();
         this.setData({
             type: options.type
+
         })
-        if(options.type === "1") {
+        if (options.type === "1") {
             this.setData({
                 showRoom: false
             })
@@ -49,7 +50,7 @@ Page({
 
     sumAddress(e) {
         var self = this;
-        if(self.data.type == 1) {
+        if (self.data.type == 1) {
             self.data.all_address = e.detail.value.province + e.detail.value.city + e.detail.value.area + e.detail.value.community + e.detail.value.detail;
         } else {
             self.data.all_address = e.detail.value.province + e.detail.value.city + e.detail.value.area + e.detail.value.community + e.detail.value.detail + e.detail.value.room;
@@ -146,7 +147,13 @@ Page({
         self.data.is_community = e.detail.value
         self.setData({
             is_community: e.detail.value,
-            parent_id: self.data.communityList[self.data.is_community].id
+            parent_id: self.data.communityList[self.data.is_community].id,
+            area: '',
+            community: '',
+            detail: '',
+            room: '',
+            detailList: [],
+            all_address: ''
         })
     },
 
@@ -154,7 +161,7 @@ Page({
     getDetail(e) {
         console.log(e);
         this.setData({
-            search_detail: e.detail.value
+            search_detail: e.detail.value,
         })
     },
 
@@ -188,9 +195,9 @@ Page({
     // 获取门牌列表
     getRoom(val) {
         var self = this;
-        self.setData({
-            all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail
-        })
+        // self.setData({
+        //     all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail
+        // })
         add.room(1, 30000, val).then(res => {
             self.setData({
                 roomList: res.data
@@ -217,7 +224,8 @@ Page({
 
     showSearch() {
         this.setData({
-            showForm: false
+            showForm: false,
+            detailList: []
         })
     },
     hideSearch() {

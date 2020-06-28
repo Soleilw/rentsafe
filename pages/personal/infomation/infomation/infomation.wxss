@@ -100,8 +100,24 @@ radio .wx-radio-input.wx-radio-input-checked::before {
 
 .btn .submit { 
     width: 450rpx;
-    height: 60rpx;
-    line-height: 60rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    margin: 50rpx auto 50rpx auto;
+    border-radius: 50rpx;
+    font-size: 28rpx;
+    color: #fff;
+    background: #2a9f93;
+}
+
+.show-submit {
+    display: flex;
+    justify-content: space-between;
+}
+
+.show-submit .submit {
+    width: 200rpx;
+    height: 100rpx;
+    line-height: 100rpx;
     margin: 100rpx auto 50rpx auto;
     border-radius: 50rpx;
     font-size: 28rpx;

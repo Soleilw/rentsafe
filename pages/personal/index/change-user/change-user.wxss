@@ -43,6 +43,8 @@ page {
 }
 
 .new-user {
+    height: 80rpx;
+    line-height: 80rpx;
     margin-top: 20rpx;
     font-size: 28rpx;
     color: #fff;
@@ -53,6 +55,8 @@ page {
     height: 80rpx;
     line-height: 80rpx;
     text-align: left;
+    margin-top: 10rpx;
+
     /* padding: 25rpx 25rpx 25rpx 0; */
 
 }
