@@ -9,13 +9,13 @@ App({
       imfomation.userInfo(wx.getStorageSync('token')).then(res => {
         if (res) {
           wx.reLaunch({
-            url: "pages/personal/index/change-user/change-user"
+            url: "/pages/personal/index/change-user/change-user"
           })
         }
       })
     }
     // 开关配置
-    var version = '1.0.4';
+    var version = '1.0.5';
     global.configs(version).then(res => {
       wx.setStorageSync('openFace', res.config_value);
     })
@@ -33,6 +33,21 @@ App({
               success: function (res) {
                 if (res.confirm) {
                   updateManager.applyUpdate()
+                } else if (res.cancel) {
+                  //用户点击取消按钮的处理，如果需要强制更新，则给出二次弹窗，如果不需要，则这里的代码都可以删掉了
+                  wx.showModal({
+                    title: '温馨提示~',
+                    content: '本次版本更新涉及到新的功能添加，旧版本无法正常访问',
+                    showCancel: false, //隐藏取消按钮
+                    confirmText: "确定更新", //只保留确定更新按钮
+                    success: function (res) {
+                      if (res.confirm) {
+                        //下载新版本，并重新应用
+                        updateManager.applyUpdate()
+
+                      }
+                    }
+                  })
                 }
               }
             })

@@ -59,11 +59,13 @@ infomation.user = function(token, type, address_id, address, room_id) {
     })
 }
 
-// 获取个人信息
-infomation.idenInfo = function(token) {
+// 获取身份信息
+infomation.idenInfo = function(token, page, limit) {
     return new Promise((resolve, reject) => {
         api.get(api.baseUrl.host, api.url.MyHouseholds, {
-            token: token
+            token: token,
+            page: page,
+            limit: limit
         }, function(response) {
             if(response.msg === 'ok') {
                 var res = response.data;
@@ -78,10 +80,12 @@ infomation.idenInfo = function(token) {
 
 
 // 获取审核列表
-infomation.auditList = function(token) {
+infomation.auditList = function(token, page, limit) {
     return new Promise((resolve, reject) => {
         api.get(api.baseUrl.host, api.url.Households, {
-            token: token
+            token: token,
+            page: page,
+            limit: limit
         }, function(response) {
             if(response.msg === 'ok') {
                 var res = response.data;

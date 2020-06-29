@@ -1,16 +1,16 @@
 {
   "pages": [
+
     "pages/personal/index/index",
+    "pages/personal/infomation/address/address",
+
     "pages/personal/index/change-user/change-user",
     "pages/personal/infomation/infomation/infomation",
     "pages/personal/infomation/register/register",
     "pages/personal/house/renter/renter",
     "pages/personal/house/renterDedail/renterDedail",
     "pages/personal/house/house/house",
-    "pages/personal/infomation/address/address",
-
     "pages/personal/house/address-manage/search/address"
-
   ],
   "window": {
     "backgroundTextStyle": "light",

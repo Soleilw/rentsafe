@@ -84,7 +84,8 @@ Page({
     ProChange(e) {
         var self = this;
         self.setData({
-            is_pro: e.detail.value
+            is_pro: e.detail.value,
+            province: ''
         })
         self.data.parent_id = self.data.proList[self.data.is_pro].id;
         self.getCity(self.data.parent_id)
@@ -151,6 +152,7 @@ Page({
             area: '',
             community: '',
             detail: '',
+            roomList: [],
             room: '',
             detailList: [],
             all_address: ''
@@ -184,12 +186,20 @@ Page({
 
     toDetail(e) {
         console.log(e)
-        this.setData({
+        var self = this;
+
+        self.setData({
             detail: e.currentTarget.dataset.address,
             showForm: true,
             address_id: e.currentTarget.dataset.id
         });
-        this.getRoom(e.currentTarget.dataset.id);
+        if(self.data.type == 1) {
+            self.setData({
+                all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail
+            })
+        }
+        self.getRoom(e.currentTarget.dataset.id);
+        self.showAllAddress();
     },
 
     // 获取门牌列表
@@ -212,13 +222,21 @@ Page({
             is_room: e.detail.value,
             room_id: self.data.roomList[e.detail.value].id
         })
-        self.showAllAddress();
+        if(self.data.roomList[e.detail.value].door_number) {
+            self.setData({
+                all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail + self.data.roomList[self.data.is_room].door_number
+            })
+        }
+        console.log(self.data.roomList[e.detail.value].door_number)
     },
 
     showAllAddress() {
+        console.log(this.data.room)
         var self = this;
         self.setData({
-            all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail + self.data.roomList[self.data.is_room].door_number
+            // all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail + self.data.roomList[self.data.is_room].door_number
+            all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail
+
         })
     },
 

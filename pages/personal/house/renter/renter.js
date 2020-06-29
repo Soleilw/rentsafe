@@ -16,7 +16,7 @@ Page({
     // 获取审核列表
     getAuditList() {
         let self = this;
-        infomation.auditList(wx.getStorageSync('token')).then(res => {
+        infomation.auditList(wx.getStorageSync('token'), 1, 1000).then(res => {
             self.setData({
                 renterList: res.data
             })

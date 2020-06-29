@@ -36,7 +36,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.getUserInfo()
         console.log(options)
         var address = 'userInfo.address';
         var address_id = 'userInfo.address_id';
@@ -56,36 +55,9 @@ Page({
     },
 
     onShow() {
-        this.getUserInfo()
         console.log(this.data.disabled)
         console.log(this.data.showSubmit)
 
-    },
-
-    getUserInfo() {
-        infomation.idenInfo(wx.getStorageSync('token')).then(res => {
-            res.data.forEach(item => {
-                for(var i = 0; i < res.data.length; i++) {
-                    if (res.data[i].typeString == "户主") {
-                        var identities = [{
-                            'name': '租客',
-                            'type': 2
-                        }, {
-                            'name': '家庭成员',
-                            'type': 3
-                        }, {
-                            'name': '物业',
-                            'type': 4
-                        }]
-                        this.setData({
-                            identityList: identities
-                        })
-                        break;
-                    }
-                }
-               
-            })
-        })
     },
     subInfomation(e) {
         var self = this;
