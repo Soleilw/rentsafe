@@ -177,40 +177,48 @@ Page({
         var sex = e.detail.value.sex;
         var token = wx.getStorageSync('token');
         var href = self.data.userInfo.href;
-        infomation.register(id, token, name, sex, card_number, phone, href).then(res => {
-            if (self.data.userInfo) {
-                wx.showToast({
-                    icon: "none",
-                    title: '提交成功',
-                    success() {
-                        setTimeout(function () {
-                            wx.navigateTo({
-                                url: '../../index/index',
-                            })
-                            self.setData({
-                                disabled: true
-                            })
-                        }, 2000);
-                    }
-                });
-            } else {
-                wx.showToast({
-                    icon: "none",
-                    title: '提交成功',
-                    success() {
-                        setTimeout(function () {
-                            wx.navigateTo({
-                                url: '../register/register',
-                            })
-                            self.setData({
-                                disabled: true
-                            })
-                        }, 2000);
-                    }
-                });
-            }
+        if (phone && card_number && name && sex && href) {
+            infomation.register(id, token, name, sex, card_number, phone, href).then(res => {
+                if (self.data.userInfo) {
+                    wx.showToast({
+                        icon: "none",
+                        title: '提交成功',
+                        success() {
+                            setTimeout(function () {
+                                wx.navigateTo({
+                                    url: '../../index/index',
+                                })
+                                self.setData({
+                                    disabled: true
+                                })
+                            }, 2000);
+                        }
+                    });
+                } else {
+                    wx.showToast({
+                        icon: "none",
+                        title: '提交成功',
+                        success() {
+                            setTimeout(function () {
+                                wx.navigateTo({
+                                    url: '../register/register',
+                                })
+                                self.setData({
+                                    disabled: true
+                                })
+                            }, 2000);
+                        }
+                    });
+                }
 
-        })
+            })
+        } else {
+            wx.showToast({
+                icon: "none",
+                title: '请填写完整信息'
+            });
+        }
+
     },
 
     // 修改个人信息

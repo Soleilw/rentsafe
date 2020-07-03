@@ -74,6 +74,10 @@ function post(baseUrl, url, data, cb) {
         tools.isFunction(cb) && cb(res.data);
       }
       if (res.statusCode === 401) {
+        wx.showToast({
+          icon: "none",
+          title: '请登录'
+        });
         wx.removeStorageSync('wxInfo')
         wx.removeStorageSync('token')
         wx.reLaunch({
@@ -89,7 +93,7 @@ function post(baseUrl, url, data, cb) {
       if (res.statusCode === 500) {
         wx.showToast({
           icon: "none",
-          title: res.data.message
+          title: '请填写完整信息'
         });
       }
     },
