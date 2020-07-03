@@ -1,9 +1,8 @@
 {
   "pages": [
-
+    "pages/home/home",
     "pages/personal/index/index",
     "pages/personal/infomation/address/address",
-
     "pages/personal/index/change-user/change-user",
     "pages/personal/infomation/infomation/infomation",
     "pages/personal/infomation/register/register",
@@ -18,6 +17,23 @@
     "navigationBarTitleText": "安域智慧安防",
     "navigationBarTextStyle": "white"
   },
-
+  "tabBar": {
+    "color": "#000",
+    "selectedColor": "#2a9f93",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "/icon/info1.png",
+        "selectedIconPath": "/icon/info.png"
+      },
+      {
+        "pagePath": "pages/personal/index/change-user/change-user",
+        "text": "我的",
+        "iconPath": "/icon/my1.png",
+        "selectedIconPath": "/icon/my.png"
+      }
+    ]
+  },
   "sitemapLocation": "sitemap.json"
 }
