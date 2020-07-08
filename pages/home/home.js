@@ -20,18 +20,16 @@ var classList = [{
     id: '4'
   }
 ]
-var bannerList = [{
-  icon: '/icon/banner1.png'
-}]
 
 var banner = require("../../model/home/banner")
+var doc = require('../../model/home/document')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    banner: [],
+    banners: [],
     classFication: []
   },
 
@@ -42,16 +40,58 @@ Page({
     var self = this;
     self.setData({
       classFication: classList,
-      banner: bannerList
     })
-    this.getBanner()
+    this.getBanner();
+    this.getDoc()
   },
 
   // 获取轮播图
-  getBanner: function () {
-    banner.banners(1, 100, wx.getStorageSync('token')).then(res => {
+  getBanner() {
+    var self = this;
+    banner.banners(1, 100).then(res => {
       console.log('banner', res);
+      self.setData({
+        banners: res.data
+      })
     })
+  },
+
+  // 获取资讯
+  getDoc() {
+    var self = this;
+    doc.documentType(1, 100).then(res => {
+      console.log('doc', res);
+      // self.setData({
+      //   classFication: res.data.href
+      // })
+    })
+  },
+
+  // 调转资讯页面
+  openClassification(e) {
+    console.log('e', e.currentTarget.dataset.id);
+    switch(e.currentTarget.dataset.id) {
+      case '1':
+        wx.navigateTo({
+          url: './socialInformation/socialInformation'
+        })
+      break;
+      case '2':
+        wx.navigateTo({
+          url: './activity/activity',
+        })
+      break;
+      case '3':
+        wx.navigateTo({
+          url: './warningNotice/warningNotice',
+        })
+      break;
+      case '4':
+        wx.navigateTo({
+          url: './news/news',
+        })
+      break;
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -21,7 +21,11 @@ const url = {
     'Rooms': '/rooms', // 门牌号
 
     // 轮播图
-    "Banner": '/banner', // 获取轮播图
+    "Banner": '/banners', // 获取轮播图
+
+    // 获取资讯类型
+    "DocumentType": '/document/type', // 获取资讯类型
+    "Documents": '/documents' // 获取资讯
 
 };
 

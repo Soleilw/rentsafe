@@ -9,7 +9,11 @@
     "pages/personal/house/renter/renter",
     "pages/personal/house/renterDedail/renterDedail",
     "pages/personal/house/house/house",
-    "pages/personal/house/address-manage/search/address"
+    "pages/personal/house/address-manage/search/address",
+    "pages/home/socialInformation/socialInformation",
+    "pages/home/activity/activity",
+    "pages/home/warningNotice/warningNotice",
+    "pages/home/news/news"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -24,8 +28,8 @@
       {
         "pagePath": "pages/home/home",
         "text": "首页",
-        "iconPath": "/icon/info1.png",
-        "selectedIconPath": "/icon/info.png"
+        "iconPath": "/icon/index1.png",
+        "selectedIconPath": "/icon/index.png"
       },
       {
         "pagePath": "pages/personal/index/index",
