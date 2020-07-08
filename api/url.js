@@ -20,8 +20,9 @@ const url = {
     'Areas': '/areas', // 获取地址列表
     'Rooms': '/rooms', // 门牌号
 
+    // 轮播图
+    "Banner": '/banner', // 获取轮播图
 
-    
 };
 
 module.exports = url;
