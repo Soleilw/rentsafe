@@ -1,10 +1,28 @@
 // pages/home/home.js
-var classList = [{ name: '社区资讯', icon: '/icon/information1.png', id: '1' },
-{ name: '社区活动', icon: '/icon/information2.png', id: '2' },
-{ name: '警讯通知', icon: '/icon/information3.png', id: '3' },
-{ name: '居委快讯', icon: '/icon/information4.png', id: '4' }
+var classList = [{
+    name: '社区资讯',
+    icon: '/icon/information1.png',
+    id: '1'
+  },
+  {
+    name: '社区活动',
+    icon: '/icon/information2.png',
+    id: '2'
+  },
+  {
+    name: '警讯通知',
+    icon: '/icon/information3.png',
+    id: '3'
+  },
+  {
+    name: '居委快讯',
+    icon: '/icon/information4.png',
+    id: '4'
+  }
 ]
-var bannerList = [{icon: '/icon/banner1.png'}]
+var bannerList = [{
+  icon: '/icon/banner1.png'
+}]
 
 var banner = require("../../model/home/banner")
 Page({
@@ -17,14 +35,6 @@ Page({
     classFication: []
   },
 
-    // 获取轮播图
-    getBanner: function () {
-      banner.banners(1, 100).then(res => {
-        console.log('banner', res);
-
-      })
-    },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -35,6 +45,13 @@ Page({
       banner: bannerList
     })
     this.getBanner()
+  },
+
+  // 获取轮播图
+  getBanner: function () {
+    banner.banners(1, 100, wx.getStorageSync('token')).then(res => {
+      console.log('banner', res);
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -28,7 +28,7 @@
         "selectedIconPath": "/icon/info.png"
       },
       {
-        "pagePath": "pages/personal/index/change-user/change-user",
+        "pagePath": "pages/personal/index/index",
         "text": "我的",
         "iconPath": "/icon/my1.png",
         "selectedIconPath": "/icon/my.png"

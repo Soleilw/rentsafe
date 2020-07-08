@@ -1,5 +1,6 @@
 var user = require('../../../model/user');
 var infomation = require('../../../model/personal/infomation');
+var app = getApp();
 
 Page({
 
@@ -16,7 +17,7 @@ Page({
 
     onLoad: function (options) {
         this.setData({
-            typestring: options.typestring,
+            typestring: app.globalData.typestring,
             address: options.address
         })
         // if(!wx.getStorageSync('token')) {

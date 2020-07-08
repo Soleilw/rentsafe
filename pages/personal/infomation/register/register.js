@@ -1,6 +1,6 @@
 const REG_ID = /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
 var infomation = require('../../../../model/personal/infomation');
-
+var app = getApp();
 Page({
 
     /**
@@ -177,8 +177,9 @@ Page({
     },
 
     toIndex() {
-        wx.navigateTo({
-            url: '../../index/index?typestring=' + this.data.typeString
+        app.globalData.typestring = this.data.typeString;
+        wx.switchTab({
+            url: '/pages/personal/index/index'
         })
     },
 

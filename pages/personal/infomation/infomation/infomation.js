@@ -110,7 +110,6 @@ Page({
                     showRegister: true
                 })
             }
-
         })
     },
 
