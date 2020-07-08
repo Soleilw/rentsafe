@@ -84,16 +84,22 @@ function post(baseUrl, url, data, cb) {
           url: "/pages/personal/index/index"
         });
       }
+      if (res.statusCode === 422) {
+        wx.showToast({
+          icon: "none",
+          title: '参数错误，请检查参数'
+        });
+      }
       if (res.statusCode === 403) {
         wx.showToast({
           icon: "none",
-          title: res.data.message
+          title: '请登录'
         });
       }
       if (res.statusCode === 500) {
         wx.showToast({
           icon: "none",
-          title: '请填写完整信息'
+          title: '请求系统错误,请检查数据'
         });
       }
     },

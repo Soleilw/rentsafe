@@ -47,20 +47,6 @@ Page({
                 })
             }
         }
-
-
-        // if(wx.getStorageSync('token')) {
-        //     infomation.idenInfo(wx.getStorageSync('token')).then(res => {
-        //         for(var i = 0; i < res.data.length; i++) {
-        //             if(res.data[i].type == 1 && res.data[i].state == 2) {
-        //                 self.setData({
-        //                     showHouse: true
-        //                 })
-        //                 break;
-        //             }
-        //         }
-        //     })
-        // } 
     },
 
     getUserInfo(e) {
@@ -74,7 +60,6 @@ Page({
                             console.log(code)
                             console.log(res.iv)
                             console.log(res.encryptedData)
-
                             user.login(code, res.iv, res.encryptedData).then(res => {
                                 wx.setStorage({
                                     data: res.token,

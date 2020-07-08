@@ -240,6 +240,7 @@ Page({
         })
     },
 
+    // 搜索详细地址
     showSearch() {
         this.setData({
             showForm: false,

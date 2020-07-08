@@ -114,45 +114,6 @@ Page({
         })
     },
 
-    // // 订阅消息
-    // subInfomation(e) {
-    //     var self = this;
-    //     var templateId = '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM';
-    //     wx.requestSubscribeMessage({
-    //         tmplIds: [templateId],
-    //         success(res) {
-    //             if (res[templateId] == 'accept') {
-    //                 //用户同意了订阅，允许订阅消息
-    //                 wx.showToast({
-    //                     title: '订阅成功',
-    //                     success() {
-    //                         setTimeout(() => {
-    //                             self.subInfo(e);
-    //                         }, 1000);
-    //                     }
-    //                 })
-    //             } else {
-    //                 //用户拒绝了订阅，禁用订阅消息
-    //                 wx.showToast({
-    //                     title: '订阅失败',
-    //                     success() {
-    //                         setTimeout(() => {
-    //                             self.subInfo(e);
-    //                         }, 1000);
-    //                     }
-    //                 })
-    //             }
-    //         },
-    //         fail(res) {
-    //             console.log(res)
-    //         },
-    //         complete(res) {
-    //             console.log(res)
-    //         }
-    //     })
-    // },
-
-
     subInfomation(e) {
         var self = this;
         console.log(e)
