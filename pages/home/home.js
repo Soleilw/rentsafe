@@ -69,28 +69,6 @@ Page({
     wx.navigateTo({
       url: './socialInformation/socialInformation?type=' + e.currentTarget.dataset.id
     })
-    // switch(e.currentTarget.dataset.id) {
-    //   case '1':
-    //     wx.navigateTo({
-    //       url: './socialInformation/socialInformation?type=' + e.currentTarget.dataset.id
-    //     })
-    //   break;
-    //   case '2':
-    //     wx.navigateTo({
-    //       url: './activity/activity',
-    //     })
-    //   break;
-    //   case '3':
-    //     wx.navigateTo({
-    //       url: './warningNotice/warningNotice',
-    //     })
-    //   break;
-    //   case '4':
-    //     wx.navigateTo({
-    //       url: './news/news',
-    //     })
-    //   break;
-    // }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

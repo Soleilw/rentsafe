@@ -25,7 +25,8 @@ const url = {
 
     // 获取资讯类型
     "DocumentType": '/document/type', // 获取资讯类型
-    "Documents": '/documents' // 获取资讯
+    "Documents": '/documents', // 获取资讯
+    "DocsDetails": '/document' // 获取资讯详情
 
 };
 

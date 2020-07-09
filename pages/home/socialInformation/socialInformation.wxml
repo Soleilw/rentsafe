@@ -1,7 +1,7 @@
 <!--pages/home/socialInformation/socialInformation.wxml-->
 <!-- <text>pages/home/socialInformation/socialInformation.wxml</text> -->
 <view class="box">
-  <view class="content_box" wx:for="{{docList}}" data-id="{{item.id}}" wx:key="{{index}}">
+  <view class="content_box" wx:for="{{docList}}" data-id="{{item.id}}" wx:key="{{index}}" bindtap="openDetails">
     <image mode="aspectFit" src="{{item.cover}}"></image>
     <view class="title">{{item.title}}</view>
   </view>

@@ -28,6 +28,14 @@ Page({
     })
   },
 
+  // 跳转详情页面
+  openDetails(e) {
+    var self = this;
+    wx.navigateTo({
+      url: './details/details?details_id=' + e.currentTarget.dataset.id,
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

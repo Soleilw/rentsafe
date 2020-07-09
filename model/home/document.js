@@ -37,4 +37,20 @@ doc.documents = function (page, limit, areas_id) {
   })
 },
 
+// 获取资讯详情
+doc.docsDetails = function (id) {
+  return new Promise((resolve, reject) => {
+    api.get(api.baseUrl.host, api.url.DocsDetails, {
+      id: id
+    }, function (response) {
+      if (response.msg === 'ok') {
+        var res = response.data
+        resolve(res);
+      } else {
+        reject(response);
+      }
+    })
+  })
+},
+
 module.exports = doc;

@@ -6,6 +6,7 @@
 	"setting": {
 		"urlCheck": true,
 		"es6": true,
+		"enhance": true,
 		"postcss": true,
 		"preloadBackgroundData": false,
 		"minified": true,
@@ -26,7 +27,7 @@
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.11.2",
+	"libVersion": "2.11.3",
 	"appid": "wx28984512cfb98cb2",
 	"projectname": "%E5%AE%89%E5%9F%9F%E5%AE%89%E9%98%B2%E6%99%BA%E6%85%A7",
 	"debugOptions": {

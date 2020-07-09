@@ -1,2 +1,19 @@
-<!--pages/home/socialInformation/details/details.wxml-->
-<text>pages/home/socialInformation/details/details.wxml</text>
+<import src="../../../../wxParse/wxParse.wxml" />
+
+<view class="details">
+<!-- 详情  -->
+  <text class="title">{{details.title}}</text>
+  <view class="info">
+    <text class="date">{{details.created_at}}</text>
+  </view>
+  <!-- 内容 -->
+  <view class="content_text">
+  <template is="wxParse" data="{{wxParseData:article.nodes}}" class="content" />
+  </view>
+  <!-- 浏览量和点赞数 -->
+   <view class="box">
+     <view>
+      <image class="icon" src="/icon/browse.png"></image><text class='liulancount'>{{details.details_browse}}</text>
+    </view> 
+  </view> 
+</view>
