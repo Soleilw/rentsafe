@@ -1,1 +1,29 @@
 /* pages/home/socialInformation/socialInformation.wxss */
+page {
+  background-color: #eee;
+}
+
+.box {
+  display: flex;
+}
+
+.content_box {
+  margin: 10rpx;
+  width: 47%;
+  background-color: #fff;
+  border-radius: 20rpx;
+}
+
+.content_box .title {
+  font-size: 24rpx;
+  margin: 0 20rpx 20rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.content_box image {
+  width: 46vw;
+  height: 230rpx;
+  margin: 20rpx 20rpx;
+}

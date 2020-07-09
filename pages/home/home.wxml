@@ -1,11 +1,12 @@
 <!--pages/home/home.wxml-->
 <!-- <text>pages/home/home.wxml</text> -->
+<import src="../../wxParse/wxParse.wxml" />
 <view class="box">
   <view class="header">
       <swiper class="swiper" circular="true" autoplay="true" interval="5000" duration="1000">
         <block wx:for="{{banners}}" wx:key="{{index}}">
           <swiper-item>
-            <image mode="aspectFill" src="{{item.icon}}" class="slide-image" />
+            <image mode="aspectFill" src="{{item.href}}" class="slide-image" />
           </swiper-item>
         </block>
       </swiper>
@@ -17,8 +18,8 @@
         <!-- <form bindsubmit="getFormID" report-submit="true">
           <button formType="submit" class="formBtu"></button>
         </form> -->
-        <image mode='aspectFill' src="{{item.icon}}" />
-        <text>{{item.name}}</text>
+        <image mode='aspectFill' src="{{item.href}}" />
+        <text>{{item.title}}</text>
       </view>
     </view>
 

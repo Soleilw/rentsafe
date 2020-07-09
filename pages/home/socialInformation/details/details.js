@@ -1,4 +1,4 @@
-// pages/home/warningNotice/warningNotice.js
+// pages/home/socialInformation/details/details.js
 Page({
 
   /**

@@ -1,3 +1,8 @@
 <!--pages/home/socialInformation/socialInformation.wxml-->
 <!-- <text>pages/home/socialInformation/socialInformation.wxml</text> -->
-<view>获取资讯</view>
+<view class="box">
+  <view class="content_box" wx:for="{{docList}}" data-id="{{item.id}}" wx:key="{{index}}">
+    <image mode="aspectFit" src="{{item.cover}}"></image>
+    <view class="title">{{item.title}}</view>
+  </view>
+</view>

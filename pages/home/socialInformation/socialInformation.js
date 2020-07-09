@@ -7,23 +7,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    docList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(555);
     this.getDocuments()
   },
 
   // 获取资讯
   getDocuments() {
     var self = this;
-    doc.documents(1, 100).then(res => {
+    doc.documents(1, 100, 0).then(res => {
       console.log('getDocuments res', res);
-      
+      self.setData({
+        docList: res.data
+      })
     })
   },
 

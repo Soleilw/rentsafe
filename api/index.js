@@ -30,27 +30,42 @@ function get(baseUrl, url, data, cb) {
     header: header,
     success: function (res) {
       if (res.statusCode === 200) {
+        if(res.data.code == 10001) {
+          wx.showToast({
+            icon: "none",
+            title: '请重新登录'
+          });
+          wx.removeStorageSync('wxInfo')
+          wx.removeStorageSync('token')
+          wx.switchTab({
+            url: "/pages/personal/index/index"
+          });
+        }
+        if(res.data.code == 10002) {
+          wx.showToast({
+            icon: "none",
+            title: res.data.toast
+          });
+        }
+        if(res.data.code == 10003) {
+          wx.showToast({
+            icon: "none",
+            title: res.data.toast
+          });
+        }
+        if(res.data.code == 10004) {
+          wx.showToast({
+            icon: "none",
+            title: res.data.toast
+          });
+        }
+        if(res.data.code == 10005) {
+          wx.showToast({
+            icon: "none",
+            title: res.data.toast
+          });
+        }
         tools.isFunction(cb) && cb(res.data);
-      }
-      if (res.statusCode === 401) {
-        wx.removeStorageSync('wxInfo')
-        wx.removeStorageSync('token')
-
-        wx.reLaunch({
-          url: "/pages/personal/index/index"
-        });
-      }
-      if (res.statusCode === 403) {
-        wx.showToast({
-          icon: "none",
-          title: res.data.message
-        });
-      }
-      if (res.statusCode === 500) {
-        wx.showToast({
-          icon: "none",
-          title: res.data.message
-        });
       }
     },
     fail(res) {
@@ -71,36 +86,42 @@ function post(baseUrl, url, data, cb) {
     header: header,
     success: function (res) {
       if (res.statusCode === 200) {
+        if(res.data.code == 10001) {
+          wx.showToast({
+            icon: "none",
+            title: '请重新登录'
+          });
+          wx.removeStorageSync('wxInfo')
+          wx.removeStorageSync('token')
+          wx.switchTab({
+            url: "/pages/personal/index/index"
+          });
+        }
+        if(res.data.code == 10002) {
+          wx.showToast({
+            icon: "none",
+            title: res.data.toast
+          });
+        }
+        if(res.data.code == 10003) {
+          wx.showToast({
+            icon: "none",
+            title: res.data.toast
+          });
+        }
+        if(res.data.code == 10004) {
+          wx.showToast({
+            icon: "none",
+            title: res.data.toast
+          });
+        }
+        if(res.data.code == 10005) {
+          wx.showToast({
+            icon: "none",
+            title: res.data.toast
+          });
+        }
         tools.isFunction(cb) && cb(res.data);
-      }
-      if (res.statusCode === 401) {
-        wx.showToast({
-          icon: "none",
-          title: '请登录'
-        });
-        wx.removeStorageSync('wxInfo')
-        wx.removeStorageSync('token')
-        wx.reLaunch({
-          url: "/pages/personal/index/index"
-        });
-      }
-      if (res.statusCode === 422) {
-        wx.showToast({
-          icon: "none",
-          title: '参数错误，请检查参数'
-        });
-      }
-      if (res.statusCode === 403) {
-        wx.showToast({
-          icon: "none",
-          title: '请登录'
-        });
-      }
-      if (res.statusCode === 500) {
-        wx.showToast({
-          icon: "none",
-          title: '请求系统错误,请检查数据'
-        });
       }
     },
     fail(res) {
