@@ -21,42 +21,85 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getBanner();
-    this.getDoc();
-    this.getSelected();
+    // this.getBanner();
+    // this.getDoc();
+    // this.getSelected();
     this.getAreas();
-    this.setData({
-      areas_id: 0
-    })
   },
 
   // 获取用户社区
   getAreas() {
     var self = this;
-    areasId.userAreas(wx.getStorageSync('token')).then(res => {
-      console.log('getAreas', res);
-      self.setData({
-        areasList: res,
-        areas: res[0].title,
+    // 用户未登录时
+    if (!wx.getStorageSync('token')) {
+      self.getBanner();
+      self.getDoc();
+      self.getSelected();
+    } else {
+      // 用户登录了
+      areasId.userAreas(wx.getStorageSync('token')).then(res => {
+        console.log('getAreas', res);
+        self.setData({
+          areasList: res,
+          areas: res[0].title
+        })
+        // 该用户存在社区
+        if (res.length > 0) {
+          banner.banners(1, 100, res[0].id).then(res => {
+            console.log('banner', res.data);
+            self.setData({
+              banners: res.data
+            })
+          })
+          doc.documentType(1, 100, res[0].id).then(res => {
+            console.log('doc', res);
+            self.setData({
+              classFication: res.data
+            })
+          })
+          doc.documents(1, 100, res[0].id).then(res => {
+            console.log('getSelected', res);
+            for (let i = 0; i < res.data.length; i++) {
+              console.log(res.data[i].is_show);
+              if (res.data[i].is_show == 1) {
+                self.setData({
+                  docList: res.data
+                })
+              }
+            }
+          })
+        } else {
+          self.getBanner();
+          self.getDoc();
+          self.getSelected();
+        }
       })
-    })
+    }
+
+
+
+
+
   },
 
+  // 选中社区
   areasChange(e) {
     console.log('areasChange', e.detail.value);
     var self = this;
     self.setData({
       areas_index: e.detail.value,
-      areas: '',
+      areas: ''
     })
-
   },
+
+  // 
+
+
 
   // 获取轮播图
   getBanner() {
     var self = this;
-    
-    banner.banners(1, 100, 0).then(res => {
+    banner.banners(1, 100).then(res => {
       console.log('banner', res.data);
       self.setData({
         banners: res.data
@@ -67,7 +110,7 @@ Page({
   // 获取资讯
   getDoc() {
     var self = this;
-    doc.documentType(1, 100, 0).then(res => {
+    doc.documentType(1, 100).then(res => {
       console.log('doc', res);
       self.setData({
         classFication: res.data
@@ -78,7 +121,7 @@ Page({
   // 获取精选资讯
   getSelected() {
     var self = this;
-    doc.documents(1, 100, 0).then(res => {
+    doc.documents(1, 100).then(res => {
       console.log('getSelected', res);
       for (let i = 0; i < res.data.length; i++) {
         console.log(res.data[i].is_show);
@@ -88,7 +131,7 @@ Page({
           })
         }
       }
-      
+
     })
   },
 
@@ -106,52 +149,5 @@ Page({
       url: '../home/socialInformation/details/details?details_id=' + e.currentTarget.dataset.id,
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })
