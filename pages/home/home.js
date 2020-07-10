@@ -1,26 +1,3 @@
-// pages/home/home.js
-// var classList = [{
-//     name: '社区资讯',
-//     icon: '/icon/information1.png',
-//     id: '1'
-//   },
-//   {
-//     name: '社区活动',
-//     icon: '/icon/information2.png',
-//     id: '2'
-//   },
-//   {
-//     name: '警讯通知',
-//     icon: '/icon/information3.png',
-//     id: '3'
-//   },
-//   {
-//     name: '居委快讯',
-//     icon: '/icon/information4.png',
-//     id: '4'
-//   }
-// ]
-
 var banner = require("../../model/home/banner")
 var doc = require('../../model/home/document')
 Page({

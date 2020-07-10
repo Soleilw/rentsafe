@@ -65,3 +65,49 @@
   text-align: center;
   color:#999;
 }
+
+/* 选择社区出现轮播图 */
+.choose-banner {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5rpx;
+  background-color: #fff;
+}
+
+.choose-banner text {
+  font-size: 26rpx;
+}
+
+.choose-banner .input {
+  width: 580rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  font-size: 26rpx;
+  border: 1rpx solid #ccc;
+  border-radius: 10rpx;
+  padding: 10rpx;
+  margin-right: 10rpx;
+  background-color: #fff;
+}
+
+.choose-banner button {
+  position: relative;
+  width: 160rpx;
+  /* height: 44rpx; */
+  line-height: 44rpx;
+  font-size: 26rpx;
+  padding: 10rpx;
+  border-radius: 10rpx;
+  background-color: #2a9f93;
+  color: #fff;
+}
+
+.choose-banner image {
+  position: absolute;
+  top: 22%;
+  right: 0;
+  width: 40rpx;
+  height: 40rpx;
+  transform: rotate(90deg);
+}

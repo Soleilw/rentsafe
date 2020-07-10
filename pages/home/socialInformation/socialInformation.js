@@ -31,6 +31,7 @@ Page({
   // 跳转详情页面
   openDetails(e) {
     var self = this;
+    console.log(e)
     wx.navigateTo({
       url: './details/details?details_id=' + e.currentTarget.dataset.id,
     })

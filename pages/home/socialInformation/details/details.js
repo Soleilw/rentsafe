@@ -8,14 +8,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    details: []
+    details: null,
+    id: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getDetails()
+    this.setData({
+      id: options.details_id
+    })
+    this.getDetails();
   },
 
   /**
@@ -28,13 +32,12 @@ Page({
   // 获取资讯详情
   getDetails() {
     var self = this;
-    doc.docsDetails(1, 100, 0).then(res => {
-      console.log(res.data);
-      console.log(1, res.data.data)
+    doc.docsDetails(self.data.id).then(res => {
+      console.log(res);
 
-        WxParse.wxParse('article', 'html', res.data.detail, self, 2);
+        WxParse.wxParse('article', 'html', res.detail, self, 2);
         self.setData({
-          details: res.data
+          details: res
         })
     })
   },
