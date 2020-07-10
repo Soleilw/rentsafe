@@ -7,23 +7,49 @@ Page({
    * 页面的初始数据
    */
   data: {
-    docList: []
+    docList: [],
+    classFication: [],
+    num: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getDocuments()
+    this.getDocuments();
+    this.getDoc()
+    console.log('class_id', options);
+    
+  },
+  
+  // 获取类型--nav
+  getDoc() {
+    var self = this;
+    doc.documentType(1, 100).then(res => {
+      console.log('doc', res);
+      self.setData({
+        classFication: res.data
+      })
+    })
+  },
+
+  // nav点击事件
+  nav(e) {
+    console.log('nav', e);
+    var self = this;
+    self.setData({
+      num: e.currentTarget.dataset.index
+    })
+    self.getDocuments()
   },
 
   // 获取资讯
   getDocuments() {
     var self = this;
-    doc.documents(1, 100, 0).then(res => {
+    doc.documents(1, 100).then(res => {
       console.log('getDocuments res', res);
       self.setData({
-        docList: res.data
+        docList: res.data,
       })
     })
   },

@@ -14,7 +14,7 @@ Page({
     areasList: [],
     areas_index: '', // 下标
     areas: '',
-    areas_id: '' // 社区id
+    areas_id: null // 社区id
   },
 
   /**
@@ -25,6 +25,9 @@ Page({
     // this.getDoc();
     // this.getSelected();
     this.getAreas();
+    // this.setData({
+    //   areas_id: 0
+    // })
   },
 
   // 获取用户社区
@@ -41,7 +44,8 @@ Page({
         console.log('getAreas', res);
         self.setData({
           areasList: res,
-          areas: res[0].title
+          areas: res[0].title,
+          areas_id: res[0].id
         })
         // 该用户存在社区
         if (res.length > 0) {
@@ -76,10 +80,6 @@ Page({
       })
     }
 
-
-
-
-
   },
 
   // 选中社区
@@ -91,10 +91,6 @@ Page({
       areas: ''
     })
   },
-
-  // 
-
-
 
   // 获取轮播图
   getBanner() {
@@ -138,8 +134,10 @@ Page({
   // 调转资讯页面
   openClassification(e) {
     console.log('e', e.currentTarget.dataset.id);
+    console.log(this.data);
+    var self = this;
     wx.navigateTo({
-      url: './socialInformation/socialInformation?type=' + e.currentTarget.dataset.id
+      url: './socialInformation/socialInformation?class_id=' + e.currentTarget.dataset.id + '&areas_id=' + self.data.areas_id
     })
   },
 
