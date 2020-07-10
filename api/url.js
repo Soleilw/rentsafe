@@ -19,6 +19,7 @@ const url = {
     'Addresses': '/addresses', // 获取出租屋列表
     'Areas': '/areas', // 获取地址列表
     'Rooms': '/rooms', // 门牌号
+    "UserAreas": '/user/areas', // 获取用户社区
 
     // 轮播图
     "Banner": '/banners', // 获取轮播图
@@ -26,8 +27,8 @@ const url = {
     // 获取资讯类型
     "DocumentType": '/document/type', // 获取资讯类型
     "Documents": '/documents', // 获取资讯
-    "DocsDetails": '/document' // 获取资讯详情
-
+    "DocsDetails": '/document', // 获取资讯详情
+    "DocsList": '/help/docs', // 获取资讯列表
 };
 
 module.exports = url;

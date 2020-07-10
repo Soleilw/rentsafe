@@ -1,34 +1,43 @@
-<view class="choose-banner">
+<view class="choose-banner" wx:if="{{areasList.length > 1}}">
 	<!-- <text></text> -->
-	<input class="input" disabled="true" placeholder="请选择所在的社区" value="当前社区:"></input>
+	<input class="input" disabled="true" placeholder="请选择所在的社区" value="当前社区:{{areas ? areas : areasList[areas_index].title}}"></input>
 
-	<picker bindchange="schoolChange" range="{{schoolList}}" range-key="name" value="{{index}}" class="picker">
+	<picker bindchange="areasChange" range="{{areasList}}" range-key="title" value="{{index}}" class="picker">
 		<button>切换社区</button>
 		<!-- <image src="/icon/right.png"></image> -->
 	</picker>
 </view>
 <view class="box">
-  <view class="header">
-      <swiper class="swiper" circular="true" autoplay="true" interval="5000" duration="1000">
-        <block wx:for="{{banners}}" wx:key="{{index}}">
-          <swiper-item>
-            <image mode="aspectFill" src="{{item.href}}" class="slide-image" />
-          </swiper-item>
-        </block>
-      </swiper>
-    </view>
+	<view class="header">
+		<swiper class="swiper" circular="true" autoplay="true" interval="5000" duration="1000">
+			<block wx:for="{{banners}}" wx:key="{{index}}">
+				<swiper-item>
+					<image mode="aspectFill" src="{{item.href}}" class="slide-image" />
+				</swiper-item>
+			</block>
+		</swiper>
+	</view>
 
-    <view class='titleText'>智慧社区</view>
-    <view class="classification">
-      <view wx:for="{{classFication}}" wx:key="{{index}}" data-id="{{item.id}}" data-index="{{index}}" bindtap='openClassification'>
-        <!-- <form bindsubmit="getFormID" report-submit="true">
+	<view class='titleText'>智慧社区</view>
+	<view class="classification">
+		<view wx:for="{{classFication}}" wx:key="{{index}}" data-id="{{item.id}}" data-index="{{index}}" bindtap='openClassification'>
+			<!-- <form bindsubmit="getFormID" report-submit="true">
           <button formType="submit" class="formBtu"></button>
         </form> -->
-        <image mode='aspectFill' src="{{item.href}}" />
-        <text>{{item.title}}</text>
-      </view>
-    </view>
+			<image mode='aspectFill' src="{{item.href}}" />
+			<text>{{item.title}}</text>
+		</view>
+	</view>
 
-    <view class='titleText'>精选资讯</view>
-    
+	<view class='titleText'>精选资讯</view>
+	<view class="sel_box">
+		<view class="content_box" wx:for="{{docList}}" data-id="{{item.id}}" wx:key="{{index}}" bindtap="openDetails">
+			<image mode="aspectFit" src="{{item.cover}}"></image>
+			<view class="title">{{item.title}}</view>
+		</view>
+	</view>
+
+  <view class="tips_box" wx:if="{{docList.length == 0}}">
+    <view class="title">暂无数据</view>
+  </view>
 </view>
