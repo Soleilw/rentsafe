@@ -90,12 +90,13 @@ Page({
       areas_index: e.detail.value,
       areas: ''
     })
+
   },
 
   // 获取轮播图
   getBanner() {
     var self = this;
-    banner.banners(1, 100).then(res => {
+    banner.banners(1, 100, 0).then(res => {
       console.log('banner', res.data);
       self.setData({
         banners: res.data
@@ -106,7 +107,7 @@ Page({
   // 获取资讯
   getDoc() {
     var self = this;
-    doc.documentType(1, 100).then(res => {
+    doc.documentType(1, 100, 0).then(res => {
       console.log('doc', res);
       self.setData({
         classFication: res.data
@@ -117,7 +118,7 @@ Page({
   // 获取精选资讯
   getSelected() {
     var self = this;
-    doc.documents(1, 100).then(res => {
+    doc.documents(1, 100, 0).then(res => {
       console.log('getSelected', res);
       for (let i = 0; i < res.data.length; i++) {
         console.log(res.data[i].is_show);

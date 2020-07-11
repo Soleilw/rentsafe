@@ -9,7 +9,9 @@ Page({
   data: {
     docList: [],
     classFication: [],
-    num: 0
+    num: 0,
+    class_id: '',
+    areas_id: null
   },
 
   /**
@@ -20,12 +22,16 @@ Page({
     this.getDoc()
     console.log('class_id', options);
     
+    
   },
   
   // 获取类型--nav
   getDoc() {
     var self = this;
-    doc.documentType(1, 100).then(res => {
+    self.setData({
+      areas_id: this.options.areas_id
+    })
+    doc.documentType(1, 100, self.data.areas_id).then(res => {
       console.log('doc', res);
       self.setData({
         classFication: res.data
@@ -46,7 +52,10 @@ Page({
   // 获取资讯
   getDocuments() {
     var self = this;
-    doc.documents(1, 100).then(res => {
+    self.setData({
+      areas_id: this.options.areas_id
+    })
+    doc.documents(1, 100, self.data.areas_id).then(res => {
       console.log('getDocuments res', res);
       self.setData({
         docList: res.data,
