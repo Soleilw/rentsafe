@@ -134,9 +134,8 @@ Page({
 
   // 调转资讯页面
   openClassification(e) {
-    console.log('e', e.currentTarget.dataset.id);
-    console.log(this.data);
     var self = this;
+    console.log(111,self.data.areas_id);
     wx.navigateTo({
       url: './socialInformation/socialInformation?class_id=' + e.currentTarget.dataset.id + '&areas_id=' + self.data.areas_id
     })

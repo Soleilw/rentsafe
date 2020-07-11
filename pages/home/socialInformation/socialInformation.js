@@ -18,25 +18,45 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getDocuments();
+    this.setData({
+      class_id: options.class_id,
+      areas_id: options.areas_id
+    })
     this.getDoc()
-    console.log('class_id', options);
-    
-    
   },
   
   // 获取类型--nav
   getDoc() {
     var self = this;
-    self.setData({
-      areas_id: this.options.areas_id
-    })
-    doc.documentType(1, 100, self.data.areas_id).then(res => {
-      console.log('doc', res);
-      self.setData({
-        classFication: res.data
+    if(!wx.getStorageSync('token')) {
+      doc.documentType(1, 100, 0).then(res => {
+        self.setData({
+          classFication: res.data
+        })
+        for(var i = 0; i < res.data.length; i++) {
+          if(res.data[i].id == self.data.class_id) {
+            self.setData({
+              num: i
+            })
+          }
+        }
+        self.getDocuments()
       })
-    })
+    } else {
+      doc.documentType(1, 100, self.data.areas_id).then(res => {
+        self.setData({
+          classFication: res.data
+        })
+        for(var i = 0; i < res.data.length; i++) {
+          if(res.data[i].id == self.data.class_id) {
+            self.setData({
+              num: i
+            })
+          }
+        }
+        self.getDocuments()
+      })
+    }
   },
 
   // nav点击事件
@@ -46,7 +66,6 @@ Page({
     self.setData({
       num: e.currentTarget.dataset.index
     })
-    self.getDocuments()
   },
 
   // 获取资讯
