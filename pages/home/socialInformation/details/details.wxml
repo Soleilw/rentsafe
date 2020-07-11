@@ -1,9 +1,10 @@
 <import src="../../../../wxParse/wxParse.wxml" />
-
+<wxs src="../../../../utils/date.wxs" module="tools" />
 <view class="details">
 <!-- 详情  -->
   <text class="title">{{details.title}}</text>
   <view class="info">
+    <!-- <text class="date">{{tools.anyuFormat(details.created_at, 'yyyy-MM-dd')}}</text> -->
     <text class="date">{{details.created_at}}</text>
   </view>
   <!-- 内容 -->

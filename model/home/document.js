@@ -20,12 +20,13 @@ doc.documentType = function (page, limit, areas_id) {
 }
 
 // 获取资讯
-doc.documents = function (page, limit, areas_id) {
+doc.documents = function (page, limit, areas_id, type_id) {
   return new Promise((resolve, reject) => {
     api.get(api.baseUrl.host, api.url.Documents, {
       page: page,
       limit: limit,
-      areas_id: areas_id
+      areas_id: areas_id,
+      type_id: type_id
     }, function (response) {
       if (response.msg === 'ok') {
         var res = response.data

@@ -1,6 +1,7 @@
 var banner = require("../../model/home/banner")
 var doc = require('../../model/home/document')
 var areasId = require('../../model/home/userAreas')
+
 Page({
 
   /**
@@ -14,7 +15,7 @@ Page({
     areasList: [],
     areas_index: '', // 下标
     areas: '',
-    areas_id: null // 社区id
+    areas_id: null, // 社区id,
   },
 
   /**
@@ -88,9 +89,43 @@ Page({
     var self = this;
     self.setData({
       areas_index: e.detail.value,
-      areas: ''
+      areas: '',
     })
+    console.log('areas_index', self.data.areas_index);
 
+    // 用户登录了
+    areasId.userAreas(wx.getStorageSync('token')).then(res => {
+      console.log('getAreas', res);
+      self.setData({
+        areas_id: res[self.data.areas_index].id
+      })
+      // 该用户存在社区
+      if (res.length > 0) {
+        banner.banners(1, 100, res[self.data.areas_index].id).then(res => {
+          console.log('banner', res.data);
+          self.setData({
+            banners: res.data
+          })
+        })
+        doc.documentType(1, 100, res[self.data.areas_index].id).then(res => {
+          console.log('doc', res);
+          self.setData({
+            classFication: res.data
+          })
+        })
+        doc.documents(1, 100, res[self.data.areas_index].id).then(res => {
+          console.log('111 getSelected', res);
+          for (let i = 0; i < res.data.length; i++) {
+            console.log(res.data[i].is_show);
+            if (res.data[i].is_show == 1) {
+              self.setData({
+                docList: res.data
+              })
+            }
+          }
+        })
+      }
+    })
   },
 
   // 获取轮播图
@@ -135,7 +170,7 @@ Page({
   // 调转资讯页面
   openClassification(e) {
     var self = this;
-    console.log(111,self.data.areas_id);
+    console.log(111, self.data.areas_id);
     wx.navigateTo({
       url: './socialInformation/socialInformation?class_id=' + e.currentTarget.dataset.id + '&areas_id=' + self.data.areas_id
     })

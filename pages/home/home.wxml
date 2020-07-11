@@ -15,17 +15,20 @@
 					<image mode="aspectFill" src="{{item.href}}" class="slide-image" />
 				</swiper-item>
 			</block>
+			<swiper-item wx:if="{{banners.length == 0}}">
+				<image mode="aspectFill" src="../../icon/no_data.png" class="slide-image" />
+			</swiper-item>
 		</swiper>
 	</view>
 
 	<view class='titleText'>智慧社区</view>
 	<view class="classification">
 		<view wx:for="{{classFication}}" wx:key="{{index}}" data-id="{{item.id}}" data-index="{{index}}" bindtap='openClassification'>
-			<!-- <form bindsubmit="getFormID" report-submit="true">
-          <button formType="submit" class="formBtu"></button>
-        </form> -->
 			<image mode='aspectFill' src="{{item.href}}" />
 			<text>{{item.title}}</text>
+		</view>
+		<view class="tips_box" wx:if="{{classFication.length == 0}}">
+			<view class="title">暂无数据</view>
 		</view>
 	</view>
 
@@ -37,7 +40,7 @@
 		</view>
 	</view>
 
-  <view class="tips_box" wx:if="{{docList.length == 0}}">
-    <view class="title">暂无数据</view>
-  </view>
+	<view class="tips_box" wx:if="{{docList.length == 0}}">
+		<view class="title">暂无数据</view>
+	</view>
 </view>

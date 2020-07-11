@@ -1,5 +1,6 @@
 // pages/home/socialInformation/socialInformation.js
 var doc = require('../../../model/home/document')
+var areasId = require('../../../model/home/userAreas')
 
 Page({
 
@@ -24,17 +25,17 @@ Page({
     })
     this.getDoc()
   },
-  
+
   // 获取类型--nav
   getDoc() {
     var self = this;
-    if(!wx.getStorageSync('token')) {
+    if (!wx.getStorageSync('token')) {
       doc.documentType(1, 100, 0).then(res => {
         self.setData({
           classFication: res.data
         })
-        for(var i = 0; i < res.data.length; i++) {
-          if(res.data[i].id == self.data.class_id) {
+        for (var i = 0; i < res.data.length; i++) {
+          if (res.data[i].id == self.data.class_id) {
             self.setData({
               num: i
             })
@@ -43,38 +44,46 @@ Page({
         self.getDocuments()
       })
     } else {
-      doc.documentType(1, 100, self.data.areas_id).then(res => {
-        self.setData({
-          classFication: res.data
-        })
-        for(var i = 0; i < res.data.length; i++) {
-          if(res.data[i].id == self.data.class_id) {
-            self.setData({
-              num: i
-            })
+      areasId.userAreas(wx.getStorageSync('token')).then(res => {
+        console.log('nav res', res);
+        doc.documentType(1, 100, self.data.areas_id).then(res => {
+          console.log('nav doc', res);
+          self.setData({
+            classFication: res.data
+          })
+          for (var i = 0; i < res.data.length; i++) {
+            if (res.data[i].id == self.data.class_id) {
+              self.setData({
+                num: i
+              })
+            }
           }
-        }
-        self.getDocuments()
+          self.getDocuments()
+        })
       })
     }
   },
 
   // nav点击事件
   nav(e) {
-    console.log('nav', e);
+    console.log('nav', e.currentTarget.dataset.id);
     var self = this;
     self.setData({
       num: e.currentTarget.dataset.index
+    })
+    // 点击nav获取资讯  (传type_id)
+    doc.documents(1, 100, self.data.areas_id, self.data.class_id).then(res => {
+      console.log('getDocuments res', res);
+      self.setData({
+        docList: res.data,
+      })
     })
   },
 
   // 获取资讯
   getDocuments() {
     var self = this;
-    self.setData({
-      areas_id: this.options.areas_id
-    })
-    doc.documents(1, 100, self.data.areas_id).then(res => {
+    doc.documents(1, 100, self.data.areas_id, self.data.class_id).then(res => {
       console.log('getDocuments res', res);
       self.setData({
         docList: res.data,

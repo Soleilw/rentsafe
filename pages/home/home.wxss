@@ -137,7 +137,14 @@
   margin: 20rpx 20rpx;
 }
 
+.classification .tips_box {
+  width: 100%;
+}
 
+.classification .tips_box .title {
+  padding: 20rpx;
+  text-align: center;
+}
 
 .tips_box .title {
   padding: 20rpx;
