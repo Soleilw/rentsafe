@@ -11,7 +11,7 @@ Page({
     docList: [],
     classFication: [],
     num: 0,
-    class_id: '',
+    class_id: null,
     areas_id: null
   },
 
@@ -71,13 +71,14 @@ Page({
     self.setData({
       num: e.currentTarget.dataset.index
     })
-    // 点击nav获取资讯  (传type_id)
-    doc.documents(1, 100, self.data.areas_id, self.data.class_id).then(res => {
-      console.log('getDocuments res', res);
-      self.setData({
-        docList: res.data,
+ 
+      doc.documents(1, 100, self.data.areas_id, e.currentTarget.dataset.id).then(res => {
+        console.log('getDocuments res', res);
+        self.setData({
+          docList: res.data,
+        })
       })
-    })
+
   },
 
   // 获取资讯

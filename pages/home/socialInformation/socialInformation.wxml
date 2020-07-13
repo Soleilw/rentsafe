@@ -1,6 +1,7 @@
 <!--pages/home/socialInformation/socialInformation.wxml-->
 <!-- <text>pages/home/socialInformation/socialInformation.wxml</text> -->
-<view class="classification">
+<view class="v_box">
+  <view class="classification">
   <view class="nav_active" wx:for="{{classFication}}" wx:key="{{index}}" data-id="{{item.id}}" data-index="{{index}}" bindtap='nav' class="{{index == num ? 'nav_active' : ''}}">
     {{item.title}}
     <!-- <form bindsubmit="getFormID" report-submit="true">
@@ -14,3 +15,5 @@
     <view class="title">{{item.title}}</view>
   </view>
 </view>
+</view>
+

@@ -34,25 +34,12 @@ Page({
         var self = this;
         doc.docsDetails(self.data.id).then(res => {
           console.log('created_at', res.created_at);
-          console.log(1, self.formateTime(1231545525));
           
           WxParse.wxParse('article', 'html', res.detail, self, 2);
           self.setData({
             details: res
           })
         })
-      },
-
-      formateTime: function (time) {
-        var now = new Date()
-        const year = now.getFullYear()
-        const month = now.getMonth() + 1
-        const date = now.getDate()
-        const hour = now.getHours()
-        const minute = now.getMinutes()
-        const second = now.getSeconds()
-        var time = year + '-' + month + '-' + date + ' ' + hour + ':' + minute + ':' + second
-        return time
       },
 
   /**

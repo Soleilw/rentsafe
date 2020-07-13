@@ -1,4 +1,7 @@
 /* pages/home/home.wxss */
+page {
+  background-color: #eee;
+}
 /* 轮播图 */
 .header {
   position: relative;
@@ -114,13 +117,14 @@
 
 .sel_box {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .content_box {
-  margin: 10rpx;
+  margin: 0 10rpx 10rpx;
   width: 47%;
   background-color: #fff;
-  border-radius: 20rpx;
+  /* border-radius: 20rpx; */
 }
 
 .content_box .title {

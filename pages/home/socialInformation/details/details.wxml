@@ -1,5 +1,5 @@
 <import src="../../../../wxParse/wxParse.wxml" />
-<wxs src="../../../../utils/date.wxs" module="tools" />
+<!-- <wxs src="../../../../utils/date.wxs" module="tools" /> -->
 <view class="details">
 <!-- 详情  -->
   <text class="title">{{details.title}}</text>
