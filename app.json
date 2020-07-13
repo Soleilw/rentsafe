@@ -11,7 +11,8 @@
     "pages/personal/house/house/house",
     "pages/personal/house/address-manage/search/address",
     "pages/home/socialInformation/socialInformation",
-    "pages/home/socialInformation/details/details"
+    "pages/home/socialInformation/details/details",
+    "pages/personal/buy/buy/buy"
   ],
   "window": {
     "backgroundTextStyle": "light",

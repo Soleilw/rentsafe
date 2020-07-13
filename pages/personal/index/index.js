@@ -139,6 +139,24 @@ Page({
         }
     },
 
+    // 跳转购买服务页面
+    toBuy() {
+        // if (!wx.getStorageSync('token')) {
+        //     wx.showToast({
+        //         icon: "none",
+        //         title: '请先登录'
+        //     });
+        //     wx.removeStorageSync('wxInfo')
+        // } else {
+        //     wx.navigateTo({
+        //         url: '../buy/buy/buy'
+        //     })
+        // }
+        wx.navigateTo({
+            url: '../buy/buy/buy'
+        })
+    },
+
     callPhone() {
         wx.makePhoneCall({
             phoneNumber: '110'

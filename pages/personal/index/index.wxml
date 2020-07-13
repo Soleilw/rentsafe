@@ -48,6 +48,20 @@
 		</view>
 	</view>
 
+	<view class="plate">
+		<view class="title">物业管理</view>
+		<view class="list">
+			<view bindtap="toBuy">
+				<image src="/icon/buy.png" />
+				<text>购买服务</text>
+			</view>
+			<!-- <view>
+				<image src="/icon/unit.png" />
+				<text>注销账号</text>
+			</view> -->
+		</view>
+	</view>
+
 </view>
 
 <view class="supportText">安域智慧安防提供技术支持v1.0.6</view>
