@@ -12,7 +12,8 @@
     "pages/personal/house/address-manage/search/address",
     "pages/home/socialInformation/socialInformation",
     "pages/home/socialInformation/details/details",
-    "pages/personal/buy/buy/buy"
+    "pages/personal/buy/buy/buy",
+    "pages/personal/buy/bill/bill"
   ],
   "window": {
     "backgroundTextStyle": "light",

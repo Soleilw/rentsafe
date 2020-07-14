@@ -1,4 +1,37 @@
 <!--pages/personal/buy/buy.wxml-->
 <!-- <text>pages/personal/buy/buy.wxml</text> -->
 
+<block>
+	<!-- wx:if="{{goodsList.length != 0}}" -->
+	<view class="header">
+		<view class="recordBox">
+			<text bindtap='toBill'>账单明细</text>
+			<image src="/icon/right.png"></image>
+		</view>
+	</view>
 
+	<text class="title">购买商品: </text>
+
+<!-- 显示开通的服务 -->
+	<view class="nav">
+		<text wx:for="{{goodsList}}" wx:key="{{index}}" data-index="{{index}}" bindtap='nav' class="{{item.class}}" class="{{index == navIndex ? 'nav_active' : ''}}">{{item.title}}</text>
+	</view>
+
+	<view class="content">
+		<text class="price">￥{{goodsList[navIndex].price}}</text>
+		<text class="text">({{goodsList[navIndex].detail}})</text>
+	</view>
+
+  <!-- 选择需要开通的服务 -->
+	<view style="margin:20rpx 0 0 0;">
+	<text class="title">包含的服务: </text>
+			<view wx:for="{{serviceList}}" wx:key="{{index}}" class="tableviewcell" >
+				<text class="text">{{item.name}}</text>
+			</view>
+	</view>
+
+	<text class="prompt">提交订单，表示您同意相关服务协议。</text>
+
+	<button bindtap='purchase'>立即支付</button>
+</block>
+<!-- <text wx:else class="notData">暂无充值服务~</text> -->

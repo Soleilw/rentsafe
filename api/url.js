@@ -4,7 +4,6 @@ const url = {
     'Face': '/face', //上传人脸图像
     'Configs': '/configs', // 图像开关配置
 
-
     // 个人信息
     'Household': '/household', // post提交个人信息,get获取个人信息
     'MyHouseholds': '/my/households', // post提交个人信息,get获取个人信息
@@ -29,6 +28,13 @@ const url = {
     "Documents": '/documents', // 获取资讯
     "DocsDetails": '/document', // 获取资讯详情
     "DocsList": '/help/docs', // 获取资讯列表
+
+    // 购买
+    "Buys": '/products', // 获取服务
+    "UserServes": '/user/serves', // 获取开通的服务
+    "Renew": '/product/renew', // 续费提示
+    "Order": '/product/order', // 创建订单
+    "Buy": '/buy/product', // 支付
 };
 
 module.exports = url;
