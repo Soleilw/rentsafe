@@ -15,7 +15,10 @@
 			<button size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo">立即登录</button>
 		</view>
 	</view>
-
+	<block>
+		<view wx:if="{{isExpire}}" class="tips">服务即将到期!</view>
+		<view wx:else class="tips">未购买任何服务</view>
+	</block>
 	<view class="plate">
 		<view class="title">信息板块</view>
 		<view class="list">

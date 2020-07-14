@@ -87,12 +87,19 @@ page {
 }
 
 /* 技术支持文字 */
-.supportText{
+.supportText {
     position: absolute;
     bottom: 0;
-    width:100%;
+    width: 100%;
     line-height: 80rpx;
     text-align: center;
     font-size: 25rpx;
     color: #aaa;
-  }
+}
+
+.tips {
+    font-size: 24rpx;
+    text-align: center;
+    color: red;
+    padding: 10rpx;
+}

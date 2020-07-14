@@ -1,6 +1,8 @@
 var user = require('../../../model/user');
 var infomation = require('../../../model/personal/infomation');
 var app = getApp();
+var buy = require('../../../model/personal/buy')
+
 
 Page({
 
@@ -12,7 +14,8 @@ Page({
         showHouse: false, // 只有户主才显示房屋管理
         typestring: '',
         address: '',
-        userInfo: {}
+        userInfo: {},
+        isExpire: false
     },
 
     onLoad: function (options) {
@@ -20,6 +23,7 @@ Page({
             typestring: app.globalData.typestring,
             address: options.address
         })
+        this.getRenew();
         // if(!wx.getStorageSync('token')) {
         //     wx.reLaunch({
         //       url: './change-user/change-user',
@@ -85,7 +89,6 @@ Page({
             }
         });
     },
-
     // 去个人信息
     toInfomation() {
         if (!wx.getStorageSync('token')) {
@@ -154,6 +157,30 @@ Page({
         }
         // wx.navigateTo({
         //     url: '../buy/buy/buy'
+        // })
+    },
+
+    // 续费提醒  
+    getRenew() {
+        var self = this;
+        if (!wx.getStorageSync('token')) {
+            self.setData({
+                isExpire: false
+            })
+        } else {
+            buy.renew(wx.getStorageSync('token')).then(res => {
+                console.log('续费提示', res);
+                if (res == 2) {
+                    self.setData({
+                        isExpire: true
+                    })
+                }
+            })
+        }
+       
+        // buy.userServes(wx.getStorageSync('token')).then(res => {
+        //     console.log('获取开通的服务', res);
+            
         // })
     },
 

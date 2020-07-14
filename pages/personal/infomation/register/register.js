@@ -178,6 +178,7 @@ Page({
 
     toIndex() {
         app.globalData.typestring = this.data.typeString;
+        
         wx.switchTab({
             url: '/pages/personal/index/index'
         })
