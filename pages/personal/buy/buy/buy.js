@@ -69,7 +69,7 @@ Page({
   purchase() {
     var self = this;
     // 创建订单
-    buy.order(self.data.user_id, 4, self.data.product_id, 2, self.data.price).then(res => {
+    buy.order(self.data.user_id, 5, self.data.product_id, 2, self.data.price).then(res => {
       console.log('createOeder', res);
       self.setData({
         order_id: res

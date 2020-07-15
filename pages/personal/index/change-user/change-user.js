@@ -17,6 +17,8 @@ Page({
     getIdenInfo() {
         if(wx.getStorageSync('token')) {
             infomation.idenInfo(wx.getStorageSync('token'), 1, 10000).then(res => {
+                console.log('getIdenInfo', res.data);
+                
                 this.setData({
                     idenInfoList: res.data
                 })

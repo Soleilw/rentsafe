@@ -15,7 +15,8 @@ Page({
         typestring: '',
         address: '',
         userInfo: {},
-        isExpire: false
+        isExpire: false,
+        hasBuyList: []
     },
 
     onLoad: function (options) {
@@ -168,20 +169,30 @@ Page({
                 isExpire: false
             })
         } else {
-            buy.renew(wx.getStorageSync('token')).then(res => {
-                console.log('续费提示', res);
-                if (res == 2) {
+            buy.userServes(wx.getStorageSync('token')).then(res => {
+                console.log('获取开通的服务', res);
+                self.setData({
+                    hasBuyList: res
+                })
+                if (res.length == 0) {
                     self.setData({
-                        isExpire: true
+                        isExpire: false
+                    })
+                } else {
+                    buy.renew(wx.getStorageSync('token')).then(res => {
+                        console.log('续费提示', res);
+                        if (res == 1) {
+                            self.setData({
+                                isExpire: true
+                            })
+                        }
                     })
                 }
             })
+
         }
-       
-        // buy.userServes(wx.getStorageSync('token')).then(res => {
-        //     console.log('获取开通的服务', res);
-            
-        // })
+
+
     },
 
     callPhone() {
