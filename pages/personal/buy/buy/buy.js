@@ -1,9 +1,7 @@
 // pages/personal/buy/buy.js
 var buy = require('../../../../model/personal/buy')
 var infomation = require('../../../../model/personal/infomation')
-var areasId = require('../../../../model/home/userAreas')
 
-// var user_id
 Page({
 
   /**
@@ -17,7 +15,7 @@ Page({
     user_id: null,
     areas_id: null,
     product_id: null,
-    addresses_id: 2,
+    address_id: null,
     price: null,
     serviceList: [],
     serviceIndex: 0,
@@ -28,15 +26,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('buy', options);
+    this.setData({
+      areas_id: options.area_id,
+      address_id: options.address_id
+    })
+
     this.getUerInfo();
     this.getGoodsList();
-    this.tips();
   },
 
   // 跳转账单明细
   toBill() {
+    var self = this;
     wx.navigateTo({
-      url: '../bill/bill',
+      url: '../bill/bill?user_id=' +  self.data.user_id
     })
   },
 
@@ -46,7 +50,7 @@ Page({
     infomation.userInfo(wx.getStorageSync('token')).then(res => {
       console.log('getUerInfo', res);
       self.setData({
-        user_id: res.id,
+        user_id: res.user_id,
       })
     })
   },
@@ -69,41 +73,36 @@ Page({
   purchase() {
     var self = this;
     // 创建订单
-    buy.order(self.data.user_id, 5, self.data.product_id, 2, self.data.price).then(res => {
+    buy.order(self.data.user_id, self.data.areas_id, self.data.product_id, self.data.address_id, self.data.price).then(res => {
       console.log('createOeder', res);
       self.setData({
         order_id: res
       })
+      // 支付
       buy.buy(wx.getStorageSync('token'), self.data.order_id).then(res => {
         console.log('支付', res);
         wx.requestPayment({
           timeStamp: res.timeStamp,
-          nonceStr: res.nonceStr, 
+          nonceStr: res.nonceStr,
           package: res.package,
           signType: 'MD5',
           paySign: res.paySign,
-          success (res) { 
+          success(res) {
             console.log(111, res);
-            
+            wx.showToast({
+              icon: "none",
+              title: '购买成功'
+            });
           },
-          fail (res) {
-            console.log(res);
-            
+          fail(res) {
+            console.log(222, res);
+            wx.showToast({
+              icon: "none",
+              title: '取消成功'
+            });
           }
         })
-
       })
-    })
-
-
-    
-  },
-
-  // 续费提示
-  tips() {
-    var self = this;
-    buy.renew(wx.getStorageSync('token')).then(res => {
-      console.log('续费提示', res);
     })
   },
 
@@ -126,14 +125,6 @@ Page({
     })
   },
 
-  // 点击事件-radioChange
-  radioChange(e) {
-    console.log('radioChange', e);
-    var self = this;
-    self.setData({
-      serviceIndex: e.detail.value
-    })
-  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

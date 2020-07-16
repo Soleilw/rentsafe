@@ -85,6 +85,8 @@ App({
   globalData: {
     userInfo: null,
     openFace: false,
-    typestring: null
+    typestring: null,
+    area_id: null,
+    address_id: null
   }
 })

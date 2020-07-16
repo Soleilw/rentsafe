@@ -49,13 +49,10 @@ infomation.userInfo = function (token) {
                 address: address,
                 room_id: room_id
             }, function (response) {
-                debugger
-
                 if (response.msg === 'ok') {
                     var res = response.data;
                     resolve(res);
                 } else {
-                    debugger
                     reject(response);
                 }
             })
@@ -80,7 +77,6 @@ infomation.idenInfo = function (token, page, limit) {
             })
         })
     },
-
 
 
     // 获取审核列表

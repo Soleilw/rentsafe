@@ -14,22 +14,24 @@ Page({
         showHouse: false, // 只有户主才显示房屋管理
         typestring: '',
         address: '',
+        area_id: '',
+        address_id: '',
         userInfo: {},
-        isExpire: false,
-        hasBuyList: []
+        isExpire: false, // 续费提醒
+        hasBuyList: [], // 已经购买的服务
+        showBuy: false, // 显示购买服务功能--不含有户主身份
+        house_owner: [], // 用户身份列表
+        show: false
     },
 
     onLoad: function (options) {
         this.setData({
             typestring: app.globalData.typestring,
+            area_id: app.globalData.area_id,
+            address_id: app.globalData.address_id,
             address: options.address
         })
-        this.getRenew();
-        // if(!wx.getStorageSync('token')) {
-        //     wx.reLaunch({
-        //       url: './change-user/change-user',
-        //     })
-        // }
+        this.getIdenInfo();
     },
     onShow() {
         this.getPersonalInfo();
@@ -145,6 +147,10 @@ Page({
 
     // 跳转购买服务页面
     toBuy() {
+        var self = this;
+        console.log('跳转购买服务页面', self.data.area_id);
+        console.log('跳转购买服务页面', self.data.address_id);
+
         if (!wx.getStorageSync('token')) {
             wx.showToast({
                 icon: "none",
@@ -153,7 +159,7 @@ Page({
             wx.removeStorageSync('wxInfo')
         } else {
             wx.navigateTo({
-                url: '../buy/buy/buy'
+                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&address_id=' + self.data.address_id
             })
         }
         // wx.navigateTo({
@@ -161,39 +167,50 @@ Page({
         // })
     },
 
-    // 续费提醒  
-    getRenew() {
+    // 获取用户身份
+    getIdenInfo() {
         var self = this;
-        if (!wx.getStorageSync('token')) {
-            self.setData({
-                isExpire: false
-            })
-        } else {
-            buy.userServes(wx.getStorageSync('token')).then(res => {
-                console.log('获取开通的服务', res);
-                self.setData({
-                    hasBuyList: res
+        if (wx.getStorageSync('token')) {
+            infomation.idenInfo(wx.getStorageSync('token'), 1, 10000).then(res => {
+                console.log('getIdenInfo', res.data);
+                res.data.forEach(item => {
+                    // console.log(item.type);
+                    self.data.house_owner.push(item.type);
                 })
-                if (res.length == 0) {
+                console.log(self.data.house_owner);
+                if (!self.data.house_owner.includes(1)) {
+                    console.log('不存在户主身份');
                     self.setData({
-                        isExpire: false
+                        show: true,
+                        showBuy: true
                     })
-                } else {
-                    buy.renew(wx.getStorageSync('token')).then(res => {
-                        console.log('续费提示', res);
-                        if (res == 1) {
-                            self.setData({
-                                isExpire: true
+                    // 续费提醒
+                    buy.userServes(wx.getStorageSync('token')).then(res => {
+                        console.log('获取开通的服务', res);
+                        self.setData({
+                            hasBuyList: res
+                        })
+                        if (res.length > 0) {
+                            buy.renew(wx.getStorageSync('token')).then(res => {
+                                console.log('续费提示', res);
+                                if (res == 1) {
+                                    self.setData({
+                                        isExpire: true
+                                    })
+                                }
                             })
                         }
                     })
                 }
             })
-
+        } else {
+            self.setData({
+                show: true,
+                showBuy: true
+            })
         }
-
-
     },
+
 
     callPhone() {
         wx.makePhoneCall({

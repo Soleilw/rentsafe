@@ -36,14 +36,16 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        console.log(options)
+        console.log('options', options)
         var address = 'userInfo.address';
         var address_id = 'userInfo.address_id';
         var room_id = 'userInfo.room_id';
 
         this.setData({
             [address]: options.address,
-            typeString: options.typestring
+            typeString: options.typestring,
+            area_id: options.area_id,
+            addresses_id: options.address_id
         });
         // 查看身份
         if(options.typestring && options.address) {
@@ -178,6 +180,10 @@ Page({
 
     toIndex() {
         app.globalData.typestring = this.data.typeString;
+        app.globalData.area_id = this.data.area_id
+        app.globalData.address_id = this.data.addresses_id
+        console.log('app.globalData.area_id', app.globalData.area_id);
+        console.log('app.globalData.area_id', app.globalData.address_id);
         
         wx.switchTab({
             url: '/pages/personal/index/index'

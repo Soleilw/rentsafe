@@ -2,12 +2,12 @@
 
 <view class="bill-list" wx:for="{{recordList}}" wx:key="{{index}}">
   <view class="title-text">
-    <text>商品：{{item.goodsName}}</text>
-    <text>{{item.createTime}}</text>
+    <text>商品：{{item.name}}</text>
+    <text>{{item.created_at}}</text>
   </view>
   <text>
-    <text class="amount">￥{{item.goodsPrice}}</text>
-    <text class="state">{{item.orderStatus == 1 ? '交易成功' : '交易关闭'}}</text>
+    <text class="amount">￥{{item.price}}</text>
+    <text class="state">{{item.status == 2 ? '交易成功' : '交易关闭'}}</text>
    </text>
 </view>
 <view wx:if="{{recordList.length == 0}}" class="notData">暂无账单~</view>

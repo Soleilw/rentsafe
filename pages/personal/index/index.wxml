@@ -3,7 +3,7 @@
 <view>
 	<view class="box">
 		<view class="change" wx:if="{{typestring}}">
-			<view bindtap="changeUser">{{typestring}}</view>
+			<view bindtap="toRegister">{{typestring}}</view>
 		</view>
 		<view class="user" wx:if="{{wxInfo}}">
 			<image class="avator" src="{{wxInfo.avatarUrl}}" style="border:8rpx solid #fff;"></image>
@@ -15,7 +15,7 @@
 			<button size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo">立即登录</button>
 		</view>
 	</view>
-	<block>
+	<block wx:if="{{show}}">
 		<view wx:if="{{isExpire}}" class="tips">服务即将到期!</view>
 		<view wx:if="{{hasBuyList.length == 0}}" class="tips">未购买任何服务</view>
 	</block>
@@ -54,7 +54,7 @@
 	<view class="plate">
 		<view class="title">物业管理</view>
 		<view class="list">
-			<view bindtap="toBuy">
+			<view bindtap="toBuy" wx:if="{{showBuy}}">
 				<image src="/icon/buy.png" />
 				<text>购买服务</text>
 			</view>

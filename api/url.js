@@ -35,6 +35,7 @@ const url = {
     "Renew": '/product/renew', // 续费提示
     "Order": '/product/order', // 创建订单
     "Buy": '/buy/product', // 支付
+    "Orders": '/orders' // 获取服务订单列表
 };
 
 module.exports = url;

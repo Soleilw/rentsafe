@@ -19,7 +19,8 @@
 
 	<view class="content">
 		<text class="price">￥{{goodsList[navIndex].price}}</text>
-		<text class="text">({{goodsList[navIndex].detail}})</text>
+		<!-- <text class="text">({{goodsList[navIndex].detail}})</text> -->
+		<text class="text">商品有限期: {{goodsList[navIndex].time}}天</text>
 	</view>
 
   <!-- 选择需要开通的服务 -->

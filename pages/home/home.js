@@ -22,13 +22,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.getBanner();
-    // this.getDoc();
-    // this.getSelected();
     this.getAreas();
-    // this.setData({
-    //   areas_id: 0
-    // })
   },
 
   // 获取用户社区
@@ -65,7 +59,7 @@ Page({
           doc.documents(1, 100, res[0].id).then(res => {
             console.log('getSelected', res);
             for (let i = 0; i < res.data.length; i++) {
-              console.log(res.data[i].is_show);
+              console.log('is_show' ,res.data[i].is_show);
               if (res.data[i].is_show == 1) {
                 self.setData({
                   docList: res.data

@@ -1,19 +1,37 @@
 // pages/personal/buy/bill/bill.js
+var buy = require('../../../../model/personal/buy')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    recordList: []
+    recordList: [],
+    user_id: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      user_id: options.user_id
+    })
+    this.getRecordList()
   },
+
+  // 获取账单
+  getRecordList() {
+    var self = this;
+    buy.orders(self.data.user_id).then(res => {
+      console.log('getRecordList', res);
+      self.setData({
+        recordList: res
+      })
+    })
+  },
+ 
 
   /**
    * 生命周期函数--监听页面初次渲染完成

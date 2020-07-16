@@ -8,6 +8,8 @@ Page({
     data: {
         idenInfoList: [],
         wxInfo: {},
+        area_id: '',
+        address_id: '',
     },
 
     onShow() {
@@ -15,12 +17,13 @@ Page({
     },
 
     getIdenInfo() {
+        var self = this;
         if(wx.getStorageSync('token')) {
             infomation.idenInfo(wx.getStorageSync('token'), 1, 10000).then(res => {
                 console.log('getIdenInfo', res.data);
-                
+    
                 this.setData({
-                    idenInfoList: res.data
+                    idenInfoList: res.data,
                 })
             })
         }
@@ -30,7 +33,7 @@ Page({
         var self = this;
         console.log(e)
         wx.reLaunch({
-            url: '../../infomation/register/register?typestring=' + e.currentTarget.dataset.typestring + '&address=' + e.currentTarget.dataset.address
+            url: '../../infomation/register/register?typestring=' + e.currentTarget.dataset.typestring + '&address=' + e.currentTarget.dataset.address + '&area_id=' + e.currentTarget.dataset.area_id + '&address_id=' + e.currentTarget.dataset.addresses_id
         })
     },
 

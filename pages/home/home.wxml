@@ -1,6 +1,6 @@
 <view class="choose-banner" wx:if="{{areasList.length > 1}}">
 	<!-- <text></text> -->
-	<input class="input" disabled="true" placeholder="请选择所在的社区" value="当前社区:{{areas ? areas : areasList[areas_index].title}}"></input>
+	<input class="input" disabled="true" placeholder="请选择所在的社区" value="当前社区: {{areas ? areas : areasList[areas_index].title}}"></input>
 
 	<picker bindchange="areasChange" range="{{areasList}}" range-key="title" value="{{index}}" class="picker">
 		<button>切换社区</button>
