@@ -1,6 +1,8 @@
 <view class="choose-banner" wx:if="{{areasList.length > 1}}">
 	<!-- <text></text> -->
-	<input class="input" disabled="true" placeholder="请选择所在的社区" value="当前社区: {{areas ? areas : areasList[areas_index].title}}"></input>
+	<view class="area">当前社区</view>
+	<input class="input" disabled="true" placeholder="请选择所在的社区" value="{{areas ? areas : areasList[areas_index].title}}"></input>
+	<!-- <input class="input" disabled="true" placeholder="请选择所在的社区"></input> -->
 
 	<picker bindchange="areasChange" range="{{areasList}}" range-key="title" value="{{index}}" class="picker">
 		<button>切换社区</button>
@@ -28,7 +30,7 @@
 			<text>{{item.title}}</text>
 		</view>
 		<view class="tips_box" wx:if="{{classFication.length == 0}}">
-			<view class="title">暂无数据</view>
+			<view class="sel_title">暂无数据</view>
 		</view>
 	</view>
 
@@ -41,6 +43,7 @@
 	</view>
 
 	<view class="tips_box" wx:if="{{docList.length == 0}}">
+		<image class="auto_img" src="../../icon/not.png"></image>
 		<view class="title">暂无数据</view>
 	</view>
 </view>

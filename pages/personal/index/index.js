@@ -14,8 +14,8 @@ Page({
         showHouse: false, // 只有户主才显示房屋管理
         typestring: '',
         address: '',
-        area_id: '',
-        address_id: '',
+        area_id: '', 
+        address_id: '', 
         userInfo: {},
         isExpire: false, // 续费提醒
         hasBuyList: [], // 已经购买的服务

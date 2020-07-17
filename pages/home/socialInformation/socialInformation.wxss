@@ -44,13 +44,20 @@ page {
   display: flex;
   padding-top: 100rpx;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .box .content_box {
   /* margin: 0 10rpx 10rpx; */
-  width: 50%;
+  margin-bottom: 10rpx;
+  width: 49%;
   background-color: #fff;
-  /* border-radius: 20rpx; */
+  border-radius: 20rpx;
+}
+
+.box .content_box:nth-child(2n) {
+  margin-left: 10rpx;
+
 }
 
 .box .content_box .title {
@@ -65,4 +72,28 @@ page {
   width: 315rpx;
   height: 220rpx;
   margin: 20rpx 20rpx;
+}
+
+.box .cnt_box .auto_img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 300rpx;
+  margin: auto;
+  width: 150rpx;
+  height: 150rpx;
+  display: block;
+  overflow: hidden;
+}
+
+.box .cnt_box .title {
+  position: absolute;
+  top: 450rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  font-size: 26rpx;
+  padding: 20rpx;
+  color: #999;
 }
