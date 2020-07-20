@@ -80,12 +80,11 @@ infomation.idenInfo = function (token, page, limit) {
 
 
     // 获取审核列表
-    infomation.auditList = function (token, page, limit) {
+    infomation.auditList = function (token, address_id) {
         return new Promise((resolve, reject) => {
             api.get(api.baseUrl.host, api.url.Households, {
                 token: token,
-                page: page,
-                limit: limit
+                address_id: address_id
             }, function (response) {
                 if (response.msg === 'ok') {
                     var res = response.data;

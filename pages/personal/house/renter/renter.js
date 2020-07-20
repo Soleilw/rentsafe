@@ -6,17 +6,25 @@ Page({
      * 页面的初始数据
      */
     data: {
-        renterList: []
+        renterList: [],
+        detailedAddress_id: ''
     },
 
-    onLoad() {
+    onLoad(options) {
+        console.log(options);
+        
+        this.setData({
+            detailedAddress_id: options.detailedAddress_id
+        })
         this.getAuditList()
     },
-
+    
     // 获取审核列表
     getAuditList() {
         let self = this;
-        infomation.auditList(wx.getStorageSync('token'), 1, 1000).then(res => {
+        infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id).then(res => {
+            console.log('获取审核列表', res);
+            
             self.setData({
                 renterList: res.data
             })

@@ -45,7 +45,8 @@ Page({
             [address]: options.address,
             typeString: options.typestring,
             area_id: options.area_id,
-            addresses_id: options.address_id
+            addresses_id: options.address_id,
+            detailedAddress_id: options.detailedAddress_id
         });
         // 查看身份
         if(options.typestring && options.address) {
@@ -182,11 +183,13 @@ Page({
         app.globalData.typestring = this.data.typeString;
         app.globalData.area_id = this.data.area_id
         app.globalData.address_id = this.data.addresses_id
+        app.globalData.detailedAddress_id = this.data.detailedAddress_id
         console.log('app.globalData.area_id', app.globalData.area_id);
-        console.log('app.globalData.area_id', app.globalData.address_id);
+        console.log('app.globalData.address_id', app.globalData.address_id);
+        console.log('app.globalData.detailedAddress_id', app.globalData.detailedAddress_id);
         
         wx.switchTab({
-            url: '/pages/personal/index/index'
+            url: '/pages/personal/index/index' 
         })
     },
 

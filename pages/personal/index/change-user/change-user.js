@@ -10,6 +10,7 @@ Page({
         wxInfo: {},
         area_id: '',
         address_id: '',
+        detailedAddress_id: ''
     },
 
     onShow() {
@@ -21,8 +22,7 @@ Page({
         if(wx.getStorageSync('token')) {
             infomation.idenInfo(wx.getStorageSync('token'), 1, 10000).then(res => {
                 console.log('getIdenInfo', res.data);
-    
-                this.setData({
+                self.setData({
                     idenInfoList: res.data,
                 })
             })
@@ -31,9 +31,14 @@ Page({
 
     toIndex(e) {
         var self = this;
-        console.log(e)
+        console.log(e);
+        var typestring = e.currentTarget.dataset.typestring;
+        var address = e.currentTarget.dataset.address;
+        var area_id = e.currentTarget.dataset.area_id;
+        var address_id = e.currentTarget.dataset.addresses_id;
+        var detailedAddress_id = e.currentTarget.dataset.add;
         wx.reLaunch({
-            url: '../../infomation/register/register?typestring=' + e.currentTarget.dataset.typestring + '&address=' + e.currentTarget.dataset.address + '&area_id=' + e.currentTarget.dataset.area_id + '&address_id=' + e.currentTarget.dataset.addresses_id
+            url: '../../infomation/register/register?typestring=' + typestring + '&address=' + address + '&area_id=' + area_id + '&address_id=' + address_id + '&detailedAddress_id=' + detailedAddress_id
         })
     },
 

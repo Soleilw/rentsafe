@@ -87,6 +87,7 @@ App({
     openFace: false,
     typestring: null,
     area_id: null,
-    address_id: null
+    address_id: null,
+    detailedAddress_id: null
   }
 })

@@ -21,15 +21,18 @@ Page({
         hasBuyList: [], // 已经购买的服务
         showBuy: false, // 显示购买服务功能--不含有户主身份
         house_owner: [], // 用户身份列表
-        show: false
+        show: false,
+        detailedAddress_id: null
     },
 
     onLoad: function (options) {
+        
         this.setData({
             typestring: app.globalData.typestring,
             area_id: app.globalData.area_id,
             address_id: app.globalData.address_id,
-            address: options.address
+            address: options.address,
+            detailedAddress_id: app.globalData.detailedAddress_id,
         })
         this.getIdenInfo();
     },
@@ -108,6 +111,7 @@ Page({
     },
     // 去房屋管理
     toHouse() {
+        var self = this
         if (!wx.getStorageSync('token')) {
             wx.showToast({
                 icon: "none",
@@ -115,8 +119,10 @@ Page({
             });
             wx.removeStorageSync('wxInfo')
         } else {
+            console.log('房屋管理', self.data.detailedAddress_id);
+            
             wx.navigateTo({
-                url: '../house/house/house'
+                url: '../house/house/house?detailedAddress_id=' + self.data.detailedAddress_id 
             })
         }
     },
@@ -162,9 +168,7 @@ Page({
                 url: '../buy/buy/buy?area_id=' + self.data.area_id + '&address_id=' + self.data.address_id
             })
         }
-        // wx.navigateTo({
-        //     url: '../buy/buy/buy'
-        // })
+
     },
 
     // 获取用户身份
@@ -185,13 +189,13 @@ Page({
                         showBuy: true
                     })
                     // 续费提醒
-                    buy.userServes(wx.getStorageSync('token')).then(res => {
+                    buy.userServes(wx.getStorageSync('token'), self.data.address_id).then(res => {
                         console.log('获取开通的服务', res);
                         self.setData({
                             hasBuyList: res
                         })
                         if (res.length > 0) {
-                            buy.renew(wx.getStorageSync('token')).then(res => {
+                            buy.renew(wx.getStorageSync('token'), self.data.address_id).then(res => {
                                 console.log('续费提示', res);
                                 if (res == 1) {
                                     self.setData({

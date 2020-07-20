@@ -40,7 +40,7 @@ Page({
   toBill() {
     var self = this;
     wx.navigateTo({
-      url: '../bill/bill?user_id=' +  self.data.user_id
+      url: '../bill/bill?user_id=' +  self.data.user_id + '&address_id=' + self.data.address_id
     })
   },
 
@@ -98,7 +98,7 @@ Page({
             console.log(222, res);
             wx.showToast({
               icon: "none",
-              title: '取消成功'
+              title: '购买失败'
             });
           }
         })
@@ -124,7 +124,7 @@ Page({
       })
     })
   },
-
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

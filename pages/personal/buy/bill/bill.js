@@ -8,15 +8,19 @@ Page({
    */
   data: {
     recordList: [],
-    user_id: ''
+    user_id: '',
+    addresses_id: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options);
+    
     this.setData({
-      user_id: options.user_id
+      user_id: options.user_id,
+      addresses_id: options.address_id
     })
     this.getRecordList()
   },
@@ -24,7 +28,7 @@ Page({
   // 获取账单
   getRecordList() {
     var self = this;
-    buy.orders(self.data.user_id).then(res => {
+    buy.orders(self.data.user_id, self.data.addresses_id).then(res => {
       console.log('getRecordList', res);
       self.setData({
         recordList: res
