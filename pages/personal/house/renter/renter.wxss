@@ -1,65 +1,77 @@
 .box {
-    /* padding: 0 0 40rpx 40rpx; */
-    background-color: #fff;
-    font-size: 30rpx;
-  }
-  
-  .box .list {
-    padding: 20rpx 25rpx 20rpx 0;
-    border-bottom: 2rpx solid #ddd;
-    background-color: #fff;
-    color: #666;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .box .list .info-list {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .box .list .info-list view {
-    display: flex;
-    align-items: center;
-  }
-  .box .list .info-list image {
-   width:50rpx;
-   height:50rpx;
-   margin:0 10rpx;
-  }
-  
-  .box .list text {
-    width: 200rpx;
-    text-align: left;
-  }
-  
-  .box .list .relationship {
-    width: 200rpx;
-    text-align: center;
-  }
-  
-  /* 去审核 */
-  
-  button {
-    width: 150rpx;
-    height: 60rpx;
-    line-height: 60rpx;
-    text-align: center;
-    margin:0; 
-    color: #fff;
-    background-color: #2a9f93;
-    border-radius: 10rpx;
-    font-size: 30rpx;
-  }
-  
-  button::after {
-    border: none;
-  }
+  /* padding: 0 0 40rpx 40rpx; */
+  background-color: #fff;
+  font-size: 30rpx;
+}
 
-  .notData {
-    padding: 50rpx 0;
-    text-align: center;
-    font-size: 30rpx;
-  }
-  
+.box .list {
+  padding: 20rpx 25rpx 20rpx 0;
+  border-bottom: 2rpx solid #ddd;
+  background-color: #fff;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.box .list .info-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.box .list .info-list view {
+  display: flex;
+  align-items: center;
+  width: 200rpx;
+}
+
+.box .list .info-list image {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 0 10rpx;
+}
+
+.box .list .info-list .guardian {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.box .list text {
+  width: 170rpx;
+  text-align: left;
+}
+
+.box .list .relationship {
+  width: 200rpx;
+  text-align: center;
+}
+
+/* 去审核 */
+
+button {
+  width: 150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  margin: 0;
+  color: #fff;
+  background-color: #2a9f93;
+  border-radius: 10rpx;
+  font-size: 30rpx;
+}
+
+.del_btn {
+  width: 118rpx;
+}
+
+button::after {
+  border: none;
+}
+
+.notData {
+  padding: 50rpx 0;
+  text-align: center;
+  font-size: 30rpx;
+}

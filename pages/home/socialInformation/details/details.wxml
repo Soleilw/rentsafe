@@ -14,7 +14,7 @@
   <!-- 浏览量和点赞数 -->
    <view class="box">
      <view>
-      <image class="icon" src="/icon/browse.png"></image><text class='liulancount'>{{details.details_browse}}</text>
+      <image class="icon" src="/icon/browse.png"></image><text class='liulancount'>{{details.page_view}}</text>
     </view> 
   </view> 
 </view>

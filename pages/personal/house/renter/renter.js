@@ -7,24 +7,25 @@ Page({
      */
     data: {
         renterList: [],
-        detailedAddress_id: ''
+        detailedAddress_id: '',
+        // name: '秦时明月汉时关'
     },
 
     onLoad(options) {
         console.log(options);
-        
+
         this.setData({
             detailedAddress_id: options.detailedAddress_id
         })
         this.getAuditList()
     },
-    
+
     // 获取审核列表
     getAuditList() {
         let self = this;
         infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id).then(res => {
             console.log('获取审核列表', res);
-            
+
             self.setData({
                 renterList: res.data
             })
@@ -42,13 +43,15 @@ Page({
         var href = e.currentTarget.dataset.href;
 
         wx.navigateTo({
-          url: '../renterDedail/renterDedail?name=' + name + '&sex=' + sex + '&card_number=' + card_number + '&phone=' + phone + '&address=' + address + '&href=' + href,
+            url: '../renterDedail/renterDedail?name=' + name + '&sex=' + sex + '&card_number=' + card_number + '&phone=' + phone + '&address=' + address + '&href=' + href,
         })
     },
     // 审核
     toAudit(e) {
         let self = this;
         var id = e.currentTarget.dataset.id;
+        console.log('审核', id);
+
         wx.showModal({
             title: '审核提示',
             content: '是否通过该租客的申请？',
@@ -74,5 +77,36 @@ Page({
                 }
             }
         })
+    },
+
+    // 删除租客
+    delete(e) {
+        var self = this;
+        var id = e.currentTarget.dataset.id;
+        console.log('删除租客', id);
+        wx.showModal({
+            title: '提示',
+            content: '是否删除该租客',
+            success(res) {
+                if (res.confirm) {
+                    console.log('用户点击确定')
+                    infomation.delHousehold(id).then(res => {
+                        wx.showToast({
+                            icon: "none",
+                            title: '删除成功'
+                        });
+                        self.getAuditList();
+                    })
+
+                } else if (res.cancel) {
+                    console.log('用户点击取消');
+                    wx.showToast({
+                        icon: "none",
+                        title: '取消成功'
+                    });
+                }
+            }
+        })
+
     }
 })

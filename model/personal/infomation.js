@@ -78,7 +78,6 @@ infomation.idenInfo = function (token, page, limit) {
         })
     },
 
-
     // 获取审核列表
     infomation.auditList = function (token, address_id) {
         return new Promise((resolve, reject) => {
@@ -114,6 +113,20 @@ infomation.idenInfo = function (token, page, limit) {
         })
     },
 
+    // 删除租客
+    infomation.delHousehold = function (id) {
+        return new Promise((resolve, reject) => {
+            api.delete(api.baseUrl.host, api.url.DelHousehold, {
+                id: id
+            }, function (response) {
+                if (response.msg === 'ok') {
+                    var res = response.data;
+                    resolve(res);
+                } else {
+                    reject(response);
+                }
+            })
+        })
+    }
 
-
-    module.exports = infomation;
+module.exports = infomation;

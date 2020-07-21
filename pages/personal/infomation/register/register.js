@@ -20,13 +20,16 @@ Page({
         }, {
             'name': '租客',
             'type': 2
-        }, {
-            'name': '家庭成员',
-            'type': 3
-        }, {
+        }, 
+        // {
+        //     'name': '家庭成员',
+        //     'type': 3
+        // }, 
+        {
             'name': '物业',
             'type': 4
-        }],
+        }
+    ],
         typeString: '',
         disabled: false,
         showSubmit: true
@@ -49,7 +52,7 @@ Page({
             detailedAddress_id: options.detailedAddress_id
         });
         // 查看身份
-        if(options.typestring && options.address) {
+        if (options.typestring && options.address) {
             this.setData({
                 disabled: true,
                 showSubmit: false
@@ -64,53 +67,53 @@ Page({
     },
     subInfomation(e) {
         var self = this;
-            if(!self.data.userInfo.type && !self.data.userInfo.address) {
+        if (!self.data.userInfo.type && !self.data.userInfo.address) {
+            wx.showToast({
+                icon: "none",
+                title: '请填写完整信息'
+            });
+        } else {
+            if (self.data.identityList[self.data.id_card_select].name && self.data.userInfo.address) {
+                var templateId = '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM';
+                wx.requestSubscribeMessage({
+                    tmplIds: [templateId],
+                    success(res) {
+                        if (res[templateId] == 'accept') {
+                            //用户同意了订阅，允许订阅消息
+                            wx.showToast({
+                                title: '订阅成功',
+                                success() {
+                                    setTimeout(() => {
+                                        self.subInfo(e);
+                                    }, 1000);
+                                }
+                            })
+                        } else {
+                            //用户拒绝了订阅，禁用订阅消息
+                            wx.showToast({
+                                title: '订阅失败',
+                                success() {
+                                    setTimeout(() => {
+                                        self.subInfo(e);
+                                    }, 1000);
+                                }
+                            })
+                        }
+                    },
+                    fail(res) {
+                        console.log(res)
+                    },
+                    complete(res) {
+                        console.log(res)
+                    }
+                })
+            } else {
                 wx.showToast({
                     icon: "none",
                     title: '请填写完整信息'
                 });
-            } else {
-                if(self.data.identityList[self.data.id_card_select].name && self.data.userInfo.address) {
-                    var templateId = '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM';
-                    wx.requestSubscribeMessage({
-                        tmplIds: [templateId],
-                        success(res) {
-                            if (res[templateId] == 'accept') {
-                                //用户同意了订阅，允许订阅消息
-                                wx.showToast({
-                                    title: '订阅成功',
-                                    success() {
-                                        setTimeout(() => {
-                                            self.subInfo(e);
-                                        }, 1000);
-                                    }
-                                })
-                            } else {
-                                //用户拒绝了订阅，禁用订阅消息
-                                wx.showToast({
-                                    title: '订阅失败',
-                                    success() {
-                                        setTimeout(() => {
-                                            self.subInfo(e);
-                                        }, 1000);
-                                    }
-                                })
-                            }
-                        },
-                        fail(res) {
-                            console.log(res)
-                        },
-                        complete(res) {
-                            console.log(res)
-                        }
-                    })
-                } else {
-                    wx.showToast({
-                        icon: "none",
-                        title: '请填写完整信息'
-                    });
-                } 
-            }    
+            }
+        }
     },
 
     subInfo(e) {
@@ -168,12 +171,12 @@ Page({
 
 
     toChooseAddress() {
-        if(this.data.disabled == false) {
+        if (this.data.disabled == false) {
             wx.navigateTo({
                 url: '../address/address?type=' + this.data.userInfo.type
             })
         }
-       
+
         // this.setData({
         //     showSubmit: true
         // })
@@ -187,9 +190,9 @@ Page({
         console.log('app.globalData.area_id', app.globalData.area_id);
         console.log('app.globalData.address_id', app.globalData.address_id);
         console.log('app.globalData.detailedAddress_id', app.globalData.detailedAddress_id);
-        
+
         wx.switchTab({
-            url: '/pages/personal/index/index' 
+            url: '/pages/personal/index/index'
         })
     },
 

@@ -10,7 +10,7 @@ const url = {
 
     'Households': '/households', // 获取审核列表
     'CheckHousehold': '/check/household', // 审核租客
-
+    'DelHousehold': '/household', // 删除租客
 
 
 

@@ -99,6 +99,8 @@ Page({
     getPersonalInfo() {
         var self = this;
         infomation.userInfo(wx.getStorageSync('token')).then(res => {
+            console.log('getPersonalInfo', res);
+            
             if (res) {
                 self.setData({
                     userInfo: res,
@@ -115,7 +117,7 @@ Page({
 
     subInfomation(e) {
         var self = this;
-        console.log(e)
+        console.log('subInfomation', e)
         // 验证手机号
         var phone = e.detail.value.phone;
         if (!REG_PHONE.test(phone)) {
@@ -186,6 +188,13 @@ Page({
         // this.setData({
         //     showSubmit: true
         // })
+    },
+
+    saveInfo() {
+        this.setData({
+            disabled: true,
+            showSubmit: false
+        })
     },
 
     changeInfo() {
