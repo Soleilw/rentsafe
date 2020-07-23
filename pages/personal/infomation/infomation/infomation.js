@@ -47,9 +47,10 @@ Page({
             flash: 'off'
         },
         showFace: false, // 开启人脸
-        showRegister: false, // 初次注册提交
+        showRegister: false, // 初次注册提交按钮
         showSubmit: false, // 提交按钮
-        disabled: false
+        disabled: false,
+        isRegister: false // 非初次注册用户
     },
 
     onLoad(options) {
@@ -100,16 +101,18 @@ Page({
         var self = this;
         infomation.userInfo(wx.getStorageSync('token')).then(res => {
             console.log('getPersonalInfo', res);
-            
+
             if (res) {
                 self.setData({
                     userInfo: res,
                     state: res.state,
-                    disabled: true
+                    disabled: true,
+                    isRegister: true
                 })
             } else {
                 self.setData({
-                    showRegister: true
+                    showRegister: true,
+                    isRegister: false
                 })
             }
         })
@@ -120,6 +123,8 @@ Page({
         console.log('subInfomation', e)
         // 验证手机号
         var phone = e.detail.value.phone;
+        // var phone = '13212341234';
+
         if (!REG_PHONE.test(phone)) {
             wx.showToast({
                 icon: "none",
@@ -128,45 +133,57 @@ Page({
         }
         // 验证身份证
         var card_number = e.detail.value.card_number;
+        // var card_number = '460027199010101234';
+
+        console.log('card_number', card_number.length);
+
         if (!REG_ID.test(card_number)) {
             wx.showToast({
                 icon: "none",
                 title: '请输入有效的身份证号码'
             })
         }
-        var id = self.data.userInfo.id;
+        var id = self.data.userInfo.id ? self.data.userInfo.id : '';
         var name = e.detail.value.name;
         var sex = e.detail.value.sex;
         var token = wx.getStorageSync('token');
         var href = self.data.userInfo.href;
-        if (phone && card_number && name && sex && href) {
+        // var href = 'https://tu.fengniaotuangou.cn/tmp_c1f7f25fbae611e379a272755d3e6a44.jpg';
+        if (REG_PHONE.test(phone) && REG_ID.test(card_number) && name && sex && href) {
             infomation.register(id, token, name, sex, card_number, phone, href).then(res => {
-                if (self.data.userInfo) {
+                console.log('infomation.register', res);
+                console.log('self.data.userInfo', self.data.userInfo);
+                // 修改
+                if (self.data.isRegister) {
                     wx.showToast({
                         icon: "none",
                         title: '提交成功',
                         success() {
-                            setTimeout(function () {
-                                wx.navigateTo({
-                                    url: '../../index/index',
-                                })
-                                self.setData({
-                                    disabled: true
-                                })
-                            }, 2000);
-                        }
+                            self.setData({
+                                disabled: true,
+                                showSubmit: false,
+                                isRegister: true
+                            })
+                        },
                     });
+
                 } else {
+                    // 初次注册
                     wx.showToast({
                         icon: "none",
                         title: '提交成功',
-                        success() {
+                        success: function () {
                             setTimeout(function () {
-                                wx.navigateTo({
-                                    url: '../register/register',
-                                })
-                                self.setData({
-                                    disabled: true
+                                infomation.userInfo(wx.getStorageSync('token')).then(res => {
+                                    console.log('getPersonalInfo', res);
+                                    self.setData({
+                                        userInfo: res,
+                                        state: res.state,
+                                        disabled: true,
+                                        showSubmit: false,
+                                        showRegister: false,
+                                        isRegister: true
+                                    })
                                 })
                             }, 2000);
                         }
@@ -177,25 +194,25 @@ Page({
         } else {
             wx.showToast({
                 icon: "none",
-                title: '请填写完整信息'
-            });
+                title: '请补充完整信息',
+            })
         }
 
     },
 
     // 修改个人信息
     changeInfo(e) {
-        // this.setData({
-        //     showSubmit: true
-        // })
-    },
-
-    saveInfo() {
         this.setData({
-            disabled: true,
-            showSubmit: false
+            showSubmit: true
         })
     },
+
+    // saveInfo() {
+    //     this.setData({
+    //         disabled: true,
+    //         showSubmit: false
+    //     })
+    // },
 
     changeInfo() {
         this.setData({

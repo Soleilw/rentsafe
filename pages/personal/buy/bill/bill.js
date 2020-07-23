@@ -20,7 +20,7 @@ Page({
     
     this.setData({
       user_id: options.user_id,
-      addresses_id: options.address_id
+      detailedAddress_id: options.detailedAddress_id
     })
     this.getRecordList()
   },
@@ -28,7 +28,7 @@ Page({
   // 获取账单
   getRecordList() {
     var self = this;
-    buy.orders(self.data.user_id, self.data.addresses_id).then(res => {
+    buy.orders(self.data.user_id, self.data.detailedAddress_id).then(res => {
       console.log('getRecordList', res);
       self.setData({
         recordList: res

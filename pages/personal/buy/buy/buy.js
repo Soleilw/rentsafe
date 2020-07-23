@@ -1,7 +1,7 @@
 // pages/personal/buy/buy.js
 var buy = require('../../../../model/personal/buy')
 var infomation = require('../../../../model/personal/infomation')
-
+var app = getApp()
 Page({
 
   /**
@@ -19,7 +19,8 @@ Page({
     price: null,
     serviceList: [],
     serviceIndex: 0,
-    order_id: null
+    order_id: null,
+    globalShow: null
   },
 
   /**
@@ -29,7 +30,7 @@ Page({
     console.log('buy', options);
     this.setData({
       areas_id: options.area_id,
-      address_id: options.address_id
+      detailedAddress_id: options.detailedAddress_id
     })
 
     this.getUerInfo();
@@ -40,7 +41,7 @@ Page({
   toBill() {
     var self = this;
     wx.navigateTo({
-      url: '../bill/bill?user_id=' +  self.data.user_id + '&address_id=' + self.data.address_id
+      url: '../bill/bill?user_id=' + self.data.user_id + '&detailedAddress_id=' + self.data.detailedAddress_id
     })
   },
 
@@ -73,7 +74,7 @@ Page({
   purchase() {
     var self = this;
     // 创建订单
-    buy.order(self.data.user_id, self.data.areas_id, self.data.product_id, self.data.address_id, self.data.price).then(res => {
+    buy.order(self.data.user_id, self.data.areas_id, self.data.product_id, self.data.detailedAddress_id, self.data.price).then(res => {
       console.log('createOeder', res);
       self.setData({
         order_id: res
@@ -93,6 +94,11 @@ Page({
               icon: "none",
               title: '购买成功'
             });
+            setTimeout(function () {
+              wx.navigateTo({
+                url: '../../../personal/index/change-user/change-user',
+              })
+            }, 1500)
           },
           fail(res) {
             console.log(222, res);
@@ -124,7 +130,7 @@ Page({
       })
     })
   },
-  
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

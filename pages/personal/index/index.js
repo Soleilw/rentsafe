@@ -14,19 +14,20 @@ Page({
         showHouse: false, // 只有户主才显示房屋管理
         typestring: '',
         address: '',
-        area_id: '', 
-        address_id: '', 
+        area_id: '',
+        address_id: '',
         userInfo: {},
         isExpire: false, // 续费提醒
         hasBuyList: [], // 已经购买的服务
         showBuy: false, // 显示购买服务功能--只有租客身份
         house_owner: [], // 用户身份列表
-        show: false,  // 只有租客身份时显示
-        detailedAddress_id: null
+        show: false, // 只有租客身份时显示
+        detailedAddress_id: null,
+        expireTime: ''
     },
 
     onLoad: function (options) {
-        
+
         this.setData({
             typestring: app.globalData.typestring,
             area_id: app.globalData.area_id,
@@ -120,9 +121,9 @@ Page({
             wx.removeStorageSync('wxInfo')
         } else {
             console.log('房屋管理', self.data.detailedAddress_id);
-            
+
             wx.navigateTo({
-                url: '../house/house/house?detailedAddress_id=' + self.data.detailedAddress_id 
+                url: '../house/house/house?detailedAddress_id=' + self.data.detailedAddress_id
             })
         }
     },
@@ -164,7 +165,7 @@ Page({
             });
         } else {
             wx.navigateTo({
-                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&address_id=' + self.data.address_id
+                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id
             })
         }
     },
@@ -187,20 +188,35 @@ Page({
                         showBuy: true
                     })
                     // 续费提醒
-                    buy.userServes(wx.getStorageSync('token'), self.data.address_id).then(res => {
+                    buy.userServes(wx.getStorageSync('token'), self.data.detailedAddress_id).then(res => {
                         console.log('获取开通的服务', res);
                         self.setData({
                             hasBuyList: res
                         })
+                        // 购买了服务
                         if (res.length > 0) {
-                            buy.renew(wx.getStorageSync('token'), self.data.address_id).then(res => {
+                            buy.renew(wx.getStorageSync('token'), self.data.detailedAddress_id).then(res => {
                                 console.log('续费提示', res);
-                                if (res == 1) {
+                                if (res.state == 1) {
                                     self.setData({
-                                        isExpire: true
+                                        isExpire: true,
+                                        expireTime: res.expireTime
                                     })
                                 }
                             })
+                        } else {
+                            wx.showToast({
+                                icon: "none",
+                                title: '没有开通服务,无法刷脸进出,请先购买服务',
+                                duration: 3000,
+                                success() {
+                                    setTimeout(function () {
+                                        wx.navigateTo({
+                                            url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id
+                                        })
+                                    }, 3000);
+                                }
+                            });
                         }
                     })
                 }
