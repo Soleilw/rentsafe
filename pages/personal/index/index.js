@@ -15,9 +15,10 @@ Page({
         typestring: '',
         address: '',
         area_id: '',
-        address_id: '',
+        // address_id: '',
         userInfo: {},
         isExpire: false, // 续费提醒
+        isRenew: false,
         hasBuyList: [], // 已经购买的服务
         showBuy: false, // 显示购买服务功能--只有租客身份
         house_owner: [], // 用户身份列表
@@ -31,7 +32,7 @@ Page({
         this.setData({
             typestring: app.globalData.typestring,
             area_id: app.globalData.area_id,
-            address_id: app.globalData.address_id,
+            // address_id: app.globalData.address_id,
             address: options.address,
             detailedAddress_id: app.globalData.detailedAddress_id,
         })
@@ -156,7 +157,7 @@ Page({
     toBuy() {
         var self = this;
         console.log('跳转购买服务页面', self.data.area_id);
-        console.log('跳转购买服务页面', self.data.address_id);
+        console.log('跳转购买服务页面', self.data.detailedAddress_id);
 
         if (!wx.getStorageSync('token')) {
             wx.showToast({
@@ -200,6 +201,13 @@ Page({
                                 if (res.state == 1) {
                                     self.setData({
                                         isExpire: true,
+                                        isRenew: true,
+                                        expireTime: res.expireTime
+                                    })
+                                } else {
+                                    self.setData({
+                                        isExpire: true,
+                                        isRenew: false,
                                         expireTime: res.expireTime
                                     })
                                 }

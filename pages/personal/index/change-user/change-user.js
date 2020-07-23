@@ -13,13 +13,13 @@ Page({
         detailedAddress_id: ''
     },
 
-    onShow() {
+    onLoad() {
         this.getIdenInfo()
     },
 
     getIdenInfo() {
         var self = this;
-        if(wx.getStorageSync('token')) {
+        if (wx.getStorageSync('token')) {
             infomation.idenInfo(wx.getStorageSync('token'), 1, 10000).then(res => {
                 console.log('getIdenInfo', res.data);
                 self.setData({
@@ -83,4 +83,12 @@ Page({
             url: '../../infomation/infomation/infomation',
         })
     },
+
+    // 分享转发
+    onShareAppMessage: function () {
+        return {
+            title: '安域智慧安防',
+            imageUrl: "../../../../icon/cover_img.png"
+        }
+    }
 })
