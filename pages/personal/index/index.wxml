@@ -16,7 +16,9 @@
 		</view>
 	</view>
 	<block wx:if="{{show}}">
-		<view wx:if="{{isExpire}}" class="tips">服务将于{{expireTime}}到期<text wx:if="{{isRenew}}">, 请及时续费</text></view>
+		<!-- <view wx:if="{{isExpire}}" class="tips">服务将于{{expireTime}}到期<text wx:if="{{isRenew}}">, 请及时续费</text></view> -->
+		<view wx:for="{{hasBuyList}}" class="tips">{{item.name}}将于{{item.expireTime}}到期<text wx:if="{{item.state == 1 ? true : false}}">, 请及时续费</text></view>
+
 		<view wx:if="{{hasBuyList.length == 0}}" class="tips">未购买任何服务</view>
 	</block>
 	<view class="plate">
@@ -68,8 +70,6 @@
 </view>
 
 <view class="supportText">安域智慧安防提供技术支持v1.0.6</view>
-
-
 
 <!-- <view class="plate">
 	<view class="title">出租屋管理</view>

@@ -17,14 +17,13 @@ Page({
         area_id: '',
         // address_id: '',
         userInfo: {},
-        isExpire: false, // 续费提醒
-        isRenew: false,
+        // isExpire: false, // 续费提醒
+        // isRenew: false,
         hasBuyList: [], // 已经购买的服务
         showBuy: false, // 显示购买服务功能--只有租客身份
         house_owner: [], // 用户身份列表
         show: false, // 只有租客身份时显示
         detailedAddress_id: null,
-        expireTime: ''
     },
 
     onLoad: function (options) {
@@ -194,25 +193,8 @@ Page({
                         self.setData({
                             hasBuyList: res
                         })
-                        // 购买了服务
-                        if (res.length > 0) {
-                            buy.renew(wx.getStorageSync('token'), self.data.detailedAddress_id).then(res => {
-                                console.log('续费提示', res);
-                                if (res.state == 1) {
-                                    self.setData({
-                                        isExpire: true,
-                                        isRenew: true,
-                                        expireTime: res.expireTime
-                                    })
-                                } else {
-                                    self.setData({
-                                        isExpire: true,
-                                        isRenew: false,
-                                        expireTime: res.expireTime
-                                    })
-                                }
-                            })
-                        } else {
+                        // 没有购买了服务
+                        if (res.length == 0) {
                             wx.showToast({
                                 icon: "none",
                                 title: '没有开通服务,无法刷脸进出,请先购买服务',
@@ -225,7 +207,7 @@ Page({
                                     }, 3000);
                                 }
                             });
-                        }
+                        } 
                     })
                 }
             })
