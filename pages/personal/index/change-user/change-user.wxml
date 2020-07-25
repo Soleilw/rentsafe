@@ -1,11 +1,24 @@
 <view class="list">
 	<block wx:for="{{idenInfoList}}" wx:key="{{index}}">
-		<button class="iden-btn" data-typestring="{{item.typeString}}" data-address="{{item.address.address}}" data-area_id="{{item.address.area_id}}" data-addresses_id="{{item.address.address_id}}" data-add="{{item.address_id}}"  bindtap="toIndex">
+		<button wx:if="{{item.state == 1}}" class="iden-btn" disabled="true">
 			<view class="tableviewcell" >
-				<text>{{item.typeString}}/{{item.address.address}}</text>
+				<text wx:if="{{item.state == 1}}">{{item.typeString}}/{{item.address.address}}<text style="color: #ccc">(审核中)</text></text>
 				<image class="right-icon" src="/icon/right.png" />
 			</view>
 		</button>
+		<button wx:if="{{item.state == 2}}" class="iden-btn"  data-typestring="{{item.typeString}}" data-address="{{item.address.address}}" data-area_id="{{item.address.area_id}}" data-addresses_id="{{item.address.id}}" data-add="{{item.address_id}}"  bindtap="toIndex">
+			<view class="tableviewcell" >
+				<text wx:if="{{item.state == 2}}">{{item.typeString}}/{{item.address.address}}<text style="color: green">(已通过)</text></text>	
+				<image class="right-icon" src="/icon/right.png" />
+			</view>
+		</button>
+			<button wx:if="{{item.state == 3}}" class="iden-btn"  disabled="true">
+			<view class="tableviewcell" >
+				<text wx:if="{{item.state == 3}}">{{item.typeString}}/{{item.address.address}}<text style="color: red">(未通过)</text></text>
+				<image class="right-icon" src="/icon/right.png" />
+			</view>
+		</button>
+
 	</block>
 
 	<button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="new-user">注册新身份</button>

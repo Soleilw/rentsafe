@@ -88,9 +88,9 @@ page {
 
 /* 技术支持文字 */
 .supportText {
-    /* position: absolute; */
-    /* bottom: 0; */
-    /* width: 100%; */
+    position: fixed; 
+    bottom: 0;
+    width: 100%;
     line-height: 80rpx;
     text-align: center;
     font-size: 25rpx;

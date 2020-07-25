@@ -44,13 +44,13 @@ Page({
         var address_id = 'userInfo.address_id';
         var room_id = 'userInfo.room_id';
 
-        this.setData({
-            [address]: options.address,
-            typeString: options.typestring,
-            area_id: options.area_id,
-            addresses_id: options.address_id,
-            detailedAddress_id: options.detailedAddress_id
-        });
+        // this.setData({
+        //     [address]: options.address,
+        //     typeString: options.typestring,
+        //     area_id: options.area_id,
+        //     addresses_id: options.address_id,
+        //     detailedAddress_id: options.detailedAddress_id
+        // });
         // 查看身份
         if (options.typestring && options.address) {
             this.setData({
@@ -129,7 +129,7 @@ Page({
             console.log(res);
             wx.showToast({
                 icon: "none",
-                title: '提交成功',
+                title: '提交成功,等待户主审核',
                 success() {
                     setTimeout(function () {
                         wx.navigateTo({

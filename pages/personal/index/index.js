@@ -23,22 +23,24 @@ Page({
         showBuy: false, // 显示购买服务功能--只有租客身份
         house_owner: [], // 用户身份列表
         show: false, // 只有租客身份时显示
-        detailedAddress_id: null,
+        detailedAddress_id: null
     },
 
     onLoad: function (options) {
-
         this.setData({
             typestring: app.globalData.typestring,
             area_id: app.globalData.area_id,
             // address_id: app.globalData.address_id,
             address: options.address,
-            detailedAddress_id: app.globalData.detailedAddress_id,
+            detailedAddress_id: app.globalData.detailedAddress_id
         })
-        this.getIdenInfo();
     },
     onShow() {
         this.getPersonalInfo();
+        // isBuy为true时才调用this.getIdenInfo()
+        if(app.globalData.isBuy == 'true') {
+            this.getIdenInfo();
+        }
         this.setData({
             wxInfo: wx.getStorageSync('wxInfo'),
             typestring: this.data.typestring
@@ -175,41 +177,71 @@ Page({
         var self = this;
         if (wx.getStorageSync('token')) {
             infomation.idenInfo(wx.getStorageSync('token'), 1, 10000).then(res => {
-                console.log('getIdenInfo', res.data);
-                res.data.forEach(item => {
-                    // console.log(item.type);
-                    self.data.house_owner.push(item.type);
-                })
-                console.log(self.data.house_owner);
-                if (!self.data.house_owner.includes(1) && !self.data.house_owner.includes(4)) {
-                    console.log('只存在租客身份');
-                    self.setData({
-                        show: true,
-                        showBuy: true
+                if(res.data.length > 0) {
+                    console.log('getIdenInfo', res.data);
+                    res.data.forEach(item => {
+                        // console.log(item.type);
+                        self.data.house_owner.push(item.type);
                     })
-                    // 续费提醒
-                    buy.userServes(wx.getStorageSync('token'), self.data.detailedAddress_id).then(res => {
-                        console.log('获取开通的服务', res);
+                    console.log(self.data.house_owner);
+                    if (!self.data.house_owner.includes(1) && !self.data.house_owner.includes(4)) {
+                        console.log('只存在租客身份');
                         self.setData({
-                            hasBuyList: res
+                            show: true,
+                            showBuy: true
                         })
-                        // 没有购买了服务
-                        if (res.length == 0) {
-                            wx.showToast({
-                                icon: "none",
-                                title: '没有开通服务,无法刷脸进出,请先购买服务',
-                                duration: 3000,
-                                success() {
-                                    setTimeout(function () {
-                                        wx.navigateTo({
-                                            url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id
-                                        })
-                                    }, 3000);
-                                }
-                            });
-                        } 
+                        // 续费提醒
+                        buy.userServes(wx.getStorageSync('token'), self.data.detailedAddress_id).then(res => {
+                            console.log('获取开通的服务', res);
+                            self.setData({
+                                hasBuyList: res
+                            })
+                            // 没有购买了服务
+                            if (res.length == 0) {
+                                // 给用户自行选择
+                                wx.showModal({
+                                    title: '开通服务提示',
+                                    content: '您未开通服务,无法刷脸进出,请先开通服务',
+                                    cancelText: '稍后开通',
+                                    confirmText: '开通',
+                                    success: function (res) {
+                                        if (res.confirm) {
+                                            wx.navigateTo({
+                                                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id
+                                            })
+                                        } else if (res.cancel) {
+                                            wx.showToast({
+                                                icon: "none",
+                                                title: '未开通服务无法刷脸进出，可点击物业管理栏的购买服务进行服务开通',
+                                                duration: 4000,
+                                            })
+                                        }
+                                    }
+                                })
+    
+                                // wx.showToast({
+                                //     icon: "none",
+                                //     title: '没有开通服务,无法刷脸进出,请先购买服务',
+                                //     duration: 3000,
+                                //     success() {
+                                //         setTimeout(function () {
+                                //             wx.navigateTo({
+                                //                 url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id
+                                //             })
+                                //         }, 3000);
+                                //     }
+                                // });
+                            }
+                        })
+                    }
+                } else {
+                    wx.showToast({
+                        icon: "none",
+                        title: '您还未添加身份，无法使用部分功能，请先添加身份',
+                        duration: 4000,
                     })
                 }
+             
             })
         } else {
             self.setData({

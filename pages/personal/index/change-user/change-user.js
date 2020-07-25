@@ -1,5 +1,7 @@
 var user = require('../../../../model/user');
 var infomation = require('../../../../model/personal/infomation');
+var app = getApp();
+
 Page({
 
     /**
@@ -21,10 +23,18 @@ Page({
         var self = this;
         if (wx.getStorageSync('token')) {
             infomation.idenInfo(wx.getStorageSync('token'), 1, 10000).then(res => {
-                console.log('getIdenInfo', res.data);
-                self.setData({
-                    idenInfoList: res.data,
-                })
+                if(res.data.length > 0) {
+                    console.log('getIdenInfo', res.data);
+                    self.setData({
+                        idenInfoList: res.data,
+                    })
+                } else {
+                    wx.showToast({
+                        icon: "none",
+                        title: '您还未添加身份，无法使用部分功能，请先添加身份。如已添加身份，请等待户主审核通过',
+                        duration: 4000,
+                    })
+                }
             })
         }
     },
@@ -32,13 +42,12 @@ Page({
     toIndex(e) {
         var self = this;
         console.log(e);
-        var typestring = e.currentTarget.dataset.typestring;
-        var address = e.currentTarget.dataset.address;
-        var area_id = e.currentTarget.dataset.area_id;
-        var address_id = e.currentTarget.dataset.addresses_id;
-        var detailedAddress_id = e.currentTarget.dataset.add;
-        wx.reLaunch({
-            url: '../../infomation/register/register?typestring=' + typestring + '&address=' + address + '&area_id=' + area_id + '&address_id=' + address_id + '&detailedAddress_id=' + detailedAddress_id
+        app.globalData.typestring = e.currentTarget.dataset.typestring;
+        app.globalData.isBuy = 'true';
+        app.globalData.area_id =  e.currentTarget.dataset.area_id;
+        app.globalData.detailedAddress_id =  e.currentTarget.dataset.addresses_id;
+        wx.switchTab({
+            url: '/pages/personal/index/index'
         })
     },
 
