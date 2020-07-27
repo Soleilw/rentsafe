@@ -13,7 +13,8 @@
     "pages/home/socialInformation/socialInformation",
     "pages/home/socialInformation/details/details",
     "pages/personal/buy/buy/buy",
-    "pages/personal/buy/bill/bill"
+    "pages/personal/buy/bill/bill",
+    "pages/personal/house/property/property"
   ],
   "window": {
     "backgroundTextStyle": "light",

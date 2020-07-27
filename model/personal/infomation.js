@@ -79,11 +79,12 @@ infomation.idenInfo = function (token, page, limit) {
     },
 
     // 获取审核列表
-    infomation.auditList = function (token, address_id) {
+    infomation.auditList = function (token, address_id, type) {
         return new Promise((resolve, reject) => {
             api.get(api.baseUrl.host, api.url.Households, {
                 token: token,
-                address_id: address_id
+                address_id: address_id,
+                type: type
             }, function (response) {
                 if (response.msg === 'ok') {
                     var res = response.data;

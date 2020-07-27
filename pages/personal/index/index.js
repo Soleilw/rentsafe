@@ -27,6 +27,8 @@ Page({
     },
 
     onLoad: function (options) {
+        console.log('options', options);
+
         this.setData({
             typestring: app.globalData.typestring,
             area_id: app.globalData.area_id,
@@ -38,7 +40,7 @@ Page({
     onShow() {
         this.getPersonalInfo();
         // isBuy为true时才调用this.getIdenInfo()
-        if(app.globalData.isBuy == 'true') {
+        if (app.globalData.isBuy == 'true') {
             this.getIdenInfo();
         }
         this.setData({
@@ -54,13 +56,20 @@ Page({
                     url: '../index/change-user/change-user'
                 })
             }
-            // typeString为户主时才显示房屋管理
-            if (this.data.typestring == "户主") {
+            // typeString为户主/物业时才显示房屋管理
+            if (this.data.typestring == "户主" || this.data.typestring == "物业") {
                 self.setData({
                     showHouse: true
                 })
             }
         }
+    },
+    loginout() {
+        var self = this;
+        app.globalData.typestring = null;
+        wx.reLaunch({
+            url: "/pages/personal/index/change-user/change-user"
+        })
     },
 
     getUserInfo(e) {
@@ -123,9 +132,10 @@ Page({
             wx.removeStorageSync('wxInfo')
         } else {
             console.log('房屋管理', self.data.detailedAddress_id);
+            console.log('房屋管理', self.data.typestring);
 
             wx.navigateTo({
-                url: '../house/house/house?detailedAddress_id=' + self.data.detailedAddress_id
+                url: '../house/house/house?detailedAddress_id=' + self.data.detailedAddress_id + '&typestring=' + self.data.typestring
             })
         }
     },
@@ -177,13 +187,13 @@ Page({
         var self = this;
         if (wx.getStorageSync('token')) {
             infomation.idenInfo(wx.getStorageSync('token'), 1, 10000).then(res => {
-                if(res.data.length > 0) {
+                if (res.data.length > 0) {
                     console.log('getIdenInfo', res.data);
                     res.data.forEach(item => {
                         // console.log(item.type);
                         self.data.house_owner.push(item.type);
                     })
-                    console.log(self.data.house_owner);
+                    // console.log(self.data.house_owner);
                     if (!self.data.house_owner.includes(1) && !self.data.house_owner.includes(4)) {
                         console.log('只存在租客身份');
                         self.setData({
@@ -218,7 +228,7 @@ Page({
                                         }
                                     }
                                 })
-    
+
                                 // wx.showToast({
                                 //     icon: "none",
                                 //     title: '没有开通服务,无法刷脸进出,请先购买服务',
@@ -241,7 +251,7 @@ Page({
                         duration: 4000,
                     })
                 }
-             
+
             })
         } else {
             self.setData({

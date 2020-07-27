@@ -46,7 +46,7 @@
 				<image src="/icon/information.png" />
 				<text>添加身份</text>
 			</view>
-				<view bindtap="toRegister">
+				<view bindtap="loginout">
 				<image src="/icon/information.png" />
 				<text>切换身份</text>
 			</view>

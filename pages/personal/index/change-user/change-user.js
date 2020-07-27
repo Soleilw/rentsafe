@@ -12,7 +12,8 @@ Page({
         wxInfo: {},
         area_id: '',
         address_id: '',
-        detailedAddress_id: ''
+        detailedAddress_id: '',
+        user_type: ''
     },
 
     onLoad() {
@@ -46,6 +47,7 @@ Page({
         app.globalData.isBuy = 'true';
         app.globalData.area_id =  e.currentTarget.dataset.area_id;
         app.globalData.detailedAddress_id =  e.currentTarget.dataset.addresses_id;
+        
         wx.switchTab({
             url: '/pages/personal/index/index'
         })

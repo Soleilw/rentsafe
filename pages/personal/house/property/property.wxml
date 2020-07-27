@@ -1,0 +1,19 @@
+<view class="box">
+	<view wx:for="{{renterList}}" wx:key="{{index}}" class="list">
+		<view class="info-list">
+			<view data-name="{{item.snapshot.name}}" data-sex="{{item.snapshot.sex}}" data-card_number="{{item.snapshot.card_number}}" data-href="{{item.snapshot.href}}" data-address="{{item.address.address}}" data-phone="{{item.snapshot.phone}}" bindtap="renterDetail">
+				<image src="/icon/children.png"></image>
+				<text class="guardian">{{item.snapshot.name}}</text>
+				<!-- <text class="guardian">{{name}}</text> -->
+			</view>
+			<view>
+				<image src="/icon/unit.png"></image>
+				<text>{{item.room.door_number}}</text>
+			</view>
+		</view>
+		<button wx:if="{{item.state == 1}}" data-id="{{item.id}}" bindtap="toAudit">去审核</button>
+		<button wx:if="{{item.state == 2}}" disabled="true" style="color: green">已通过</button>
+		<button wx:if="{{item.state == 3}}" disabled="true" style="color: red">未通过</button>
+		<button class="del_btn" data-id="{{item.id}}" bindtap="delete" type="warn">删除</button>
+	</view>
+</view>

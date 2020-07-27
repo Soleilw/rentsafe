@@ -15,21 +15,21 @@ Page({
         },
         id_card_select: '', // 身份类型选择
         identityList: [{ // 身份类型列表
-            'name': '户主',
-            'type': 1
-        }, {
-            'name': '租客',
-            'type': 2
-        }, 
-        // {
-        //     'name': '家庭成员',
-        //     'type': 3
-        // }, 
-        {
-            'name': '物业',
-            'type': 4
-        }
-    ],
+                'name': '户主',
+                'type': 1
+            }, {
+                'name': '租客',
+                'type': 2
+            },
+            // {
+            //     'name': '家庭成员',
+            //     'type': 3
+            // }, 
+            {
+                'name': '物业',
+                'type': 4
+            }
+        ],
         typeString: '',
         disabled: false,
         showSubmit: true
@@ -127,17 +127,32 @@ Page({
         var token = wx.getStorageSync('token');
         infomation.user(token, type, address_id, address, room_id).then(res => {
             console.log(res);
-            wx.showToast({
-                icon: "none",
-                title: '提交成功,等待户主审核',
-                success() {
-                    setTimeout(function () {
-                        wx.navigateTo({
-                            url: '../../index/change-user/change-user',
-                        });
-                    }, 2000);
-                }
-            });
+            if (type == 1) {
+                wx.showToast({
+                    icon: "none",
+                    title: '提交成功,等待审核',
+                    success() {
+                        setTimeout(function () {
+                            wx.navigateTo({
+                                url: '../../index/change-user/change-user',
+                            });
+                        }, 2000);
+                    }
+                });
+            } else {
+                wx.showToast({
+                    icon: "none",
+                    title: '提交成功,等待户主审核',
+                    success() {
+                        setTimeout(function () {
+                            wx.navigateTo({
+                                url: '../../index/change-user/change-user',
+                            });
+                        }, 2000);
+                    }
+                });
+            }
+
             // self.setData({
             //     showSubmit: false
             // });
