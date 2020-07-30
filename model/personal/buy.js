@@ -90,6 +90,23 @@ buy.buy = function (token, order_id) {
     })
 }
 
+// 取消支付
+buy.cancelBuy =  function (token, order_id) {
+    return new Promise((resolve, reject) => {
+        api.post(api.baseUrl.host, api.url.CancelBuy, {
+            token: token,
+            order_id: order_id
+        }, function (response) {
+            if (response.msg === 'ok') {
+                var res = response.data
+                resolve(res);
+            } else {
+                reject(response);
+            }
+        })
+    })
+}
+
 buy.orders = function (user_id, addresses_id) {
     return new Promise((resolve, reject) => {
         api.get(api.baseUrl.host, api.url.Orders, {

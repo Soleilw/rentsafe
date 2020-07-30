@@ -102,10 +102,15 @@ Page({
           },
           fail(res) {
             console.log(222, res);
-            wx.showToast({
-              icon: "none",
-              title: '购买失败'
-            });
+            buy.cancelBuy(wx.getStorageSync('token'), self.data.order_id).then(res => {
+              console.log('取消支付', res);
+              if (res == 1) {
+                wx.showToast({
+                  icon: "none",
+                  title: '取消成功'
+                });
+              }
+            })
           }
         })
       })
