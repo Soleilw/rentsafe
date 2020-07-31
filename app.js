@@ -89,6 +89,7 @@ App({
     area_id: null,
     address_id: null,
     detailedAddress_id: null,
-    isBuy: null
+    isBuy: null,
+    showCamera: false
   }
 })

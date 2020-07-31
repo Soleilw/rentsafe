@@ -312,9 +312,53 @@ Page({
     },
     // 照相机没授权
     cameraError: function (e) {
+        var self = this;
+        self.setData({
+            showCamera: false
+        })
         console.log(e)
-        // app.showTip('相机错误')
-        this.cameraDisable(); //隐藏相机
+        // app.showTip('相机错误')
+        wx.showModal({
+            title: '摄像头授权',
+            content: '您未开启相机权限，无法上传照片，是否开启',
+            cancelText: '取消',
+            confirmText: '开启',
+            success: function (res) {
+                if (res.confirm) {
+                    wx.getSetting({
+                        success: (res) => {
+                            if (!res.authSetting['scope.camera']) {
+                                wx.authorize({
+                                    scope: 'scope.camera',
+                                    success: function () {
+                                        console.log('允许')
+                                    },
+                                    fail: function () {
+                                        console.log('拒绝')
+                                        wx.openSetting({
+                                            success: res => {
+                                                self.cameraDisable(); // 开启相机
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    })
+                } else if (res.cancel) {
+                    wx.showToast({
+                        icon: "none",
+                        title: '您未开启相机权限，无法上传照片,需要开启相机权限',
+                        duration: 4000,
+                        success: () => {
+                            self.setData({
+                                showCamera: false
+                            })
+                        }
+                    })
+                }
+            }
+        })
     },
     // 切换闪光灯状态
     flashChange: function () {
