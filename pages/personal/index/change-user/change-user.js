@@ -23,7 +23,7 @@ Page({
             showCamera: app.globalData.showCamera
         })
         wx.getSetting({
-            success (res) {
+            success: (res) => {
                 console.log(1, res);
                 if (res.authSetting['scope.camera'] == false) {
                     wx.showModal({
@@ -31,12 +31,13 @@ Page({
                         content: '您未开启相机权限，无法上传照片，是否开启',
                         cancelText: '取消',
                         confirmText: '开启',
-                        success: function (res) {
-                            console.log(2, res);
+                        success: (res) => {
+                            console.log(2, res);    
+                            
                             if (res.confirm) {
                                 wx.openSetting({
                                     success: res => {
-                                        self.cameraDisable(); // 开启相机
+                                        this.cameraDisable(); // 开启相机
                                     }
                                 })
 

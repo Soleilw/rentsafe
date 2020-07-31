@@ -130,7 +130,7 @@ Page({
             if (type == 1) {
                 wx.showToast({
                     icon: "none",
-                    title: '提交成功,等待审核',
+                    title: '提交成功,请等待审核',
                     success() {
                         setTimeout(function () {
                             wx.navigateTo({
@@ -142,7 +142,7 @@ Page({
             } else {
                 wx.showToast({
                     icon: "none",
-                    title: '提交成功,等待户主审核',
+                    title: '提交成功,请等待户主审核',
                     success() {
                         setTimeout(function () {
                             wx.navigateTo({
