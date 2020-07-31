@@ -18,14 +18,15 @@ Page({
     },
 
     onLoad() {
+        var self = this;
         this.getIdenInfo();
         this.setData({
             showCamera: app.globalData.showCamera
         })
         wx.getSetting({
-            success (res) {
+            success(res) {
                 console.log(1, res);
-                if (res.authSetting['scope.camera'] == false) {
+                if (res.authSetting && res.authSetting['scope.camera'] == false) {
                     wx.showModal({
                         title: '摄像头授权',
                         content: '您未开启相机权限，无法上传照片，是否开启',
@@ -36,10 +37,10 @@ Page({
                             if (res.confirm) {
                                 wx.openSetting({
                                     success: res => {
-                                        this.cameraDisable(); // 开启相机
+                                        self.cameraDisable(); // 开启相机
                                     }
                                 })
-                               
+
                             } else if (res.cancel) {
                                 wx.showToast({
                                     icon: "none",
@@ -49,15 +50,14 @@ Page({
                             }
                         }
                     })
-                    
                 }
-
             }
-          })
-          
+        })
+
     },
-     // 调用相机
-     cameraDisable() {
+
+    // 调用相机
+    cameraDisable() {
         let self = this;
         self.showCamera = !self.showCamera;
         self.setData({
@@ -69,7 +69,7 @@ Page({
         var self = this;
         if (wx.getStorageSync('token')) {
             infomation.idenInfo(wx.getStorageSync('token'), 1, 10000).then(res => {
-                if(res.data.length > 0) {
+                if (res.data.length > 0) {
                     console.log('getIdenInfo', res.data);
                     self.setData({
                         idenInfoList: res.data,
@@ -95,9 +95,9 @@ Page({
         console.log(e);
         app.globalData.typestring = e.currentTarget.dataset.typestring;
         app.globalData.isBuy = 'true';
-        app.globalData.area_id =  e.currentTarget.dataset.area_id;
-        app.globalData.detailedAddress_id =  e.currentTarget.dataset.addresses_id;
-        
+        app.globalData.area_id = e.currentTarget.dataset.area_id;
+        app.globalData.detailedAddress_id = e.currentTarget.dataset.addresses_id;
+
         wx.switchTab({
             url: '/pages/personal/index/index'
         })
