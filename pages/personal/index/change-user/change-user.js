@@ -18,15 +18,14 @@ Page({
     },
 
     onLoad() {
-        var self = this;
         this.getIdenInfo();
         this.setData({
             showCamera: app.globalData.showCamera
         })
         wx.getSetting({
-            success(res) {
+            success (res) {
                 console.log(1, res);
-                if (res.authSetting && res.authSetting['scope.camera'] == false) {
+                if (res.authSetting['scope.camera'] == false) {
                     wx.showModal({
                         title: '摄像头授权',
                         content: '您未开启相机权限，无法上传照片，是否开启',
