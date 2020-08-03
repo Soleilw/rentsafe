@@ -65,7 +65,7 @@ Page({
         console.log(this.data.showSubmit)
 
     },
-    subInfomation(e) {
+    presentInfomation(e) {
         var self = this;
         if (!self.data.userInfo.type && !self.data.userInfo.address) {
             wx.showToast({

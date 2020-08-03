@@ -1,4 +1,4 @@
-<form bindsubmit="subInfomation">
+<form bindsubmit="presentInfomation">
 	<view class="form">
 		<!-- 身份类型 -->
 		<view class="form-item">
