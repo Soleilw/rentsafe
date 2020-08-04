@@ -23,7 +23,7 @@ Page({
     // 获取审核列表
     getAuditList() {
         let self = this;
-        infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 4).then(res => {
+        infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 4).then(res => {
             console.log('获取审核列表', res);
 
             self.setData({

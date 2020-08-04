@@ -79,12 +79,13 @@ infomation.idenInfo = function (token, page, limit) {
     },
 
     // 获取审核列表
-    infomation.auditList = function (token, address_id, type) {
+    infomation.auditList = function (token, address_id, type1, type2) {
         return new Promise((resolve, reject) => {
             api.get(api.baseUrl.host, api.url.Households, {
                 token: token,
                 address_id: address_id,
-                type: type
+                type1: type1,
+                type2: type2
             }, function (response) {
                 if (response.msg === 'ok') {
                     var res = response.data;
@@ -97,12 +98,13 @@ infomation.idenInfo = function (token, page, limit) {
     },
 
     // 审核租客
-    infomation.audit = function (token, id, state) {
+    infomation.audit = function (token, id, state, type) {
         return new Promise((resolve, reject) => {
             api.get(api.baseUrl.host, api.url.CheckHousehold, {
                 token: token,
                 id: id,
-                state: state
+                state: state,
+                type: type
             }, function (response) {
                 if (response.msg === 'ok') {
                     var res = response.data;

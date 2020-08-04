@@ -36,6 +36,8 @@ Page({
             address: options.address,
             detailedAddress_id: app.globalData.detailedAddress_id
         })
+        console.log(this.data.typestring);
+        
     },
     onShow() {
         this.getPersonalInfo();

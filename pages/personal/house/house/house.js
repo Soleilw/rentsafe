@@ -20,7 +20,7 @@ Page({
     toManage() {
         var self = this;
         wx.navigateTo({
-            url: '../renter/renter?detailedAddress_id=' + self.data.detailedAddress_id
+            url: '../renter/renter?detailedAddress_id=' + self.data.detailedAddress_id + '&typestring=' + self.data.typestring
         })
     },
     // 物业审核

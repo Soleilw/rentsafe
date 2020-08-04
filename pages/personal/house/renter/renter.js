@@ -8,6 +8,7 @@ Page({
     data: {
         renterList: [],
         detailedAddress_id: '',
+        typestring: ''
         // name: '秦时明月汉时关'
     },
 
@@ -15,7 +16,8 @@ Page({
         console.log(options);
 
         this.setData({
-            detailedAddress_id: options.detailedAddress_id
+            detailedAddress_id: options.detailedAddress_id,
+            typestring: options.typestring
         })
         this.getAuditList()
     },
@@ -23,13 +25,22 @@ Page({
     // 获取审核列表
     getAuditList() {
         let self = this;
-        infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 2).then(res => {
-            console.log('获取审核列表', res);
-
-            self.setData({
-                renterList: res.data
+        if (self.data.typestring == '户主') {
+            infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 2).then(res => {
+                console.log('获取审核列表', res);
+                self.setData({
+                    renterList: res.data
+                })
             })
-        })
+        } else if (self.data.typestring == '物业') {
+            infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 2).then(res => {
+                console.log('获取审核列表', res);
+                self.setData({
+                    renterList: res.data
+                })
+            })
+        }
+        
     },
 
     // 查看租客详情
@@ -58,23 +69,44 @@ Page({
             cancelText: '不通过',
             confirmText: '通过',
             success: function (res) {
-                if (res.confirm) {
-                    infomation.audit(wx.getStorageSync('token'), id, 2).then(res => {
-                        wx.showToast({
-                            icon: "none",
-                            title: '提交成功'
+                if (self.data.typestring == '户主') {
+                    if (res.confirm) {
+                        infomation.audit(wx.getStorageSync('token'), id, 2, 1).then(res => {
+                            wx.showToast({
+                                icon: "none",
+                                title: '提交成功'
+                            })
+                            self.getAuditList();
                         })
-                        self.getAuditList();
-                    })
-                } else if (res.cancel) {
-                    infomation.audit(wx.getStorageSync('token'), id, 3).then(res => {
-                        wx.showToast({
-                            icon: "none",
-                            title: '提交成功'
+                    } else if (res.cancel) {
+                        infomation.audit(wx.getStorageSync('token'), id, 3, 1).then(res => {
+                            wx.showToast({
+                                icon: "none",
+                                title: '提交成功'
+                            })
+                            self.getAuditList();
                         })
-                        self.getAuditList();
-                    })
+                    }
+                } else if (self.data.typestring == '物业') {
+                    if (res.confirm) {
+                        infomation.audit(wx.getStorageSync('token'), id, 2, 4).then(res => {
+                            wx.showToast({
+                                icon: "none",
+                                title: '提交成功'
+                            })
+                            self.getAuditList();
+                        })
+                    } else if (res.cancel) {
+                        infomation.audit(wx.getStorageSync('token'), id, 3, 4).then(res => {
+                            wx.showToast({
+                                icon: "none",
+                                title: '提交成功'
+                            })
+                            self.getAuditList();
+                        })
+                    }
                 }
+                
             }
         })
     },
