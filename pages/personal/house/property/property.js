@@ -59,7 +59,7 @@ Page({
             confirmText: '通过',
             success: function (res) {
                 if (res.confirm) {
-                    infomation.audit(wx.getStorageSync('token'), id, 2).then(res => {
+                    infomation.audit(wx.getStorageSync('token'), id, 2, 1).then(res => {
                         wx.showToast({
                             icon: "none",
                             title: '提交成功'
@@ -67,7 +67,7 @@ Page({
                         self.getAuditList();
                     })
                 } else if (res.cancel) {
-                    infomation.audit(wx.getStorageSync('token'), id, 3).then(res => {
+                    infomation.audit(wx.getStorageSync('token'), id, 3, 1).then(res => {
                         wx.showToast({
                             icon: "none",
                             title: '提交成功'

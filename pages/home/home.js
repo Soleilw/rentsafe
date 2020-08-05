@@ -37,13 +37,13 @@ Page({
       // 用户登录了
       areasId.userAreas(wx.getStorageSync('token')).then(res => {
         console.log('getAreas', res);
-        self.setData({
-          areasList: res,
-          areas: res[0].title,
-          areas_id: res[0].id
-        })
         // 该用户存在社区
         if (res.length > 0) {
+          self.setData({
+            areasList: res,
+            areas: res[0].title,
+            areas_id: res[0].id
+          })
           banner.banners(1, 100, res[0].id).then(res => {
             console.log('banner', res.data);
             self.setData({

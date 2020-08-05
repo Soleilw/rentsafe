@@ -32,7 +32,8 @@ Page({
         ],
         typeString: '',
         disabled: false,
-        showSubmit: true
+        showSubmit: true,
+        isSucceed: true
     },
 
     /**
@@ -65,8 +66,92 @@ Page({
         console.log(this.data.showSubmit)
 
     },
+    // 查看授权信息
+    checkAuth() {
+        var self = this;
+        wx.getSetting({
+            withSubscriptions: true,
+            success: (res) => {
+                console.log(1, res);
+                if (res.subscriptionsSetting.mainSwitch) {
+                    // 用户点击了总是保持选择的状态
+                    if (res.subscriptionsSetting.itemSettings) {
+                        var modelCode = JSON.stringify(res.subscriptionsSetting.itemSettings)
+                        var acceptModelCode = JSON.stringify({
+                            '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM': "accept"
+                        })
+                        var rejectModelCode = JSON.stringify({
+                            '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM': "reject"
+                        })
+                        if (modelCode == acceptModelCode) {
+                            wx.showToast({
+                                title: '您已授权接收审核结果通知的订阅消息',
+                                icon: 'none',
+                                duration: 4000,
+                                success: function () {
+                                    setTimeout(function () {
+                                        wx.reLaunch({
+                                            url: "/pages/personal/index/change-user/change-user"
+                                        })
+                                    }, 5000)
+                                }
+                            })
+                        }
+                        if (modelCode == rejectModelCode) {
+                            wx.showToast({
+                                title: '您已拒绝接收审核结果通知的订阅消息,请在小程序右上角的三个点，进入设置进行接收授权',
+                                icon: 'none',
+                                duration: 4000,
+
+                                success: function () {
+                                    setTimeout(function () {
+                                        wx.reLaunch({
+                                            url: "/pages/personal/index/change-user/change-user"
+                                        })
+                                    }, 5000)
+                                }
+                            })
+                        }
+                    } else {
+                        self.setData({
+                            isSucceed: false
+                        })
+                    }
+                } else {
+                    wx.showModal({
+                        title: '授权订阅消息',
+                        content: '您未打开设置中的订阅消息开关,请在小程序右上角的三个点，进入设置进行开启',
+                        cancelText: '取消',
+                        confirmText: '开启',
+                        success: (res) => {
+                            console.log(2, res);
+                            if (res.confirm) {
+                                wx.openSetting({
+                                    withSubscriptions: true
+                                })
+                            } else if (res.cancel) {
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '您未打开设置中的订阅消息开关,请在小程序右上角的三个点，进入设置进行开启',
+                                    duration: 4000,
+                                })
+                            }
+                        }
+                    })
+                }
+            }
+        })
+    },
+
     presentInfomation(e) {
         var self = this;
+        console.log('presentInfomation', e);
+        var type = self.data.userInfo.type;
+        // var address = e.detail.value.address;
+        var address = self.data.userInfo.address;
+        var address_id = self.data.userInfo.address_id;
+        var room_id = self.data.userInfo.room_id ? self.data.userInfo.room_id : 0;
+        var token = wx.getStorageSync('token');
         if (!self.data.userInfo.type && !self.data.userInfo.address) {
             wx.showToast({
                 icon: "none",
@@ -74,37 +159,28 @@ Page({
             });
         } else {
             if (self.data.identityList[self.data.id_card_select].name && self.data.userInfo.address) {
-                var templateId = '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM';
-                wx.requestSubscribeMessage({
-                    tmplIds: [templateId],
-                    success(res) {
-                        if (res[templateId] == 'accept') {
-                            //用户同意了订阅，允许订阅消息
-                            wx.showToast({
-                                title: '订阅成功',
-                                success() {
-                                    setTimeout(() => {
-                                        self.subInfo(e);
-                                    }, 1000);
-                                }
-                            })
-                        } else {
-                            //用户拒绝了订阅，禁用订阅消息
-                            wx.showToast({
-                                title: '订阅失败',
-                                success() {
-                                    setTimeout(() => {
-                                        self.subInfo(e);
-                                    }, 1000);
-                                }
-                            })
-                        }
-                    },
-                    fail(res) {
-                        console.log(res)
-                    },
-                    complete(res) {
-                        console.log(res)
+                infomation.user(token, type, address_id, address, room_id).then(res => {
+                    console.log(res);
+                    if (type == 1) {
+                        wx.showToast({
+                            icon: "none",
+                            title: '提交成功,请等待审核',
+                            success() {
+                                setTimeout(function () {
+                                    self.checkAuth()
+                                }, 2000);
+                            }
+                        });
+                    } else {
+                        wx.showToast({
+                            icon: "none",
+                            title: '提交成功,请等待户主审核',
+                            success() {
+                                setTimeout(function () {
+                                    self.checkAuth()
+                                }, 2000);
+                            }
+                        });
                     }
                 })
             } else {
@@ -118,44 +194,44 @@ Page({
 
     subInfo(e) {
         var self = this;
-        console.log(e)
-
-        var type = self.data.userInfo.type;
-        var address = e.detail.value.address;
-        var address_id = self.data.userInfo.address_id;
-        var room_id = self.data.userInfo.room_id ? self.data.userInfo.room_id : 0;
-        var token = wx.getStorageSync('token');
-        infomation.user(token, type, address_id, address, room_id).then(res => {
-            console.log(res);
-            if (type == 1) {
-                wx.showToast({
-                    icon: "none",
-                    title: '提交成功,请等待审核',
-                    success() {
-                        setTimeout(function () {
-                            wx.navigateTo({
-                                url: '../../index/change-user/change-user',
-                            });
-                        }, 2000);
-                    }
-                });
-            } else {
-                wx.showToast({
-                    icon: "none",
-                    title: '提交成功,请等待户主审核',
-                    success() {
-                        setTimeout(function () {
-                            wx.navigateTo({
-                                url: '../../index/change-user/change-user',
-                            });
-                        }, 2000);
-                    }
-                });
+        console.log('subInfo', e);
+        var templateId = '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM';
+        wx.requestSubscribeMessage({
+            tmplIds: [templateId],
+            success(res) {
+                if (res[templateId] == 'accept') {
+                    //用户同意了订阅，允许订阅消息
+                    wx.showToast({
+                        title: '订阅成功',
+                        success() {
+                            setTimeout(() => {
+                                wx.reLaunch({
+                                    url: "/pages/personal/index/change-user/change-user"
+                                })
+                            }, 1000);
+                        }
+                    })
+                } else {
+                    //用户拒绝了订阅，禁用订阅消息
+                    wx.showToast({
+                        title: '订阅失败',
+                        icon: 'none',
+                        success() {
+                            setTimeout(() => {
+                                wx.reLaunch({
+                                    url: "/pages/personal/index/change-user/change-user"
+                                })
+                            }, 1000);
+                        }
+                    })
+                }
+            },
+            fail(res) {
+                console.log(res)
+            },
+            complete(res) {
+                console.log(res)
             }
-
-            // self.setData({
-            //     showSubmit: false
-            // });
         })
     },
 

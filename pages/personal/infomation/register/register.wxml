@@ -28,7 +28,8 @@
 		<button class="submit" form-type='submit'>提交</button>
 	</view> -->
 	<view class="btn" wx:if="{{showSubmit}}">
-		<button class="submit" form-type='submit'>提交</button>
+		<button class="submit" form-type='submit' wx:if="{{isSucceed}}">提交</button>
+		<button class="submit" bindtap="subInfo" wx:else>订阅通知信息</button>
 	</view>
 
 	<view class="btn" wx:else>

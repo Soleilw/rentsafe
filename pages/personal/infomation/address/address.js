@@ -41,7 +41,7 @@ Page({
             type: options.type
 
         })
-        if (options.type === "1") {
+        if (options.type === "1" || options.type === '4') {
             this.setData({
                 showRoom: false
             })
@@ -193,7 +193,7 @@ Page({
             showForm: true,
             address_id: e.currentTarget.dataset.id
         });
-        if(self.data.type == 1) {
+        if (self.data.type == 1) {
             self.setData({
                 all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail
             })
@@ -222,7 +222,7 @@ Page({
             is_room: e.detail.value,
             room_id: self.data.roomList[e.detail.value].id
         })
-        if(self.data.roomList[e.detail.value].door_number) {
+        if (self.data.roomList[e.detail.value].door_number) {
             self.setData({
                 all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail + self.data.roomList[self.data.is_room].door_number
             })
