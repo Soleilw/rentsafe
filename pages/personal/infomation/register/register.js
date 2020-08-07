@@ -33,7 +33,8 @@ Page({
         typeString: '',
         disabled: false,
         showSubmit: true,
-        isSucceed: true
+        isSucceed: true,
+        disabled: false
     },
 
     /**
@@ -162,25 +163,47 @@ Page({
                 infomation.user(token, type, address_id, address, room_id).then(res => {
                     console.log(res);
                     if (type == 1) {
-                        wx.showToast({
-                            icon: "none",
-                            title: '提交成功,请等待审核',
-                            success() {
-                                setTimeout(function () {
-                                    self.checkAuth()
-                                }, 2000);
+                        self.setData({
+                            disabled: true
+                        })
+                        wx.showLoading({
+                            title: '提交中',
+                            icon: "loading",
+                            success: () => {
+                                wx.hideLoading();
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '提交成功,请等待审核',
+                                    success() {
+                                        setTimeout(function () {
+                                            self.checkAuth();
+                                        }, 1000);
+                                    }
+                                });
                             }
-                        });
+                        })
+
                     } else {
-                        wx.showToast({
-                            icon: "none",
-                            title: '提交成功,请等待户主审核',
-                            success() {
-                                setTimeout(function () {
-                                    self.checkAuth()
-                                }, 2000);
+                        self.setData({
+                            disabled: true
+                        })
+                        wx.showLoading({
+                            title: '提交中',
+                            icon: "loading",
+                            success: () => {
+                                wx.hideLoading();
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '提交成功,请等待户主审核',
+                                    success() {
+                                        setTimeout(function () {
+                                            self.checkAuth();
+                                        }, 1000);
+                                    }
+                                });
                             }
-                        });
+                        })
+
                     }
                 })
             } else {

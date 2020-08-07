@@ -11,7 +11,7 @@ page {
 
 .tableviewcell {
     position: relative;
-    
+
     /* padding: 25rpx 25rpx 25rpx 0; */
     border-bottom: 2rpx solid #dcdcdc;
     /* background-color: #fff; */
@@ -20,6 +20,15 @@ page {
     align-items: center;
     justify-content: space-between;
     font-size: 35rpx;
+}
+
+.tableviewcell .adress {
+    width: 90%;
+    font-size: 28rpx;
+    margin-left: 14rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .tableviewcell .left-icon {
@@ -36,11 +45,11 @@ page {
 
 /*text*/
 
-.tableviewcell text {
+/* .tableviewcell text {
     width: 580rpx;
     font-size: 30rpx;
     margin-left: 14rpx;
-}
+} */
 
 .new-user {
     height: 80rpx;
