@@ -1,5 +1,5 @@
 const REG_PHONE = /^1[3-9]\d{9}$/;
-const REG_ID = /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+// const REG_ID = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
 const qiniuUploader = require("../../../../utils/qiniu");
 var infomation = require('../../../../model/personal/infomation');
 
@@ -117,14 +117,57 @@ Page({
             }
         })
     },
+    reg(idCard) {
+        var regIdCard =
+            /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
+        if (regIdCard.test(idCard)) {
+            if (idCard.length == 18) {
+                var idCardWi = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10,
+                    5, 8, 4, 2);
+                var idCardY = new Array(1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2);
+                var idCardWiSum = 0;
+                for (var i = 0; i < 17; i++) {
+                    idCardWiSum += idCard.substring(i, i + 1) * idCardWi[i];
+                }
+                var idCardMod = idCardWiSum % 11;
+                var idCardLast = idCard.substring(17);
+                if (idCardMod == 2) {
+                    if (idCardLast == "X" || idCardLast == "x") {
+                        return true;
+                    } else {
+                        wx.showToast({
+                            icon: "none",
+                            title: '身份证号码错误！'
+                        })
+                        return false;
+                    }
+                } else {
+                    if (idCardLast == idCardY[idCardMod]) {
+                        return true;
+                    } else {
+                        wx.showToast({
+                            icon: "none",
+                            title: '身份证号码错误！'
+                        })
+                        return false;
+                    }
+                }
+            } else {
+                return true;
+            }
+        } else {
+            wx.showToast({
+                icon: "none",
+                title: '请输入有效的身份证号码'
+            })
+        }
+    },
 
     subInfomation(e) {
         var self = this;
         console.log('subInfomation', e)
         // 验证手机号
         var phone = e.detail.value.phone;
-        // var phone = '13212341234';
-
         if (!REG_PHONE.test(phone)) {
             wx.showToast({
                 icon: "none",
@@ -133,11 +176,7 @@ Page({
         }
         // 验证身份证
         var card_number = e.detail.value.card_number;
-        // var card_number = '460027199010101234';
-
-        console.log('card_number', card_number.length);
-
-        if (!REG_ID.test(card_number)) {
+        if (!self.reg(card_number)) {
             wx.showToast({
                 icon: "none",
                 title: '请输入有效的身份证号码'
@@ -148,10 +187,8 @@ Page({
         var sex = e.detail.value.sex;
         var token = wx.getStorageSync('token');
         var href = self.data.userInfo.href;
-        // var href = 'https://tu.fengniaotuangou.cn/tmp_c1f7f25fbae611e379a272755d3e6a44.jpg';
-        if (REG_PHONE.test(phone) && REG_ID.test(card_number) && name && sex && href) {
+        if (REG_PHONE.test(phone) && self.reg(card_number) && name && sex && href) {
             infomation.register(id, token, name, sex, card_number, phone, href).then(res => {
-                console.log('infomation.register', res);
                 console.log('self.data.userInfo', self.data.userInfo);
                 // 修改
                 if (self.data.isRegister) {
@@ -230,7 +267,7 @@ Page({
     // 验证身份证号
     regIdentity(e) {
         var self = this;
-        if (!REG_ID.test(e.detail.value)) {
+        if (!self.reg(e.detail.value)) {
             wx.showToast({
                 icon: "none",
                 title: '请输入有效的身份证号码',

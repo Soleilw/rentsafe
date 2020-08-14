@@ -153,8 +153,8 @@ Page({
         } else {
             infomation.userInfo(wx.getStorageSync('token')).then(res => {
                 if (res) {
-                    wx.navigateTo({
-                        url: '../index/change-user/change-user',
+                    wx.reLaunch({
+                        url: "/pages/personal/index/change-user/change-user"
                     })
                 } else {
                     wx.showToast({
