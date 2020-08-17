@@ -1,0 +1,7 @@
+<!--pages/personal/house/setting/setting.wxml-->
+<view class="weui-cell weui-cell_switch">
+	<view class="weui-cell__bd">自动播放</view>
+	<view class="weui-cell__ft">
+		<switch checked="{{autoplay}}" bindchange="openDoor" />
+	</view>
+</view>

@@ -1,0 +1,77 @@
+<form bindsubmit="subInfomations">
+	<view class="form">
+		<!-- 真实姓名 -->
+		<view class="form-item">
+			<image class="left-icon" src="/icon/my1.png" />
+			<text>姓名</text>
+			<input class="input" type="text" maxlength='10' placeholder='请输入' bindfocus="changeInfo" name="name" value='{{userInfo.name}}' disabled="{{disabled}}"></input>
+		</view>
+		<!-- 性别 -->
+		<view class="form-item">
+			<image class="left-icon" src="/icon/sex1.png" />
+			<text>性别</text>
+			<radio-group name="sex" class="sex-box" bindtap="changeInfo">
+				<radio value="1" checked="{{userInfo.sex== 1?'true':''}}" disabled="{{disabled}}" />男
+				<radio value="2" checked="{{userInfo.sex== 2?'true':''}}" disabled="{{disabled}}" />女
+			</radio-group>
+		</view>
+		<!-- 身份证号 -->
+		<view class="form-item" wx:if="{{showFace}}">
+			<image class="left-icon" src="/icon/ID.png" />
+			<text>身份证号</text>
+			<input class="input" disabled="{{disabled}}" type="text" maxlength='18' placeholder='请输入' bindblur="regIdentity" bindfocus="changeInfo" name="card_number" value='{{userInfo.card_number}}'></input>
+		</view>
+		<!-- 人脸上传 -->
+		<block wx:if="{{showFace}}">
+			<view class="form-item" style="border:none;justify-content: flex-start;">
+				<image class="left-icon" src="/icon/recognition.png"></image>
+				<text style="width:500rpx;" disabled="{{disabled}}">大头照(点击图片更换)</text>
+			</view>
+			<view class="portrait-box">
+				<view data-type="1" bindtap='cameraDisable'>
+					<image mode="aspectFill" src="{{userInfo.href}}"></image>
+					<image class="image" wx:if="{{!userInfo.href}}" mode="aspectFill" src="/icon/head.png"></image>
+				</view>
+			</view>
+		</block>
+	</view>
+
+	<!-- <block wx:if="{{showRegister}}">
+		<view class="btn">
+			<button class="submit" form-type='submit'>提交信息并下一步</button>
+		</view>
+	</block> -->
+	<block>
+		<view class="btn">
+			<!-- <button class="submit" type="primary" form-type='submit' bindtap="saveInfo">保存信息</button> -->
+			<button class="submit" type="primary" form-type='submit' wx:if="{{isSucceed}}" disabled="{{disabled}}">提交</button>
+			<button class="submit" bindtap="subInfo" wx:else>订阅通知信息</button>
+		</view>
+		<!-- <view class="btn" wx:else>
+			<button class="submit" type="primary" bindtap="changeInfo">修改信息</button>
+			<button class="submit" type="primary" form-type='submit'>提交</button>
+		</view> -->
+	</block>
+
+</form>
+
+<!-- 相机 -->
+<camera wx:if="{{showCamera}}" device-position="{{cameraConfig.position}}" flash="{{cameraConfig.flash}}" bindstop="cameraStop" binderror="cameraError" class="cameraBox">
+	<cover-view class="viewBox">
+		<cover-view style='background-color: #fff;flex:1;'></cover-view>
+		<cover-view class="content">
+			<cover-image mode='widthFix' class="faceImg" src="/icon/face.png" />
+			<cover-view class="circle"></cover-view>
+		</cover-view>
+		<cover-view style='background-color: #fff;flex:1;'></cover-view>
+	</cover-view>
+
+	<cover-view class="cameraTab">
+		<cover-image class="tabImg" src="/icon/{{cameraConfig.flash}}.png" bindtap='flashChange'></cover-image>
+		<cover-image class="tabImg" src="/icon/switch.png" bindtap='positionChange'></cover-image>
+		<cover-view bindtap='cameraDisable'>取消</cover-view>
+	</cover-view>
+	<cover-view class="photographBtn" bindtap='takePhoto'>
+		<cover-image class="cameraImg" src="/icon/camera.png"></cover-image>
+	</cover-view>
+</camera>

@@ -20,11 +20,10 @@ buy.buys = function (page, limit) {
 }
 
 // 获取开通的服务
-buy.userServes = function (token, addresses_id) {
+buy.userServes = function (token) {
     return new Promise((resolve, reject) => {
         api.get(api.baseUrl.host, api.url.UserServes, {
             token: token,
-            addresses_id: addresses_id
         }, function (response) {
             if (response.msg === 'ok') {
                 var res = response.data
@@ -107,11 +106,10 @@ buy.cancelBuy =  function (token, order_id) {
     })
 }
 
-buy.orders = function (user_id, addresses_id) {
+buy.orders = function (user_id) {
     return new Promise((resolve, reject) => {
         api.get(api.baseUrl.host, api.url.Orders, {
             user_id: user_id,
-            addresses_id
         }, function (response) {
             if (response.msg === 'ok') {
                 var res = response.data

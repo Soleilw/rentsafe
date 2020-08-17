@@ -32,6 +32,10 @@
 				<image src="/icon/unit.png" />
 				<text>房屋管理</text>
 			</view>
+			<view bindtap="tochildren" wx:if="{{!showHouse}}">
+				<image src="/icon/family.png" />
+				<text>绑定孩子</text>
+			</view>
 			<view bindtap="callPhone">
 				<image src="/icon/alert.png" />
 				<text>一键报警</text>
@@ -46,9 +50,23 @@
 				<image src="/icon/information.png" />
 				<text>添加身份</text>
 			</view>
-				<view bindtap="loginout">
+			<view bindtap="loginout">
 				<image src="/icon/information.png" />
 				<text>切换身份</text>
+			</view>
+			<picker bindchange="toOpenDoor" range="{{doorList}}" range-key="title" value="{{index}}" class="picker">
+				<view wx:if="{{typestring == '户主'}}">
+					<image src="/icon/key1.png" />
+					<text>一键开门</text>
+				</view>
+			</picker>
+			<view bindtap="toVisitor">
+				<image src="/icon/visitor.png" />
+				<text>访客管理</text>
+			</view>
+			<view bindtap="toSetting" wx:if="{{typestring == '户主'}}">
+				<image src="/icon/all.png" />
+				<text>设置</text>
 			</view>
 			<!-- <view>
 				<image src="/icon/unit.png" />
@@ -60,7 +78,7 @@
 	<view class="plate" wx:if="{{showBuy}}">
 		<view class="title">物业管理</view>
 		<view class="list">
-			<view bindtap="toBuy" >
+			<view bindtap="toBuy">
 				<image src="/icon/buy.png" />
 				<text>购买服务</text>
 			</view>

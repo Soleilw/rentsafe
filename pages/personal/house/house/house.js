@@ -23,6 +23,13 @@ Page({
             url: '../renter/renter?detailedAddress_id=' + self.data.detailedAddress_id + '&typestring=' + self.data.typestring
         })
     },
+    // 孩子审核
+    toChild() {
+        var self = this;
+        wx.navigateTo({
+            url: '../renter-child/renter-child?detailedAddress_id=' + self.data.detailedAddress_id + '&typestring=' + self.data.typestring
+        })
+    },
     // 物业审核
     toProperty() {
         var self = this;

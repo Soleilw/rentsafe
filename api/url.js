@@ -19,6 +19,7 @@ const url = {
     'Areas': '/areas', // 获取地址列表
     'Rooms': '/rooms', // 门牌号
     "UserAreas": '/user/areas', // 获取用户社区
+    "Child": '/household/child', // 添加孩子
 
     // 轮播图
     "Banner": '/banners', // 获取轮播图
@@ -36,7 +37,13 @@ const url = {
     "Order": '/product/order', // 创建订单
     "Buy": '/buy/product', // 支付
     "CancelBuy": '/pay/cancel', // 取消支付
-    "Orders": '/orders' // 获取服务订单列表
+    "Orders": '/orders', // 获取服务订单列表
+
+    // 一键开门
+    "AllowOpen": '/allow/open', // 允许开门
+    "OpenDoor": '/open/door', // 一键开门
+    "AddressDevices": '/address/devices', // 地址设备列表
+    
 };
 
 module.exports = url;

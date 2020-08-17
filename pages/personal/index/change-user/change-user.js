@@ -97,7 +97,9 @@ Page({
         app.globalData.isBuy = 'true';
         app.globalData.area_id = e.currentTarget.dataset.area_id;
         app.globalData.detailedAddress_id = e.currentTarget.dataset.addresses_id;
-
+        app.globalData.address = e.currentTarget.dataset.address;
+        app.globalData.room_id = e.currentTarget.dataset.roomid;
+        
         wx.switchTab({
             url: '/pages/personal/index/index'
         })

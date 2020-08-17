@@ -2,7 +2,7 @@ var user = require('../../../model/user');
 var infomation = require('../../../model/personal/infomation');
 var app = getApp();
 var buy = require('../../../model/personal/buy')
-
+var door = require('../../../model/personal/door')
 
 Page({
 
@@ -23,7 +23,9 @@ Page({
         showBuy: false, // 显示购买服务功能--只有租客身份
         house_owner: [], // 用户身份列表
         show: false, // 只有租客身份时显示
-        detailedAddress_id: null
+        detailedAddress_id: null,
+        room_id: null,
+        doorList: []
     },
 
     onLoad: function (options) {
@@ -33,10 +35,12 @@ Page({
             typestring: app.globalData.typestring,
             area_id: app.globalData.area_id,
             // address_id: app.globalData.address_id,
-            address: options.address,
+            address: app.globalData.address,
+            room_id: app.globalData.room_id,
             detailedAddress_id: app.globalData.detailedAddress_id
         })
         console.log(this.data.typestring);
+        console.log(111, this.data.room_id);
         
     },
     onShow() {
@@ -45,6 +49,7 @@ Page({
         if (app.globalData.isBuy == 'true') {
             this.getIdenInfo();
         }
+        door.allowOpen().then(res)
         this.setData({
             wxInfo: wx.getStorageSync('wxInfo'),
             typestring: this.data.typestring
@@ -142,6 +147,56 @@ Page({
         }
     },
 
+    // 绑定孩子
+    tochildren() {
+        var self = this;
+        if (!wx.getStorageSync('token')) {
+            wx.showToast({
+                icon: "none",
+                title: '请先登录'
+            });
+            wx.removeStorageSync('wxInfo')
+        } else {
+            var detailedAddress_id = self.data.detailedAddress_id
+            var address = self.data.address;
+            var room_id = self.data.room_id
+            wx.navigateTo({
+                url: '../infomation/children/children?detailedAddress_id=' + detailedAddress_id + '&address=' + address + '&room_id=' + room_id
+            })
+        }
+    },
+    // 一键开门
+    toOpenDoor(e) {
+        if (!wx.getStorageSync('token')) {
+            wx.showToast({
+                icon: "none",
+                title: '请先登录'
+            });
+            wx.removeStorageSync('wxInfo')
+        } else {
+            console.log(111);
+            
+        }
+    },
+    // 访客管理
+    toVisitor() {
+        var self = this;
+        if (!wx.getStorageSync('token')) {
+            wx.showToast({
+                icon: "none",
+                title: '请先登录'
+            });
+            wx.removeStorageSync('wxInfo')
+        } else {
+            // var detailedAddress_id = self.data.detailedAddress_id
+            // var address = self.data.address;
+            // var room_id = self.data.room_id
+            wx.navigateTo({
+                url: '../house/visitor/visitor'
+            })
+        }
+    },
+
     // 切换账号
     toRegister() {
         if (!wx.getStorageSync('token')) {
@@ -162,6 +217,21 @@ Page({
                         title: '请先注册个人信息'
                     });
                 }
+            })
+        }
+    },
+    // 去设置
+    toSetting() {
+        var self = this;
+        if (!wx.getStorageSync('token')) {
+            wx.showToast({
+                icon: "none",
+                title: '请先登录'
+            });
+            wx.removeStorageSync('wxInfo')
+        } else {
+            wx.navigateTo({
+                url: '../house/setting/setting'
             })
         }
     },
@@ -203,7 +273,7 @@ Page({
                             showBuy: true
                         })
                         // 续费提醒
-                        buy.userServes(wx.getStorageSync('token'), self.data.detailedAddress_id).then(res => {
+                        buy.userServes(wx.getStorageSync('token')).then(res => {
                             console.log('获取开通的服务', res);
                             self.setData({
                                 hasBuyList: res

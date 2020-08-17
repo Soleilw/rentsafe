@@ -77,7 +77,28 @@ infomation.idenInfo = function (token, page, limit) {
             })
         })
     },
+infomation.children = function (token, href, name, sex, address_id, address, room_id, card_number) {
+    return new Promise((resolve, reject) => {
+        api.post(api.baseUrl.host, api.url.Child, {
+            token: token,
+            href: href,
+            name: name,
+            sex: sex,
+            address_id: address_id,
+            address: address,
+            room_id: room_id,
+            card_number: card_number
+        }, function (response) {
+            if (response.msg === 'ok') {
+                var res = response.data;
+                resolve(res);
 
+            } else {
+                reject(response);
+            }
+        })
+    })
+},
     // 获取审核列表
     infomation.auditList = function (token, address_id, type1, type2) {
         return new Promise((resolve, reject) => {

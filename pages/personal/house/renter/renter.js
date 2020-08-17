@@ -46,6 +46,7 @@ Page({
     // 查看租客详情
     renterDetail(e) {
         console.log(e)
+        var self = this
         var name = e.currentTarget.dataset.name;
         var sex = e.currentTarget.dataset.sex;
         var card_number = e.currentTarget.dataset.card_number;

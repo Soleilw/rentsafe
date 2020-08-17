@@ -14,7 +14,11 @@
     "pages/home/socialInformation/details/details",
     "pages/personal/buy/buy/buy",
     "pages/personal/buy/bill/bill",
-    "pages/personal/house/property/property"
+    "pages/personal/house/property/property",
+    "pages/personal/infomation/children/children",
+    "pages/personal/house/renter-child/renter-child",
+    "pages/personal/house/visitor/visitor",
+    "pages/personal/house/setting/setting"
   ],
   "window": {
     "backgroundTextStyle": "light",

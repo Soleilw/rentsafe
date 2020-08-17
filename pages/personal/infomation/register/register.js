@@ -34,7 +34,6 @@ Page({
         disabled: false,
         showSubmit: true,
         isSucceed: true,
-        disabled: false
     },
 
     /**

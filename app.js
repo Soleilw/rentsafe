@@ -90,6 +90,8 @@ App({
     address_id: null,
     detailedAddress_id: null,
     isBuy: null,
-    showCamera: false
+    showCamera: false,
+    address: '',
+    room_id: null
   }
 })
