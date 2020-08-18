@@ -34,7 +34,7 @@
 			</view>
 			<view bindtap="tochildren" wx:if="{{!showHouse}}">
 				<image src="/icon/family.png" />
-				<text>绑定孩子</text>
+				<text>家庭成员</text>
 			</view>
 			<view bindtap="callPhone">
 				<image src="/icon/alert.png" />
@@ -54,8 +54,14 @@
 				<image src="/icon/information.png" />
 				<text>切换身份</text>
 			</view>
-			<picker bindchange="toOpenDoor" range="{{doorList}}" range-key="title" value="{{index}}" class="picker">
-				<view wx:if="{{typestring == '户主'}}">
+			<picker bindchange="toOpenDoor" range="{{doorList}}" range-key="remark" value="{{index}}" class="picker">
+				<view wx:if="{{typestring == '户主' || open_door == 2}}">
+					<image src="/icon/key1.png" />
+					<text>一键开门</text>
+				</view>
+			</picker>
+			<picker bindchange="toOpenDoor" range="{{doorList}}" range-key="remark" value="{{index}}" class="picker">
+				<view wx:if="{{open_door == 1}}">
 					<image src="/icon/key1.png" />
 					<text>一键开门</text>
 				</view>
@@ -91,4 +97,4 @@
 
 </view>
 
-<view class="supportText">安域智慧安防提供技术支持v1.0.10</view>
+<view class="supportText">安域智慧安防提供技术支持v1.0.11</view>

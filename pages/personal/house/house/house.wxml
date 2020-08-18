@@ -6,7 +6,7 @@
 	</view>
 	<view bindtap="toChild" class="tableviewcell">
 		<image class="left-icon" src="/icon/qb.png" />
-		<text>孩子审核</text>
+		<text>家庭成员审核</text>
 		<image class="right-icon" src="/icon/right.png" />
 	</view>
 	<view bindtap="toProperty" class="tableviewcell" wx:if="{{typestring == '户主'}}">

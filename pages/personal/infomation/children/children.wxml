@@ -21,6 +21,12 @@
 			<text>身份证号</text>
 			<input class="input" disabled="{{disabled}}" type="text" maxlength='18' placeholder='请输入' bindblur="regIdentity" bindfocus="changeInfo" name="card_number" value='{{userInfo.card_number}}'></input>
 		</view>
+			<!-- 手机 -->
+		<view class="form-item" wx:if="{{showFace}}">
+			<image class="left-icon" src="/icon/iphone.png" />
+			<text>手机</text>
+			<input class="input" disabled="{{disabled}}" type="number" maxlength='11' placeholder='请输入' bindblur="regPhone" bindfocus="changeInfo" name="phone" value='{{userInfo.phone}}'></input>
+		</view>
 		<!-- 人脸上传 -->
 		<block wx:if="{{showFace}}">
 			<view class="form-item" style="border:none;justify-content: flex-start;">

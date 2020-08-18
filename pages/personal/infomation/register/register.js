@@ -34,6 +34,8 @@ Page({
         disabled: false,
         showSubmit: true,
         isSucceed: true,
+        status: null,
+        id: ''
     },
 
     /**
@@ -44,7 +46,10 @@ Page({
         var address = 'userInfo.address';
         var address_id = 'userInfo.address_id';
         var room_id = 'userInfo.room_id';
-
+        this.setData({
+            status: options.status,
+            id: options.id
+        })
         // this.setData({
         //     [address]: options.address,
         //     typeString: options.typestring,
@@ -152,6 +157,7 @@ Page({
         var address_id = self.data.userInfo.address_id;
         var room_id = self.data.userInfo.room_id ? self.data.userInfo.room_id : 0;
         var token = wx.getStorageSync('token');
+        var id = self.data.id
         if (!self.data.userInfo.type && !self.data.userInfo.address) {
             wx.showToast({
                 icon: "none",
@@ -159,52 +165,53 @@ Page({
             });
         } else {
             if (self.data.identityList[self.data.id_card_select].name && self.data.userInfo.address) {
-                infomation.user(token, type, address_id, address, room_id).then(res => {
-                    console.log(res);
-                    if (type == 1) {
-                        self.setData({
-                            disabled: true
-                        })
-                        wx.showLoading({
-                            title: '提交中',
-                            icon: "loading",
-                            success: () => {
-                                wx.hideLoading();
-                                wx.showToast({
-                                    icon: "none",
-                                    title: '提交成功,请等待审核',
-                                    success() {
-                                        setTimeout(function () {
-                                            self.checkAuth();
-                                        }, 1000);
-                                    }
-                                });
-                            }
-                        })
-
-                    } else {
-                        self.setData({
-                            disabled: true
-                        })
-                        wx.showLoading({
-                            title: '提交中',
-                            icon: "loading",
-                            success: () => {
-                                wx.hideLoading();
-                                wx.showToast({
-                                    icon: "none",
-                                    title: '提交成功,请等待户主审核',
-                                    success() {
-                                        setTimeout(function () {
-                                            self.checkAuth();
-                                        }, 1000);
-                                    }
-                                });
-                            }
-                        })
-
-                    }
-                })
+                    infomation.user(token, type, address_id, address, room_id).then(res => {
+                        console.log(res);
+                        if (type == 1) {
+                            self.setData({
+                                disabled: true
+                            })
+                            wx.showLoading({
+                                title: '提交中',
+                                icon: "loading",
+                                success: () => {
+                                    wx.hideLoading();
+                                    wx.showToast({
+                                        icon: "none",
+                                        title: '提交成功,请等待审核',
+                                        success() {
+                                            setTimeout(function () {
+                                                self.checkAuth();
+                                            }, 1000);
+                                        }
+                                    });
+                                }
+                            })
+    
+                        } else {
+                            self.setData({
+                                disabled: true
+                            })
+                            wx.showLoading({
+                                title: '提交中',
+                                icon: "loading",
+                                success: () => {
+                                    wx.hideLoading();
+                                    wx.showToast({
+                                        icon: "none",
+                                        title: '提交成功,请等待户主审核',
+                                        success() {
+                                            setTimeout(function () {
+                                                self.checkAuth();
+                                            }, 1000);
+                                        }
+                                    });
+                                }
+                            })
+    
+                        }
+                    })
+            
             } else {
                 wx.showToast({
                     icon: "none",

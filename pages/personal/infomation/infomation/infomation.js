@@ -2,6 +2,7 @@ const REG_PHONE = /^1[3-9]\d{9}$/;
 // const REG_ID = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
 const qiniuUploader = require("../../../../utils/qiniu");
 var infomation = require('../../../../model/personal/infomation');
+var app = getApp();
 
 
 function getQiniuToken() {
@@ -50,7 +51,9 @@ Page({
         showRegister: false, // 初次注册提交按钮
         showSubmit: false, // 提交按钮
         disabled: false,
-        isRegister: false // 非初次注册用户
+        isRegister: false, // 非初次注册用户
+        status: null,
+        id: ''
     },
 
     onLoad(options) {
@@ -68,7 +71,9 @@ Page({
         this.setData({
             // [address]: options.address,
             // [address_id]: options.address_id,
-            wxInfo: wx.getStorageSync('wxInfo')
+            wxInfo: wx.getStorageSync('wxInfo'),
+            status: options.status,
+            id: options.id
         });
 
         // 初始化
@@ -187,6 +192,8 @@ Page({
         var sex = e.detail.value.sex;
         var token = wx.getStorageSync('token');
         var href = self.data.userInfo.href;
+        // var href = 'https://tu.fengniaotuangou.cn/tmp_3532e17bcc6df1387f8e7833696b27fd259af82a066733eb.jpg';
+
         if (REG_PHONE.test(phone) && self.reg(card_number) && name && sex && href) {
             infomation.register(id, token, name, sex, card_number, phone, href).then(res => {
                 console.log('self.data.userInfo', self.data.userInfo);
@@ -206,25 +213,41 @@ Page({
 
                 } else {
                     // 初次注册
-                    wx.showToast({
-                        icon: "none",
-                        title: '提交成功',
-                        success: function () {
-                            setTimeout(function () {
-                                infomation.userInfo(wx.getStorageSync('token')).then(res => {
-                                    console.log('getPersonalInfo', res);
-                                    self.setData({
-                                        userInfo: res,
-                                        state: res.state,
-                                        disabled: true,
-                                        showSubmit: false,
-                                        showRegister: false,
-                                        isRegister: true
-                                    })
-                                })
-                            }, 2000);
+                    wx.showModal({
+                        title: '提示',
+                        content: '信息提交将无法修改, 是否确定要提交',
+                        cancelText: '取消',
+                        confirmText: '确定',
+                        success: function (res) {
+                            if (res.confirm) {
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '提交成功',
+                                    success() {
+                                        setTimeout(function () {
+                                            infomation.userInfo(wx.getStorageSync('token')).then(res => {
+                                                console.log('getPersonalInfo', res);
+                                                self.setData({
+                                                    userInfo: res,
+                                                    state: res.state,
+                                                    disabled: true,
+                                                    showSubmit: false,
+                                                    showRegister: false,
+                                                    isRegister: true
+                                                })
+                                            })
+                                        }, 2000);
+                                    },
+                                });
+                              
+                            } else if (res.cancel) {
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '取消成功',
+                                });
+                            }
                         }
-                    });
+                    })
                 }
 
             })
@@ -238,29 +261,26 @@ Page({
     },
 
     // 修改个人信息
-    changeInfo(e) {
-        this.setData({
-            showSubmit: true
-        })
-    },
-
-    // saveInfo() {
-    //     this.setData({
-    //         disabled: true,
-    //         showSubmit: false
-    //     })
-    // },
-
     changeInfo() {
+        wx.showToast({
+            icon: "none",
+            title: '只允许修改人脸图片',
+        })
         this.setData({
-            disabled: false,
+            disabled: true,
             showSubmit: true
         })
     },
 
     addIden() {
+        var self = this
+        console.log(1111, this.data.status);
+        
+        // wx.navigateTo({
+        //     url: '../register/register?status=' + self.data.status + '&id=' + self.data.id
+        // })
         wx.navigateTo({
-            url: '../register/register',
+            url: '../register/register'
         })
     },
 

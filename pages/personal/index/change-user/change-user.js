@@ -14,10 +14,18 @@ Page({
         address_id: '',
         detailedAddress_id: '',
         user_type: '',
-        showCamera: null
+        showCamera: null,
+        userInfo: {
+            type: '',
+            address_id: '',
+            address: '',
+            room_id: ''
+        },
+        status: null,
+        id: ''
     },
 
-    onLoad() {
+    onLoad(options) {
         this.getIdenInfo();
         this.setData({
             showCamera: app.globalData.showCamera
@@ -32,8 +40,8 @@ Page({
                         cancelText: '取消',
                         confirmText: '开启',
                         success: (res) => {
-                            console.log(2, res);    
-                            
+                            console.log(2, res);
+
                             if (res.confirm) {
                                 wx.openSetting({
                                     success: res => {
@@ -99,9 +107,28 @@ Page({
         app.globalData.detailedAddress_id = e.currentTarget.dataset.addresses_id;
         app.globalData.address = e.currentTarget.dataset.address;
         app.globalData.room_id = e.currentTarget.dataset.roomid;
-        
+
         wx.switchTab({
             url: '/pages/personal/index/index'
+        })
+    },
+    // 修改
+    toAmend(e) {
+        var self = this;
+        console.log(e);
+        self.setData({
+            status: e.target.dataset.state,
+            id: e.target.dataset.id
+        })
+        wx.navigateTo({
+            url: '../../infomation/infomation/infomation?status=' + self.data.status + '&id=' + self.data.id
+        })
+    },
+    // 访客申请
+    visitorApply() {
+        var self = this;
+        wx.navigateTo({
+            url: '../../infomation/visitor-apply/visitor-apply',
         })
     },
 

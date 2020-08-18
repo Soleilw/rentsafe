@@ -25,7 +25,10 @@ Page({
         show: false, // 只有租客身份时显示
         detailedAddress_id: null,
         room_id: null,
-        doorList: []
+        doorList: [],
+        open_door: null,
+        door_index: '',
+        uuid: ''
     },
 
     onLoad: function (options) {
@@ -41,7 +44,7 @@ Page({
         })
         console.log(this.data.typestring);
         console.log(111, this.data.room_id);
-        
+
     },
     onShow() {
         this.getPersonalInfo();
@@ -49,11 +52,16 @@ Page({
         if (app.globalData.isBuy == 'true') {
             this.getIdenInfo();
         }
-        door.allowOpen().then(res)
+
         this.setData({
             wxInfo: wx.getStorageSync('wxInfo'),
             typestring: this.data.typestring
         })
+    
+        if (wx.getStorageSync('token')) {
+            // this.allowOpen();
+            this.getEquipment();
+        }
     },
     getPersonalInfo() {
         var self = this;
@@ -73,10 +81,19 @@ Page({
     },
     loginout() {
         var self = this;
-        app.globalData.typestring = null;
-        wx.reLaunch({
-            url: "/pages/personal/index/change-user/change-user"
-        })
+        if (!wx.getStorageSync('token')) {
+            wx.showToast({
+                icon: "none",
+                title: '请先登录'
+            });
+            wx.removeStorageSync('wxInfo')
+        } else {
+            app.globalData.typestring = null;
+            wx.reLaunch({
+                url: "/pages/personal/index/change-user/change-user"
+            })
+        }
+
     },
 
     getUserInfo(e) {
@@ -147,7 +164,7 @@ Page({
         }
     },
 
-    // 绑定孩子
+    // 绑定家庭成员
     tochildren() {
         var self = this;
         if (!wx.getStorageSync('token')) {
@@ -167,6 +184,7 @@ Page({
     },
     // 一键开门
     toOpenDoor(e) {
+        var self = this;
         if (!wx.getStorageSync('token')) {
             wx.showToast({
                 icon: "none",
@@ -174,10 +192,43 @@ Page({
             });
             wx.removeStorageSync('wxInfo')
         } else {
-            console.log(111);
+            console.log(e);
+            self.setData({
+                door_index: e.detail.value
+            })
+            var index = self.data.door_index
+            var uuid = self.data.doorList[index].uuid
             
+            door.openDoor(uuid, wx.getStorageSync('token')).then(res => {
+                console.log('一键开门', res);
+                wx.showToast({
+                    icon: "none",
+                    title: '成功'
+                });
+            })
         }
     },
+    // 允许开门
+    allowOpen() {
+        var self = this;
+        door.allowOpen(self.data.detailedAddress_id).then(res => {
+            console.log(res);
+            self.setData({
+                open_door: res.open_door
+            })
+        })
+    },
+    // 获取设备
+    getEquipment() {
+        var self = this;
+        door.addressDevices(self.data.detailedAddress_id).then(res => {
+            console.log('getEquipment', res);
+            self.setData({
+                doorList: res,
+            })
+        })
+    },
+
     // 访客管理
     toVisitor() {
         var self = this;
@@ -231,7 +282,7 @@ Page({
             wx.removeStorageSync('wxInfo')
         } else {
             wx.navigateTo({
-                url: '../house/setting/setting'
+                url: '../house/setting/setting?detailedAddress_id=' + self.data.detailedAddress_id
             })
         }
     },

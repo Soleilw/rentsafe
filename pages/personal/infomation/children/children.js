@@ -1,5 +1,6 @@
 const qiniuUploader = require("../../../../utils/qiniu");
 var infomation = require('../../../../model/personal/infomation');
+const REG_PHONE = /^1[3-9]\d{9}$/;
 
 
 function getQiniuToken() {
@@ -255,6 +256,14 @@ Page({
     subInfomations(e) {
         var self = this;
         console.log(e);
+        // 验证手机号
+        var phone = e.detail.value.phone;
+        if (!REG_PHONE.test(phone)) {
+            wx.showToast({
+                icon: "none",
+                title: '请正确的手机号',
+            })
+        }
         var card_number = e.detail.value.card_number;
         if (!self.reg(card_number)) {
             wx.showToast({
@@ -268,9 +277,9 @@ Page({
         var address_id = self.data.address_id;
         var address = self.data.address;
         var room_id = self.data.room_id
-        var href = self.data.userInfo.href;
-        // var href = 'https://tu.fengniaotuangou.cn/tmp_3532e17bcc6df1387f8e7833696b27fd259af82a066733eb.jpg';
-        if (self.reg(card_number) && name && sex && href) {
+        // var href = self.data.userInfo.href;
+        var href = 'https://tu.fengniaotuangou.cn/tmp_3532e17bcc6df1387f8e7833696b27fd259af82a066733eb.jpg';
+        if (REG_PHONE.test(phone) && self.reg(card_number) && name && sex && href) {
             infomation.children(token, href, name, sex, address_id, address, room_id, card_number).then(res => {
                 self.setData({
                     disabled: true
@@ -311,6 +320,16 @@ Page({
             })
         }
     },
+    // 验证手机号
+    regPhone(e) {
+        var self = this;
+        if (!REG_PHONE.test(e.detail.value)) {
+            wx.showToast({
+                icon: "none",
+                title: '请正确的手机号',
+            })
+        }
+    },
 
     // 修改个人信息
     changeInfo(e) {
@@ -326,7 +345,7 @@ Page({
         })
     },
 
-    
+
 
     toSubmit() {
         var self = this;
