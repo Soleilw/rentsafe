@@ -54,18 +54,34 @@
 				<image src="/icon/information.png" />
 				<text>切换身份</text>
 			</view>
-			<picker bindchange="toOpenDoor" range="{{doorList}}" range-key="remark" value="{{index}}" class="picker">
-				<view wx:if="{{typestring == '户主' || open_door == 2}}">
-					<image src="/icon/key1.png" />
-					<text>一键开门</text>
-				</view>
-			</picker>
-			<picker bindchange="toOpenDoor" range="{{doorList}}" range-key="remark" value="{{index}}" class="picker">
+			<block wx:if="{{typestring == '户主'}}">
+				<picker bindchange="toOpenDoor" range="{{doorList}}" range-key="remark" value="{{index}}" class="picker">
+					<view>
+						<image src="/icon/key1.png" />
+						<text>一键开门</text>
+					</view>
+				</picker>
+			</block>
+			<block wx:if="{{typestring !== '户主' && open_door == 1}}">
+				<picker bindchange="toOpenDoor" range="{{doorList}}" range-key="remark" value="{{index}}" class="picker">
+					<view>
+						<image src="/icon/key1.png" />
+						<text>一键开门</text>
+					</view>
+				</picker>
+			</block>
+			<block wx:if="{{typestring !== '户主' && open_door == 2}}">
+					<view bindtap="toApply">
+						<image src="/icon/key1.png" />
+						<text>一键开门</text>
+					</view>
+			</block>
+			<!-- <picker bindchange="toOpenDoor" range="{{doorList}}" range-key="remark" value="{{index}}" class="picker">
 				<view wx:if="{{open_door == 1}}">
 					<image src="/icon/key1.png" />
 					<text>一键开门</text>
 				</view>
-			</picker>
+			</picker> -->
 			<view bindtap="toVisitor">
 				<image src="/icon/visitor.png" />
 				<text>访客管理</text>

@@ -53,7 +53,8 @@ Page({
         disabled: false,
         isRegister: false, // 非初次注册用户
         status: null,
-        id: ''
+        id: '',
+        check: ''
     },
 
     onLoad(options) {
@@ -112,7 +113,8 @@ Page({
                     userInfo: res,
                     state: res.state,
                     disabled: true,
-                    isRegister: true
+                    isRegister: true,
+                    check: res.check
                 })
             } else {
                 self.setData({
@@ -173,6 +175,7 @@ Page({
         console.log('subInfomation', e)
         // 验证手机号
         var phone = e.detail.value.phone;
+        // var phone = '159765406547';
         if (!REG_PHONE.test(phone)) {
             wx.showToast({
                 icon: "none",
@@ -181,6 +184,7 @@ Page({
         }
         // 验证身份证
         var card_number = e.detail.value.card_number;
+        // var card_number = '440981199701285628';
         if (!self.reg(card_number)) {
             wx.showToast({
                 icon: "none",
@@ -189,13 +193,14 @@ Page({
         }
         var id = self.data.userInfo.id ? self.data.userInfo.id : '';
         var name = e.detail.value.name;
+        // var name = '安';
         var sex = e.detail.value.sex;
         var token = wx.getStorageSync('token');
-        var href = self.data.userInfo.href;
-        // var href = 'https://tu.fengniaotuangou.cn/tmp_3532e17bcc6df1387f8e7833696b27fd259af82a066733eb.jpg';
+        // var href = self.data.userInfo.href;
+        var href = 'https://tu.fengniaotuangou.cn/tmp_ff1b709c323f134045df80bea705bde2bfd57d1d90686b6f.jpg';
 
         if (REG_PHONE.test(phone) && self.reg(card_number) && name && sex && href) {
-            infomation.register(id, token, name, sex, card_number, phone, href).then(res => {
+            infomation.register(token, name, sex, card_number, phone, href).then(res => {
                 console.log('self.data.userInfo', self.data.userInfo);
                 // 修改
                 if (self.data.isRegister) {
@@ -229,7 +234,7 @@ Page({
                                                 console.log('getPersonalInfo', res);
                                                 self.setData({
                                                     userInfo: res,
-                                                    state: res.state,
+                                                    // state: res.state,
                                                     disabled: true,
                                                     showSubmit: false,
                                                     showRegister: false,
@@ -239,7 +244,7 @@ Page({
                                         }, 2000);
                                     },
                                 });
-                              
+
                             } else if (res.cancel) {
                                 wx.showToast({
                                     icon: "none",
@@ -262,20 +267,29 @@ Page({
 
     // 修改个人信息
     changeInfo() {
-        wx.showToast({
-            icon: "none",
-            title: '只允许修改人脸图片',
-        })
-        this.setData({
-            disabled: true,
-            showSubmit: true
-        })
+        if (this.data.check == 1) {
+            wx.showToast({
+                icon: "none",
+                title: '只允许修改人脸图片',
+                success: () => {
+                    this.setData({
+                        disabled: true,
+                        showSubmit: true
+                    })
+                }
+            })
+        } else {
+            this.setData({
+                disabled: false,
+                showSubmit: true
+            })
+        }
     },
 
     addIden() {
         var self = this
         console.log(1111, this.data.status);
-        
+
         // wx.navigateTo({
         //     url: '../register/register?status=' + self.data.status + '&id=' + self.data.id
         // })

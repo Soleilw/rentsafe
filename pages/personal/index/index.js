@@ -40,7 +40,9 @@ Page({
             // address_id: app.globalData.address_id,
             address: app.globalData.address,
             room_id: app.globalData.room_id,
-            detailedAddress_id: app.globalData.detailedAddress_id
+            detailedAddress_id: app.globalData.detailedAddress_id,
+            open_door: app.globalData.open_door
+
         })
         console.log(this.data.typestring);
         console.log(111, this.data.room_id);
@@ -58,7 +60,7 @@ Page({
             typestring: this.data.typestring
         })
     
-        if (wx.getStorageSync('token')) {
+        if (wx.getStorageSync('token') && this.data.detailedAddress_id) {
             // this.allowOpen();
             this.getEquipment();
         }
@@ -208,21 +210,25 @@ Page({
             })
         }
     },
-    // 允许开门
-    allowOpen() {
-        var self = this;
-        door.allowOpen(self.data.detailedAddress_id).then(res => {
-            console.log(res);
-            self.setData({
-                open_door: res.open_door
-            })
-        })
+    toApply() {
+        wx.showToast({
+            icon: "none",
+            title: '户主未开启一键开门功能, 请联系户主'
+        });
     },
+   
     // 获取设备
     getEquipment() {
         var self = this;
         door.addressDevices(self.data.detailedAddress_id).then(res => {
             console.log('getEquipment', res);
+            res.forEach(item => {
+                if (item.online == 0) {
+                    item.remark += ' (离线)'
+                } else if (item.online == 1) {
+                    item.remark += ' (在线)'
+                }
+            })
             self.setData({
                 doorList: res,
             })

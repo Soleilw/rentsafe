@@ -3,10 +3,9 @@ var api = require('../../api/index')
 var infomation = {};
 
 // 新增/修改个人信息
-infomation.register = function (id, token, name, sex, card_number, phone, href) {
+infomation.register = function (token, name, sex, card_number, phone, href) {
     return new Promise((resolve, reject) => {
         api.post(api.baseUrl.host, api.url.UserInfo, {
-            id: id,
             token: token,
             name: name,
             sex: sex,
@@ -77,7 +76,7 @@ infomation.idenInfo = function (token, page, limit) {
             })
         })
     },
-infomation.children = function (token, href, name, sex, address_id, address, room_id, card_number) {
+infomation.children = function (token, href, name, sex, address_id, address, room_id, card_number, phone) {
     return new Promise((resolve, reject) => {
         api.post(api.baseUrl.host, api.url.Child, {
             token: token,
@@ -87,7 +86,8 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
             address_id: address_id,
             address: address,
             room_id: room_id,
-            card_number: card_number
+            card_number: card_number,
+            phone: phone
         }, function (response) {
             if (response.msg === 'ok') {
                 var res = response.data;
@@ -118,14 +118,33 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
         })
     },
 
-    // 审核租客
+    // 审核租客/物业
     infomation.audit = function (token, id, state, type) {
         return new Promise((resolve, reject) => {
             api.get(api.baseUrl.host, api.url.CheckHousehold, {
                 token: token,
                 id: id,
                 state: state,
-                type: type
+                type: type,
+            }, function (response) {
+                if (response.msg === 'ok') {
+                    var res = response.data;
+                    resolve(res);
+                } else {
+                    reject(response);
+                }
+            })
+        })
+    },
+    // 审核家庭成员
+    infomation.auditFamily = function (token, id, state, type, self) {
+        return new Promise((resolve, reject) => {
+            api.get(api.baseUrl.host, api.url.CheckHousehold, {
+                token: token,
+                id: id,
+                state: state,
+                type: type,
+                self: self
             }, function (response) {
                 if (response.msg === 'ok') {
                     var res = response.data;

@@ -25,15 +25,16 @@ Page({
     // 获取审核列表
     getAuditList() {
         let self = this;
+        
         if (self.data.typestring == '户主') {
-            infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 5).then(res => {
+            infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 3).then(res => {
                 console.log('获取审核列表', res);
                 self.setData({
                     renterList: res.data
                 })
             })
         } else if (self.data.typestring == '物业') {
-            infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 5).then(res => {
+            infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 3).then(res => {
                 console.log('获取审核列表', res);
                 self.setData({
                     renterList: res.data
@@ -61,7 +62,8 @@ Page({
     toAudit(e) {
         let self = this;
         var id = e.currentTarget.dataset.id;
-        console.log('审核', id);
+        var card_number = e.currentTarget.dataset.card_number
+        console.log('审核', e);
 
         wx.showModal({
             title: '审核提示',
@@ -71,7 +73,7 @@ Page({
             success: function (res) {
                 if (self.data.typestring == '户主') {
                     if (res.confirm) {
-                        infomation.audit(wx.getStorageSync('token'), id, 2, 1).then(res => {
+                        infomation.auditFamily(wx.getStorageSync('token'), id, 2, 1, card_number).then(res => {
                             wx.showToast({
                                 icon: "none",
                                 title: '提交成功'
@@ -79,7 +81,7 @@ Page({
                             self.getAuditList();
                         })
                     } else if (res.cancel) {
-                        infomation.audit(wx.getStorageSync('token'), id, 3, 1).then(res => {
+                        infomation.auditFamily(wx.getStorageSync('token'), id, 3, 1, card_number).then(res => {
                             wx.showToast({
                                 icon: "none",
                                 title: '提交成功'
@@ -89,7 +91,7 @@ Page({
                     }
                 } else if (self.data.typestring == '物业') {
                     if (res.confirm) {
-                        infomation.audit(wx.getStorageSync('token'), id, 2, 4).then(res => {
+                        infomation.auditFamily(wx.getStorageSync('token'), id, 2, 4, card_number).then(res => {
                             wx.showToast({
                                 icon: "none",
                                 title: '提交成功'
@@ -97,7 +99,7 @@ Page({
                             self.getAuditList();
                         })
                     } else if (res.cancel) {
-                        infomation.audit(wx.getStorageSync('token'), id, 3, 4).then(res => {
+                        infomation.auditFamily(wx.getStorageSync('token'), id, 3, 4, card_number).then(res => {
                             wx.showToast({
                                 icon: "none",
                                 title: '提交成功'
