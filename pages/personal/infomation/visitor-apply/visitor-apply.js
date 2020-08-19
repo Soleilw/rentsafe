@@ -36,9 +36,9 @@ Page({
         showFace: false, // 开启人脸
         showRegister: false, // 初次注册提交按钮
         disabled: false,
-        status: null,
         id: '',
-        check: ''
+        check: '',
+        checkDate: ''
     },
 
     onLoad(options) {
@@ -50,7 +50,6 @@ Page({
         }
         this.setData({
             wxInfo: wx.getStorageSync('wxInfo'),
-            status: options.status,
             id: options.id
         });
 
@@ -148,10 +147,17 @@ Page({
     },
     // 选择地址
     toChooseAddress() {
-      var self = this;
-      wx.navigateTo({
-        url: '../../infomation/address/address',
-      })
+        var self = this;
+        wx.navigateTo({
+            url: '../../infomation/address/address',
+        })
+    },
+    // 选择日期
+    bindDateChange: function (e) {
+        console.log('picker发送选择改变，携带值为', e.detail.value)
+        this.setData({
+            checkDate: e.detail.value
+        })
     },
 
     subInfomation(e) {
@@ -184,7 +190,7 @@ Page({
         var href = 'https://tu.fengniaotuangou.cn/tmp_ff1b709c323f134045df80bea705bde2bfd57d1d90686b6f.jpg';
 
         if (REG_PHONE.test(phone) && self.reg(card_number) && name && sex && href) {
-            
+
         } else {
             wx.showToast({
                 icon: "none",
@@ -193,40 +199,6 @@ Page({
         }
 
     },
-
-    // 修改个人信息
-    changeInfo() {
-        if (this.data.check == 1) {
-            wx.showToast({
-                icon: "none",
-                title: '只允许修改人脸图片',
-                success: () => {
-                    this.setData({
-                        disabled: true,
-                        showSubmit: true
-                    })
-                }
-            })
-        } else {
-            this.setData({
-                disabled: false,
-                showSubmit: true
-            })
-        }
-    },
-
-    addIden() {
-        var self = this
-        console.log(1111, this.data.status);
-
-        // wx.navigateTo({
-        //     url: '../register/register?status=' + self.data.status + '&id=' + self.data.id
-        // })
-        wx.navigateTo({
-            url: '../register/register'
-        })
-    },
-
     // 验证身份证号
     regIdentity(e) {
         var self = this;
@@ -237,7 +209,6 @@ Page({
             })
         }
     },
-
     // 验证手机号
     regPhone(e) {
         var self = this;
@@ -248,7 +219,6 @@ Page({
             })
         }
     },
-
     // 调用相机
     cameraDisable() {
         let self = this;
@@ -293,7 +263,6 @@ Page({
             }
         })
     },
-
     // 显示隐藏相机
     cameraDisable: function () {
         console.log('隐藏相机')

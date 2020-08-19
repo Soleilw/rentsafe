@@ -20,27 +20,27 @@
 		<view class="form-item">
 			<image class="left-icon" src="/icon/address3.png" />
 			<text>来访日期</text>
-			<picker bindchange="dateChange" range="{{dateList}}" range-key="name" value="{{index}}">
-				<input class="input" placeholder="请选择日期" value="{{typeString ? typeString : identityList[id_card_select].name}}" disabled="true"></input>
+			<picker mode="date" value="{{date}}" start="2020-01-01" end="2030-01-01" bindchange="bindDateChange">
+				<input class="input" placeholder="请选择日期" value="{{checkDate ? checkDate : '请选择日期'}}" disabled="true"></input>
 			</picker>
 		</view>
 		<!-- 真实姓名 -->
 		<view class="form-item">
 			<image class="left-icon" src="/icon/my1.png" />
 			<text>姓名</text>
-			<input class="input" type="text" maxlength='10' placeholder='请输入' name="name" value='{{userInfo.name}}' bindblur="changeInfo" disabled="{{disabled}}"></input>
+			<input class="input" type="text" maxlength='10' placeholder='请输入' name="name" value='{{userInfo.name}}' disabled="{{disabled}}"></input>
 		</view>
 		<!-- 身份证号 -->
 		<view class="form-item" wx:if="{{showFace}}">
 			<image class="left-icon" src="/icon/ID.png" />
 			<text>身份证号</text>
-			<input class="input" disabled="{{disabled}}" type="text" maxlength='18' placeholder='请输入' bindblur="regIdentity" name="card_number" bindblur="changeInfo" value='{{userInfo.card_number}}'></input>
+			<input class="input" disabled="{{disabled}}" type="text" maxlength='18' placeholder='请输入' bindblur="regIdentity" name="card_number" value='{{userInfo.card_number}}'></input>
 		</view>
 		<!-- 手机 -->
 		<view class="form-item" wx:if="{{showFace}}">
 			<image class="left-icon" src="/icon/iphone.png" />
 			<text>手机</text>
-			<input class="input" disabled="{{disabled}}" type="number" maxlength='11' placeholder='请输入' bindblur="regPhone" name="phone" value='{{userInfo.phone}}' bindblur="changeInfo"></input>
+			<input class="input" disabled="{{disabled}}" type="number" maxlength='11' placeholder='请输入' bindblur="regPhone" name="phone" value='{{userInfo.phone}}'></input>
 		</view>
 
 		<!-- 人脸上传 -->
@@ -84,4 +84,3 @@
 		<cover-image class="cameraImg" src="/icon/camera.png"></cover-image>
 	</cover-view>
 </camera>
-
