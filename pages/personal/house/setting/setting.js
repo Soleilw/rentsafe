@@ -1,15 +1,14 @@
 // pages/personal/house/setting/setting.js
 var door = require('../../../../model/personal/door')
-
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isOpen: false,
-    detailedAddress_id: '',
-    open_door: null
+    open: false,
+    detailedAddress_id: ''
   },
 
   /**
@@ -17,44 +16,47 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      detailedAddress_id: options.detailedAddress_id
+      detailedAddress_id: options.detailedAddress_id,
+      open: app.globalData.open_door
     })
-    this.getDoorState()
+    if (app.globalData.open_door == 1) {
+      this.setData({
+        open: true
+      })
+    } else if (app.globalData.open_door == 2) {
+      this.setData({
+        open: false
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onShow: function () {
-    this.getDoorState()
-  },
-  // 获取一键开门状态
-  getDoorState() {
-    var self = this;
-    door.allowOpen(self.data.detailedAddress_id).then(res => {
-      console.log(res);
-      self.setData({
-        open_door: res.open_door
+    if (app.globalData.open_door == 1) {
+      this.setData({
+        open: true
       })
-      if (self.data.open_door == 1) {
-        self.setData({
-          isOpen: true
-        })
-      } else {
-        self.setData({
-          isOpen: false
-        })
-      }
-    })
+    } else if (app.globalData.open_door == 2) {
+      this.setData({
+        open: false
+      })
+    }
   },
+
   openDoor(e) {
     var self = this;
+    var state = self.data.open;
     wx.showToast({
       icon: "none",
       title: '设置成功',
       success: () => {
         door.allowOpen(self.data.detailedAddress_id).then(res => {
-          console.log(res);
+          self.setData({
+            open: !state
+          })
+          app.globalData.open_door = !state == true ? 1 : 2;
         })
       }
     })

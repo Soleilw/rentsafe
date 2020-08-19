@@ -2,6 +2,6 @@
 <view class="weui-cell weui-cell_switch">
 	<view class="weui-cell__bd">允许一键开门</view>
 	<view class="weui-cell__ft">
-		<switch checked="{{isOpen}}" bindchange="openDoor" />
+		<switch checked="{{open}}" bindchange="openDoor" />
 	</view>
 </view>

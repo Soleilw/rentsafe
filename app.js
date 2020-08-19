@@ -93,6 +93,7 @@ App({
     showCamera: false,
     address: '',
     room_id: null,
-    state: null
+    state: null,
+    open_door: null
   }
 })
