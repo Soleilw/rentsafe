@@ -42,7 +42,6 @@ Page({
             room_id: app.globalData.room_id,
             detailedAddress_id: app.globalData.detailedAddress_id,
             open_door: app.globalData.open_door
-
         })
         console.log(this.data.typestring);
         console.log(111, this.data.room_id);

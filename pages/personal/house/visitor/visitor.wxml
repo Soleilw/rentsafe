@@ -1,9 +1,9 @@
 <view class="box">
 	<view wx:for="{{renterList}}" wx:key="{{index}}" class="list">
 		<view class="info-list">
-			<view data-name="{{item.snapshot.name}}" data-sex="{{item.snapshot.sex}}" data-card_number="{{item.snapshot.card_number}}" data-href="{{item.snapshot.href}}" data-address="{{item.address.address}}" data-phone="{{item.snapshot.phone}}" bindtap="renterDetail">
+			<view data-name="{{item.name}}" data-sex="{{item.sex}}" data-card_number="{{item.card_number}}" data-checkDate="{{item.visitor_date}}" data-href="{{item.href}}" data-phone="{{item.phone}}" bindtap="renterDetail">
 				<image src="/icon/children.png"></image>
-				<text class="guardian">{{item.snapshot.name}}</text>
+				<text class="guardian">{{item.name}}</text>
 				<!-- <text class="guardian">{{name}}</text> -->
 			</view>
 			<view>

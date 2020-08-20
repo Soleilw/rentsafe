@@ -52,9 +52,8 @@ Page({
         showSubmit: false, // 提交按钮
         disabled: false,
         isRegister: false, // 非初次注册用户
-        status: null,
         id: '',
-        check: ''
+        check: '',
     },
 
     onLoad(options) {
@@ -73,8 +72,7 @@ Page({
             // [address]: options.address,
             // [address_id]: options.address_id,
             wxInfo: wx.getStorageSync('wxInfo'),
-            status: options.status,
-            id: options.id
+            id: options.id,
         });
 
         // 初始化
@@ -87,21 +85,7 @@ Page({
 
     onShow(e) {
         this.getPersonalInfo();
-        // if (!wx.getStorageSync('token')) {
-        //     wx.showToast({
-        //         icon: "none",
-        //         title: '请先登录',
-        //         success() {
-        //             setTimeout(function () {
-        //                 wx.removeStorageSync('wxInfo');
-        //                 wx.reLaunch({
-        //                     url: "pages/personal/index/change-user/change-user"
-        //                 });
-        //             }, 2000);
-        //         }
-        //     });
-
-        // }
+        
     },
     getPersonalInfo() {
         var self = this;
@@ -196,8 +180,8 @@ Page({
         // var name = '安';
         var sex = e.detail.value.sex;
         var token = wx.getStorageSync('token');
-        // var href = self.data.userInfo.href;
-        var href = 'https://tu.fengniaotuangou.cn/tmp_ff1b709c323f134045df80bea705bde2bfd57d1d90686b6f.jpg';
+        var href = self.data.userInfo.href;
+        // var href = 'https://tu.fengniaotuangou.cn/tmp_ff1b709c323f134045df80bea705bde2bfd57d1d90686b6f.jpg';
 
         if (REG_PHONE.test(phone) && self.reg(card_number) && name && sex && href) {
             infomation.register(token, name, sex, card_number, phone, href).then(res => {
@@ -288,11 +272,6 @@ Page({
 
     addIden() {
         var self = this
-        console.log(1111, this.data.status);
-
-        // wx.navigateTo({
-        //     url: '../register/register?status=' + self.data.status + '&id=' + self.data.id
-        // })
         wx.navigateTo({
             url: '../register/register'
         })

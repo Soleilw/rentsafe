@@ -1,0 +1,39 @@
+<!--pages/personal/house/visitor/visitors/visitors.wxml-->
+<view class="form">
+	<!-- 真实姓名 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/my1.png" />
+		<text>姓名</text>
+		<input class="input" type="text" maxlength='10' value="{{userInfo.name}}" disabled="true"></input>
+	</view>
+	<!-- 拜访时间 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/date.png" />
+		<text>拜访时间</text>
+		<input class="input" type="text" value="{{userInfo.checkDate}}" disabled="true"></input>
+	</view>
+	<!-- 手机 -->
+	<view class="form-item">
+		<image class="left-icon" src="/icon/iphone.png" />
+		<text>手机</text>
+		<input class="input" type="number" value="{{userInfo.phone}}" disabled="true"></input>
+	</view>
+	<!-- 地址 -->
+	<!-- <view class="form-item">
+		<image class="left-icon" src="/icon/address3.png" />
+		<text>地址</text>
+		<textarea class="textarea" value="{{userInfo.address ? userInfo.address : '暂无地址'}}" auto-height disabled="true"></textarea>
+	</view> -->
+
+	<block wx:if="{{showFace}}">
+		<view class="form-item" style="border:none;justify-content: flex-start; ">
+			<image class="left-icon" src="/icon/recognition.png"></image>
+			<text style="width:500rpx;">大头照</text>
+		</view>
+		<view class="portrait-box">
+			<view>
+				<image mode="aspectFill" src="{{userInfo.href}}"></image>
+			</view>
+		</view>
+	</block>
+</view>

@@ -1,46 +1,36 @@
 <form bindsubmit="subInfomation">
 	<view class="form">
-		<!-- 地址 -->
-		<view class="form-item">
-			<image class="left-icon" src="/icon/address3.png" />
-			<text>访问地址</text>
-			<view bindtap="toChooseAddress">
-				<input class="input" name="address" value="{{userInfo.address}}" placeholder="请选择地址" disabled="true"></input>
-			</view>
-		</view>
-		<!-- 拜访人 -->
-		<view class="form-item">
-			<image class="left-icon" src="/icon/index1.png" />
-			<text>拜访人</text>
-			<picker bindchange="roomChange" range="{{roomList}}" range-key="name" value="{{index}}">
-				<input class="input" placeholder="请选择拜访人" value="{{visitorName ? '请选择拜访人' : roomList[index].name}}" disabled="true"></input>
-			</picker>
-		</view>
-		<!-- 日期 -->
-		<view class="form-item">
-			<image class="left-icon" src="/icon/date.png" />
-			<text>来访日期</text>
-			<picker mode="date" value="{{date}}" start="2020-01-01" end="2030-01-01" bindchange="bindDateChange">
-				<input class="input" placeholder="请选择日期" value="{{userInfo.checkDate ? userInfo.checkDate : '请选择日期'}}" disabled="true"></input>
-			</picker>
+		<!-- 头像 -->
+		<view class="form-item" style="justify-content: flex-start;">
+			<image mode="aspectFill" class="left-icon" src="{{wxInfo.avatarUrl}}" style="width:120rpx;height:120rpx;" />
+			<text name="nickName">{{wxInfo.nickName}}</text>
 		</view>
 		<!-- 真实姓名 -->
 		<view class="form-item">
 			<image class="left-icon" src="/icon/my1.png" />
 			<text>姓名</text>
-			<input class="input" type="text" maxlength='10' placeholder='请输入' name="name" value='{{userInfo.name}}' disabled="{{disabled}}"></input>
+			<input class="input" type="text" maxlength='10' placeholder='请输入' name="name" value='{{userInfo.name}}' bindblur="changeInfo" disabled="{{disabled}}"></input>
+		</view>
+		<!-- 性别 -->
+		<view class="form-item">
+			<image class="left-icon" src="/icon/sex1.png" />
+			<text>性别</text>
+			<radio-group name="sex" class="sex-box">
+				<radio value="1" checked="{{userInfo.sex== 1?'true':''}}"  bindblur="changeInfo" disabled="{{disabled}}" />男
+				<radio value="2" checked="{{userInfo.sex== 2?'true':''}}"  bindblur="changeInfo" disabled="{{disabled}}" />女
+			</radio-group>
 		</view>
 		<!-- 身份证号 -->
 		<view class="form-item" wx:if="{{showFace}}">
 			<image class="left-icon" src="/icon/ID.png" />
 			<text>身份证号</text>
-			<input class="input" disabled="{{disabled}}" type="text" maxlength='18' placeholder='请输入' bindblur="regIdentity" name="card_number" value='{{userInfo.card_number}}'></input>
+			<input class="input" disabled="{{disabled}}" type="text" maxlength='18' placeholder='请输入' bindblur="regIdentity" name="card_number"  bindblur="changeInfo" value='{{userInfo.card_number}}'></input>
 		</view>
 		<!-- 手机 -->
 		<view class="form-item" wx:if="{{showFace}}">
 			<image class="left-icon" src="/icon/iphone.png" />
 			<text>手机</text>
-			<input class="input" disabled="{{disabled}}" type="number" maxlength='11' placeholder='请输入' bindblur="regPhone" name="phone" value='{{userInfo.phone}}'></input>
+			<input class="input" disabled="{{disabled}}" type="number" maxlength='11' placeholder='请输入' bindblur="regPhone" name="phone" value='{{userInfo.phone}}'  bindblur="changeInfo"></input>
 		</view>
 
 		<!-- 人脸上传 -->
@@ -51,7 +41,6 @@
 			</view>
 			<view class="portrait-box">
 				<view data-type="1" bindtap='cameraDisable'>
-					<!-- <image mode="aspectFill" src="https://tu.fengniaotuangou.cn/tmp_ff1b709c323f134045df80bea705bde2bfd57d1d90686b6f.jpg"></image> -->
 					<image mode="aspectFill" src="{{userInfo.href}}"></image>
 					<image class="image" wx:if="{{!userInfo.href}}" mode="aspectFill" src="/icon/head.png"></image>
 				</view>
@@ -59,10 +48,13 @@
 		</block>
 	</view>
 	<block>
-		<view class="btn">
-			<button class="submit" type="primary" form-type='submit'  wx:if="{{isSucceed}}" disabled="{{disabled}}">提交</button>
-		<button class="submit" bindtap="subInfo" wx:else>订阅通知信息</button>
-
+		<view class="btn" wx:if="{{showSubmit}}">
+			<button class="submit" type="primary" form-type='submit' wx:if="{{isSucceed}}" bindtap="saveInfo">保存信息</button>
+			<button class="submit" bindtap="subInfo" wx:else>订阅通知信息</button>
+		</view>
+		<view class="btn" wx:else>
+			<button class="submit" type="primary" wx:if="{{isSucceed}}" bindtap="changeInfo">修改信息</button>
+			<button class="submit" bindtap="subInfo" wx:else>订阅通知信息</button>
 		</view>
 	</block>
 </form>

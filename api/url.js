@@ -43,6 +43,15 @@ const url = {
     "AllowOpen": '/allow/open', // 允许开门
     "OpenDoor": '/open/door', // 一键开门
     "AddressDevices": '/address/devices', // 地址设备列表
+
+    // 访客
+    "AddrressUser": '/address/user', // 获取出租屋用户
+    "Visitor": '/visitor', // 新增访客
+    "Visitors": '/visitors', // 获取用户访客
+    "CheckVisitor": '/check/visitor', // 审核访客
+
+    // 修改
+    "Amend": '/user/info/household', // 修改个人信息
     
 };
 

@@ -156,11 +156,104 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
         })
     },
 
+     // 审核访客
+     infomation.auditVisitor = function (token, id, state) {
+        return new Promise((resolve, reject) => {
+            api.post(api.baseUrl.host, api.url.CheckVisitor, {
+                token: token,
+                id: id,
+                state: state,
+            }, function (response) {
+                if (response.msg === 'ok') {
+                    var res = response.data;
+                    resolve(res);
+                } else {
+                    reject(response);
+                }
+            })
+        })
+    },
+
     // 删除租客
     infomation.delHousehold = function (id) {
         return new Promise((resolve, reject) => {
             api.delete(api.baseUrl.host, api.url.DelHousehold, {
                 id: id
+            }, function (response) {
+                if (response.msg === 'ok') {
+                    var res = response.data;
+                    resolve(res);
+                } else {
+                    reject(response);
+                }
+            })
+        })
+    }
+
+    // 获取出租屋用户
+    infomation.addrressUser = function (addresses_id) {
+        return new Promise((resolve, reject) => {
+            api.get(api.baseUrl.host, api.url.AddrressUser, {
+                addresses_id: addresses_id
+            }, function (response) {
+                if (response.msg === 'ok') {
+                    var res = response.data;
+                    resolve(res);
+                } else {
+                    reject(response);
+                }
+            })
+        })
+    }
+
+    // 新增访客
+    infomation.visitor = function (token, addresses_id, name, href, phone, interviewee, visitor_date) {
+        return new Promise((resolve, reject) => {
+            api.post(api.baseUrl.host, api.url.Visitor, {
+                token: token,
+                addresses_id: addresses_id,
+                name: name,
+                href: href,
+                phone: phone,
+                interviewee:interviewee,
+                visitor_date: visitor_date
+            }, function (response) {
+                if (response.msg === 'ok') {
+                    var res = response.data;
+                    resolve(res);
+                } else {
+                    reject(response);
+                }
+            })
+        })
+    }
+    // 获取用户访客
+    infomation.visitors = function (token) {
+        return new Promise((resolve, reject) => {
+            api.get(api.baseUrl.host, api.url.Visitors, {
+                token: token
+            }, function (response) {
+                if (response.msg === 'ok') {
+                    var res = response.data;
+                    resolve(res);
+                } else {
+                    reject(response);
+                }
+            })
+        })
+    }
+
+    // 修改
+    infomation.amend = function (id, token, name, sex, card_number, phone, href) {
+        return new Promise((resolve, reject) => {
+            api.post(api.baseUrl.host, api.url.Amend, {
+                id: id,
+                token: token,
+                name: name,
+                sex: sex,
+                card_number: card_number,
+                phone: phone,
+                href: href
             }, function (response) {
                 if (response.msg === 'ok') {
                     var res = response.data;

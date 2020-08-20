@@ -22,7 +22,7 @@ Page({
             room_id: ''
         },
         status: null,
-        id: ''
+        id: '',
     },
 
     onLoad(options) {
@@ -123,7 +123,7 @@ Page({
             id: e.target.dataset.id
         })
         wx.navigateTo({
-            url: '../../infomation/infomation/infomation?status=' + self.data.status + '&id=' + self.data.id
+            url: '../../infomation/infomation-amend/infomation-amend?status=' + self.data.status + '&id=' + self.data.id
         })
     },
     // 访客申请

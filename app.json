@@ -19,7 +19,9 @@
     "pages/personal/house/renter-child/renter-child",
     "pages/personal/house/visitor/visitor",
     "pages/personal/house/setting/setting",
-    "pages/personal/infomation/visitor-apply/visitor-apply"
+    "pages/personal/infomation/visitor-apply/visitor-apply",
+    "pages/personal/house/visitor/visitors/visitors",
+    "pages/personal/infomation/infomation-amend/infomation-amend"
   ],
   "window": {
     "backgroundTextStyle": "light",

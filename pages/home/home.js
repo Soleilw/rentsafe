@@ -1,6 +1,7 @@
 var banner = require("../../model/home/banner")
 var doc = require('../../model/home/document')
 var areasId = require('../../model/home/userAreas')
+var app = getApp();
 
 Page({
 
@@ -23,57 +24,27 @@ Page({
    */
   onLoad: function (options) {
     this.getAreas();
+    this.getBanner();
+    this.getDoc();
+    this.getSelected();
+  },
+  onShow: function () {
+    this.getBanner();
+    this.getDoc();
+    this.getSelected();
   },
 
   // 获取用户社区
   getAreas() {
     var self = this;
-    // 用户未登录时
-    if (!wx.getStorageSync('token')) {
-      self.getBanner();
-      self.getDoc();
-      self.getSelected();
-    } else {
-      // 用户登录了
-      areasId.userAreas(wx.getStorageSync('token')).then(res => {
-        console.log('getAreas', res);
-        // 该用户存在社区
-        if (res.length > 0) {
-          self.setData({
-            areasList: res,
-            areas: res[0].title,
-            areas_id: res[0].id
-          })
-          banner.banners(1, 100, res[0].id).then(res => {
-            console.log('banner', res.data);
-            self.setData({
-              banners: res.data
-            })
-          })
-          doc.documentType(1, 100, res[0].id).then(res => {
-            console.log('doc', res);
-            self.setData({
-              classFication: res.data
-            })
-          })
-          doc.documents(1, 100, res[0].id).then(res => {
-            console.log('getSelected', res);
-            for (let i = 0; i < res.data.length; i++) {
-              console.log('is_show' ,res.data[i].is_show);
-              if (res.data[i].is_show == 1) {
-                self.setData({
-                  docList: res.data
-                })
-              }
-            }
-          })
-        } else {
-          self.getBanner();
-          self.getDoc();
-          self.getSelected();
-        }
+    
+    areasId.userAreas(wx.getStorageSync('token')).then(res => {
+      console.log('getAreas', res);
+      // 该用户存在社区
+      self.setData({
+        areasList: res,
       })
-    }
+    })
 
   },
 
@@ -85,8 +56,6 @@ Page({
       areas_index: e.detail.value,
       areas: '',
     })
-    console.log('areas_index', self.data.areas_index);
-
     // 用户登录了
     areasId.userAreas(wx.getStorageSync('token')).then(res => {
       console.log('getAreas', res);
@@ -125,9 +94,9 @@ Page({
   // 获取轮播图
   getBanner() {
     var self = this;
-    banner.banners(1, 100, 0).then(res => {
+    banner.banners(1, 100, app.globalData.area_id).then(res => {
       console.log('banner', res.data);
-      self.setData({
+      this.setData({
         banners: res.data
       })
     })
@@ -136,9 +105,9 @@ Page({
   // 获取资讯
   getDoc() {
     var self = this;
-    doc.documentType(1, 100, 0).then(res => {
+    doc.documentType(1, 100, app.globalData.area_id).then(res => {
       console.log('doc', res);
-      self.setData({
+      this.setData({
         classFication: res.data
       })
     })
@@ -147,17 +116,16 @@ Page({
   // 获取精选资讯
   getSelected() {
     var self = this;
-    doc.documents(1, 100, 0).then(res => {
+    doc.documents(1, 100, app.globalData.area_id).then(res => {
       console.log('getSelected', res);
       for (let i = 0; i < res.data.length; i++) {
-        console.log(res.data[i].is_show);
+        console.log('is_show', res.data[i].is_show);
         if (res.data[i].is_show == 1) {
-          self.setData({
+          this.setData({
             docList: res.data
           })
         }
       }
-
     })
   },
 

@@ -24,8 +24,7 @@ Page({
      */
     data: {
         userInfo: {
-            sex: 1,
-            checkDate: ''
+            sex: 1
         },
         state: '', // 审核状态
         wxInfo: null,
@@ -35,21 +34,20 @@ Page({
             flash: 'off'
         },
         showFace: false, // 开启人脸
-        showRegister: false, // 初次注册提交按钮
+        // showRegister: false, // 初次注册提交按钮
+        showSubmit: false, // 提交按钮
         disabled: false,
+        // isRegister: false, // 非初次注册用户
         id: '',
         check: '',
-        // checkDate: '',
-        roomList: [],
-        // address_id: '4293',
-        address_id: '',
-        index: '',
-        userId: '',
         isSucceed: true,
+
     },
 
     onLoad(options) {
         console.log(options)
+        this.getPersonalInfo();
+
         if (wx.getStorageSync('openFace') == 'open') {
             this.setData({
                 showFace: true
@@ -57,7 +55,7 @@ Page({
         }
         this.setData({
             wxInfo: wx.getStorageSync('wxInfo'),
-            id: options.id
+            id: options.id,
         });
 
         // 初始化
@@ -66,22 +64,25 @@ Page({
             flash: 'off',
             position: 'front'
         }
-        // this.getUser()
-
     },
 
     onShow(e) {
-        const pages = getCurrentPages()
-        const currPage = pages[pages.length - 1] // 当前页
-        console.log(currPage.data) // data中会含有testdata
-        this.setData({
-            address_id: currPage.data.userInfo.address_id
-        })
-        if (this.data.address_id != undefined) {
-            this.getUser()
-        }
+        this.getPersonalInfo();
     },
-
+    getPersonalInfo() {
+        var self = this;
+        infomation.userInfo(wx.getStorageSync('token')).then(res => {
+            console.log('getPersonalInfo', res);
+            if (res) {
+                self.setData({
+                    userInfo: res,
+                    state: res.state,
+                    disabled: true,
+                    check: res.check
+                })
+            }
+        })
+    },
     reg(idCard) {
         var regIdCard =
             /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
@@ -127,45 +128,13 @@ Page({
             })
         }
     },
-    // 选择地址
-    toChooseAddress() {
-        var self = this;
-        wx.navigateTo({
-            url: '../../infomation/address/address',
-        })
-    },
-    // 选择日期
-    bindDateChange: function (e) {
-        console.log('picker发送选择改变，携带值为', e.detail.value)
-        var checkDate = 'userInfo.checkDate';
-        this.setData({
-            [checkDate]: e.detail.value
-        })
-    },
-    // 获取出租屋用户
-    getUser() {
-        var self = this;
-        infomation.addrressUser(self.data.address_id).then(res => {
-            console.log(res);
-            self.setData({
-                roomList: res.data
-            })
-        })
-    },
-    roomChange(e) {
-        var self = this;
-        console.log(e);
-        self.setData({
-            index: e.detail.value,
-            userId: self.data.roomList[e.detail.value].user_id
-        })
-    },
 
     subInfomation(e) {
         var self = this;
         console.log('subInfomation', e)
         // 验证手机号
         var phone = e.detail.value.phone;
+        // var phone = '159765406547';
         if (!REG_PHONE.test(phone)) {
             wx.showToast({
                 icon: "none",
@@ -174,49 +143,48 @@ Page({
         }
         // 验证身份证
         var card_number = e.detail.value.card_number;
+        // var card_number = '440981199701285628';
         if (!self.reg(card_number)) {
             wx.showToast({
                 icon: "none",
                 title: '请输入有效的身份证号码'
             })
         }
+        var id = self.data.id;
         var name = e.detail.value.name;
+        // var name = '安';
+        var sex = e.detail.value.sex;
         var token = wx.getStorageSync('token');
-        var interviewee = self.data.userId
-        var checkDate = self.data.userInfo.checkDate;
-        var address = self.data.userInfo.address
-        // var href = self.data.userInfo.href;
-        var href = 'https://tu.fengniaotuangou.cn/tmp_ff1b709c323f134045df80bea705bde2bfd57d1d90686b6f.jpg';
-        var addresses_id = self.data.address_id;
-        if (REG_PHONE.test(phone) && self.reg(card_number) && name && interviewee && href && checkDate && address) {
-            infomation.visitor(token, addresses_id, name, href, phone, interviewee, checkDate).then(res => {
-                console.log(res);
-                wx.showLoading({
-                    title: '提交中',
-                    icon: "loading",
-                    success: () => {
-                        wx.hideLoading();
-                        self.setData({
-                            disabled: true,
-                        })
-                        wx.showToast({
-                            icon: "none",
-                            title: '提交成功,请等待审核',
-                            success() {
-                                setTimeout(function () {
-                                    self.checkAuth();
-                                }, 1000);
-                            }
-                        });
+        var href = self.data.userInfo.href;
+        // var href = 'https://tu.fengniaotuangou.cn/tmp_ff1b709c323f134045df80bea705bde2bfd57d1d90686b6f.jpg';
+
+        if (REG_PHONE.test(phone) && self.reg(card_number) && name && sex && href) {
+            infomation.amend(id, token, name, sex, card_number, phone, href).then(res => {
+                wx.showModal({
+                    title: '提示',
+                    content: '信息提交将无法修改, 是否确定要提交',
+                    cancelText: '取消',
+                    confirmText: '确定',
+                    success: function (res) {
+                        if (res.confirm) {
+                            wx.showToast({
+                                icon: "none",
+                                title: '提交成功',
+                                success: () => {
+                                    setTimeout(function () {
+                                        self.checkAuth();
+                                    }, 1000);
+
+                                }
+                            });
+                        } else if (res.cancel) {
+                            wx.showToast({
+                                icon: "none",
+                                title: '取消成功',
+                            });
+                        }
                     }
                 })
-                wx.showToast({
-                    icon: "none",
-                    title: '提交成功',
-                    success() {
-                        
-                    },
-                });
             })
         } else {
             wx.showToast({
@@ -224,69 +192,7 @@ Page({
                 title: '请补充完整信息',
             })
         }
-        
-    },
-    subInfo(e) {
-        var self = this;
-        console.log('subInfo', e);
-        var templateId = '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM';
-        wx.requestSubscribeMessage({
-            tmplIds: [templateId],
-            success(res) {
-                if (res[templateId] == 'accept') {
-                    //用户同意了订阅，允许订阅消息
-                    wx.showToast({
-                        title: '订阅成功',
-                        success() {
-                            setTimeout(() => {
-                                wx.reLaunch({
-                                    url: "/pages/personal/index/change-user/change-user"
-                                })
-                            }, 1000);
-                        }
-                    })
-                } else {
-                    //用户拒绝了订阅，禁用订阅消息
-                    wx.showToast({
-                        title: '订阅失败',
-                        icon: 'none',
-                        success() {
-                            setTimeout(() => {
-                                wx.reLaunch({
-                                    url: "/pages/personal/index/change-user/change-user"
-                                })
-                            }, 1000);
-                        }
-                    })
-                }
-            },
-            fail(res) {
-                console.log(res)
-            },
-            complete(res) {
-                console.log(res)
-            }
-        })
-    },
-    // 验证身份证号
-    regIdentity(e) {
-        var self = this;
-        if (!self.reg(e.detail.value)) {
-            wx.showToast({
-                icon: "none",
-                title: '请输入有效的身份证号码',
-            })
-        }
-    },
-    // 验证手机号
-    regPhone(e) {
-        var self = this;
-        if (!REG_PHONE.test(e.detail.value)) {
-            wx.showToast({
-                icon: "none",
-                title: '请正确的手机号',
-            })
-        }
+
     },
     // 查看授权信息
     checkAuth() {
@@ -364,6 +270,92 @@ Page({
             }
         })
     },
+
+    // 修改个人信息
+    changeInfo() {
+        if (this.data.check == 1) {
+            wx.showToast({
+                icon: "none",
+                title: '只允许修改人脸图片',
+                success: () => {
+                    this.setData({
+                        disabled: true,
+                        showSubmit: true
+                    })
+                }
+            })
+        } else {
+            this.setData({
+                disabled: false,
+                showSubmit: true
+            })
+        }
+    },
+    subInfo(e) {
+        var self = this;
+        console.log('subInfo', e);
+        var templateId = '13BA3nJik4w0shVkmMnLyM01x3hQ6ZbN3wr9iJR-lpM';
+        wx.requestSubscribeMessage({
+            tmplIds: [templateId],
+            success(res) {
+                if (res[templateId] == 'accept') {
+                    //用户同意了订阅，允许订阅消息
+                    wx.showToast({
+                        title: '订阅成功',
+                        success() {
+                            setTimeout(() => {
+                                wx.reLaunch({
+                                    url: "/pages/personal/index/change-user/change-user"
+                                })
+                            }, 1000);
+                        }
+                    })
+                } else {
+                    //用户拒绝了订阅，禁用订阅消息
+                    wx.showToast({
+                        title: '订阅失败',
+                        icon: 'none',
+                        success() {
+                            setTimeout(() => {
+                                wx.reLaunch({
+                                    url: "/pages/personal/index/change-user/change-user"
+                                })
+                            }, 1000);
+                        }
+                    })
+                }
+            },
+            fail(res) {
+                console.log(res)
+            },
+            complete(res) {
+                console.log(res)
+            }
+        })
+    },
+
+    // 验证身份证号
+    regIdentity(e) {
+        var self = this;
+        if (!self.reg(e.detail.value)) {
+            wx.showToast({
+                icon: "none",
+                title: '请输入有效的身份证号码',
+            })
+        }
+    },
+
+    // 验证手机号
+    regPhone(e) {
+        var self = this;
+        if (!REG_PHONE.test(e.detail.value)) {
+            wx.showToast({
+                icon: "none",
+                title: '请正确的手机号',
+            })
+        }
+    },
+
     // 调用相机
     cameraDisable() {
         let self = this;
@@ -408,6 +400,7 @@ Page({
             }
         })
     },
+
     // 显示隐藏相机
     cameraDisable: function () {
         console.log('隐藏相机')

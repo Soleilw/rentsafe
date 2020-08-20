@@ -25,22 +25,14 @@ Page({
     // 获取审核列表
     getAuditList() {
         let self = this;
-        if (self.data.typestring == '户主') {
-            infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 2).then(res => {
-                console.log('获取审核列表', res);
-                self.setData({
-                    renterList: res.data
-                })
+        infomation.visitors(wx.getStorageSync('token')).then(res => {
+            console.log(res);
+
+            self.setData({
+                renterList: res
             })
-        } else if (self.data.typestring == '物业') {
-            infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 2).then(res => {
-                console.log('获取审核列表', res);
-                self.setData({
-                    renterList: res.data
-                })
-            })
-        }
-        
+        })
+
     },
 
     // 查看租客详情
@@ -48,14 +40,13 @@ Page({
         console.log(e)
         var self = this
         var name = e.currentTarget.dataset.name;
-        var sex = e.currentTarget.dataset.sex;
-        var card_number = e.currentTarget.dataset.card_number;
         var phone = e.currentTarget.dataset.phone;
         var address = e.currentTarget.dataset.address;
         var href = e.currentTarget.dataset.href;
+        var checkDate = e.currentTarget.dataset.checkdate
 
         wx.navigateTo({
-            url: '../renterDedail/renterDedail?name=' + name + '&sex=' + sex + '&card_number=' + card_number + '&phone=' + phone + '&address=' + address + '&href=' + href,
+            url: './visitors/visitors?name=' + name + '&phone=' + phone + '&href=' + href + '&checkDate=' + checkDate,
         })
     },
     // 审核
@@ -70,44 +61,23 @@ Page({
             cancelText: '不通过',
             confirmText: '通过',
             success: function (res) {
-                if (self.data.typestring == '户主') {
-                    if (res.confirm) {
-                        infomation.audit(wx.getStorageSync('token'), id, 2, 1).then(res => {
-                            wx.showToast({
-                                icon: "none",
-                                title: '提交成功'
-                            })
-                            self.getAuditList();
+                if (res.confirm) {
+                    infomation.auditVisitor(wx.getStorageSync('token'), id, 2).then(res => {
+                        wx.showToast({
+                            icon: "none",
+                            title: '提交成功'
                         })
-                    } else if (res.cancel) {
-                        infomation.audit(wx.getStorageSync('token'), id, 3, 1).then(res => {
-                            wx.showToast({
-                                icon: "none",
-                                title: '提交成功'
-                            })
-                            self.getAuditList();
+                        self.getAuditList();
+                    })
+                } else if (res.cancel) {
+                    infomation.auditVisitor(wx.getStorageSync('token'), id, 3).then(res => {
+                        wx.showToast({
+                            icon: "none",
+                            title: '提交成功'
                         })
-                    }
-                } else if (self.data.typestring == '物业') {
-                    if (res.confirm) {
-                        infomation.audit(wx.getStorageSync('token'), id, 2, 4).then(res => {
-                            wx.showToast({
-                                icon: "none",
-                                title: '提交成功'
-                            })
-                            self.getAuditList();
-                        })
-                    } else if (res.cancel) {
-                        infomation.audit(wx.getStorageSync('token'), id, 3, 4).then(res => {
-                            wx.showToast({
-                                icon: "none",
-                                title: '提交成功'
-                            })
-                            self.getAuditList();
-                        })
-                    }
+                        self.getAuditList();
+                    })
                 }
-                
             }
         })
     },

@@ -82,12 +82,6 @@
 			<button class="submit" type="primary" bindtap="addIden">添加身份</button>
 		</view>
 
-		<!-- <view class="btn" wx:if="{{showSubmit}}">
-			<button class="submit" form-type='submit'>提交信息并下一步</button>
-		</view>
-		<view class="btn" wx:else>
-			<button class="submit" bindtap="next">修改信息</button>
-		</view> -->
 	</block>
 
 </form>
