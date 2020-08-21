@@ -11,7 +11,7 @@
 				<text>{{item.room.door_number}}</text>
 			</view>
 		</view>
-		<button wx:if="{{item.state == 1}}" data-id="{{item.id}}" data-card_number="{{item.snapshot.card_number}}" bindtap="toAudit">去审核</button>
+		<button wx:if="{{item.state == 1}}" data-id="{{item.id}}" data-card_number="{{item.snapshot.card_number}}" data-check="{{item.check}}" bindtap="toAudit">去审核</button>
 		<button wx:if="{{item.state == 2}}" disabled="true" style="color: green">已通过</button>
 		<button wx:if="{{item.state == 3}}" disabled="true" style="color: red">未通过</button>
 		<button class="del_btn" data-id="{{item.id}}" bindtap="delete" type="warn">删除</button>
