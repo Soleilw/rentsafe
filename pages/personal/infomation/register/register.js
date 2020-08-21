@@ -210,6 +210,14 @@ Page({
                             })
     
                         }
+                    }).catch(err => {
+                        console.log(err);
+                        if (err.code == 10004) {
+                            wx.showToast({
+                                icon: "none",
+                                title: '此地址已存在该身份类型，请勿重复提交! '
+                            });
+                        }
                     })
             
             } else {

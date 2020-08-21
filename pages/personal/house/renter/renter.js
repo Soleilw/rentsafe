@@ -8,8 +8,9 @@ Page({
     data: {
         renterList: [],
         detailedAddress_id: '',
-        typestring: ''
+        typestring: '',
         // name: '秦时明月汉时关'
+        check: ''
     },
 
     onLoad(options) {
@@ -29,7 +30,7 @@ Page({
             infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 2).then(res => {
                 console.log('获取审核列表', res);
                 self.setData({
-                    renterList: res.data
+                    renterList: res.data,
                 })
             })
         } else if (self.data.typestring == '物业') {
@@ -40,7 +41,7 @@ Page({
                 })
             })
         }
-        
+
     },
 
     // 查看租客详情
@@ -62,54 +63,83 @@ Page({
     toAudit(e) {
         let self = this;
         var id = e.currentTarget.dataset.id;
+        var check = e.currentTarget.dataset.check;
         console.log('审核', id);
+        console.log(e);
+        if (check == 1) {
+            wx.showModal({
+                title: '审核提示',
+                content: '是否通过该租客的申请？',
+                cancelText: '不通过',
+                confirmText: '通过',
+                success: function (res) {
+                    if (self.data.typestring == '户主') {
+                        if (res.confirm) {
+                            infomation.audit(wx.getStorageSync('token'), id, 2, 1, 1).then(res => {
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '提交成功'
+                                })
+                                self.getAuditList();
+                            }).catch(err => {
+                                if (err.code == 10002) {
+                                    wx.showToast({
+                                        icon: "none",
+                                        title: '身份核验失败!'
+                                    })
+                                }
+                            })
+                        } else if (res.cancel) {
+                            infomation.audit(wx.getStorageSync('token'), id, 3, 1, 1).then(res => {
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '提交成功'
+                                })
+                                self.getAuditList();
+                            })
+                        }
+                    } else if (self.data.typestring == '物业') {
+                        if (res.confirm) {
+                            infomation.audit(wx.getStorageSync('token'), id, 2, 4, 1).then(res => {
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '提交成功'
+                                })
+                                self.getAuditList();
+                            }).catch(err => {
+                                if (err.code == 10002) {
+                                    wx.showToast({
+                                        icon: "none",
+                                        title: '身份核验失败!'
+                                    })
+                                }
+                            })
+                        } else if (res.cancel) {
+                            infomation.audit(wx.getStorageSync('token'), id, 3, 4, 1).then(res => {
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '提交成功'
+                                })
+                                self.getAuditList();
+                            })
+                        }
+                    }
 
-        wx.showModal({
-            title: '审核提示',
-            content: '是否通过该租客的申请？',
-            cancelText: '不通过',
-            confirmText: '通过',
-            success: function (res) {
-                if (self.data.typestring == '户主') {
-                    if (res.confirm) {
-                        infomation.audit(wx.getStorageSync('token'), id, 2, 1).then(res => {
-                            wx.showToast({
-                                icon: "none",
-                                title: '提交成功'
-                            })
-                            self.getAuditList();
-                        })
-                    } else if (res.cancel) {
-                        infomation.audit(wx.getStorageSync('token'), id, 3, 1).then(res => {
-                            wx.showToast({
-                                icon: "none",
-                                title: '提交成功'
-                            })
-                            self.getAuditList();
-                        })
-                    }
-                } else if (self.data.typestring == '物业') {
-                    if (res.confirm) {
-                        infomation.audit(wx.getStorageSync('token'), id, 2, 4).then(res => {
-                            wx.showToast({
-                                icon: "none",
-                                title: '提交成功'
-                            })
-                            self.getAuditList();
-                        })
-                    } else if (res.cancel) {
-                        infomation.audit(wx.getStorageSync('token'), id, 3, 4).then(res => {
-                            wx.showToast({
-                                icon: "none",
-                                title: '提交成功'
-                            })
-                            self.getAuditList();
-                        })
-                    }
                 }
-                
-            }
-        })
+            })
+        } else if (check == 0) {
+            wx.showToast({
+                icon: "none",
+                title: '该用户身份未核验, 不能审核'
+            })
+        } else if (check == 2) {
+            wx.showToast({
+                icon: "none",
+                title: '该用户身份信息错误, 不能审核'
+            })
+        }
+
+
     },
 
     // 删除租客

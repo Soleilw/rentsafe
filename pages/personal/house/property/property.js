@@ -50,33 +50,56 @@ Page({
     toAudit(e) {
         let self = this;
         var id = e.currentTarget.dataset.id;
+        var check = e.currentTarget.dataset.check;
+        
         console.log('审核', id);
 
-        wx.showModal({
-            title: '审核提示',
-            content: '是否通过该租客的申请？',
-            cancelText: '不通过',
-            confirmText: '通过',
-            success: function (res) {
-                if (res.confirm) {
-                    infomation.audit(wx.getStorageSync('token'), id, 2, 1).then(res => {
-                        wx.showToast({
-                            icon: "none",
-                            title: '提交成功'
+        if (check == 1) {
+            wx.showModal({
+                title: '审核提示',
+                content: '是否通过该租客的申请？',
+                cancelText: '不通过',
+                confirmText: '通过',
+                success: function (res) {
+                    if (res.confirm) {
+                        infomation.audit(wx.getStorageSync('token'), id, 2, 1, 1).then(res => {
+                            wx.showToast({
+                                icon: "none",
+                                title: '提交成功'
+                            })
+                            self.getAuditList();
+                        }).catch(err => {
+                            if (err.code == 10002) {
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '身份核验失败!'
+                                })
+                            }
                         })
-                        self.getAuditList();
-                    })
-                } else if (res.cancel) {
-                    infomation.audit(wx.getStorageSync('token'), id, 3, 1).then(res => {
-                        wx.showToast({
-                            icon: "none",
-                            title: '提交成功'
+                    } else if (res.cancel) {
+                        infomation.audit(wx.getStorageSync('token'), id, 3, 1, 1).then(res => {
+                            wx.showToast({
+                                icon: "none",
+                                title: '提交成功'
+                            })
+                            self.getAuditList();
                         })
-                        self.getAuditList();
-                    })
+                    }
                 }
-            }
-        })
+            })
+        } else if (check == 0) {
+            wx.showToast({
+                icon: "none",
+                title: '该用户身份未核验, 不能审核'
+            })
+        } else if (check == 2) {
+            wx.showToast({
+                icon: "none",
+                title: '该用户身份信息错误, 不能审核'
+            })
+        }
+
+        
     },
 
     // 删除租客

@@ -3,16 +3,20 @@
 		<view class="form-item">
 			<!-- <image class="left-icon" src="/icon/ID.png" /> -->
 			<text>省份</text>
-			<picker bindchange="ProChange" range="{{proList}}" range-key="title" value="{{index}}">
+			<!-- <picker bindchange="ProChange" range="{{proList}}" range-key="title" value="{{index}}">
 				<input class="input" placeholder='请选择省份' disabled="true" name="province" value="{{province ? province : proList[is_pro].title}}"></input>
-			</picker>
+			</picker> -->
+				<input class="input" placeholder='请选择省份' disabled="true" name="province" value="{{province}}"></input>
+
 		</view>
 		<view class="form-item">
 			<!-- <image class="left-icon" src="/icon/ID.png" /> -->
 			<text>市级</text>
-			<picker bindchange="cityChange" range="{{cityList}}" range-key="title" value="{{index}}">
+			<!-- <picker bindchange="cityChange" range="{{cityList}}" range-key="title" value="{{index}}">
 				<input class="input" placeholder='请选择市级' disabled="true" name="city" value="{{city ? city : cityList[is_city].title}}"></input>
-			</picker>
+			</picker> -->
+				<input class="input" placeholder='请选择市级' disabled="true" name="city" value="{{city}}"></input>
+
 		</view>
 		<view class="form-item">
 			<!-- <image class="left-icon" src="/icon/ID.png" /> -->

@@ -181,7 +181,6 @@ Page({
         var sex = e.detail.value.sex;
         var token = wx.getStorageSync('token');
         var href = self.data.userInfo.href;
-        // var href = 'https://tu.fengniaotuangou.cn/tmp_ff1b709c323f134045df80bea705bde2bfd57d1d90686b6f.jpg';
 
         if (REG_PHONE.test(phone) && self.reg(card_number) && name && sex && href) {
             infomation.register(token, name, sex, card_number, phone, href).then(res => {

@@ -1,4 +1,4 @@
-<view class="choose-banner" wx:if="{{areasList.length > 1}}">
+<view class="choose-banner" wx:if="{{areasList.length > 0}}">
 	<!-- <text></text> -->
 	<view class="area">当前社区</view>
 	<input class="input" disabled="true" placeholder="请选择所在的社区" value="{{areas ? areas : areasList[areas_index].title}}"></input>

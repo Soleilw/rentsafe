@@ -199,13 +199,30 @@ Page({
             })
             var index = self.data.door_index
             var uuid = self.data.doorList[index].uuid
-            
             door.openDoor(uuid, wx.getStorageSync('token')).then(res => {
                 console.log('一键开门', res);
                 wx.showToast({
                     icon: "none",
                     title: '成功'
                 });
+            }).catch(err => {
+                console.log(err);
+                if (err.code == 10002) {
+                    wx.showToast({
+                        icon: "none",
+                        title: '设备不在线! '
+                    });
+                } else if (err.code == 10001) {
+                    wx.showToast({
+                        icon: "none",
+                        title: '请重新登陆! '
+                    });
+                } else if (err.code == 10005) {
+                    wx.showToast({
+                        icon: "none",
+                        title: '没有权限! '
+                    });
+                }
             })
         }
     },

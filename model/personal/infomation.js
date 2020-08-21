@@ -119,13 +119,14 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
     },
 
     // 审核租客/物业
-    infomation.audit = function (token, id, state, type) {
+    infomation.audit = function (token, id, state, type, self) {
         return new Promise((resolve, reject) => {
             api.get(api.baseUrl.host, api.url.CheckHousehold, {
                 token: token,
                 id: id,
                 state: state,
                 type: type,
+                self: self
             }, function (response) {
                 if (response.msg === 'ok') {
                     var res = response.data;
@@ -207,7 +208,7 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
     }
 
     // 新增访客
-    infomation.visitor = function (token, addresses_id, name, href, phone, interviewee, visitor_date) {
+    infomation.visitor = function (token, addresses_id, name, href, phone, interviewee, visitor_date, room_id) {
         return new Promise((resolve, reject) => {
             api.post(api.baseUrl.host, api.url.Visitor, {
                 token: token,
@@ -216,7 +217,8 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
                 href: href,
                 phone: phone,
                 interviewee:interviewee,
-                visitor_date: visitor_date
+                visitor_date: visitor_date,
+                room_id: room_id
             }, function (response) {
                 if (response.msg === 'ok') {
                     var res = response.data;

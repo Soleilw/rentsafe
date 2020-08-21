@@ -46,6 +46,7 @@ Page({
         index: '',
         userId: '',
         isSucceed: true,
+        room_id: ''
     },
 
     onLoad(options) {
@@ -75,7 +76,8 @@ Page({
         const currPage = pages[pages.length - 1] // 当前页
         console.log(currPage.data) // data中会含有testdata
         this.setData({
-            address_id: currPage.data.userInfo.address_id
+            address_id: currPage.data.userInfo.address_id,
+            room_id: currPage.data.userInfo.room_id,
         })
         if (this.data.address_id != undefined) {
             this.getUser()
@@ -185,11 +187,12 @@ Page({
         var interviewee = self.data.userId
         var checkDate = self.data.userInfo.checkDate;
         var address = self.data.userInfo.address
-        // var href = self.data.userInfo.href;
-        var href = 'https://tu.fengniaotuangou.cn/tmp_ff1b709c323f134045df80bea705bde2bfd57d1d90686b6f.jpg';
+        var href = self.data.userInfo.href;
+        var room_id = self.data.room_id
+
         var addresses_id = self.data.address_id;
         if (REG_PHONE.test(phone) && self.reg(card_number) && name && interviewee && href && checkDate && address) {
-            infomation.visitor(token, addresses_id, name, href, phone, interviewee, checkDate).then(res => {
+            infomation.visitor(token, addresses_id, name, href, phone, interviewee, checkDate, room_id).then(res => {
                 console.log(res);
                 wx.showLoading({
                     title: '提交中',

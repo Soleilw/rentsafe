@@ -68,6 +68,13 @@ Page({
                             title: '提交成功'
                         })
                         self.getAuditList();
+                    }).catch(err => {
+                        if (err.code == 10002) {
+                            wx.showToast({
+                                icon: "none",
+                                title: '身份核验失败!'
+                            })
+                        }
                     })
                 } else if (res.cancel) {
                     infomation.auditVisitor(wx.getStorageSync('token'), id, 3).then(res => {

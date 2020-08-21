@@ -79,6 +79,13 @@ Page({
                                 title: '提交成功'
                             })
                             self.getAuditList();
+                        }).catch(err => {
+                            if (err.code == 10002) {
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '身份核验失败!'
+                                })
+                            }
                         })
                     } else if (res.cancel) {
                         infomation.auditFamily(wx.getStorageSync('token'), id, 3, 1, card_number).then(res => {
@@ -97,6 +104,13 @@ Page({
                                 title: '提交成功'
                             })
                             self.getAuditList();
+                        }).catch(err => {
+                            if (err.code == 10002) {
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '身份核验失败!'
+                                })
+                            }
                         })
                     } else if (res.cancel) {
                         infomation.auditFamily(wx.getStorageSync('token'), id, 3, 4, card_number).then(res => {
