@@ -130,12 +130,12 @@ Page({
         }  else if (check == 0) {
             wx.showToast({
                 icon: "none",
-                title: '该用户身份未核验, 不能审核'
+                title: '该用户身份未核验!'
             })
         } else if (check == 2) {
             wx.showToast({
                 icon: "none",
-                title: '该用户身份信息错误, 不能审核'
+                title: '该用户身份信息错误!'
             })
         }
         
@@ -145,14 +145,15 @@ Page({
     delete(e) {
         var self = this;
         var id = e.currentTarget.dataset.id;
-        console.log('删除租客', id);
+        var card_number = e.currentTarget.dataset.card_number;
+        console.log('删除租客', e);
         wx.showModal({
             title: '提示',
             content: '是否删除该租客',
             success(res) {
                 if (res.confirm) {
                     console.log('用户点击确定')
-                    infomation.delHousehold(id).then(res => {
+                    infomation.delHousehold(id, card_number).then(res => {
                         wx.showToast({
                             icon: "none",
                             title: '删除成功'

@@ -23,10 +23,17 @@ Page({
         },
         status: null,
         id: '',
+        showFace: false, // 开启人脸
+
     },
 
     onLoad(options) {
         this.getIdenInfo();
+        if (wx.getStorageSync('openFace') == 'open') {
+            this.setData({
+                showFace: true
+            });
+        }
         this.setData({
             showCamera: app.globalData.showCamera
         })
@@ -61,7 +68,6 @@ Page({
                 }
             }
         })
-
     },
 
     // 调用相机

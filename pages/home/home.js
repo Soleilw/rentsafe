@@ -24,40 +24,17 @@ Page({
    */
   onLoad: function (options) {
     this.getAreas();
-    banner.banners(1, 100, 0).then(res => {
-      console.log('banner', res.data);
-      this.setData({
-        banners: res.data
-      })
-    })
-    doc.documentType(1, 100, 0).then(res => {
-      console.log('doc', res);
-      this.setData({
-        classFication: res.data
-      })
-    })
-    doc.documents(1, 100, 0).then(res => {
-      console.log('111 getSelected', res);
-      for (let i = 0; i < res.data.length; i++) {
-        console.log(res.data[i].is_show);
-        if (res.data[i].is_show == 1) {
-          self.setData({
-            docList: res.data
-          })
-        }
-      }
-    })
+    this.getBanner();
+    this.getDoc();
+    this.getSelected();
   },
   onShow: function () {
-    // this.getBanner();
-    // this.getDoc();
-    // this.getSelected();
+
   },
 
   // 获取用户社区
   getAreas() {
     var self = this;
-
     areasId.userAreas(wx.getStorageSync('token')).then(res => {
       console.log('getAreas', res);
       // 该用户存在社区
@@ -84,70 +61,74 @@ Page({
       })
       // 该用户存在社区
       if (res.length > 0) {
-        banner.banners(1, 100, res[self.data.areas_index].id).then(res => {
+        banner.banners(1, 100, self.data.areas_id).then(res => {
           console.log('banner', res.data);
           self.setData({
             banners: res.data
           })
         })
-        doc.documentType(1, 100, res[self.data.areas_index].id).then(res => {
+        doc.documentType(1, 100, self.data.areas_id).then(res => {
           console.log('doc', res);
           self.setData({
             classFication: res.data
           })
         })
-        doc.documents(1, 100, res[self.data.areas_index].id).then(res => {
+        doc.documents(1, 100, self.data.areas_id).then(res => {
           console.log('111 getSelected', res);
+          var list = [];
           for (let i = 0; i < res.data.length; i++) {
             console.log(res.data[i].is_show);
             if (res.data[i].is_show == 1) {
-              self.setData({
-                docList: res.data
-              })
+              list.push(res.data[i])
             }
           }
+          self.setData({
+            docList: list
+          })
         })
       }
     })
   },
 
   // 获取轮播图
-  // getBanner() {
-  //   var self = this;
-  //   banner.banners(1, 100, app.globalData.area_id).then(res => {
-  //     console.log('banner', res.data);
-  //     this.setData({
-  //       banners: res.data
-  //     })
-  //   })
-  // },
+  getBanner() {
+    var self = this;
+    banner.banners(1, 100, 0).then(res => {
+      console.log('banner', res.data);
+      this.setData({
+        banners: res.data
+      })
+    })
+  },
 
   // 获取资讯
-  // getDoc() {
-  //   var self = this;
-  //   doc.documentType(1, 100, app.globalData.area_id).then(res => {
-  //     console.log('doc', res);
-  //     this.setData({
-  //       classFication: res.data
-  //     })
-  //   })
-  // },
+  getDoc() {
+    var self = this;
+    doc.documentType(1, 100, 0).then(res => {
+      console.log('doc', res);
+      this.setData({
+        classFication: res.data
+      })
+    })
+  },
 
   // 获取精选资讯
-  // getSelected() {
-  //   var self = this;
-  //   doc.documents(1, 100, app.globalData.area_id).then(res => {
-  //     console.log('getSelected', res);
-  //     for (let i = 0; i < res.data.length; i++) {
-  //       console.log('is_show', res.data[i].is_show);
-  //       if (res.data[i].is_show == 1) {
-  //         this.setData({
-  //           docList: res.data
-  //         })
-  //       }
-  //     }
-  //   })
-  // },
+  getSelected() {
+    var self = this;
+    doc.documents(1, 100, 0).then(res => {
+      console.log('getSelected', res);
+      var list = [];
+      for (let i = 0; i < res.data.length; i++) {
+        console.log(res.data[i].is_show);
+        if (res.data[i].is_show == 1) {
+          list.push(res.data[i])
+        }
+      }
+      this.setData({
+        docList: list
+      })
+    })
+  },
 
   // 调转资讯页面
   openClassification(e) {

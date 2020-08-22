@@ -176,10 +176,11 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
     },
 
     // 删除租客
-    infomation.delHousehold = function (id) {
+    infomation.delHousehold = function (id, self) {
         return new Promise((resolve, reject) => {
             api.delete(api.baseUrl.host, api.url.DelHousehold, {
-                id: id
+                id: id,
+                self: self
             }, function (response) {
                 if (response.msg === 'ok') {
                     var res = response.data;

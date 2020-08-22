@@ -90,12 +90,12 @@ Page({
         } else if (check == 0) {
             wx.showToast({
                 icon: "none",
-                title: '该用户身份未核验, 不能审核'
+                title: '该用户身份未核验!'
             })
         } else if (check == 2) {
             wx.showToast({
                 icon: "none",
-                title: '该用户身份信息错误, 不能审核'
+                title: '该用户身份信息错误!'
             })
         }
 
@@ -113,7 +113,7 @@ Page({
             success(res) {
                 if (res.confirm) {
                     console.log('用户点击确定')
-                    infomation.delHousehold(id).then(res => {
+                    infomation.delHousehold(id, 1).then(res => {
                         wx.showToast({
                             icon: "none",
                             title: '删除成功'

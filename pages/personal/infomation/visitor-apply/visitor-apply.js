@@ -189,6 +189,7 @@ Page({
         var address = self.data.userInfo.address
         var href = self.data.userInfo.href;
         var room_id = self.data.room_id
+        // var href = 'https://tu.fengniaotuangou.cn/tmp_ff1b709c323f134045df80bea705bde2bfd57d1d90686b6f.jpg';
 
         var addresses_id = self.data.address_id;
         if (REG_PHONE.test(phone) && self.reg(card_number) && name && interviewee && href && checkDate && address) {
