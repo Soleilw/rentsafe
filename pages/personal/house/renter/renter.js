@@ -130,12 +130,12 @@ Page({
         } else if (check == 0) {
             wx.showToast({
                 icon: "none",
-                title: '该用户身份未核验!'
+                title: '该用户身份未核验! 请耐心等待'
             })
         } else if (check == 2) {
             wx.showToast({
                 icon: "none",
-                title: '该用户身份信息错误!'
+                title: '该用户身份信息错误! 请用户重新提交'
             })
         }
 

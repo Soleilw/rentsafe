@@ -256,3 +256,13 @@ radio .wx-radio-input.wx-radio-input-checked::before {
     width: 70rpx;
     height: 70rpx;
 }
+
+.supportText {
+    position: fixed; 
+    bottom: 0;
+    width: 100%;
+    line-height: 80rpx;
+    text-align: center;
+    font-size: 25rpx;
+    color: #aaa;
+}
