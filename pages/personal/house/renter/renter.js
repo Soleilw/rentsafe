@@ -159,8 +159,10 @@ Page({
                             title: '删除成功'
                         });
                         self.getAuditList();
+                    }).catch(err => {
+                        console.log(err);
+                        
                     })
-
                 } else if (res.cancel) {
                     console.log('用户点击取消');
                     wx.showToast({
