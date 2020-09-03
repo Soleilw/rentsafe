@@ -25,12 +25,16 @@ Page({
     // 获取审核列表
     getAuditList() {
         let self = this;
+        wx.showLoading({
+            title: '加载中...',
+        })
         infomation.visitors(wx.getStorageSync('token')).then(res => {
             console.log(res);
-
             self.setData({
                 renterList: res
             })
+            wx.hideLoading({})
+
         })
 
     },

@@ -261,7 +261,7 @@ Page({
         if (!REG_PHONE.test(phone)) {
             wx.showToast({
                 icon: "none",
-                title: '请正确的手机号',
+                title: '请输入正确的手机号',
             })
         }
         var card_number = e.detail.value.card_number;
@@ -327,7 +327,7 @@ Page({
         if (!REG_PHONE.test(e.detail.value)) {
             wx.showToast({
                 icon: "none",
-                title: '请正确的手机号',
+                title: '请输入正确的手机号',
             })
         }
     },

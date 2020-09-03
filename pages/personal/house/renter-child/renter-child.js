@@ -25,13 +25,16 @@ Page({
     // 获取审核列表
     getAuditList() {
         let self = this;
-        
+        wx.showLoading({
+            title: '加载中...',
+        })
         if (self.data.typestring == '户主') {
             infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 3).then(res => {
                 console.log('获取审核列表', res);
                 self.setData({
                     renterList: res.data
                 })
+                wx.hideLoading({})
             })
         } else if (self.data.typestring == '物业') {
             infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 3).then(res => {
@@ -39,6 +42,7 @@ Page({
                 self.setData({
                     renterList: res.data
                 })
+                wx.hideLoading({})
             })
         }
         

@@ -138,7 +138,7 @@ Page({
         if (!REG_PHONE.test(phone)) {
             wx.showToast({
                 icon: "none",
-                title: '请正确的手机号',
+                title: '请输入正确的手机号',
             })
         }
         // 验证身份证
@@ -351,7 +351,7 @@ Page({
         if (!REG_PHONE.test(e.detail.value)) {
             wx.showToast({
                 icon: "none",
-                title: '请正确的手机号',
+                title: '请输入正确的手机号',
             })
         }
     },

@@ -1,5 +1,4 @@
 const REG_PHONE = /^1[3-9]\d{9}$/;
-// const REG_ID = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
 const qiniuUploader = require("../../../../utils/qiniu");
 var infomation = require('../../../../model/personal/infomation');
 var app = getApp();
@@ -171,7 +170,7 @@ Page({
         if (!REG_PHONE.test(phone)) {
             wx.showToast({
                 icon: "none",
-                title: '请正确的手机号',
+                title: '请输入正确的手机号',
             })
         }
         // 验证身份证
@@ -288,7 +287,7 @@ Page({
         if (!REG_PHONE.test(e.detail.value)) {
             wx.showToast({
                 icon: "none",
-                title: '请正确的手机号',
+                title: '请输入正确的手机号',
             })
         }
     },

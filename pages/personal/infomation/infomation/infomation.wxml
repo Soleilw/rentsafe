@@ -83,7 +83,7 @@
 		</view>
 
 	</block>
-<view class="supportText">请务必保持信息与身份证一致，否则审核将不通过</view>
+<view class="supportText">请务必保持信息与身份证一致，否则将不能通过审核</view>
 
 </form>
 

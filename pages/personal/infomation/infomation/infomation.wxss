@@ -264,5 +264,5 @@ radio .wx-radio-input.wx-radio-input-checked::before {
     line-height: 80rpx;
     text-align: center;
     font-size: 25rpx;
-    color: #aaa;
+    color: #ff0000;
 }
