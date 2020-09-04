@@ -32,9 +32,13 @@
 				<image src="/icon/unit.png" />
 				<text>房屋管理</text>
 			</view>
-			<view bindtap="tochildren" wx:if="{{!showHouse}}">
+			<view bindtap="tochildren" wx:if="{{typestring == '租客'}}">
 				<image src="/icon/family.png" />
 				<text>家庭成员</text>
+			</view>
+			<view bindtap="tochildren" wx:if="{{typestring == '物业'}}">
+				<image src="/icon/family.png" />
+				<text>工作人员</text>
 			</view>
 			<view bindtap="callPhone">
 				<image src="/icon/alert.png" />
@@ -71,10 +75,10 @@
 				</picker>
 			</block>
 			<block wx:if="{{typestring !== '户主' && open_door == 2}}">
-					<view bindtap="toApply">
-						<image src="/icon/key1.png" />
-						<text>一键开门</text>
-					</view>
+				<view bindtap="toApply">
+					<image src="/icon/key1.png" />
+					<text>一键开门</text>
+				</view>
 			</block>
 			<!-- <picker bindchange="toOpenDoor" range="{{doorList}}" range-key="remark" value="{{index}}" class="picker">
 				<view wx:if="{{open_door == 1}}">

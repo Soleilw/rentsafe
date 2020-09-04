@@ -58,7 +58,7 @@
 			<button class="submit" type="primary" form-type='submit'>提交</button>
 		</view> -->
 	</block>
-<view class="supportText">请务必保持信息与身份证一致，否则审核将不通过</view>
+<view class="supportText">请务必保持信息与身份证一致，否则将无法通过审核</view>
 
 </form>
 
