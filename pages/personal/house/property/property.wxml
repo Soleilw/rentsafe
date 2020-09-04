@@ -1,3 +1,5 @@
+<scroll-view scroll-y="true" lower-threshold="100" bindscrolltolower="scrollToLower" style="height: 100vh;">
+
 <view class="box">
 	<view wx:for="{{renterList}}" wx:key="{{index}}" class="list">
 		<view class="info-list">
@@ -17,3 +19,7 @@
 		<button class="del_btn" data-id="{{item.id}}" bindtap="delete" type="warn">删除</button>
 	</view>
 </view>
+<view wx:if="{{showFoot}}" class="foot">
+	<text>没有更多数据了~ ╮（╯＿╰）╭</text>
+</view>
+</scroll-view>

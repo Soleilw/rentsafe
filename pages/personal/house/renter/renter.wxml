@@ -18,7 +18,7 @@
 			<button class="del_btn" data-id="{{item.id}}" bindtap="delete" type="warn">删除</button>
 		</view>
 	</view>
-</scroll-view>
-<view wx:if="{{showFoot}}" class="foot">
+	<view wx:if="{{showFoot}}" class="foot">
 	<text>没有更多数据了~ ╮（╯＿╰）╭</text>
 </view>
+</scroll-view>

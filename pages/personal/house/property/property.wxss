@@ -75,3 +75,9 @@ button::after {
   text-align: center;
   font-size: 30rpx;
 }
+.foot {
+  text-align: center;
+  font-size: 24rpx;
+  color: #666;
+  padding: 20rpx;
+}
