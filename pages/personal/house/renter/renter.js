@@ -10,7 +10,11 @@ Page({
         detailedAddress_id: '',
         typestring: '',
         // name: '秦时明月汉时关'
-        check: ''
+        check: '',
+        page: 1,
+        isPage: false,
+        showFoot: false,
+        hasMore: true
     },
 
     onLoad(options) {
@@ -24,26 +28,59 @@ Page({
     },
 
     // 获取审核列表
-    getAuditList() {
+    getAuditList(isPage) {
         let self = this;
         wx.showLoading({
             title: '加载中...',
         })
-        if (self.data.typestring == '户主') {
-            infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 2).then(res => {
-                console.log('获取审核列表', res);
-                self.setData({
-                    renterList: res.data,
-                })
-                wx.hideLoading({})
 
+
+        if (self.data.typestring == '户主') {
+            infomation.auditList(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 2).then(res => {
+                if (isPage) {
+                    //下一页的数据拼接在原有数据后面
+                    this.setData({
+                        renterList: this.data.renterList.concat(res.data)
+                    })
+                } else {
+                    //第一页数据直接赋值
+                    this.setData({
+                        renterList: res.data
+                    })
+                }
+                //如果返回的数据为空，那么就没有下一页了
+                if (res.total == 0) {
+                    this.setData({
+                        hasMore: false,
+                        showFoot: true
+                    })
+                }
+                console.log('获取审核列表', res);
+                wx.hideLoading({})
             })
         } else if (self.data.typestring == '物业') {
-            infomation.auditList(wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 2).then(res => {
+            infomation.auditList(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 2).then(res => {
                 console.log('获取审核列表', res);
-                self.setData({
-                    renterList: res.data
-                })
+                if (isPage) {
+                    //下一页的数据拼接在原有数据后面
+                    this.setData({
+                        renterList: this.data.renterList.concat(res.data)
+                    })
+                    
+                } else {
+                    //第一页数据直接赋值
+                    this.setData({
+                        renterList: res.data
+                    })
+                }
+                 //如果返回的数据为空，那么就没有下一页了
+                 
+                 if (res.total == 0) {
+                    this.setData({
+                        hasMore: false,
+                        showFoot: true
+                    })
+                }
                 wx.hideLoading({})
 
             })
@@ -180,5 +217,15 @@ Page({
             }
         })
 
-    }
+    },
+
+    scrollToLower(e) {
+        if (this.data.hasMore) {
+            this.setData({
+                page: this.data.page + 1
+            })
+            this.getAuditList(true);
+        }
+    },
+
 })

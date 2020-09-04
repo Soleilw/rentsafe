@@ -100,9 +100,11 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
     })
 },
     // 获取审核列表
-    infomation.auditList = function (token, address_id, type1, type2) {
+    infomation.auditList = function (page, limit, token, address_id, type1, type2) {
         return new Promise((resolve, reject) => {
             api.get(api.baseUrl.host, api.url.Households, {
+                page: page,
+                limit: limit,
                 token: token,
                 address_id: address_id,
                 type1: type1,
