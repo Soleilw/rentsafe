@@ -106,7 +106,7 @@ Page({
 
     toIndex(e) {
         var self = this;
-        console.log(e);
+        console.log(1,e);
         app.globalData.typestring = e.currentTarget.dataset.typestring;
         app.globalData.isBuy = 'true';
         app.globalData.area_id = e.currentTarget.dataset.area_id;
@@ -114,6 +114,7 @@ Page({
         app.globalData.address = e.currentTarget.dataset.address;
         app.globalData.room_id = e.currentTarget.dataset.roomid;
         app.globalData.open_door = e.currentTarget.dataset.opendoor;
+        app.globalData.id = e.currentTarget.dataset.id;
 
 
         wx.switchTab({

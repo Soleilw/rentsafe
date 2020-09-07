@@ -28,7 +28,9 @@ Page({
         doorList: [],
         open_door: null,
         door_index: '',
-        uuid: ''
+        uuid: '',
+        id: "",
+        number: ''
     },
 
     onLoad: function (options) {
@@ -41,10 +43,12 @@ Page({
             address: app.globalData.address,
             room_id: app.globalData.room_id,
             detailedAddress_id: app.globalData.detailedAddress_id,
-            open_door: app.globalData.open_door
+            open_door: app.globalData.open_door,
+            id: app.globalData.id
         })
+
         console.log(this.data.typestring);
-        console.log(111, this.data.room_id);
+        console.log(1112, this.data.id);
 
     },
     onShow() {
@@ -58,11 +62,67 @@ Page({
             wxInfo: wx.getStorageSync('wxInfo'),
             typestring: this.data.typestring
         })
-    
+
         if (wx.getStorageSync('token') && this.data.detailedAddress_id) {
             // this.allowOpen();
             this.getEquipment();
         }
+    },
+
+    // 添加家庭成员的身份
+    getFamily() {
+        var self = this;
+        infomation.familyType(self.data.id).then(res => {
+            console.log(res);
+            if (res == 1) {
+                self.setData({
+                    showBuy: false,
+                    show: false
+                })
+            } else {
+                self.setData({
+                    showBuy: true,
+                    show: true
+                })
+                self.getTip()
+            }
+
+        })
+    },
+    // 续费提醒
+    getTip() {
+        var self = this;
+        buy.userServes(wx.getStorageSync('token')).then(res => {
+            console.log('获取开通的服务', res);
+            self.setData({
+                hasBuyList: res
+            })
+            console.log(self.data.hasBuyList);
+            
+            // 没有购买了服务
+            if (res.length == 0) {
+                // 给用户自行选择
+                wx.showModal({
+                    title: '开通服务提示',
+                    content: '您未开通服务,无法刷脸进出,请先开通服务',
+                    cancelText: '稍后开通',
+                    confirmText: '开通',
+                    success: function (res) {
+                        if (res.confirm) {
+                            wx.navigateTo({
+                                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id
+                            })
+                        } else if (res.cancel) {
+                            wx.showToast({
+                                icon: "none",
+                                title: '未开通服务无法刷脸进出，可点击物业管理栏的购买服务进行服务开通',
+                                duration: 4000,
+                            })
+                        }
+                    }
+                })
+            }
+        })
     },
     getPersonalInfo() {
         var self = this;
@@ -232,7 +292,7 @@ Page({
             title: '户主未开启一键开门功能, 请联系户主'
         });
     },
-   
+
     // 获取设备
     getEquipment() {
         var self = this;
@@ -338,57 +398,20 @@ Page({
                         // console.log(item.type);
                         self.data.house_owner.push(item.type);
                     })
-                    // console.log(self.data.house_owner);
-                    if (!self.data.house_owner.includes(1) && !self.data.house_owner.includes(4)) {
-                        console.log('只存在租客身份');
-                        self.setData({
-                            show: true,
-                            showBuy: true
-                        })
-                        // 续费提醒
-                        buy.userServes(wx.getStorageSync('token')).then(res => {
-                            console.log('获取开通的服务', res);
+                    if (self.data.typestring == '家庭成员') {
+                        self.getFamily()
+                    } else {
+                        if (!self.data.house_owner.includes(1) && !self.data.house_owner.includes(4)) {
+                            console.log('不存在户主或者物业');
                             self.setData({
-                                hasBuyList: res
+                                show: true,
+                                showBuy: true
                             })
-                            // 没有购买了服务
-                            if (res.length == 0) {
-                                // 给用户自行选择
-                                wx.showModal({
-                                    title: '开通服务提示',
-                                    content: '您未开通服务,无法刷脸进出,请先开通服务',
-                                    cancelText: '稍后开通',
-                                    confirmText: '开通',
-                                    success: function (res) {
-                                        if (res.confirm) {
-                                            wx.navigateTo({
-                                                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id
-                                            })
-                                        } else if (res.cancel) {
-                                            wx.showToast({
-                                                icon: "none",
-                                                title: '未开通服务无法刷脸进出，可点击物业管理栏的购买服务进行服务开通',
-                                                duration: 4000,
-                                            })
-                                        }
-                                    }
-                                })
-
-                                // wx.showToast({
-                                //     icon: "none",
-                                //     title: '没有开通服务,无法刷脸进出,请先购买服务',
-                                //     duration: 3000,
-                                //     success() {
-                                //         setTimeout(function () {
-                                //             wx.navigateTo({
-                                //                 url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id
-                                //             })
-                                //         }, 3000);
-                                //     }
-                                // });
-                            }
-                        })
+                            // 续费提醒
+                            self.getTip()
+                        }
                     }
+
                 } else {
                     wx.showToast({
                         icon: "none",
@@ -405,7 +428,6 @@ Page({
             })
         }
     },
-
 
     callPhone() {
         wx.makePhoneCall({

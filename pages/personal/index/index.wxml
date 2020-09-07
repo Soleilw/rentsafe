@@ -32,7 +32,7 @@
 				<image src="/icon/unit.png" />
 				<text>房屋管理</text>
 			</view>
-			<view bindtap="tochildren" wx:if="{{typestring == '租客'}}">
+			<view bindtap="tochildren" wx:if="{{typestring !== '物业'}}">
 				<image src="/icon/family.png" />
 				<text>家庭成员</text>
 			</view>
@@ -117,4 +117,4 @@
 
 </view>
 
-<view class="supportText">安域智慧安防提供技术支持v1.0.14</view>
+<view class="supportText">安域智慧安防提供技术支持v1.0.16</view>

@@ -19,7 +19,6 @@ Page({
 
     onLoad(options) {
         console.log(options);
-
         this.setData({
             detailedAddress_id: options.detailedAddress_id,
             typestring: options.typestring
@@ -33,59 +32,54 @@ Page({
         wx.showLoading({
             title: '加载中...',
         })
-
-
         if (self.data.typestring == '户主') {
             infomation.auditList(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 2).then(res => {
+                console.log('获取审核列表', res);
                 if (isPage) {
-                    //下一页的数据拼接在原有数据后面
-                    this.setData({
-                        renterList: this.data.renterList.concat(res.data)
+                    // 下一页的数据拼接在原有数据后面
+                    self.setData({
+                        renterList: self.data.renterList.concat(res.data)
                     })
                 } else {
-                    //第一页数据直接赋值
-                    this.setData({
+                    // 第一页数据直接赋值
+                    self.setData({
                         renterList: res.data
                     })
                 }
-                //如果返回的数据为空，那么就没有下一页了
+                // 如果返回的数据为空，那么就没有下一页了
                 if (res.total == 0) {
-                    this.setData({
+                    self.setData({
                         hasMore: false,
                         showFoot: true
                     })
                 }
-                console.log('获取审核列表', res);
                 wx.hideLoading({})
             })
         } else if (self.data.typestring == '物业') {
             infomation.auditList(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 2).then(res => {
                 console.log('获取审核列表', res);
                 if (isPage) {
-                    //下一页的数据拼接在原有数据后面
-                    this.setData({
-                        renterList: this.data.renterList.concat(res.data)
+                    // 下一页的数据拼接在原有数据后面
+                    self.setData({
+                        renterList: self.data.renterList.concat(res.data)
                     })
-                    
+
                 } else {
-                    //第一页数据直接赋值
-                    this.setData({
+                    // 第一页数据直接赋值
+                    self.setData({
                         renterList: res.data
                     })
                 }
-                 //如果返回的数据为空，那么就没有下一页了
-                 
-                 if (res.total == 0) {
-                    this.setData({
+                // 如果返回的数据为空，那么就没有下一页了
+                if (res.total == 0) {
+                    self.setData({
                         hasMore: false,
                         showFoot: true
                     })
                 }
                 wx.hideLoading({})
-
             })
         }
-
     },
 
     // 查看租客详情

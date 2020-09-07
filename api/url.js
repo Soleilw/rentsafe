@@ -53,6 +53,8 @@ const url = {
     // 修改
     "Amend": '/user/info/household', // 修改个人信息
     
+    // 判断家庭成员
+    "FamilyType": '/exist'
 };
 
 module.exports = url;

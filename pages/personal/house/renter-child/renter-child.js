@@ -36,18 +36,18 @@ Page({
             infomation.auditList(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 3).then(res => {
                 if (isPage) {
                     //下一页的数据拼接在原有数据后面
-                    this.setData({
-                        renterList: this.data.renterList.concat(res.data)
+                    self.setData({
+                        renterList: self.data.renterList.concat(res.data)
                     })
                 } else {
                     //第一页数据直接赋值
-                    this.setData({
+                    self.setData({
                         renterList: res.data
                     })
                 }
                 //如果返回的数据为空，那么就没有下一页了
                 if (res.total == 0) {
-                    this.setData({
+                    self.setData({
                         hasMore: false,
                         showFoot: true
                     })
@@ -60,25 +60,24 @@ Page({
             infomation.auditList(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 3).then(res => {
                 if (isPage) {
                     //下一页的数据拼接在原有数据后面
-                    this.setData({
-                        renterList: this.data.renterList.concat(res.data)
+                    self.setData({
+                        renterList: self.data.renterList.concat(res.data)
                     })
                 } else {
                     //第一页数据直接赋值
-                    this.setData({
+                    self.setData({
                         renterList: res.data
                     })
                 }
                 //如果返回的数据为空，那么就没有下一页了
                 if (res.total == 0) {
-                    this.setData({
+                    self.setData({
                         hasMore: false,
                         showFoot: true
                     })
                 }
                 console.log('获取审核列表', res);
                 wx.hideLoading({})
-    
             })
         }
         

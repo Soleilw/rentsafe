@@ -34,7 +34,6 @@ Page({
                 renterList: res
             })
             wx.hideLoading({})
-
         })
 
     },

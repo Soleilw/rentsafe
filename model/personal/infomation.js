@@ -269,5 +269,20 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
             })
         })
     }
+    // 判断添加家庭成员身份
+    infomation.familyType = function (id) {
+        return new Promise((resolve, reject) => {
+            api.get(api.baseUrl.host, api.url.FamilyType, {
+                id: id
+            }, function (response) {
+                if (response.msg === 'ok') {
+                    var res = response.data;
+                    resolve(res);
+                } else {
+                    reject(response);
+                }
+            })
+        })
+    }
 
 module.exports = infomation;
