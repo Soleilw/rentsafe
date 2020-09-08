@@ -112,7 +112,7 @@ Page({
                     success: function (res) {
                         if (res.confirm) {
                             wx.navigateTo({
-                                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id
+                                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&renter_type=' + self.data.renter_type
                             })
                         } else if (res.cancel) {
                             wx.showToast({
@@ -384,7 +384,7 @@ Page({
             });
         } else {
             wx.navigateTo({
-                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id
+                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id +'&renter_type=' + self.data.renter_type
             })
         }
     },

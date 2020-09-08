@@ -20,7 +20,8 @@ Page({
     serviceList: [],
     serviceIndex: 0,
     order_id: null,
-    globalShow: null
+    globalShow: null,
+    renter_type: ''
   },
 
   /**
@@ -30,7 +31,8 @@ Page({
     console.log('buy', options);
     this.setData({
       areas_id: options.area_id,
-      detailedAddress_id: options.detailedAddress_id
+      detailedAddress_id: options.detailedAddress_id,
+      renter_type: options.renter_type
     })
 
     this.getUerInfo();
@@ -74,7 +76,9 @@ Page({
   purchase() {
     var self = this;
     // 创建订单
-    buy.order(self.data.user_id, self.data.areas_id, self.data.product_id, self.data.detailedAddress_id, self.data.price).then(res => {
+    console.log(self.data.renter_type);
+    
+    buy.order(self.data.user_id, self.data.areas_id, self.data.product_id, self.data.detailedAddress_id, self.data.price, self.data.renter_type).then(res => {
       console.log('createOeder', res);
       self.setData({
         order_id: res

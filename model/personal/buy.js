@@ -37,6 +37,21 @@ buy.userServes = function (token, type, addresses_id) {
     })
 }
 
+// buy.userServes = function (token) {
+//     return new Promise((resolve, reject) => {
+//         api.get(api.baseUrl.host, api.url.UserServes, {
+//             token: token,
+//         }, function (response) {
+//             if (response.msg === 'ok') {
+//                 var res = response.data
+//                 resolve(res);
+//             } else {
+//                 reject(response);
+//             }
+//         })
+//     })
+// }
+
 // 续费提示
 buy.renew = function (token, addresses_id) {
     return new Promise((resolve, reject) => {
@@ -55,14 +70,15 @@ buy.renew = function (token, addresses_id) {
 }
 
 // 创建订单
-buy.order = function (user_id, areas_id, product_id, addresses_id, price) {
+buy.order = function (user_id, areas_id, product_id, addresses_id, price, type) {
     return new Promise((resolve, reject) => {
         api.post(api.baseUrl.host, api.url.Order, {
             user_id: user_id,
             areas_id: areas_id,
             product_id: product_id,
             addresses_id: addresses_id,
-            price: price
+            price: price,
+            type: type
         }, function (response) {
             if (response.msg === 'ok') {
                 var res = response.data
