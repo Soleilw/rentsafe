@@ -115,6 +115,7 @@ Page({
         app.globalData.room_id = e.currentTarget.dataset.roomid;
         app.globalData.open_door = e.currentTarget.dataset.opendoor;
         app.globalData.id = e.currentTarget.dataset.id;
+        app.globalData.renter_type = e.currentTarget.dataset.renter_type;
 
 
         wx.switchTab({

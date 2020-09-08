@@ -30,7 +30,8 @@ Page({
         door_index: '',
         uuid: '',
         id: "",
-        number: ''
+        number: '',
+        renter_type: ''
     },
 
     onLoad: function (options) {
@@ -44,11 +45,12 @@ Page({
             room_id: app.globalData.room_id,
             detailedAddress_id: app.globalData.detailedAddress_id,
             open_door: app.globalData.open_door,
-            id: app.globalData.id
+            id: app.globalData.id,
+            renter_type: app.globalData.renter_type
         })
 
         console.log(this.data.typestring);
-        console.log(1112, this.data.id);
+        console.log(1112, this.data.detailedAddress_id);
 
     },
     onShow() {
@@ -92,7 +94,7 @@ Page({
     // 续费提醒
     getTip() {
         var self = this;
-        buy.userServes(wx.getStorageSync('token')).then(res => {
+        buy.userServes(wx.getStorageSync('token'), self.data.renter_type, self.data.detailedAddress_id).then(res => {
             console.log('获取开通的服务', res);
             self.setData({
                 hasBuyList: res

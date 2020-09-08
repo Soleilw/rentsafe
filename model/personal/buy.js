@@ -20,10 +20,12 @@ buy.buys = function (page, limit) {
 }
 
 // 获取开通的服务
-buy.userServes = function (token) {
+buy.userServes = function (token, type, addresses_id) {
     return new Promise((resolve, reject) => {
         api.get(api.baseUrl.host, api.url.UserServes, {
             token: token,
+            type: type,
+            addresses_id: addresses_id
         }, function (response) {
             if (response.msg === 'ok') {
                 var res = response.data

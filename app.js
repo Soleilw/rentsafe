@@ -95,6 +95,7 @@ App({
     room_id: null,
     state: null,
     open_door: null,
-    id: null
+    id: null,
+    renter_type: null
   }
 })
