@@ -31,7 +31,8 @@ Page({
         uuid: '',
         id: "",
         number: '',
-        renter_type: ''
+        renter_type: '',
+        face_id: ''
     },
 
     onLoad: function (options) {
@@ -46,11 +47,12 @@ Page({
             detailedAddress_id: app.globalData.detailedAddress_id,
             open_door: app.globalData.open_door,
             id: app.globalData.id,
-            renter_type: app.globalData.renter_type
+            renter_type: app.globalData.renter_type,
+            face_id: app.globalData.face_id,
         })
 
         console.log(this.data.typestring);
-        console.log(1112, this.data.detailedAddress_id);
+        console.log(1112, this.data.face_id);
 
     },
     onShow() {
@@ -94,7 +96,7 @@ Page({
     // 续费提醒
     getTip() {
         var self = this;
-        buy.userServes(wx.getStorageSync('token'), self.data.renter_type, self.data.detailedAddress_id).then(res => {
+        buy.userServes(wx.getStorageSync('token'), self.data.face_id).then(res => {
             console.log('获取开通的服务', res);
             self.setData({
                 hasBuyList: res
@@ -112,7 +114,7 @@ Page({
                     success: function (res) {
                         if (res.confirm) {
                             wx.navigateTo({
-                                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&renter_type=' + self.data.renter_type
+                                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&renter_type=' + self.data.renter_type + '&face_id=' + self.data.face_id
                             })
                         } else if (res.cancel) {
                             wx.showToast({
@@ -384,7 +386,7 @@ Page({
             });
         } else {
             wx.navigateTo({
-                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id +'&renter_type=' + self.data.renter_type
+                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id +'&renter_type=' + self.data.renter_type + '&face_id=' + self.data.face_id
             })
         }
     },

@@ -21,7 +21,9 @@ Page({
     serviceIndex: 0,
     order_id: null,
     globalShow: null,
-    renter_type: ''
+    renter_type: '',
+    face_id: ''
+
   },
 
   /**
@@ -32,7 +34,8 @@ Page({
     this.setData({
       areas_id: options.area_id,
       detailedAddress_id: options.detailedAddress_id,
-      renter_type: options.renter_type
+      renter_type: options.renter_type,
+      face_id: options.face_id,
     })
 
     this.getUerInfo();
@@ -77,9 +80,12 @@ Page({
     var self = this;
     // 创建订单
     console.log(self.data.renter_type);
-    
-    buy.order(self.data.user_id, self.data.areas_id, self.data.product_id, self.data.detailedAddress_id, self.data.price, self.data.renter_type).then(res => {
+    wx.showLoading({
+      title: '正在创建订单...',
+    })
+    buy.order(self.data.user_id, self.data.areas_id, self.data.product_id, self.data.detailedAddress_id, self.data.price, self.data.face_id).then(res => {
       console.log('createOeder', res);
+      wx.hideLoading()
       self.setData({
         order_id: res
       })
@@ -99,7 +105,7 @@ Page({
               title: '购买成功'
             });
             setTimeout(function () {
-              wx.navigateTo({
+              wx.reLaunch({
                 url: '../../../personal/index/change-user/change-user',
               })
             }, 1500)

@@ -20,12 +20,12 @@ buy.buys = function (page, limit) {
 }
 
 // 获取开通的服务
-buy.userServes = function (token, type, addresses_id) {
+buy.userServes = function (token,face_id) {
     return new Promise((resolve, reject) => {
         api.get(api.baseUrl.host, api.url.UserServes, {
             token: token,
-            type: type,
-            addresses_id: addresses_id
+        
+            face_id: face_id
         }, function (response) {
             if (response.msg === 'ok') {
                 var res = response.data
@@ -36,21 +36,6 @@ buy.userServes = function (token, type, addresses_id) {
         })
     })
 }
-
-// buy.userServes = function (token) {
-//     return new Promise((resolve, reject) => {
-//         api.get(api.baseUrl.host, api.url.UserServes, {
-//             token: token,
-//         }, function (response) {
-//             if (response.msg === 'ok') {
-//                 var res = response.data
-//                 resolve(res);
-//             } else {
-//                 reject(response);
-//             }
-//         })
-//     })
-// }
 
 // 续费提示
 buy.renew = function (token, addresses_id) {
@@ -70,7 +55,7 @@ buy.renew = function (token, addresses_id) {
 }
 
 // 创建订单
-buy.order = function (user_id, areas_id, product_id, addresses_id, price, type) {
+buy.order = function (user_id, areas_id, product_id, addresses_id, price, face_id) {
     return new Promise((resolve, reject) => {
         api.post(api.baseUrl.host, api.url.Order, {
             user_id: user_id,
@@ -78,7 +63,7 @@ buy.order = function (user_id, areas_id, product_id, addresses_id, price, type) 
             product_id: product_id,
             addresses_id: addresses_id,
             price: price,
-            type: type
+            face_id: face_id
         }, function (response) {
             if (response.msg === 'ok') {
                 var res = response.data

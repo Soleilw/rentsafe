@@ -278,7 +278,7 @@ Page({
         var address = self.data.address;
         var room_id = self.data.room_id
         var href = self.data.userInfo.href;
-        // var href = 'https://tu.fengniaotuangou.cn/tmp_03751b058bad7398085fe1ec00d5e1a2.jpg';
+        // var href = 'https://tu.fengniaotuangou.cn/23cd2b6a80a1a2351103749102803048.jpg';
 
         if (REG_PHONE.test(phone) && self.reg(card_number) && name && sex && href) {
             infomation.children(token, href, name, sex, address_id, address, room_id, card_number, phone).then(res => {
