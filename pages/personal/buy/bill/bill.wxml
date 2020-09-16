@@ -7,7 +7,10 @@
   </view>
   <text>
     <text class="amount">￥{{item.price}}</text>
-    <text class="state">{{item.status == 2 ? '交易成功' : '交易关闭'}}</text>
+    <!-- <text class="state">{{item.status == 2 ? '交易成功' : '交易关闭'}}</text> -->
+    <text class="state" wx:if="{{item.status == 1}}">订单提交</text>
+    <text class="state" wx:elif="{{item.status == 2}}">交易成功</text>
+    <text class="state" wx:else="{{item.status == 3}}">交易关闭</text>
    </text>
 </view>
 <view wx:if="{{recordList.length == 0}}" class="notData">暂无账单~</view>
