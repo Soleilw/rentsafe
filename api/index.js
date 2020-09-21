@@ -93,7 +93,7 @@ function post(baseUrl, url, data, cb) {
           });
           wx.removeStorageSync('wxInfo')
           wx.removeStorageSync('token')
-          wx.switchTab({
+          wx.reLaunch({
             url: "/pages/personal/index/index"
           });
         }
