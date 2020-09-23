@@ -1,3 +1,6 @@
+<view>
+	<official-account></official-account>
+</view>
 <view class="choose-banner" wx:if="{{areasList.length > 0}}">
 	<!-- <text></text> -->
 	<view class="area">当前社区</view>

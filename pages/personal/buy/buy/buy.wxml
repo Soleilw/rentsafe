@@ -12,7 +12,7 @@
 
 	<text class="title">购买商品: </text>
 
-<!-- 显示开通的服务 -->
+	<!-- 显示开通的服务 -->
 	<view class="nav">
 		<text wx:for="{{goodsList}}" wx:key="{{index}}" data-index="{{index}}" bindtap='nav' class="{{item.class}}" class="{{index == navIndex ? 'nav_active' : ''}}">{{item.title}}</text>
 	</view>
@@ -23,12 +23,12 @@
 		<text class="text">商品有限期: {{goodsList[navIndex].time}}天</text>
 	</view>
 
-  <!-- 选择需要开通的服务 -->
+	<!-- 选择需要开通的服务 -->
 	<view style="margin:20rpx 0 0 0;">
-	<text class="title">包含的服务: </text>
-			<view wx:for="{{serviceList}}" wx:key="{{index}}" class="tableviewcell" >
-				<text class="text">{{item.name}}</text>
-			</view>
+		<text class="title">包含的服务: </text>
+		<view wx:for="{{serviceList}}" wx:key="{{index}}" class="tableviewcell">
+			<text class="text">{{item.name}}</text>
+		</view>
 	</view>
 
 	<text class="prompt">提交订单，表示您同意相关服务协议。</text>
@@ -36,3 +36,31 @@
 	<button bindtap='purchase'>立即支付</button>
 </block>
 <!-- <text wx:else class="notData">暂无充值服务~</text> -->
+<block>
+	<!--屏幕背景变暗的背景 -->
+	<view class="commodity_screen" wx:if="{{showModalStatus}}"></view>
+	<!--弹出框 -->
+	<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+		<view class="guan">
+			<view class="flex">
+				<view class="guanyu">
+					<image src="../../../../icon/qrcode.jpg" show-menu-by-longpress="true" class="guanyu_img" />
+				</view>
+			</view>
+			<view class="center mag">长按保存图片 用微信扫一扫关注公众号</view>
+			<view class="center mag">即可接收服务到期推送消息</view>
+			<view class="flex mag">
+				<view class="flex line solid"></view>
+			</view>
+			<view class="center fon mag">您还可以</view>
+			<view class="flex">
+				<view class="left line tex">
+					<view>在微信中搜索并关注公众号 '安域智慧系统'</view>
+				</view>
+			</view>
+		</view>
+		<view class="close">
+			<image src="../../../../icon/close1.png" class="img_auto" bindtap="hideQrcode"></image>
+		</view>
+	</view>
+</block>

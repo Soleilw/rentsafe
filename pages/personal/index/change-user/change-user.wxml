@@ -23,5 +23,5 @@
 
 	<button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="new-user">注册新身份</button>
 	<button open-type="getUserInfo" class="new-user" bindtap="visitorApply"  wx:if="{{showFace}}">访客申请</button>
-
 </view>
+
