@@ -22,8 +22,8 @@ Page({
     order_id: null,
     globalShow: null,
     renter_type: '',
-    face_id: ''
-
+    face_id: '',
+    goodsNameL: ''
   },
 
   /**
@@ -36,6 +36,11 @@ Page({
       detailedAddress_id: options.detailedAddress_id,
       renter_type: options.renter_type,
       face_id: options.face_id,
+    })
+    wx.showToast({
+      icon: 'none',
+      title: '购买服务成功, 请前往"我的"页面关注公众号, 即可接受相关推送消息',
+      duration: 3000
     })
 
     this.getUerInfo();
@@ -75,52 +80,6 @@ Page({
     })
   },
 
-  //显示对话框
-  showQrcode: function () {
-    // 显示遮罩层
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "linear",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
-    this.setData({
-      animationData: animation.export(),
-      showModalStatus: true
-    })
-    setTimeout(function () {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export()
-      })
-    }.bind(this), 200)
-  },
-  //隐藏对话框
-  hideQrcode: function () {
-    // 隐藏遮罩层
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "linear",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
-    this.setData({
-      animationData: animation.export(),
-    })
-    setTimeout(function () {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export(),
-        showModalStatus: false
-      })
-    }.bind(this), 200)
-    // wx.reLaunch({
-    //   url: '../../../personal/index/change-user/change-user',
-    // })
-  },
-
   // 支付
   purchase() {
     var self = this;
@@ -148,9 +107,8 @@ Page({
             console.log(111, res);
             wx.showToast({
               icon: "none",
-              title: '购买成功'
+              title: '购买成功',
             });
-            self.showQrcode()
           },
           fail(res) {
             console.log(222, res);
@@ -169,23 +127,19 @@ Page({
     })
   },
 
-  // 点击事件-商品nav
-  nav(e) {
+  goodsChange(e) {
+    console.log(e);
     var self = this;
-    console.log('点击事件-商品nav', e);
-    self.setData({
-      navIndex: e.currentTarget.dataset.index
-    })
-
-    // 根据商品获取包含的服务
     buy.buys(self.data.page, self.data.pageSize).then(res => {
       console.log('getGoodsList', res);
       self.setData({
-        serviceList: res.data[self.data.navIndex].service,
-        product_id: res.data[self.data.navIndex].id,
-        price: res.data[self.data.navIndex].price
+        navIndex: e.detail.value,
+        serviceList: res.data[e.detail.value].service,
+        product_id: res.data[e.detail.value].id,
+        price: res.data[e.detail.value].price
       })
     })
+
   },
 
   /**

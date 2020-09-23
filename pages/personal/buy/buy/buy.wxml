@@ -1,66 +1,63 @@
-<!--pages/personal/buy/buy.wxml-->
-<!-- <text>pages/personal/buy/buy.wxml</text> -->
-
 <block>
-	<!-- wx:if="{{goodsList.length != 0}}" -->
-	<view class="header">
-		<view class="recordBox">
-			<text bindtap='toBill'>账单明细</text>
-			<image src="/icon/right.png"></image>
-		</view>
-	</view>
+    <view class="header">
+        <view class="recordBox">
+            <text bindtap='toBill'>账单明细</text>
+            <image src="/icon/right.png"></image>
+        </view>
+    </view>
+    <view class="choose">
+        <input class="input" disabled="true" placeholder="请选择需要购买的商品"  value="{{goodsList[navIndex].title}}"></input>
+        <picker bindchange="goodsChange" range="{{goodsList}}" range-key="title" value="{{navIndex}}"  class="picker">
+            <text>选择商品</text>
+        </picker>
+    </view>
 
-	<text class="title">购买商品: </text>
+    <view class="goods">
+        <view class="card">
+            <view class="name">{{goodsList[navIndex].title}}</view>
+            <view class="price">￥{{goodsList[navIndex].price}}</view>
+            <view class="useday">商品有效期：{{goodsList[navIndex].time}}天</view>
+            <view class="detail">
+                <text style="width: 150rpx">包含的服务:</text>
+                <view>
+                    <block wx:for="{{goodsList[navIndex].service}}" wx:key="index">
+                        <text>{{item.name}}</text>
+                    </block>
+                </view>
+            </view>
+        </view>
+    </view>
 
-	<!-- 显示开通的服务 -->
-	<view class="nav">
-		<text wx:for="{{goodsList}}" wx:key="{{index}}" data-index="{{index}}" bindtap='nav' class="{{item.class}}" class="{{index == navIndex ? 'nav_active' : ''}}">{{item.title}}</text>
-	</view>
-
-	<view class="content">
-		<text class="price">￥{{goodsList[navIndex].price}}</text>
-		<!-- <text class="text">({{goodsList[navIndex].detail}})</text> -->
-		<text class="text">商品有限期: {{goodsList[navIndex].time}}天</text>
-	</view>
-
-	<!-- 选择需要开通的服务 -->
-	<view style="margin:20rpx 0 0 0;">
-		<text class="title">包含的服务: </text>
-		<view wx:for="{{serviceList}}" wx:key="{{index}}" class="tableviewcell">
-			<text class="text">{{item.name}}</text>
-		</view>
-	</view>
-
-	<text class="prompt">提交订单，表示您同意相关服务协议。</text>
-
-	<button bindtap='purchase'>立即支付</button>
+    <view class="pay">
+        <button bindtap='purchase'>立即支付</button>
+        <text>开通服务，表示您同意相关服务协议。</text>
+    </view>
 </block>
-<!-- <text wx:else class="notData">暂无充值服务~</text> -->
 <block>
-	<!--屏幕背景变暗的背景 -->
-	<view class="commodity_screen" wx:if="{{showModalStatus}}"></view>
-	<!--弹出框 -->
-	<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
-		<view class="guan">
-			<view class="flex">
-				<view class="guanyu">
-					<image src="../../../../icon/qrcode.jpg" show-menu-by-longpress="true" class="guanyu_img" />
-				</view>
-			</view>
-			<view class="center mag">长按保存图片 用微信扫一扫关注公众号</view>
-			<view class="center mag">即可接收服务到期推送消息</view>
-			<view class="flex mag">
-				<view class="flex line solid"></view>
-			</view>
-			<view class="center fon mag">您还可以</view>
-			<view class="flex">
-				<view class="left line tex">
-					<view>在微信中搜索并关注公众号 '安域智慧系统'</view>
-				</view>
-			</view>
-		</view>
-		<view class="close">
-			<image src="../../../../icon/close1.png" class="img_auto" bindtap="hideQrcode"></image>
-		</view>
-	</view>
+    <!-- 屏幕背景变暗的背景 -->
+    <view class="commodity_screen" wx:if="{{showModalStatus}}"></view>
+    <!-- 弹出框 -->
+    <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+        <view class="guan">
+            <view class="flex">
+                <view class="guanyu">
+                    <image src="../../../../icon/qrcode.jpg" show-menu-by-longpress="true" class="guanyu_img" />
+                </view>
+            </view>
+            <view class="center mag">长按保存图片 用微信扫一扫关注公众号</view>
+            <view class="center mag">即可接收服务到期推送消息</view>
+            <view class="flex mag">
+                <view class="flex line solid"></view>
+            </view>
+            <view class="center fon mag">您还可以</view>
+            <view class="flex">
+                <view class="left line tex">
+                    <view>在微信中搜索并关注公众号 '安域智慧系统'</view>
+                </view>
+            </view>
+        </view>
+        <view class="close">
+            <image src="../../../../icon/close1.png" class="img_auto" bindtap="hideQrcode"></image>
+        </view>
+    </view>
 </block>

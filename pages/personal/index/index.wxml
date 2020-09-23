@@ -40,6 +40,10 @@
 				<image src="/icon/family.png" />
 				<text>工作人员</text>
 			</view>
+			<view bindtap="showQrcode">
+				<image src="/icon/gzhh.png" />
+				<text>关注公众号</text>
+			</view>
 			<view bindtap="callPhone">
 				<image src="/icon/alert.png" />
 				<text>一键报警</text>
@@ -108,13 +112,37 @@
 				<image src="/icon/buy.png" />
 				<text>购买服务</text>
 			</view>
-			<!-- <view>
-				<image src="/icon/unit.png" />
-				<text>注销账号</text>
-			</view> -->
 		</view>
 	</view>
 
 </view>
 
-<view class="supportText">安域智慧安防提供技术支持v1.0.18</view>
+<view class="supportText">安域智慧安防提供技术支持v1.0.19</view>
+<block>
+	<!-- 屏幕背景变暗的背景 -->
+	<view class="commodity_screen" wx:if="{{showModalStatus}}"></view>
+	<!-- 弹出框 -->
+	<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+		<view class="guan">
+			<view class="close">
+				<image src="/icon/close1.png" class="img_auto" bindtap="hideQrcode"></image>
+			</view>
+			<view class="flex">
+				<view class="guanyu">
+					<image src="/icon/qrcode.jpg" show-menu-by-longpress="true" class="guanyu_img" />
+				</view>
+			</view>
+			<view class="center mag">长按保存图片 用微信扫一扫关注公众号</view>
+			<view class="center mag">即可接收服务到期推送消息</view>
+			<view class="flex mag">
+				<view class="flex line solid"></view>
+			</view>
+			<view class="center fon mag">您还可以</view>
+			<view class="flex">
+				<view class="left line tex">
+					<view>在微信中搜索并关注公众号 '安域智慧系统'</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</block>
