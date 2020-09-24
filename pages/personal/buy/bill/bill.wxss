@@ -1,30 +1,56 @@
-/* pages/personal/buy/bill/bill.wxss */
+/* pages/personal/buy/bill/bill.wxss */
 page {
   background-color: #f8f8f8;
   color: #666;
   font-size: 30rpx;
 }
-.bill-list {
-  padding: 25rpx 30rpx;
-  font-size: 30rpx;
-  color: #AAA;
-  border-bottom: 1px solid #DDD;
+
+.bill {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  justify-items: center;
+  width: 100vw;
+  padding: 2vw;
+  border-bottom: 2rpx solid #ccc;
+}
+
+.bill .goods {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+}
+
+.bill .goods .g_name {
+  color: #000;
+}
+
+.bill .price {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-.bill-list text {
-  display: block;
-}
-
-.bill-list .amount {
+.bill .price .amount {
   color: red;
   font-size: 35rpx;
   font-weight: bold;
-  text-align: center;
 }
 
+.bill .price .green {
+  color: #2a9f93;
+  font-weight: bold;
+}
+
+.bill .price .red {
+  color: red;
+  font-weight: bold;
+}
+
+.bill .price .orange {
+  color: orange;
+  font-weight: bold;
+}
 .notData {
   text-align: center;
-}
+}  
