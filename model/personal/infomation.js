@@ -285,4 +285,53 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
         })
     }
 
+    // 获取所在社区
+    infomation.areaMag = function (id) {
+        return new Promise((resolve, reject) => {
+            api.get(api.baseUrl.host, api.url.AreasMsg, {
+                id: id
+            }, function (response) {
+                if (response.msg === 'ok') {
+                    var res = response.data;
+                    resolve(res);
+                } else {
+                    reject(response);
+                }
+            })
+        })
+    }
+
+    // 获取门牌号
+    infomation.gainDoorNum = function (room_id) {
+        return new Promise((resolve, reject) => {
+            api.get(api.baseUrl.host, api.url.Room, {
+                room_id: room_id
+            }, function (response) {
+                if (response.msg === 'ok') {
+                    var res = response.data;
+                    resolve(res);
+                } else {
+                    reject(response);
+                }
+            })
+        })
+    }
+
+    // 修改门牌号
+    infomation.modifyDoorNum = function (room_id, id) {
+        return new Promise((resolve, reject) => {
+            api.post(api.baseUrl.host, api.url.Room, {
+                room_id: room_id,
+                id: id
+            }, function (response) {
+                if (response.msg === 'ok') {
+                    var res = response.data;
+                    resolve(res);
+                } else {
+                    reject(response);
+                }
+            })
+        })
+    }
+
 module.exports = infomation;

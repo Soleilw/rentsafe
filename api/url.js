@@ -20,6 +20,8 @@ const url = {
     'Rooms': '/rooms', // 门牌号
     "UserAreas": '/user/areas', // 获取用户社区
     "Child": '/household/child', // 添加孩子
+    "Room": '/room', // 获取/修改门牌号
+    "AreasMsg": '/areas/message', // 获取所在社区
 
     // 轮播图
     "Banner": '/banners', // 获取轮播图

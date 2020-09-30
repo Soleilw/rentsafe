@@ -21,7 +21,8 @@
     "pages/personal/house/setting/setting",
     "pages/personal/infomation/visitor-apply/visitor-apply",
     "pages/personal/house/visitor/visitors/visitors",
-    "pages/personal/infomation/infomation-amend/infomation-amend"
+    "pages/personal/infomation/infomation-amend/infomation-amend",
+    "pages/personal/house/door-number/door-number"
   ],
   "window": {
     "backgroundTextStyle": "light",

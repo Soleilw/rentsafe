@@ -24,7 +24,6 @@ Page({
         status: null,
         id: '',
         showFace: false, // 开启人脸
-
     },
 
     onLoad(options) {
@@ -117,7 +116,6 @@ Page({
         app.globalData.id = e.currentTarget.dataset.id;
         app.globalData.renter_type = e.currentTarget.dataset.renter_type;
         app.globalData.face_id = e.currentTarget.dataset.face_id;
-
 
         wx.switchTab({
             url: '/pages/personal/index/index'

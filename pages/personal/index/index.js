@@ -391,6 +391,14 @@ Page({
         }
     },
 
+    // 跳转修改门牌
+    toDoorNum() {
+        var self = this;
+        wx.navigateTo({
+          url: '../house/door-number/door-number?area_id=' + self.data.area_id  + '&address=' + self.data.address + '&room_id=' + self.data.room_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&id=' + self.data.id,
+        })
+    },
+
     // 获取用户身份
     getIdenInfo() {
         var self = this;

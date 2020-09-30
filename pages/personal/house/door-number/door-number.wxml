@@ -1,0 +1,38 @@
+<form bindsubmit="sumAddress">
+	<view class="form">
+		<view class="form-item">
+			<text>省份</text>
+				<input class="input" placeholder='请选择省份' disabled="true" name="province" value="{{province}}"></input>
+		</view>
+		<view class="form-item">
+			<text>市级</text>
+				<input class="input" placeholder='请选择市级' disabled="true" name="city" value="{{city}}"></input>
+		</view>
+		<view class="form-item">
+			<text>区级</text>
+			<!-- <picker bindchange="areaChange" range="{{areaList}}" range-key="title" value="{{index}}"> -->
+				<input class="input" placeholder='请选择区级' disabled="true" name="area" value="{{area}}"></input>
+			<!-- </picker> -->
+		</view>
+		<view class="form-item">
+			<text>社区</text>
+			<!-- <picker bindchange="communityChange" range="{{communityList}}" range-key="title" value="{{index}}"> -->
+				<input class="input" placeholder='请选择社区' disabled="true" name="community" value="{{community}}"></input>
+			<!-- </picker> -->
+		</view>
+		<view class="form-item">
+			<text>详细地址</text>
+			<input class="input" bindtap="showSearch" placeholder='请选择详细地址' disabled="true" name="detail" value="{{address}}"></input>
+		</view>
+		<view class="form-item">
+			<text>房屋编号</text>
+			<picker bindchange="roomChange" range="{{roomList}}" range-key="door_number" value="{{index}}">
+				<input class="input" placeholder='请选择门牌号' name="room" value="{{room ? room : roomList[is_room].door_number}}" disabled="true"></input>
+			</picker>
+		</view>
+	</view>
+	<view class="sumbit">
+		<button class="submit" form-type='submit'>提交</button>
+	</view>
+</form>
+
