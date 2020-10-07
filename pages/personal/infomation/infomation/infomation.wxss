@@ -1,5 +1,9 @@
 /* pages/personal/infomation/infomation.wxss */
 /* 表单列表 */
+.form-box {
+    height: 95vh;
+    overflow-y: auto;
+}
 .form {
     padding: 0 20rpx;
     background-color: #fff;
@@ -261,6 +265,7 @@ radio .wx-radio-input.wx-radio-input-checked::before {
     position: fixed; 
     bottom: 0;
     width: 100%;
+    height: 5vh;
     line-height: 80rpx;
     text-align: center;
     font-size: 25rpx;

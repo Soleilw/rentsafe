@@ -102,7 +102,7 @@ Page({
                 hasBuyList: res
             })
             console.log(self.data.hasBuyList);
-            
+
             // 没有购买了服务
             if (res.length == 0) {
                 // 给用户自行选择
@@ -386,7 +386,7 @@ Page({
             });
         } else {
             wx.navigateTo({
-                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id +'&renter_type=' + self.data.renter_type + '&face_id=' + self.data.face_id
+                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&renter_type=' + self.data.renter_type + '&face_id=' + self.data.face_id
             })
         }
     },
@@ -394,9 +394,17 @@ Page({
     // 跳转修改门牌
     toDoorNum() {
         var self = this;
-        wx.navigateTo({
-          url: '../house/door-number/door-number?area_id=' + self.data.area_id  + '&address=' + self.data.address + '&room_id=' + self.data.room_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&id=' + self.data.id,
-        })
+        if (!wx.getStorageSync('token')) {
+            wx.showToast({
+                icon: "none",
+                title: '请先登录'
+            });
+        } else {
+            wx.navigateTo({
+                url: '../house/door-number/door-number?area_id=' + self.data.area_id + '&address=' + self.data.address + '&room_id=' + self.data.room_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&id=' + self.data.id,
+            })
+        }
+
     },
 
     // 获取用户身份
@@ -447,47 +455,47 @@ Page({
         })
     },
 
-     //显示对话框
-  showQrcode: function () {
-    // 显示遮罩层
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "linear",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
-    this.setData({
-      animationData: animation.export(),
-      showModalStatus: true
-    })
-    setTimeout(function () {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export()
-      })
-    }.bind(this), 200)
-  },
-  //隐藏对话框
-  hideQrcode: function () {
-    // 隐藏遮罩层
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "linear",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
-    this.setData({
-      animationData: animation.export(),
-    })
-    setTimeout(function () {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export(),
-        showModalStatus: false
-      })
-    }.bind(this), 200)
-  },
+    //显示对话框
+    showQrcode: function () {
+        // 显示遮罩层
+        var animation = wx.createAnimation({
+            duration: 200,
+            timingFunction: "linear",
+            delay: 0
+        })
+        this.animation = animation
+        animation.translateY(300).step()
+        this.setData({
+            animationData: animation.export(),
+            showModalStatus: true
+        })
+        setTimeout(function () {
+            animation.translateY(0).step()
+            this.setData({
+                animationData: animation.export()
+            })
+        }.bind(this), 200)
+    },
+    //隐藏对话框
+    hideQrcode: function () {
+        // 隐藏遮罩层
+        var animation = wx.createAnimation({
+            duration: 200,
+            timingFunction: "linear",
+            delay: 0
+        })
+        this.animation = animation
+        animation.translateY(300).step()
+        this.setData({
+            animationData: animation.export(),
+        })
+        setTimeout(function () {
+            animation.translateY(0).step()
+            this.setData({
+                animationData: animation.export(),
+                showModalStatus: false
+            })
+        }.bind(this), 200)
+    },
 
 })

@@ -1,89 +1,81 @@
 <form bindsubmit="subInfomation">
-	<view class="form">
-		<!-- 头像 -->
-		<view class="form-item" style="justify-content: flex-start;">
-			<image mode="aspectFill" class="left-icon" src="{{wxInfo.avatarUrl}}" style="width:120rpx;height:120rpx;" />
-			<text name="nickName">{{wxInfo.nickName}}</text>
-		</view>
-		<!-- 真实姓名 -->
-		<view class="form-item">
-			<image class="left-icon" src="/icon/my1.png" />
-			<text>姓名</text>
-			<input class="input" type="text" maxlength='10' placeholder='请输入' name="name" value='{{userInfo.name}}' bindblur="changeInfo" disabled="{{disabled}}"></input>
-		</view>
-		<!-- 性别 -->
-		<view class="form-item">
-			<image class="left-icon" src="/icon/sex1.png" />
-			<text>性别</text>
-			<radio-group name="sex" class="sex-box">
-				<radio value="1" checked="{{userInfo.sex== 1?'true':''}}"  bindblur="changeInfo" disabled="{{disabled}}" />男
-				<radio value="2" checked="{{userInfo.sex== 2?'true':''}}"  bindblur="changeInfo" disabled="{{disabled}}" />女
-			</radio-group>
-		</view>
-		<!-- 身份证号 -->
-		<view class="form-item" wx:if="{{showFace}}">
-			<image class="left-icon" src="/icon/ID.png" />
-			<text>身份证号</text>
-			<input class="input" disabled="{{disabled}}" type="text" maxlength='18' placeholder='请输入' bindblur="regIdentity" name="card_number"  bindblur="changeInfo" value='{{userInfo.card_number}}'></input>
-		</view>
-		<!-- 手机 -->
-		<view class="form-item" wx:if="{{showFace}}">
-			<image class="left-icon" src="/icon/iphone.png" />
-			<text>手机</text>
-			<input class="input" disabled="{{disabled}}" type="number" maxlength='11' placeholder='请输入' bindblur="regPhone" name="phone" value='{{userInfo.phone}}'  bindblur="changeInfo"></input>
-		</view>
-		<!-- 身份类型 -->
-		<!-- <view class="form-item">
-			<image class="left-icon" src="/icon/ID.png" />
-			<text>身份类型</text>
-			<picker bindchange="bindIdentityChange" range="{{identityList}}" range-key="name" value="{{index}}" bindfocus="changeInfo">
-				<input class="input" disabled="true" placeholder="请选择身份类型" value="{{userInfo.typeString ? userInfo.typeString : identityList[id_card_select].name}}"></input>
-			</picker>
-		</view> -->
-		<!-- 选择地址 -->
-		<!-- <view class="form-item">
-			<image class="left-icon" src="/icon/address3.png" />
-			<text bindtap="toChooseAddress">地址</text>
-			<input class="input" placeholder="请选择地址" bindtap="toChooseAddress"></input>
-		</view> -->
-		<!-- <view class="form-item">
-			<image class="left-icon" src="/icon/address3.png" />
-			<text bindtap="toChooseAddress">地址</text>
-			<input class="input" name="address" value="{{userInfo.address}}" bindtap="toChooseAddress" placeholder="请选择地址"></input>
-		
-		</view> -->
-
-		<!-- 人脸上传 -->
-		<block wx:if="{{showFace}}">
-			<view class="form-item" style="border:none;justify-content: flex-start;">
-				<image class="left-icon" src="/icon/recognition.png"></image>
-				<text style="width:500rpx;" disabled="{{disabled}}">大头照(点击图片更换)</text>
+	<view class="form-box">
+		<view class="form">
+			<!-- 头像 -->
+			<view class="form-item" style="justify-content: flex-start;">
+				<image mode="aspectFill" class="left-icon" src="{{wxInfo.avatarUrl}}" style="width:120rpx;height:120rpx;" />
+				<text name="nickName">{{wxInfo.nickName}}</text>
 			</view>
-			<view class="portrait-box">
-				<view data-type="1" bindtap='cameraDisable'>
-					<image mode="aspectFill" src="{{userInfo.href}}"></image>
-					<image class="image" wx:if="{{!userInfo.href}}" mode="aspectFill" src="/icon/head.png"></image>
+			<!-- 真实姓名 -->
+			<view class="form-item">
+				<image class="left-icon" src="/icon/my1.png" />
+				<text>姓名</text>
+				<input class="input" type="text" maxlength='10' placeholder='请输入' name="name" value='{{userInfo.name}}' bindblur="changeInfo" disabled="{{disabled}}"></input>
+			</view>
+			<!-- 性别 -->
+			<view class="form-item">
+				<image class="left-icon" src="/icon/sex1.png" />
+				<text>性别</text>
+				<radio-group name="sex" class="sex-box">
+					<radio value="1" checked="{{userInfo.sex== 1?'true':''}}" bindblur="changeInfo" disabled="{{disabled}}" />男
+					<radio value="2" checked="{{userInfo.sex== 2?'true':''}}" bindblur="changeInfo" disabled="{{disabled}}" />女
+				</radio-group>
+			</view>
+			<!-- 身份证类型 -->
+			<view class="form-item">
+				<image class="left-icon" src="/icon/ID.png" />
+				<text>证件类型</text>
+				<picker bindchange="IDChange" range="{{IDList}}" range-key="name" value="{{index}}">
+					<input class="input" placeholder="请选择证件类型" value="{{idType ? '请选择证件类型' : IDList[index].name}}" disabled="true"></input>
+				</picker>
+			</view>
+			<!-- 身份证号 -->
+			<view class="form-item" wx:if="{{showFace}}">
+				<image class="left-icon" src="/icon/ID.png" />
+				<text>身份证号</text>
+				<input class="input" disabled="{{disabled}}" type="text" maxlength='18' placeholder='请输入' bindblur="regIdentity" name="card_number" bindblur="changeInfo" value='{{userInfo.card_number}}'></input>
+			</view>
+			<!-- 手机 -->
+			<view class="form-item" wx:if="{{showFace}}">
+				<image class="left-icon" src="/icon/iphone.png" />
+				<text>手机</text>
+				<input class="input" disabled="{{disabled}}" type="number" maxlength='11' placeholder='请输入' bindblur="regPhone" name="phone" value='{{userInfo.phone}}' bindblur="changeInfo"></input>
+			</view>
+
+
+			<!-- 人脸上传 -->
+			<block wx:if="{{showFace}}">
+				<view class="form-item" style="border:none;justify-content: flex-start;">
+					<image class="left-icon" src="/icon/recognition.png"></image>
+					<text style="width:500rpx;" disabled="{{disabled}}">大头照(点击图片更换)</text>
 				</view>
+				<view class="portrait-box">
+					<view data-type="1" bindtap='cameraDisable'>
+						<image mode="aspectFill" src="{{userInfo.href}}"></image>
+						<image class="image" wx:if="{{!userInfo.href}}" mode="aspectFill" src="/icon/head.png"></image>
+					</view>
+				</view>
+			</block>
+		</view>
+		<block wx:if="{{showRegister}}">
+			<view class="btn">
+				<button class="submit" form-type='submit'>提交信息并下一步</button>
 			</view>
 		</block>
-	</view>
-	<block wx:if="{{showRegister}}">
-		<view class="btn">
-			<button class="submit" form-type='submit'>提交信息并下一步</button>
-		</view>
-	</block>
-	<block wx:else>
-		<view class="btn" wx:if="{{showSubmit}}">
-			<button class="submit" type="primary" form-type='submit' bindtap="saveInfo">保存信息</button>
-			<button class="submit" type="primary" bindtap="addIden">添加身份</button>
-		</view>
-		<view class="btn" wx:else>
-			<button class="submit" type="primary" bindtap="changeInfo">修改信息</button>
-			<button class="submit" type="primary" bindtap="addIden">添加身份</button>
-		</view>
+		<block wx:else>
+			<view class="btn" wx:if="{{showSubmit}}">
+				<button class="submit" type="primary" form-type='submit' bindtap="saveInfo">保存信息</button>
+				<button class="submit" type="primary" bindtap="addIden">添加身份</button>
+			</view>
+			<view class="btn" wx:else>
+				<button class="submit" type="primary" bindtap="changeInfo">修改信息</button>
+				<button class="submit" type="primary" bindtap="addIden">添加身份</button>
+			</view>
 
-	</block>
-<view class="supportText">请务必保持信息与身份证一致，否则将无法通过审核</view>
+		</block>
+	</view>
+
+	<view class="supportText">请务必保持信息与身份证一致，否则将无法通过审核</view>
 
 </form>
 

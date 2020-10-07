@@ -104,10 +104,10 @@
 			</view> -->
 			</view>
 		</view>
-		<view class="plate" wx:if="{{showBuy}}">
+		<view class="plate" wx:if="{{typestring !== '户主' && typestring !== '物业'}}">
 			<view class="title">物业管理</view>
 			<view class="list">
-				<view bindtap="toBuy">
+				<view bindtap="toBuy"  wx:if="{{showBuy}}">
 					<image src="/icon/buy.png" />
 					<text>购买服务</text>
 				</view>

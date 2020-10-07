@@ -1,7 +1,7 @@
 const qiniuUploader = require("../../../../utils/qiniu");
 var infomation = require('../../../../model/personal/infomation');
 const REG_PHONE = /^1[3-9]\d{9}$/;
-
+var reg = require('../../../../utils/reg')
 
 function getQiniuToken() {
     var options = {
@@ -39,6 +39,19 @@ Page({
         address: '',
         room_id: '',
         isSucceed: true,
+        index: '',
+        idType: '',
+        number_type: '',
+        IDList: [{ // 身份类型类型列表
+            'name': '中国居民身份证',
+            'type': 1
+        }, {
+            'name': '外国人永久居留身份证',
+            'type': 2
+        }, {
+            'name': '港澳台居民居住证',
+            'type': 3
+        }],
     },
 
     onLoad(options) {
@@ -87,51 +100,6 @@ Page({
     //         }
     //     })
     // },
-    reg(idCard) {
-        var regIdCard =
-            /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
-        if (regIdCard.test(idCard)) {
-            if (idCard.length == 18) {
-                var idCardWi = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10,
-                    5, 8, 4, 2);
-                var idCardY = new Array(1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2);
-                var idCardWiSum = 0;
-                for (var i = 0; i < 17; i++) {
-                    idCardWiSum += idCard.substring(i, i + 1) * idCardWi[i];
-                }
-                var idCardMod = idCardWiSum % 11;
-                var idCardLast = idCard.substring(17);
-                if (idCardMod == 2) {
-                    if (idCardLast == "X" || idCardLast == "x") {
-                        return true;
-                    } else {
-                        wx.showToast({
-                            icon: "none",
-                            title: '身份证号码错误！'
-                        })
-                        return false;
-                    }
-                } else {
-                    if (idCardLast == idCardY[idCardMod]) {
-                        return true;
-                    } else {
-                        wx.showToast({
-                            icon: "none",
-                            title: '身份证号码错误！'
-                        })
-                        return false;
-                    }
-                }
-            } else {
-                return true;
-            }
-        } else {
-            wx.showToast({
-                icon: "none",
-                title: '请输入有效的身份证号码'
-            })
-        }
-    },
 
     // 查看授权信息
     checkAuth() {
@@ -252,7 +220,15 @@ Page({
         })
     },
 
-
+    IDChange(e) {
+        var self = this;
+        self.setData({
+            index: e.detail.value,
+            number_type: Number(e.detail.value) + 1
+        })
+        console.log(self.data.number_type);
+        
+    },
     subInfomations(e) {
         var self = this;
         console.log(e);
@@ -265,7 +241,7 @@ Page({
             })
         }
         var card_number = e.detail.value.card_number;
-        if (!self.reg(card_number)) {
+        if (!reg.IDCard(card_number)) {
             wx.showToast({
                 icon: "none",
                 title: '请输入有效的身份证号码'
@@ -277,11 +253,11 @@ Page({
         var address_id = self.data.address_id;
         var address = self.data.address;
         var room_id = self.data.room_id
-        var href = self.data.userInfo.href;
-        // var href = 'https://tu.fengniaotuangou.cn/tmp_03751b058bad7398085fe1ec00d5e1a2.jpg';
+        // var href = self.data.userInfo.href;
+        var href = 'https://tu.fengniaotuangou.cn/tmp_3532e17bcc6df1387f8e7833696b27fd259af82a066733eb.jpg';
 
-        if (REG_PHONE.test(phone) && self.reg(card_number) && name && sex && href) {
-            infomation.children(token, href, name, sex, address_id, address, room_id, card_number, phone).then(res => {
+        if (REG_PHONE.test(phone) && reg.IDCard(card_number) && name && sex && href) {
+            infomation.children(token, href, name, sex, address_id, address, room_id, card_number, phone, self.data.number_type).then(res => {
                 self.setData({
                     disabled: true
                 })
@@ -314,7 +290,7 @@ Page({
     // 验证身份证号
     regIdentity(e) {
         var self = this;
-        if (!self.reg(e.detail.value)) {
+        if (!reg.IDCard(e.detail.value)) {
             wx.showToast({
                 icon: "none",
                 title: '请输入有效的身份证号码',

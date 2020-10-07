@@ -3,7 +3,7 @@ var api = require('../../api/index')
 var infomation = {};
 
 // 新增/修改个人信息
-infomation.register = function (token, name, sex, card_number, phone, href) {
+infomation.register = function (token, name, sex, card_number, phone, href, number_type) {
     return new Promise((resolve, reject) => {
         api.post(api.baseUrl.host, api.url.UserInfo, {
             token: token,
@@ -11,7 +11,8 @@ infomation.register = function (token, name, sex, card_number, phone, href) {
             sex: sex,
             card_number: card_number,
             phone: phone,
-            href: href
+            href: href,
+            number_type: number_type
         }, function (response) {
             if (response.msg === 'ok') {
                 var res = response.data;
@@ -76,7 +77,7 @@ infomation.idenInfo = function (token, page, limit) {
             })
         })
     },
-infomation.children = function (token, href, name, sex, address_id, address, room_id, card_number, phone) {
+infomation.children = function (token, href, name, sex, address_id, address, room_id, card_number, phone, number_type) {
     return new Promise((resolve, reject) => {
         api.post(api.baseUrl.host, api.url.Child, {
             token: token,
@@ -87,7 +88,8 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
             address: address,
             room_id: room_id,
             card_number: card_number,
-            phone: phone
+            phone: phone,
+            number_type: number_type
         }, function (response) {
             if (response.msg === 'ok') {
                 var res = response.data;
