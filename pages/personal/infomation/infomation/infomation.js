@@ -49,7 +49,7 @@ Page({
             'name': '外国人永久居留身份证',
             'type': 2
         }, {
-            'name': '港澳台居民居住证',
+            'name': '港澳居民居住证',
             'type': 3
         }],
         showCamera: false, // 显示相机
@@ -98,25 +98,42 @@ Page({
 
     onShow(e) {
         this.getPersonalInfo();
-
     },
     getPersonalInfo() {
         var self = this;
         infomation.userInfo(wx.getStorageSync('token')).then(res => {
             console.log('getPersonalInfo', res);
-
             if (res) {
                 self.setData({
                     userInfo: res,
                     state: res.state,
                     disabled: true,
                     isRegister: true,
-                    check: res.check
+                    check: res.check,
+                    number_type: res.number_type
                 })
+                switch (res.number_type) {
+                    case 1:
+                        self.setData({
+                            idType: '中国居民身份证',
+                        })
+                        break;
+                    case 2:
+                        self.setData({
+                            idType: '外国人永久居留身份证',
+                        })
+                        break;
+                    case 3:
+                        self.setData({
+                            idType: '港澳居民居住证',
+                        })
+                        break;
+                }
             } else {
                 self.setData({
                     showRegister: true,
-                    isRegister: false
+                    isRegister: false,
+                    idType: ''
                 })
             }
         })
@@ -128,7 +145,7 @@ Page({
             number_type: Number(e.detail.value) + 1
         })
         console.log(self.data.number_type);
-        
+
     },
     subInfomation(e) {
         var self = this;
@@ -145,49 +162,65 @@ Page({
         // 验证身份证
         var card_number = e.detail.value.card_number;
         // var card_number = '440981199701285628';
-        if (!reg.IDCard(card_number)) {
-            wx.showToast({
-                icon: "none",
-                title: '请输入有效的身份证号码'
-            })
+        if (self.data.number_type == 1) {
+            if (!reg.IDCard(card_number)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的身份证号码'
+                })
+            }
+        } else if (self.data.number_type == 2) {
+            if (!reg.foreign(card_numbere)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的身份证号码',
+                })
+            }
+        } else if (self.data.number_type == 3) {
+            if (!reg.HK(card_number)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的身份证号码',
+                })
+            }
         }
+
         var id = self.data.userInfo.id ? self.data.userInfo.id : '';
         var name = e.detail.value.name;
         // var name = '安';
         var sex = e.detail.value.sex;
         var token = wx.getStorageSync('token');
         var href = self.data.userInfo.href;
-        // var href = 'https://tu.fengniaotuangou.cn/23cd2b6a80a1a2351103749102803048.jpg'
+        // var href = 'https://tu.fengniaotuangou.cn/tmp_d0f51769f20cb338e48111b6440f478a.jpg'
 
-        if (REG_PHONE.test(phone) && reg.IDCard(card_number) && name && sex && href) {
-            infomation.register(token, name, sex, card_number, phone, href, self.data.number_type).then(res => {
-                console.log('self.data.userInfo', self.data.userInfo);
-                // 修改
-                if (self.data.isRegister) {
-                    wx.showToast({
-                        icon: "none",
-                        title: '提交成功',
-                        success() {
-                            self.setData({
-                                disabled: true,
-                                showSubmit: false,
-                                isRegister: true
-                            })
-                        },
-                    });
-
-                } else {
-                    // 初次注册
-                    wx.showModal({
-                        title: '提示',
-                        content: '信息提交将无法修改, 是否确定要提交',
-                        cancelText: '取消',
-                        confirmText: '确定',
-                        success: function (res) {
-                            if (res.confirm) {
+        if (phone && card_number && name && sex && href && self.data.number_type) {
+            wx.showModal({
+                title: '提示',
+                content: '信息提交将无法修改, 请确保信息与身份证信息一致',
+                cancelText: '取消',
+                confirmText: '确定',
+                success: function (res) {
+                    if (res.confirm) {
+                        infomation.register(token, name, sex, card_number, phone, href, self.data.number_type).then(res => {
+                            console.log('self.data.userInfo', self.data.userInfo);
+                            // 修改
+                            if (self.data.isRegister) {
                                 wx.showToast({
                                     icon: "none",
                                     title: '提交成功',
+                                    success() {
+                                        self.setData({
+                                            disabled: true,
+                                            showSubmit: false,
+                                            isRegister: true
+                                        })
+                                    },
+                                });
+                            } else {
+                                // 初次注册
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '提交成功, 请联系户主审核',
                                     success() {
                                         setTimeout(function () {
                                             infomation.userInfo(wx.getStorageSync('token')).then(res => {
@@ -204,17 +237,17 @@ Page({
                                         }, 2000);
                                     },
                                 });
-
-                            } else if (res.cancel) {
-                                wx.showToast({
-                                    icon: "none",
-                                    title: '取消成功',
-                                });
                             }
-                        }
-                    })
-                }
 
+                        })
+                    } else if (res.cancel) {
+                        console.log(111);
+                        wx.showToast({
+                          title: '取消成功',
+                          icon: 'none'
+                        })
+                    }
+                }
             })
         } else {
             wx.showToast({
@@ -222,7 +255,6 @@ Page({
                 title: '请补充完整信息',
             })
         }
-
     },
 
     // 修改个人信息
@@ -256,11 +288,29 @@ Page({
     // 验证身份证号
     regIdentity(e) {
         var self = this;
-        if (!reg.IDCard(e.detail.value)) {
-            wx.showToast({
-                icon: "none",
-                title: '请输入有效的身份证号码',
-            })
+        if (self.data.number_type == 1) {
+            if (!reg.IDCard(e.detail.value)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的身份证号码',
+                })
+            }
+        } else if (self.data.number_type == 2) {
+            if (!reg.foreign(e.detail.value)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的身份证号码',
+                })
+            }
+        } else if (self.data.number_type == 3) {
+            console.log();
+            
+            if (!reg.HK(e.detail.value)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的身份证号码',
+                })
+            }
         }
     },
 

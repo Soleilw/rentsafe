@@ -1,7 +1,7 @@
 let reg = {};
 
 // 验证身份证
-reg.IDCard = function(idCard) {
+reg.IDCard = function (idCard) {
     var regIdCard =
         /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
     if (regIdCard.test(idCard)) {
@@ -54,6 +54,33 @@ reg.phone = function (phone) {
         return true;
     } else {
         return false;
+    }
+}
+// 港澳身份验证
+reg.HK = function (idCard) {
+    // 港澳居民来往内地通行证
+    // 规则： H/M + 10位或6位数字
+    // 样本： H1234567890
+    var reg = /^([A-Z]\d{6,10}(\(\w{1}\))?)$/;
+    if (reg.test(idCard)) {
+        return true;
+    } else {
+        wx.showToast({
+            icon: "none",
+            title: '请输入有效的身份证号码'
+        })
+    }
+}
+
+reg.foreign = function (idCard) {
+    var reg = /^[A-Z]{3}\d{6}(?:0[1-9]|1[021])(?:0[1-9]|[21]\d|3[10])\d{2}$/;
+    if (reg.test(idCard)) {
+        return true
+    } else {
+        wx.showToast({
+            icon: "none",
+            title: '请输入有效的身份证号码'
+        })
     }
 }
 

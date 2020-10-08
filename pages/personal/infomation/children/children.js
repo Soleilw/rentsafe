@@ -241,22 +241,39 @@ Page({
             })
         }
         var card_number = e.detail.value.card_number;
-        if (!reg.IDCard(card_number)) {
-            wx.showToast({
-                icon: "none",
-                title: '请输入有效的身份证号码'
-            })
+        if (self.data.number_type == 1) {
+            if (!reg.IDCard(card_number)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的身份证号码'
+                })
+            }
+        } else if (self.data.number_type == 2) {
+            if (!reg.foreign(card_numbere)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的身份证号码',
+                })
+            }
+        } else if (self.data.number_type == 3) {
+            if (!reg.HK(card_number)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的身份证号码',
+                })
+            }
         }
+      
         var name = e.detail.value.name;
         var sex = e.detail.value.sex;
         var token = wx.getStorageSync('token');
         var address_id = self.data.address_id;
         var address = self.data.address;
         var room_id = self.data.room_id
-        // var href = self.data.userInfo.href;
-        var href = 'https://tu.fengniaotuangou.cn/tmp_3532e17bcc6df1387f8e7833696b27fd259af82a066733eb.jpg';
+        var href = self.data.userInfo.href;
+        // var href = 'https://tu.fengniaotuangou.cn/tmp_3532e17bcc6df1387f8e7833696b27fd259af82a066733eb.jpg';
 
-        if (REG_PHONE.test(phone) && reg.IDCard(card_number) && name && sex && href) {
+        if (phone && card_number && name && sex && href && self.data.number_type) {
             infomation.children(token, href, name, sex, address_id, address, room_id, card_number, phone, self.data.number_type).then(res => {
                 self.setData({
                     disabled: true
@@ -290,12 +307,30 @@ Page({
     // 验证身份证号
     regIdentity(e) {
         var self = this;
-        if (!reg.IDCard(e.detail.value)) {
-            wx.showToast({
-                icon: "none",
-                title: '请输入有效的身份证号码',
-            })
+        if (self.data.number_type == 1) {
+            if (!reg.IDCard(e.detail.value)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的身份证号码',
+                })
+            }
+        } else if (self.data.number_type == 2) {
+            if (!reg.foreign(e.detail.value)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的身份证号码',
+                })
+            }
+        } else if (self.data.number_type == 3) {
+            if (!reg.HK(e.detail.value)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的身份证号码',
+                })
+            }
         }
+
+        
     },
     // 验证手机号
     regPhone(e) {
