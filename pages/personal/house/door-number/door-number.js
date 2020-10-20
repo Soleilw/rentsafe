@@ -19,7 +19,8 @@ Page({
         area_id: '',
         address: '',
         detailedAddress_id: '',
-        id: ''
+        id: '',
+        isChange: false
     },
 
     onLoad(options) {
@@ -40,20 +41,28 @@ Page({
     sumAddress(e) {
         var self = this;
         console.log(e);
-        infomation.modifyDoorNum(self.data.room_id, self.data.id).then(res => {
-            console.log(res);
-            wx.showToast({
-                title: '提交成功, 请等待户主审核',
-                icon: 'none',
-                success() {
-                    setTimeout(() => {
-                        wx.reLaunch({
-                            url: "/pages/personal/index/change-user/change-user"
-                        })
-                    }, 1000);
-                }
+        if (self.data.isChange) {
+            infomation.modifyDoorNum(self.data.room_id, self.data.id).then(res => {
+                console.log(res);
+                wx.showToast({
+                    title: '提交成功, 请联系户主审核',
+                    icon: 'none',
+                    success() {
+                        setTimeout(() => {
+                            wx.reLaunch({
+                                url: "/pages/personal/index/change-user/change-user"
+                            })
+                        }, 1000);
+                    }
+                })
             })
-        })
+        } else {
+            wx.showToast({
+              title: '您未修改门牌号, 无法提交',
+              icon: 'none'
+            })
+        } 
+       
     },
 
     // 获取省级
@@ -112,7 +121,7 @@ Page({
             })
         })
         infomation.gainDoorNum(self.data.room_id).then(res => {
-            console.log(res);
+            console.log(1, res);
 
             if (res) {
                 self.setData({
@@ -126,7 +135,10 @@ Page({
     // 选择门牌号
     roomChange(e) {
         var self = this;
+        console.log(e);
+        
         self.setData({
+            isChange: true,
             is_room: e.detail.value,
             room_id: self.data.roomList[e.detail.value].id,
             room: ''

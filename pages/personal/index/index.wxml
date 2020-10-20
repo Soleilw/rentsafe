@@ -121,7 +121,7 @@
 
 </view>
 
-<view class="supportText">安域智慧安防提供技术支持v1.0.20</view>
+<view class="supportText">安域智慧安防提供技术支持v1.0.21</view>
 <block>
 	<!-- 屏幕背景变暗的背景 -->
 	<view class="commodity_screen" wx:if="{{showModalStatus}}"></view>
