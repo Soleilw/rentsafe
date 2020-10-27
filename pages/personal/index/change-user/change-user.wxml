@@ -2,19 +2,19 @@
 	<block wx:for="{{idenInfoList}}" wx:key="{{index}}">
 		<button wx:if="{{item.state == 1}}" class="iden-btn" disabled="true">
 			<view class="tableviewcell" >
-				<text class="adress" wx:if="{{item.state == 1}}">{{item.typeString}}/{{item.address.address}}<text style="color: #ccc">(审核中)</text></text>
+				<text class="adress" wx:if="{{item.state == 1}}">{{item.typeString}}<text wx:if="{{item.type == 3}}">-{{item.snapshot.name}}</text>/{{item.address.address}}<text style="color: #ccc">(审核中)</text></text>
 				<image class="right-icon" src="/icon/right.png" />
 			</view>
 		</button>
 		<button wx:if="{{item.state == 2}}" class="iden-btn" data-opendoor="{{item.address.open_door}}"  data-typestring="{{item.typeString}}" data-address="{{item.address.address}}" data-area_id="{{item.address.area_id}}" data-addresses_id="{{item.address.id}}" data-add="{{item.address_id}}" data-roomId="{{item.room_id}}" data-renter_type="{{item.type}}" data-id="{{item.id}}" data-face_id="{{item.face_id}}"  bindtap="toIndex">
 			<view class="tableviewcell" >
-				<text class="adress" wx:if="{{item.state == 2}}">{{item.typeString}}/{{item.address.address}}<text style="color: green">(已通过)</text></text>	
+				<text class="adress" wx:if="{{item.state == 2}}">{{item.typeString}}<text wx:if="{{item.type == 3}}">-{{item.snapshot.name}}</text>/{{item.address.address}}<text style="color: green">(已通过)</text></text>	
 				<image class="right-icon" src="/icon/right.png" />
 			</view>
 		</button>
 			<button wx:if="{{item.state == 3}}" class="iden-btn" bindtap="toAmend" data-typestring="{{item.typeString}}" data-address="{{item.address.address}}" data-area_id="{{item.address.area_id}}" data-addresses_id="{{item.address.id}}" data-add="{{item.address_id}}" data-roomId="{{item.room_id}}" data-state="{{item.state}}" data-id="{{item.id}}">
 			<view class="tableviewcell" >
-				<text class="adress" wx:if="{{item.state == 3}}">{{item.typeString}}/{{item.address.address}}<text style="color: red">(未通过)</text></text>
+				<text class="adress" wx:if="{{item.state == 3}}">{{item.typeString}}<text wx:if="{{item.type == 3}}">-{{item.snapshot.name}}</text>/{{item.address.address}}<text style="color: red">(未通过)</text></text>
 				<image class="right-icon" src="/icon/right.png" />
 			</view>
 		</button>
