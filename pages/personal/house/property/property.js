@@ -1,5 +1,5 @@
 var infomation = require('../../../../model/personal/infomation');
-
+let name;
 Page({
 
     /**
@@ -52,6 +52,20 @@ Page({
             console.log('获取审核列表', res);
             wx.hideLoading({})
 
+        })
+    },
+
+     // 搜索
+     searchName(e) {
+        name = e.detail.value
+    },
+    search() {
+        var self = this;
+        infomation.search(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 4, name).then(res => {
+            console.log(res);
+            self.setData({
+                renterList: res.data
+            })
         })
     },
 

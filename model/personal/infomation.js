@@ -122,6 +122,27 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
         })
     },
 
+    infomation.search = function (page, limit, token, address_id, type1, type2, name) {
+        return new Promise((resolve, reject) => {
+            api.get(api.baseUrl.host, api.url.Households, {
+                page: page,
+                limit: limit,
+                token: token,
+                address_id: address_id,
+                type1: type1,
+                type2: type2,
+                name: name
+            }, function (response) {
+                if (response.msg === 'ok') {
+                    var res = response.data;
+                    resolve(res);
+                } else {
+                    reject(response);
+                }
+            })
+        })
+    },
+
     // 审核租客/物业
     infomation.audit = function (token, id, state, type, self) {
         return new Promise((resolve, reject) => {

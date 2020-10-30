@@ -1,5 +1,5 @@
 var infomation = require('../../../../model/personal/infomation');
-
+let name;
 Page({
 
     /**
@@ -81,6 +81,31 @@ Page({
             })
         }
         
+    },
+
+     // 搜索
+     searchName(e) {
+        name = e.detail.value
+    },
+    search() {
+        var self = this;
+        if (self.data.typestring == '户主') {
+            infomation.search(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 3, name).then(res => {
+                console.log(res);
+                self.setData({
+                    renterList: res.data
+                })
+                wx.hideLoading({})
+            })
+        } else if (self.data.typestring == '物业') {
+            infomation.search(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 3, name).then(res => {
+                console.log(res);
+                self.setData({
+                    renterList: res.data
+                })
+                wx.hideLoading({})
+            })
+        }
     },
 
     // 查看租客详情

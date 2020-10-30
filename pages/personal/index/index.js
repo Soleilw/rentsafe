@@ -3,7 +3,6 @@ var infomation = require('../../../model/personal/infomation');
 var app = getApp();
 var buy = require('../../../model/personal/buy')
 var door = require('../../../model/personal/door')
-
 Page({
 
     /**
@@ -32,7 +31,8 @@ Page({
         id: "",
         number: '',
         renter_type: '',
-        face_id: ''
+        face_id: '',
+        isExpireTime: false
     },
 
     onLoad: function (options) {
@@ -97,7 +97,12 @@ Page({
     getTip() {
         var self = this;
         buy.userServes(wx.getStorageSync('token'), self.data.face_id).then(res => {
-            console.log('获取开通的服务', res);
+            console.log('获取开通的服务', res[0].expireTime);
+            // console.log(new Date().getTime());
+            // var time = res[0].expireTime;
+            // time = time.replace(/-/g, '/');
+            // console.log(new Date(time).getTime());
+            
             self.setData({
                 hasBuyList: res
             })
@@ -125,7 +130,28 @@ Page({
                         }
                     }
                 })
-            }
+            } 
+            // else if (res.length > 0 && res[0].state != 2) {
+            //     wx.showModal({
+            //         title: '续费提示',
+            //         content: '您开通的服务即将到期, 请及时续费',
+            //         cancelText: '稍后开通',
+            //         confirmText: '开通',
+            //         success: function (res) {
+            //             if (res.confirm) {
+            //                 wx.navigateTo({
+            //                     url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&renter_type=' + self.data.renter_type + '&face_id=' + self.data.face_id
+            //                 })
+            //             } else if (res.cancel) {
+            //                 wx.showToast({
+            //                     icon: "none",
+            //                     title: '您开通的服务即将到期, 请及时续费',
+            //                     duration: 4000,
+            //                 })
+            //             }
+            //         }
+            //     })
+            // }
         })
     },
     getPersonalInfo() {
@@ -263,7 +289,7 @@ Page({
             })
             var index = self.data.door_index
             var uuid = self.data.doorList[index].uuid
-            door.openDoor(uuid, wx.getStorageSync('token')).then(res => {
+            door.openDoor(uuid, wx.getStorageSync('token'), self.data.detailedAddress_id, self.data.face_id).then(res => {
                 console.log('一键开门', res);
                 wx.showToast({
                     icon: "none",

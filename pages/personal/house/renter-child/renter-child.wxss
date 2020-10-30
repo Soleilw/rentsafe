@@ -82,3 +82,27 @@ button::after {
   color: #666;
   padding: 20rpx;
 }
+
+.search {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 100rpx;
+  border-bottom: 2rpx solid #ccc;
+
+}
+
+.search input {
+  flex: 2;
+  padding-left: 20rpx;
+}
+
+.search .image {
+  padding: 20rpx 20rpx;
+}
+
+.search .image image{
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
+}

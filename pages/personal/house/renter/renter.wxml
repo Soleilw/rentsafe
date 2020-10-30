@@ -1,4 +1,10 @@
 <scroll-view scroll-y="true" lower-threshold="100" bindscrolltolower="scrollToLower" style="height: 100vh;">
+	<view class="search">
+		<input name="name" value="{{name}}" bindblur="searchName" placeholder="请输入姓名"></input>
+		<view class="image" bindtap="search">
+			<image mode="aspectFill" src="/icon/search1.png"></image>
+		</view>
+	</view>
 	<view class="box">
 		<view wx:for="{{renterList}}" wx:key="{{index}}" class="list">
 			<view class="info-list">
@@ -19,6 +25,6 @@
 		</view>
 	</view>
 	<view wx:if="{{showFoot}}" class="foot">
-	<text>没有更多数据了~ ╮（╯＿╰）╭</text>
-</view>
+		<text>没有更多数据了~ ╮（╯＿╰）╭</text>
+	</view>
 </scroll-view>
