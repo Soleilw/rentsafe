@@ -98,11 +98,11 @@ Page({
         var self = this;
         buy.userServes(wx.getStorageSync('token'), self.data.face_id).then(res => {
             console.log('获取开通的服务', res[0].expireTime);
-            // console.log(new Date().getTime());
-            // var time = res[0].expireTime;
-            // time = time.replace(/-/g, '/');
-            // console.log(new Date(time).getTime());
-            
+            var time = res[0].expireTime;
+            time = time.replace(/-/g, '/');
+            console.log(new Date().getTime());
+            console.log(new Date(time).getTime() - 7 * 24 * 60 * 60 * 1000);
+
             self.setData({
                 hasBuyList: res
             })
@@ -130,28 +130,47 @@ Page({
                         }
                     }
                 })
-            } 
-            // else if (res.length > 0 && res[0].state != 2) {
-            //     wx.showModal({
-            //         title: '续费提示',
-            //         content: '您开通的服务即将到期, 请及时续费',
-            //         cancelText: '稍后开通',
-            //         confirmText: '开通',
-            //         success: function (res) {
-            //             if (res.confirm) {
-            //                 wx.navigateTo({
-            //                     url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&renter_type=' + self.data.renter_type + '&face_id=' + self.data.face_id
-            //                 })
-            //             } else if (res.cancel) {
-            //                 wx.showToast({
-            //                     icon: "none",
-            //                     title: '您开通的服务即将到期, 请及时续费',
-            //                     duration: 4000,
-            //                 })
-            //             }
-            //         }
-            //     })
-            // }
+            } else if (res.length > 0 && res[0].state == 1) {
+                wx.showModal({
+                    title: '续费提示',
+                    content: '您开通的服务已过期, 无法刷脸进出, 请重新开通服务',
+                    cancelText: '稍后开通',
+                    confirmText: '开通',
+                    success: function (res) {
+                        if (res.confirm) {
+                            wx.navigateTo({
+                                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&renter_type=' + self.data.renter_type + '&face_id=' + self.data.face_id
+                            })
+                        } else if (res.cancel) {
+                            wx.showToast({
+                                icon: "none",
+                                title: '未开通服务无法刷脸进出，可点击物业管理栏的购买服务进行服务开通',
+                                duration: 4000,
+                            })
+                        }
+                    }
+                })
+            } else if (res.length > 0 && (new Date(time).getTime() - 7 * 24 * 60 * 60 * 1000 < new Date().getTime())) {
+                wx.showModal({
+                    title: '续费提示',
+                    content: '您开通的服务即将到期, 请及时续费',
+                    cancelText: '稍后开通',
+                    confirmText: '开通',
+                    success: function (res) {
+                        if (res.confirm) {
+                            wx.navigateTo({
+                                url: '../buy/buy/buy?area_id=' + self.data.area_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&renter_type=' + self.data.renter_type + '&face_id=' + self.data.face_id
+                            })
+                        } else if (res.cancel) {
+                            wx.showToast({
+                                icon: "none",
+                                title: '您开通的服务即将到期, 可点击物业管理栏的购买服务进行服务续费',
+                                duration: 4000,
+                            })
+                        }
+                    }
+                })
+            }
         })
     },
     getPersonalInfo() {
