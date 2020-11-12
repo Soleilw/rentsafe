@@ -43,15 +43,20 @@ Page({
             'type': 4
         }],
         IDList: [{ // 身份类型类型列表
-            'name': '中国居民身份证',
-            'type': 1
-        }, {
-            'name': '外国人永久居留身份证',
-            'type': 2
-        }, {
-            'name': '港澳居民居住证',
-            'type': 3
-        }],
+                'name': '中国居民身份证',
+                'type': 1
+            }, {
+                'name': '外国人永久居留身份证',
+                'type': 2
+            }, {
+                'name': '港澳居民居住证',
+                'type': 3
+            },
+            {
+                'name': '护照',
+                'type': 4
+            }
+        ],
         showCamera: false, // 显示相机
         cameraConfig: {
             position: 'front',
@@ -183,6 +188,13 @@ Page({
                     title: '请输入有效的身份证号码',
                 })
             }
+        } else if (self.data.number_type == 4) {
+            if (!reg.passport(card_number)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的护照',
+                })
+            }
         }
 
         var id = self.data.userInfo.id ? self.data.userInfo.id : '';
@@ -243,8 +255,8 @@ Page({
                     } else if (res.cancel) {
                         console.log(111);
                         wx.showToast({
-                          title: '取消成功',
-                          icon: 'none'
+                            title: '取消成功',
+                            icon: 'none'
                         })
                     }
                 }
@@ -304,11 +316,18 @@ Page({
             }
         } else if (self.data.number_type == 3) {
             console.log();
-            
+
             if (!reg.HK(e.detail.value)) {
                 wx.showToast({
                     icon: "none",
                     title: '请输入有效的身份证号码',
+                })
+            }
+        } else if (self.data.number_type == 4) {
+            if (!reg.passport(e.detail.value)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的护照',
                 })
             }
         }

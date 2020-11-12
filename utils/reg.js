@@ -85,4 +85,16 @@ reg.foreign = function (idCard) {
     }
 }
 
+reg.passport = function (idCard) {
+    var reg = /(^[EeKkGgDdSsPpHh]\d{8}$)|(^(([Ee][a-fA-F])|([DdSsPp][Ee])|([Kk][Jj])|([Mm][Aa])|(1[45]))\d{7}$)/;
+    if (reg.test(idCard)) {
+        return true
+    } else {
+        wx.showToast({
+            icon: "none",
+            title: '请输入有效的护照'
+        })
+    }
+}
+
 module.exports = reg;

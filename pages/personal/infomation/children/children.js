@@ -51,7 +51,12 @@ Page({
         }, {
             'name': '港澳台居民居住证',
             'type': 3
-        }],
+        },
+        {
+            'name': '护照',
+            'type': 4
+        }
+    ],
     },
 
     onLoad(options) {
@@ -227,7 +232,7 @@ Page({
             number_type: Number(e.detail.value) + 1
         })
         console.log(self.data.number_type);
-        
+
     },
     subInfomations(e) {
         var self = this;
@@ -262,8 +267,15 @@ Page({
                     title: '请输入有效的身份证号码',
                 })
             }
+        } else if (self.data.number_type == 4) {
+            if (!reg.passport(card_number)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的护照',
+                })
+            }
         }
-      
+
         var name = e.detail.value.name;
         var sex = e.detail.value.sex;
         var token = wx.getStorageSync('token');
@@ -328,9 +340,16 @@ Page({
                     title: '请输入有效的身份证号码',
                 })
             }
+        } else if (self.data.number_type == 4) {
+            if (!reg.passport(e.detail.value)) {
+                wx.showToast({
+                    icon: "none",
+                    title: '请输入有效的护照',
+                })
+            }
         }
 
-        
+
     },
     // 验证手机号
     regPhone(e) {
