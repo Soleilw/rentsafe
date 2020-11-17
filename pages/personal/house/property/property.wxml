@@ -21,7 +21,7 @@
 		<button wx:if="{{item.state == 1}}" data-id="{{item.id}}" data-check="{{item.check}}" bindtap="toAudit">去审核</button>
 		<button wx:if="{{item.state == 2}}" disabled="true" style="color: green">已通过</button>
 		<button wx:if="{{item.state == 3}}" disabled="true" style="color: red">未通过</button>
-		<button class="del_btn" data-id="{{item.id}}" bindtap="delete" type="warn">删除</button>
+		<button class="del_btn" data-id="{{item.id}}" bindtap="delete" type="warn" data-check="{{item.check}}">删除</button>
 	</view>
 </view>
 <view wx:if="{{showFoot}}" class="foot">
