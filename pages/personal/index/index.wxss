@@ -14,9 +14,9 @@ page {
 
 }
 
-.box {
+.box-info {
     height: 35vw;
-    margin: 10rpx 10rpx 0 10rpx;
+    margin: 10rpx 10rpx;
     border-radius: 10rpx;
     background-color: #2a9f93;
 }
@@ -52,7 +52,7 @@ page {
 }
 
 /* 板块 */
-.plate {
+/* .plate {
     margin: 20rpx 0;
     color: #272727;
 }
@@ -88,13 +88,11 @@ page {
 }
 
 .plate .list text {
-    /* width: 160rpx;
-    height: 50rpx; */
     line-height: 50rpx;
     margin: 10rpx 0 0 0;
     font-size: 30rpx;
     text-align: center;
-}
+} */
 
 /* 技术支持文字 */
 .supportText {
@@ -204,3 +202,74 @@ page {
     float: right;
   }
 
+
+  .modules {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 8rpx;
+    background-color: #fff;
+    font-size: 26rpx;
+  }
+  
+  .modules .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    padding: 20rpx;
+  }
+  
+  .modules .hr {
+    border-left: 2rpx #ccc solid;
+  }
+  
+  .modules .box image {
+    width:60rpx;
+    height:60rpx;
+    margin: 12rpx 0;
+    border-radius: 50%;
+  }
+  
+  .menu {
+    display: flex;
+    flex-wrap: wrap;
+  
+    font-size: 28rpx;
+    font-weight: bold;
+  }
+  
+  .menu .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 23.6vw;
+    margin: 5rpx;
+    padding: 10rpx 0;
+    background-color: #fff;
+  }
+  
+  .menu button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25vw;
+    margin: 20rpx 0;
+  }
+  
+  .menu button image{
+    width:50rpx;
+    height:50rpx;
+    margin: 12rpx 0;
+    padding: 10rpx;
+    border-radius: 50%;
+  }
+  
+  
+  .menu .box image {
+    width:50rpx;
+    height:50rpx;
+    margin: 12rpx 0;
+    padding: 10rpx;
+    border-radius: 50%;
+  }

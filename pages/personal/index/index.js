@@ -391,7 +391,7 @@ Page({
             infomation.userInfo(wx.getStorageSync('token')).then(res => {
                 if (res) {
                     wx.reLaunch({
-                        url: "/pages/personal/index/change-user/change-user"
+                        url: "/pages/personal/infomation/infomation/infomation"
                     })
                 } else {
                     wx.showToast({
@@ -456,7 +456,11 @@ Page({
     getIdenInfo() {
         var self = this;
         if (wx.getStorageSync('token')) {
+            wx.showLoading({
+              title: '获取数据中...',
+            })
             infomation.idenInfo(wx.getStorageSync('token'), 1, 10000).then(res => {
+                wx.hideLoading()
                 if (res.data.length > 0) {
                     console.log('getIdenInfo', res.data);
                     res.data.forEach(item => {
@@ -484,7 +488,6 @@ Page({
                         duration: 4000,
                     })
                 }
-
             })
         } else {
             self.setData({
