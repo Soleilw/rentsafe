@@ -189,6 +189,7 @@ Page({
             }
         }
     },
+    // 切换身份
     loginout() {
         var self = this;
         if (!wx.getStorageSync('token')) {
@@ -379,7 +380,7 @@ Page({
         }
     },
 
-    // 切换账号
+    // 添加身份
     toRegister() {
         if (!wx.getStorageSync('token')) {
             wx.showToast({
@@ -390,8 +391,8 @@ Page({
         } else {
             infomation.userInfo(wx.getStorageSync('token')).then(res => {
                 if (res) {
-                    wx.reLaunch({
-                        url: "/pages/personal/infomation/infomation/infomation"
+                    wx.navigateTo({
+                        url: "../infomation/infomation/infomation"
                     })
                 } else {
                     wx.showToast({
