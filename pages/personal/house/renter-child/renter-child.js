@@ -54,7 +54,7 @@ Page({
                 }
                 console.log('获取审核列表', res);
                 wx.hideLoading({})
-    
+
             })
         } else if (self.data.typestring == '物业') {
             infomation.auditList(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 3).then(res => {
@@ -80,11 +80,11 @@ Page({
                 wx.hideLoading({})
             })
         }
-        
+
     },
 
-     // 搜索
-     searchName(e) {
+    // 搜索
+    searchName(e) {
         name = e.detail.value
     },
     search() {
@@ -130,79 +130,79 @@ Page({
         var check = e.currentTarget.dataset.check;
 
         console.log('审核', e);
-        if (check == 1) {
-            wx.showModal({
-                title: '审核提示',
-                content: '是否通过该租客的申请？',
-                cancelText: '不通过',
-                confirmText: '通过',
-                success: function (res) {
-                    if (self.data.typestring == '户主') {
-                        if (res.confirm) {
-                            infomation.auditFamily(wx.getStorageSync('token'), id, 2, 1, card_number).then(res => {
+        // if (check == 1) {
+        wx.showModal({
+            title: '审核提示',
+            content: '是否通过该租客的申请？',
+            cancelText: '不通过',
+            confirmText: '通过',
+            success: function (res) {
+                if (self.data.typestring == '户主') {
+                    if (res.confirm) {
+                        infomation.auditFamily(wx.getStorageSync('token'), id, 2, 1, card_number).then(res => {
+                            wx.showToast({
+                                icon: "none",
+                                title: '提交成功'
+                            })
+                            self.getAuditList();
+                        }).catch(err => {
+                            if (err.code == 10002) {
                                 wx.showToast({
                                     icon: "none",
-                                    title: '提交成功'
+                                    title: '身份核验失败!'
                                 })
-                                self.getAuditList();
-                            }).catch(err => {
-                                if (err.code == 10002) {
-                                    wx.showToast({
-                                        icon: "none",
-                                        title: '身份核验失败!'
-                                    })
-                                }
+                            }
+                        })
+                    } else if (res.cancel) {
+                        infomation.auditFamily(wx.getStorageSync('token'), id, 3, 1, card_number).then(res => {
+                            wx.showToast({
+                                icon: "none",
+                                title: '提交成功'
                             })
-                        } else if (res.cancel) {
-                            infomation.auditFamily(wx.getStorageSync('token'), id, 3, 1, card_number).then(res => {
-                                wx.showToast({
-                                    icon: "none",
-                                    title: '提交成功'
-                                })
-                                self.getAuditList();
-                            })
-                        }
-                    } else if (self.data.typestring == '物业') {
-                        if (res.confirm) {
-                            infomation.auditFamily(wx.getStorageSync('token'), id, 2, 4, card_number).then(res => {
-                                wx.showToast({
-                                    icon: "none",
-                                    title: '提交成功'
-                                })
-                                self.getAuditList();
-                            }).catch(err => {
-                                if (err.code == 10002) {
-                                    wx.showToast({
-                                        icon: "none",
-                                        title: '身份核验失败!'
-                                    })
-                                }
-                            })
-                        } else if (res.cancel) {
-                            infomation.auditFamily(wx.getStorageSync('token'), id, 3, 4, card_number).then(res => {
-                                wx.showToast({
-                                    icon: "none",
-                                    title: '提交成功'
-                                })
-                                self.getAuditList();
-                            })
-                        }
+                            self.getAuditList();
+                        })
                     }
-                    
+                } else if (self.data.typestring == '物业') {
+                    if (res.confirm) {
+                        infomation.auditFamily(wx.getStorageSync('token'), id, 2, 4, card_number).then(res => {
+                            wx.showToast({
+                                icon: "none",
+                                title: '提交成功'
+                            })
+                            self.getAuditList();
+                        }).catch(err => {
+                            if (err.code == 10002) {
+                                wx.showToast({
+                                    icon: "none",
+                                    title: '身份核验失败!'
+                                })
+                            }
+                        })
+                    } else if (res.cancel) {
+                        infomation.auditFamily(wx.getStorageSync('token'), id, 3, 4, card_number).then(res => {
+                            wx.showToast({
+                                icon: "none",
+                                title: '提交成功'
+                            })
+                            self.getAuditList();
+                        })
+                    }
                 }
-            })
-        }  else if (check == 0) {
-            wx.showToast({
-                icon: "none",
-                title: '该用户身份未核验! 请耐心等待'
-            })
-        } else if (check == 2) {
-            wx.showToast({
-                icon: "none",
-                title: '该用户身份信息错误! 请用户重新提交'
-            })
-        }
-        
+
+            }
+        })
+        // }  else if (check == 0) {
+        //     wx.showToast({
+        //         icon: "none",
+        //         title: '该用户身份未核验! 请耐心等待'
+        //     })
+        // } else if (check == 2) {
+        //     wx.showToast({
+        //         icon: "none",
+        //         title: '该用户身份信息错误! 请用户重新提交'
+        //     })
+        // }
+
     },
 
     // 删除租客
@@ -212,7 +212,7 @@ Page({
         var card_number = e.currentTarget.dataset.card_number;
         var check = e.currentTarget.dataset.check;
         console.log(e);
-        
+
         if (check == 0) {
             wx.showToast({
                 icon: "none",
@@ -233,7 +233,7 @@ Page({
                             });
                             self.getAuditList();
                         })
-    
+
                     } else if (res.cancel) {
                         console.log('用户点击取消');
                         wx.showToast({

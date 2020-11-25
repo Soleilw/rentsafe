@@ -22,16 +22,16 @@
 
 	<view class="modules">
 		<view class="box hr" bindtap="toRegister">
-			<image src="/icon/add3.png" />
+			<image src="/icon/information.png" />
 			<view>添加身份</view>
 		</view>
 		<view class="box hr" bindtap="loginout">
-			<image src="/icon/change3.png" />
+			<image src="/icon/information.png" />
 			<view>切换身份</view>
 		</view>
 		<view class="box hr" wx:if="{{typestring == '户主'}}">
 			<picker bindchange="toOpenDoor" value="{{index}}" range-key="remark" range="{{doorList}}">
-				<image src="/icon/key4.png"></image>
+				<image src="/icon/key1.png"></image>
 			</picker>
 			<picker bindchange="toOpenDoor" value="{{index}}" range-key="remark" range="{{doorList}}">
 				<view>一键开门</view>
@@ -39,57 +39,57 @@
 		</view>
 		<view class="box hr" wx:if="{{typestring !== '户主' && open_door == 1}}">
 			<picker bindchange="toOpenDoor" value="{{index}}" range-key="remark" range="{{doorList}}">
-				<image src="/icon/key4.png"></image>
+				<image src="/icon/key1.png"></image>
 			</picker>
 			<picker bindchange="toOpenDoor" value="{{index}}" range-key="remark" range="{{doorList}}">
 				<view>一键开门</view>
 			</picker>
 		</view>
 		<view class="box hr" wx:if="{{typestring !== '户主' && open_door == 2}}" bindtap="toApply">
-			<image src="/icon/key4.png"></image>
+			<image src="/icon/key1.png"></image>
 			<view>一键开门</view>
 		</view>
 	</view>
 
 	<view class="menu">
 		<view class="box" bindtap="toInfomation">
-			<image src="/icon/infos.png"></image>
+			<image src="/icon/information.png"></image>
 			<view>个人信息</view>
 		</view>
 		<view class="box" wx:if="{{showHouse}}" bindtap="toHouse">
-			<image src="/icon/mag.png"></image>
+			<image src="/icon/unit.png"></image>
 			<view>房屋管理</view>
 		</view>
 		<view class="box" wx:if="{{showBuy}}" bindtap="toBuy">
-			<image src="/icon/buy2.png"></image>
+			<image src="/icon/buy.png"></image>
 			<view>购买服务</view>
 		</view>
-		<view class="box" wx:if="{{typestring == '租客'}}" bindtap="tochildren">
-			<image src="/icon/family3.png"></image>
+		<view class="box" wx:if="{{typestring !== '物业'}}" bindtap="tochildren">
+			<image src="/icon/family.png"></image>
 			<view>家庭成员</view>
 		</view>
 		<view class="box" wx:else bindtap="tochildren">
-			<image src="/icon/worker3.png"></image>
+			<image src="/icon/family.png"></image>
 			<view>工作人员</view>
 		</view>
 		<view class="box" bindtap="toVisitor">
-			<image src="/icon/visitor3.png"></image>
+			<image src="/icon/visitor.png"></image>
 			<view>访客管理</view>
 		</view>
 		<view class="box" bindtap="toDoorNum" wx:if="{{typestring !== '户主' && typestring !== '物业'}}">
-			<image src="/icon/door3.png"></image>
+			<image src="/icon/door.png"></image>
 			<view>修改门牌</view>
 		</view>
 		<view class="box" bindtap="toSetting" wx:if="{{typestring == '户主'}}">
-			<image src="/icon/set3.png"></image>
+			<image src="/icon/all.png"></image>
 			<view>设置</view>
 		</view>
 		<view class="box" bindtap="showQrcode">
-			<image src="/icon/gzh.png"></image>
+			<image src="/icon/gzhh.png"></image>
 			<view>关注公众号</view>
 		</view>
 		<view class="box" bindtap="callPhone">
-			<image src="/icon/alert1.png"></image>
+			<image src="/icon/alert.png"></image>
 			<view>一键报警</view>
 		</view>
 	</view>
