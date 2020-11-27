@@ -146,7 +146,7 @@ Page({
     // 获取出租屋用户
     getUser() {
         var self = this;
-        infomation.addrressUser(self.data.address_id).then(res => {
+        infomation.addrressUser(self.data.address_id, self.data.room_id, 1, 10).then(res => {
             console.log(res);
             self.setData({
                 roomList: res.data

@@ -218,10 +218,13 @@ infomation.children = function (token, href, name, sex, address_id, address, roo
     }
 
     // 获取出租屋用户
-    infomation.addrressUser = function (addresses_id) {
+    infomation.addrressUser = function (addresses_id, room, page, limit) {
         return new Promise((resolve, reject) => {
             api.get(api.baseUrl.host, api.url.AddrressUser, {
-                addresses_id: addresses_id
+                addresses_id: addresses_id,
+                room: room,
+                page: page,
+                limit: limit
             }, function (response) {
                 if (response.msg === 'ok') {
                     var res = response.data;
