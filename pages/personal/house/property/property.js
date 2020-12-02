@@ -145,37 +145,29 @@ Page({
         var id = e.currentTarget.dataset.id;
         var check = e.currentTarget.dataset.check;
         console.log('删除租客', e);
-        if (check == 0) {
-            wx.showToast({
-                icon: "none",
-                title: '该用户身份未核验! 无法删除'
-            })
-        } else {
-            wx.showModal({
-                title: '提示',
-                content: '是否删除该租客',
-                success(res) {
-                    if (res.confirm) {
-                        console.log('用户点击确定')
-                        infomation.delHousehold(id, 1).then(res => {
-                            wx.showToast({
-                                icon: "none",
-                                title: '删除成功'
-                            });
-                            self.getAuditList();
-                        })
-
-                    } else if (res.cancel) {
-                        console.log('用户点击取消');
+        wx.showModal({
+            title: '提示',
+            content: '是否删除该租客',
+            success(res) {
+                if (res.confirm) {
+                    console.log('用户点击确定')
+                    infomation.delHousehold(id, 1).then(res => {
                         wx.showToast({
                             icon: "none",
-                            title: '取消成功'
+                            title: '删除成功'
                         });
-                    }
-                }
-            })
-        }
+                        self.getAuditList();
+                    })
 
+                } else if (res.cancel) {
+                    console.log('用户点击取消');
+                    wx.showToast({
+                        icon: "none",
+                        title: '取消成功'
+                    });
+                }
+            }
+        })
     },
     scrollToLower(e) {
         if (this.data.hasMore) {
