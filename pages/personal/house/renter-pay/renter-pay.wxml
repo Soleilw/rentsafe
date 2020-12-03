@@ -1,0 +1,44 @@
+<scroll-view scroll-y="true" lower-threshold="100" bindscrolltolower="scrollToLower" style="height: 100vh;">
+  <block wx:for="{{payList}}" wx:key="index">
+    <view class="info">
+      <view class="avatar">
+        <image mode="aspectFill" src="{{item.href}}"></image>
+      </view>
+      <view class="item">
+        <view>
+          <text class="name">{{item.name}}</text>
+          <!-- <image mode="aspectFill" src="{{item.student.sex == 1 ? '/icon/boy.png' : '/icon/girl.png'}}"></image> -->
+          <text style="margin-left: 10rpx">{{item.type_text}}</text>
+        </view>
+        <view>身份证: {{item.card_number}}</view>
+        <view>服务天数: {{item.time}}</view>
+        <view>到期时间: {{item.expire_time}}</view>
+        <view>是否到期: {{item.expire == 1 ? '是' : '否'}}</view>
+        <!-- <view wx:if="{{item.student.class_id}}">班级：{{item.student.grade}}{{item.student.class}}</view> -->
+        <!-- <view wx:else>班级：暂无录入信息</view> -->
+      </view>
+    </view>
+  </block>
+  <view wx:if="{{showFoot}}" class="foot">
+    <text>没有更多数据了~ ╮（╯＿╰）╭</text>
+  </view>
+  <!-- <view class="detail" wx:for="{{payList}}" wx:key="{{index}}">
+    <view class="expire">
+    </view>
+    <view class="item">
+      <view class="name">{{item.name}}<text style="margin-left: 10rpx">{{item.time}}天</text></view>
+      <view class="time">
+        <view>到期时间:</view>
+        <text style="color: green">{{item.expire_time}}</text>
+        <text wx:if="{{item.expire == 1}}" style="color: red">已到期</text>
+        <text wx:else style="color: green">未到期</text>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{showFoot}}" class="foot">
+		<text>没有更多数据了~ ╮（╯＿╰）╭</text>
+	</view> -->
+</scroll-view>
+
+
+<view class="not-data" wx:if="{{payList.length == 0}}">暂无数据</view>

@@ -22,7 +22,8 @@
     "pages/personal/infomation/visitor-apply/visitor-apply",
     "pages/personal/house/visitor/visitors/visitors",
     "pages/personal/infomation/infomation-amend/infomation-amend",
-    "pages/personal/house/door-number/door-number"
+    "pages/personal/house/door-number/door-number",
+    "pages/personal/house/renter-pay/renter-pay"
   ],
   "window": {
     "backgroundTextStyle": "light",

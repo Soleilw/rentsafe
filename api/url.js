@@ -40,6 +40,7 @@ const url = {
     "Buy": '/buy/product', // 支付
     "CancelBuy": '/pay/cancel', // 取消支付
     "Orders": '/orders', // 获取服务订单列表
+    "ServerUser": '/serve/user', // 已购买服务列表
 
     // 一键开门
     "AllowOpen": '/allow/open', // 允许开门
@@ -56,7 +57,8 @@ const url = {
     "Amend": '/user/info/household', // 修改个人信息
     
     // 判断家庭成员
-    "FamilyType": '/exist'
+    "FamilyType": '/exist',
+    
 };
 
 module.exports = url;

@@ -93,98 +93,9 @@
 			<view>一键报警</view>
 		</view>
 	</view>
-	<!-- <view class="plate_box">
-		<view class="plate">
-			<view class="title">信息板块</view>
-			<view class="list">
-				<view bindtap="toInfomation">
-					<image src="/icon/information.png" />
-					<text>个人信息</text>
-				</view>
-				<view bindtap="toHouse" wx:if="{{showHouse}}">
-					<image src="/icon/unit.png" />
-					<text>房屋管理</text>
-				</view>
-				<view bindtap="tochildren" wx:if="{{typestring !== '物业'}}">
-					<image src="/icon/family.png" />
-					<text>家庭成员</text>
-				</view>
-				<view bindtap="tochildren" wx:if="{{typestring == '物业'}}">
-					<image src="/icon/family.png" />
-					<text>工作人员</text>
-				</view>
-				<view bindtap="showQrcode">
-					<image src="/icon/gzhh.png" />
-					<text>关注公众号</text>
-				</view>
-				<view bindtap="callPhone">
-					<image src="/icon/alert.png" />
-					<text>一键报警</text>
-				</view>
-			</view>
-		</view>
-		<view class="plate">
-			<view class="title">账号管理</view>
-			<view class="list">
-				<view bindtap="toRegister">
-					<image src="/icon/information.png" />
-					<text>添加身份</text>
-				</view>
-				<view bindtap="loginout">
-					<image src="/icon/information.png" />
-					<text>切换身份</text>
-				</view>
-				<block wx:if="{{typestring == '户主'}}">
-					<picker bindchange="toOpenDoor" range="{{doorList}}" range-key="remark" value="{{index}}" class="picker">
-						<view>
-							<image src="/icon/key1.png" />
-							<text>一键开门</text>
-						</view>
-					</picker>
-				</block>
-				<block wx:if="{{typestring !== '户主' && open_door == 1}}">
-					<picker bindchange="toOpenDoor" range="{{doorList}}" range-key="remark" value="{{index}}" class="picker">
-						<view>
-							<image src="/icon/key1.png" />
-							<text>一键开门</text>
-						</view>
-					</picker>
-				</block>
-				<block wx:if="{{typestring !== '户主' && open_door == 2}}">
-					<view bindtap="toApply">
-						<image src="/icon/key1.png" />
-						<text>一键开门</text>
-					</view>
-				</block>
-
-				<view bindtap="toVisitor">
-					<image src="/icon/visitor.png" />
-					<text>访客管理</text>
-				</view>
-				<view bindtap="toSetting" wx:if="{{typestring == '户主'}}">
-					<image src="/icon/all.png" />
-					<text>设置</text>
-				</view>
-			</view>
-		</view>
-		<view class="plate" wx:if="{{typestring !== '户主' && typestring !== '物业'}}">
-			<view class="title">物业管理</view>
-			<view class="list">
-				<view bindtap="toBuy" wx:if="{{showBuy}}">
-					<image src="/icon/buy.png" />
-					<text>购买服务</text>
-				</view>
-				<view bindtap="toDoorNum">
-					<image src="/icon/door.png" />
-					<text>修改门牌号</text>
-				</view>
-			</view>
-		</view>
-	</view> -->
-
 </view>
 
-<view class="supportText">安域智慧安防提供技术支持v1.0.28</view>
+<view class="supportText">安域智慧安防提供技术支持v1.0.29</view>
 <block>
 	<!-- 屏幕背景变暗的背景 -->
 	<view class="commodity_screen" wx:if="{{showModalStatus}}"></view>
