@@ -9,7 +9,7 @@
 		<text>家庭成员审核</text>
 		<image class="right-icon" src="/icon/right.png" />
 	</view>
-	<view bindtap="toProperty" class="tableviewcell" wx:if="{{typestring == '户主'}}">
+	<view bindtap="toProperty" class="tableviewcell" wx:if="{{userType == 1}}">
 		<image class="left-icon" src="/icon/qb.png" />
 		<text>物业审核</text>
 		<image class="right-icon" src="/icon/right.png" />

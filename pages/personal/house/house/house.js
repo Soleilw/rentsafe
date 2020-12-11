@@ -1,4 +1,5 @@
 // pages/personal/house/house.js
+var app = getApp()
 Page({
 
     /**
@@ -7,20 +8,24 @@ Page({
     data: {
         detailedAddress_id: '',
         typestring: '',
-        showFace: false
+        showFace: false,
+        userType: null
     },
 
     onLoad: function (options) {
         console.log('options', options);
         this.setData({
             detailedAddress_id: options.detailedAddress_id,
-            typestring: options.typestring
+            typestring: options.typestring,
+            userType: app.globalData.userType
         })
         if (wx.getStorageSync('openFace') == 'open') {
             this.setData({
                 showFace: true
             });
         }
+        console.log(111, app.globalData.userType);
+        
     },
     // 租客审核
     toManage() {

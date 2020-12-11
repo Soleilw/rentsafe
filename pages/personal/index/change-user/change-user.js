@@ -90,7 +90,7 @@ Page({
                 } else {
                     wx.showToast({
                         icon: "none",
-                        title: '您还未添加身份，无法使用部分功能，请先添加身份。如已添加身份，请等待户主审核通过',
+                        title: '您还未添加身份，无法使用部分功能，请先添加身份。如已添加身份，请等待户主(房东)审核通过',
                         duration: 4000,
                         success: () => {
                             this.setData({
@@ -107,6 +107,7 @@ Page({
         var self = this;
         console.log(1,e);
         app.globalData.typestring = e.currentTarget.dataset.typestring;
+        app.globalData.userType = e.currentTarget.dataset.type;
         app.globalData.isBuy = 'true';
         app.globalData.area_id = e.currentTarget.dataset.area_id;
         app.globalData.detailedAddress_id = e.currentTarget.dataset.addresses_id;

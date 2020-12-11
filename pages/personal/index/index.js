@@ -32,7 +32,8 @@ Page({
         number: '',
         renter_type: '',
         face_id: '',
-        isExpireTime: false
+        isExpireTime: false,
+        userType: null
     },
 
     onLoad: function (options) {
@@ -40,6 +41,7 @@ Page({
 
         this.setData({
             typestring: app.globalData.typestring,
+            userType: app.globalData.userType,
             area_id: app.globalData.area_id,
             // address_id: app.globalData.address_id,
             address: app.globalData.address,
@@ -50,10 +52,7 @@ Page({
             renter_type: app.globalData.renter_type,
             face_id: app.globalData.face_id,
         })
-
-        console.log(this.data.typestring);
-        console.log(1112, this.data.face_id);
-
+        this.getPersonalInfo();
     },
     onShow() {
         this.getPersonalInfo();
@@ -182,7 +181,7 @@ Page({
                 })
             }
             // typeString为户主/物业时才显示房屋管理
-            if (this.data.typestring == "户主" || this.data.typestring == "物业") {
+            if (this.data.userType == 1 || this.data.typestring == "物业") {
                 self.setData({
                     showHouse: true
                 })
@@ -339,7 +338,7 @@ Page({
     toApply() {
         wx.showToast({
             icon: "none",
-            title: '户主未开启一键开门功能, 请联系户主'
+            title: '户主(房东)未开启一键开门功能, 请联系户主(房东)'
         });
     },
 

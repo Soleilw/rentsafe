@@ -30,7 +30,7 @@ Page({
         wxInfo: null,
         id_card_select: '', // 身份类型选择
         identityList: [{ // 身份类型列表
-            'name': '户主',
+            'name': '户主(房东)',
             'type': 1
         }, {
             'name': '租客',
@@ -232,7 +232,7 @@ Page({
                                 // 初次注册
                                 wx.showToast({
                                     icon: "none",
-                                    title: '提交成功, 请联系户主审核',
+                                    title: '提交成功, 请联系户主(房东)审核',
                                     success() {
                                         setTimeout(function () {
                                             infomation.userInfo(wx.getStorageSync('token')).then(res => {

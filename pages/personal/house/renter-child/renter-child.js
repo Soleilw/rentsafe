@@ -1,5 +1,6 @@
 var infomation = require('../../../../model/personal/infomation');
 let name;
+var app = getApp()
 Page({
 
     /**
@@ -13,15 +14,19 @@ Page({
         page: 1,
         isPage: false,
         showFoot: false,
-        hasMore: true
+        hasMore: true,
+        userType: ''
     },
 
     onLoad(options) {
         console.log(options);
+        console.log(111, app.globalData.userType);
 
+        
         this.setData({
             detailedAddress_id: options.detailedAddress_id,
-            typestring: options.typestring
+            typestring: options.typestring,
+            userType: app.globalData.userType
         })
         this.getAuditList()
     },
@@ -32,7 +37,7 @@ Page({
         wx.showLoading({
             title: '加载中...',
         })
-        if (self.data.typestring == '户主') {
+        if (self.data.userType == 1) {
             infomation.auditList(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 3).then(res => {
                 if (isPage) {
                     //下一页的数据拼接在原有数据后面
@@ -89,7 +94,7 @@ Page({
     },
     search() {
         var self = this;
-        if (self.data.typestring == '户主') {
+        if (self.data.userType == 1) {
             infomation.search(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 3, name).then(res => {
                 console.log(res);
                 self.setData({
@@ -137,7 +142,7 @@ Page({
             cancelText: '不通过',
             confirmText: '通过',
             success: function (res) {
-                if (self.data.typestring == '户主') {
+                if (self.data.userType == 1) {
                     if (res.confirm) {
                         infomation.auditFamily(wx.getStorageSync('token'), id, 2, 1, card_number).then(res => {
                             wx.showToast({

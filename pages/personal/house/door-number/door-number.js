@@ -45,7 +45,7 @@ Page({
             infomation.modifyDoorNum(self.data.room_id, self.data.id).then(res => {
                 console.log(res);
                 wx.showToast({
-                    title: '提交成功, 请联系户主审核',
+                    title: '提交成功, 请联系户主(房东)审核',
                     icon: 'none',
                     success() {
                         setTimeout(() => {

@@ -15,7 +15,7 @@ App({
       })
     }
     // 开关配置
-    var version = '1.0.29';
+    var version = '1.0.31';
     global.configs(version).then(res => {
       wx.setStorageSync('openFace', res.config_value);
     })
@@ -98,5 +98,6 @@ App({
     id: null,
     renter_type: null,
     face_id: null,
+    userType: null
   }
 })

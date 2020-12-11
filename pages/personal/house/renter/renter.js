@@ -1,6 +1,6 @@
 var infomation = require('../../../../model/personal/infomation');
 let name;
-
+var app = getApp()
 Page({
 
     /**
@@ -16,13 +16,15 @@ Page({
         isPage: false,
         showFoot: false,
         hasMore: true,
+        userType: ''
     },
 
     onLoad(options) {
         console.log(options);
         this.setData({
             detailedAddress_id: options.detailedAddress_id,
-            typestring: options.typestring
+            typestring: options.typestring,
+            userType: app.globalData.userType
         })
         this.getAuditList()
     },
@@ -33,7 +35,7 @@ Page({
         wx.showLoading({
             title: '加载中...',
         })
-        if (self.data.typestring == '户主') {
+        if (self.data.userType == 1) {
             infomation.auditList(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 2).then(res => {
                 console.log('获取审核列表', res);
                 if (isPage) {
@@ -92,7 +94,7 @@ Page({
         wx.showLoading({
             title: '加载中...',
         })
-        if (self.data.typestring == '户主') {
+        if (self.data.userType == 1) {
             infomation.search(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 1, 2, name).then(res => {
                 console.log(res);
                 self.setData({
@@ -141,7 +143,7 @@ Page({
             cancelText: '不通过',
             confirmText: '通过',
             success: function (res) {
-                if (self.data.typestring == '户主') {
+                if (self.data.userType == 1) {
                     if (res.confirm) {
                         infomation.audit(wx.getStorageSync('token'), id, 2, 1, 1).then(res => {
                             wx.showToast({

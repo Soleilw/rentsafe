@@ -29,7 +29,7 @@
 			<image src="/icon/information.png" />
 			<view>切换身份</view>
 		</view>
-		<view class="box hr" wx:if="{{typestring == '户主'}}">
+		<view class="box hr" wx:if="{{userType == 1}}">
 			<picker bindchange="toOpenDoor" value="{{index}}" range-key="remark" range="{{doorList}}">
 				<image src="/icon/key1.png"></image>
 			</picker>
@@ -37,7 +37,7 @@
 				<view>一键开门</view>
 			</picker>
 		</view>
-		<view class="box hr" wx:if="{{typestring !== '户主' && open_door == 1}}">
+		<view class="box hr" wx:if="{{userType !== 1 && open_door == 1}}">
 			<picker bindchange="toOpenDoor" value="{{index}}" range-key="remark" range="{{doorList}}">
 				<image src="/icon/key1.png"></image>
 			</picker>
@@ -45,7 +45,7 @@
 				<view>一键开门</view>
 			</picker>
 		</view>
-		<view class="box hr" wx:if="{{typestring !== '户主' && open_door == 2}}" bindtap="toApply">
+		<view class="box hr" wx:if="{{userType !== 1 && open_door == 2}}" bindtap="toApply">
 			<image src="/icon/key1.png"></image>
 			<view>一键开门</view>
 		</view>
@@ -76,11 +76,11 @@
 			<image src="/icon/visitor.png"></image>
 			<view>访客管理</view>
 		</view>
-		<view class="box" bindtap="toDoorNum" wx:if="{{typestring !== '户主' && typestring !== '物业'}}">
+		<view class="box" bindtap="toDoorNum" wx:if="{{userType !== 1 && typestring !== '物业'}}">
 			<image src="/icon/door.png"></image>
 			<view>修改门牌</view>
 		</view>
-		<view class="box" bindtap="toSetting" wx:if="{{typestring == '户主'}}">
+		<view class="box" bindtap="toSetting" wx:if="{{userType == 1}}">
 			<image src="/icon/all.png"></image>
 			<view>设置</view>
 		</view>
@@ -95,7 +95,7 @@
 	</view>
 </view>
 
-<view class="supportText">安域智慧安防提供技术支持v1.0.29</view>
+<view class="supportText">安域智慧安防提供技术支持v1.0.31</view>
 <block>
 	<!-- 屏幕背景变暗的背景 -->
 	<view class="commodity_screen" wx:if="{{showModalStatus}}"></view>

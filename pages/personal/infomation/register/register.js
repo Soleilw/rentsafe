@@ -15,7 +15,7 @@ Page({
         },
         id_card_select: '', // 身份类型选择
         identityList: [{ // 身份类型列表
-                'name': '户主',
+                'name': '户主(房东)',
                 'type': 1
             }, {
                 'name': '租客',
@@ -199,7 +199,7 @@ Page({
                                     wx.hideLoading();
                                     wx.showToast({
                                         icon: "none",
-                                        title: '提交成功,请等待户主审核',
+                                        title: '提交成功,请等待户主(房东)审核',
                                         success() {
                                             setTimeout(function () {
                                                 self.checkAuth();
