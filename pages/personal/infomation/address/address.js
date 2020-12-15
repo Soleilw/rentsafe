@@ -96,9 +96,9 @@ Page({
     },
 
     // 获取市级
-    getCity() {
+    getCity(val) {
         var self = this;
-        add.areas(1, 40000, 1).then(res => {
+        add.areas(1, 40000, val).then(res => {
         console.log('获取市级', res);
             self.setData({
                 cityList: res.data
@@ -117,9 +117,9 @@ Page({
     },
 
     // 获取区级
-    getArea() {
+    getArea(val) {
         var self = this;
-        add.areas(1, 40000, 2).then(res => {
+        add.areas(1, 40000, val).then(res => {
             console.log('获取区级', res);
             
             self.setData({
