@@ -25,8 +25,8 @@
 			<view class="form-item">
 				<image class="left-icon" src="/icon/ID.png" />
 				<text>证件类型</text>
-				<picker bindchange="IDChange" range="{{IDList}}" range-key="name" value="{{index}}">
-					<input class="input" placeholder="请选择证件类型" value="{{idType ? idType : IDList[index].name}}" disabled="true"></input>
+				<picker bindchange="IDChange" range="{{IDList}}" range-key="name" value="{{index}}" disabled="{{disabled}}">
+					<input class="input" placeholder="请选择证件类型" value="{{idType ? idType : IDList[index].name}}" disabled="{{disabled}}"></input>
 				</picker>
 			</view>
 			<!-- 身份证号 -->
@@ -95,7 +95,7 @@
 		<cover-image class="tabImg" src="/icon/switch.png" bindtap='positionChange'></cover-image>
 		<cover-view bindtap='cameraDisable'>取消</cover-view>
 	</cover-view>
-	<cover-view class="photographBtn" bindtap='takePhoto'>
+	<cover-view class="photographBtn" bindtap='takePhoto'> 
 		<cover-image class="cameraImg" src="/icon/camera.png"></cover-image>
 	</cover-view>
 </camera>

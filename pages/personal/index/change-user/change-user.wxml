@@ -12,7 +12,7 @@
 				<image class="right-icon" src="/icon/right.png" />
 			</view>
 		</button>
-			<button wx:if="{{item.state == 3}}" class="iden-btn" bindtap="toAmend" data-type="{{item.type}}" data-typestring="{{item.typeString}}" data-address="{{item.address.address}}" data-area_id="{{item.address.area_id}}" data-addresses_id="{{item.address.id}}" data-add="{{item.address_id}}" data-roomId="{{item.room_id}}" data-state="{{item.state}}" data-id="{{item.id}}">
+			<button wx:if="{{item.state == 3}}" class="iden-btn" bindtap="toAmend" data-type="{{item.type}}" data-typeString="{{item.typeString}}" data-address="{{item.address.address}}" data-area_id="{{item.address.area_id}}" data-addresses_id="{{item.address.id}}" data-add="{{item.address_id}}" data-roomId="{{item.room_id}}" data-state="{{item.state}}" data-id="{{item.id}}">
 			<view class="tableviewcell" >
 				<text class="adress" wx:if="{{item.state == 3}}">{{item.typeString}}<text wx:if="{{item.type == 3}}">-{{item.snapshot.name}}</text>/{{item.address.address}}<text style="color: red">(未通过)</text></text>
 				<image class="right-icon" src="/icon/right.png" />
@@ -24,4 +24,3 @@
 	<button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="new-user">注册新身份</button>
 	<button open-type="getUserInfo" class="new-user" bindtap="visitorApply"  wx:if="{{showFace}}">访客申请</button>
 </view>
-

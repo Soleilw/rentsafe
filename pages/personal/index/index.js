@@ -11,7 +11,7 @@ Page({
     data: {
         wxInfo: null,
         showHouse: false, // 只有户主才显示房屋管理
-        typestring: '',
+        typeString: '',
         address: '',
         area_id: '',
         // address_id: '',
@@ -40,7 +40,7 @@ Page({
         console.log('options', options);
 
         this.setData({
-            typestring: app.globalData.typestring,
+            typeString: app.globalData.typeString,
             userType: app.globalData.userType,
             area_id: app.globalData.area_id,
             // address_id: app.globalData.address_id,
@@ -63,7 +63,7 @@ Page({
 
         this.setData({
             wxInfo: wx.getStorageSync('wxInfo'),
-            typestring: this.data.typestring
+            typeString: this.data.typeString
         })
 
         if (wx.getStorageSync('token') && this.data.detailedAddress_id) {
@@ -175,13 +175,13 @@ Page({
     getPersonalInfo() {
         var self = this;
         if (wx.getStorageSync('token')) {
-            if (!this.data.typestring) {
+            if (!this.data.typeString) {
                 wx.reLaunch({
                     url: '../index/change-user/change-user'
                 })
             }
             // typeString为户主/物业时才显示房屋管理
-            if (this.data.userType == 1 || this.data.typestring == "物业") {
+            if (this.data.userType == 1 || this.data.typeString == "物业") {
                 self.setData({
                     showHouse: true
                 })
@@ -198,7 +198,7 @@ Page({
             });
             wx.removeStorageSync('wxInfo')
         } else {
-            app.globalData.typestring = null;
+            app.globalData.typeString = null;
             wx.reLaunch({
                 url: "/pages/personal/index/change-user/change-user"
             })
@@ -266,10 +266,10 @@ Page({
             wx.removeStorageSync('wxInfo')
         } else {
             console.log('房屋管理', self.data.detailedAddress_id);
-            console.log('房屋管理', self.data.typestring);
+            console.log('房屋管理', self.data.typeString);
 
             wx.navigateTo({
-                url: '../house/house/house?detailedAddress_id=' + self.data.detailedAddress_id + '&typestring=' + self.data.typestring
+                url: '../house/house/house?detailedAddress_id=' + self.data.detailedAddress_id + '&typeString=' + self.data.typeString
             })
         }
     },
@@ -467,7 +467,7 @@ Page({
                         // console.log(item.type);
                         self.data.house_owner.push(item.type);
                     })
-                    if (self.data.typestring == '家庭成员') {
+                    if (self.data.typeString == '家庭成员') {
                         self.getFamily()
                     } else {
                         if (!self.data.house_owner.includes(1) && !self.data.house_owner.includes(4)) {

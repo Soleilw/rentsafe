@@ -9,7 +9,7 @@ Page({
     data: {
         renterList: [],
         detailedAddress_id: '',
-        typestring: '',
+        typeString: '',
         // name: '秦时明月汉时关'
         page: 1,
         isPage: false,
@@ -25,7 +25,7 @@ Page({
         
         this.setData({
             detailedAddress_id: options.detailedAddress_id,
-            typestring: options.typestring,
+            typeString: options.typeString,
             userType: app.globalData.userType
         })
         this.getAuditList()
@@ -61,7 +61,7 @@ Page({
                 wx.hideLoading({})
 
             })
-        } else if (self.data.typestring == '物业') {
+        } else if (self.data.typeString == '物业') {
             infomation.auditList(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 3).then(res => {
                 if (isPage) {
                     //下一页的数据拼接在原有数据后面
@@ -102,7 +102,7 @@ Page({
                 })
                 wx.hideLoading({})
             })
-        } else if (self.data.typestring == '物业') {
+        } else if (self.data.typeString == '物业') {
             infomation.search(self.data.page, 20, wx.getStorageSync('token'), self.data.detailedAddress_id, 4, 3, name).then(res => {
                 console.log(res);
                 self.setData({
@@ -167,7 +167,7 @@ Page({
                             self.getAuditList();
                         })
                     }
-                } else if (self.data.typestring == '物业') {
+                } else if (self.data.typeString == '物业') {
                     if (res.confirm) {
                         infomation.auditFamily(wx.getStorageSync('token'), id, 2, 4, card_number).then(res => {
                             wx.showToast({

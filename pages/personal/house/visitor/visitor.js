@@ -8,7 +8,7 @@ Page({
     data: {
         renterList: [],
         detailedAddress_id: '',
-        typestring: ''
+        typeString: ''
         // name: '秦时明月汉时关'
     },
 
@@ -17,7 +17,7 @@ Page({
 
         this.setData({
             detailedAddress_id: options.detailedAddress_id,
-            typestring: options.typestring
+            typeString: options.typeString
         })
         this.getAuditList()
     },

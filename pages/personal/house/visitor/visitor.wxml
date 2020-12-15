@@ -16,4 +16,5 @@
 		<button wx:if="{{item.state == 3}}" disabled="true" style="color: red">未通过</button>
 		<button class="del_btn" data-id="{{item.id}}" bindtap="delete" type="warn">删除</button>
 	</view>
+	<view class="tips" wx:if="{{renterList.length == 0}}">暂无访客申请</view>
 </view>

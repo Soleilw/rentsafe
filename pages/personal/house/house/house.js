@@ -7,7 +7,7 @@ Page({
      */
     data: {
         detailedAddress_id: '',
-        typestring: '',
+        typeString: '',
         showFace: false,
         userType: null
     },
@@ -16,7 +16,7 @@ Page({
         console.log('options', options);
         this.setData({
             detailedAddress_id: options.detailedAddress_id,
-            typestring: options.typestring,
+            typeString: options.typeString,
             userType: app.globalData.userType
         })
         if (wx.getStorageSync('openFace') == 'open') {
@@ -31,14 +31,14 @@ Page({
     toManage() {
         var self = this;
         wx.navigateTo({
-            url: '../renter/renter?detailedAddress_id=' + self.data.detailedAddress_id + '&typestring=' + self.data.typestring
+            url: '../renter/renter?detailedAddress_id=' + self.data.detailedAddress_id + '&typeString=' + self.data.typeString
         })
     },
     // 家庭成员审核
     toChild() {
         var self = this;
         wx.navigateTo({
-            url: '../renter-child/renter-child?detailedAddress_id=' + self.data.detailedAddress_id + '&typestring=' + self.data.typestring
+            url: '../renter-child/renter-child?detailedAddress_id=' + self.data.detailedAddress_id + '&typeString=' + self.data.typeString
         })
     },
     // 物业审核
@@ -52,7 +52,7 @@ Page({
     toManagePay() {
         var self = this;
         wx.navigateTo({
-            url: '../renter-pay/renter-pay?detailedAddress_id=' + self.data.detailedAddress_id + '&typestring=' + self.data.typestring
+            url: '../renter-pay/renter-pay?detailedAddress_id=' + self.data.detailedAddress_id + '&typeString=' + self.data.typeString
         })
     },
     // 多房屋地址管理

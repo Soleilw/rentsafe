@@ -58,7 +58,7 @@ Page({
         //     detailedAddress_id: options.detailedAddress_id
         // });
         // 查看身份
-        if (options.typestring && options.address) {
+        if (options.typeString && options.address) {
             this.setData({
                 disabled: true,
                 showSubmit: false
@@ -311,7 +311,7 @@ Page({
     },
 
     toIndex() {
-        app.globalData.typestring = this.data.typeString;
+        app.globalData.typeString = this.data.typeString;
         app.globalData.area_id = this.data.area_id
         app.globalData.address_id = this.data.addresses_id
         app.globalData.detailedAddress_id = this.data.detailedAddress_id

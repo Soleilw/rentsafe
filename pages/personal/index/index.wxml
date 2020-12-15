@@ -3,8 +3,8 @@
 <!-- 505873  ff402a -->
 <view class="cot_box">
 	<view class="box-info">
-		<view class="change" wx:if="{{typestring}}">
-			<view>{{typestring}}</view>
+		<view class="change" wx:if="{{typeString}}">
+			<view>{{typeString}}</view>
 		</view>
 		<view class="user" wx:if="{{wxInfo}}">
 			<image class="avator" src="{{wxInfo.avatarUrl}}" style="border:8rpx solid #fff;"></image>
@@ -52,43 +52,43 @@
 	</view>
 
 	<view class="menu">
-		<view class="box" bindtap="toInfomation">
+		<view class="box hr" bindtap="toInfomation">
 			<image src="/icon/information.png"></image>
 			<view>个人信息</view>
 		</view>
-		<view class="box" wx:if="{{showHouse}}" bindtap="toHouse">
+		<view class="box hr" wx:if="{{showHouse}}" bindtap="toHouse">
 			<image src="/icon/unit.png"></image>
 			<view>房屋管理</view>
 		</view>
-		<view class="box" wx:if="{{showBuy}}" bindtap="toBuy">
+		<view class="box hr" wx:if="{{showBuy}}" bindtap="toBuy">
 			<image src="/icon/buy.png"></image>
 			<view>缴费</view>
 		</view>
-		<view class="box" wx:if="{{typestring !== '物业'}}" bindtap="tochildren">
+		<view class="box hr" wx:if="{{typeString !== '物业'}}" bindtap="tochildren">
 			<image src="/icon/family.png"></image>
 			<view>家庭成员</view>
 		</view>
-		<view class="box" wx:else bindtap="tochildren">
+		<view class="box hr" wx:else bindtap="tochildren">
 			<image src="/icon/family.png"></image>
 			<view>工作人员</view>
 		</view>
-		<view class="box" bindtap="toVisitor">
+		<view class="box hr" bindtap="toVisitor">
 			<image src="/icon/visitor.png"></image>
 			<view>访客管理</view>
 		</view>
-		<view class="box" bindtap="toDoorNum" wx:if="{{userType !== 1 && typestring !== '物业'}}">
+		<view class="box hr" bindtap="toDoorNum" wx:if="{{userType !== 1 && typeString !== '物业'}}">
 			<image src="/icon/door.png"></image>
 			<view>修改门牌</view>
 		</view>
-		<view class="box" bindtap="toSetting" wx:if="{{userType == 1}}">
+		<view class="box hr" bindtap="toSetting" wx:if="{{userType == 1}}">
 			<image src="/icon/all.png"></image>
 			<view>设置</view>
 		</view>
-		<view class="box" bindtap="showQrcode">
+		<view class="box hr" bindtap="showQrcode">
 			<image src="/icon/gzhh.png"></image>
 			<view>关注公众号</view>
 		</view>
-		<view class="box" bindtap="callPhone">
+		<view class="box hr" bindtap="callPhone">
 			<image src="/icon/alert.png"></image>
 			<view>一键报警</view>
 		</view>

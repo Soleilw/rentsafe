@@ -1,7 +1,7 @@
 page {
-    /* min-height: 100vh; */
-    background: #f0f0f0;
-    color: #666;
+  /* min-height: 100vh; */
+  background: #f0f0f0;
+  color: #666;
 }
 
 .cot_box {
@@ -15,40 +15,40 @@ page {
 }
 
 .box-info {
-    height: 35vw;
-    margin: 10rpx 10rpx;
-    border-radius: 10rpx;
-    background-color: #2a9f93;
+  height: 35vw;
+  margin: 10rpx 10rpx;
+  border-radius: 10rpx;
+  background-color: #2a9f93;
 }
 
 .change {
-    position: absolute;
-    right: 10rpx;
-    margin-top: 10rpx;
-    padding: 10rpx 20rpx;
-    border: 1rpx solid #ccc;
-    border-right: none;
-    border-radius: 10rpx 0 0 10rpx;
-    color: #fff;
-    font-size: 26rpx;
+  position: absolute;
+  right: 10rpx;
+  margin-top: 10rpx;
+  padding: 10rpx 20rpx;
+  border: 1rpx solid #ccc;
+  border-right: none;
+  border-radius: 10rpx 0 0 10rpx;
+  color: #fff;
+  font-size: 26rpx;
 }
 
 .user {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .nickname {
-    color: #fff;
+  color: #fff;
 }
 
 .avator {
-    width: 100rpx;
-    height: 100rpx;
-    margin: 20rpx;
-    border: 2rpx solid #fff;
-    border-radius: 50%;
+  width: 100rpx;
+  height: 100rpx;
+  margin: 20rpx;
+  border: 2rpx solid #fff;
+  border-radius: 50%;
 }
 
 /* 板块 */
@@ -96,180 +96,183 @@ page {
 
 /* 技术支持文字 */
 .supportText {
-    position: fixed; 
-    bottom: 0;
-    width: 100%;
-    height: 7vh;
-    line-height: 80rpx;
-    text-align: center;
-    font-size: 25rpx;
-    color: #aaa;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 7vh;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 25rpx;
+  color: #aaa;
 }
 
 .tips {
-    font-size: 24rpx;
-    text-align: center;
-    color: red;
-    padding: 10rpx;
+  font-size: 24rpx;
+  text-align: center;
+  color: #993333;
+  padding: 10rpx;
 }
 
 /*使屏幕变暗 */
 .commodity_screen {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: #000;
-    opacity: 0.8;
-    overflow: hidden;
-    z-index: 1000;
-    color: #fff;
-  }
-  
-  /*对话框 */
-  .commodity_attr_box {
-    width: 100%;
-    overflow: hidden;
-    position: fixed;
-    bottom: 280rpx;
-    left: 0;
-    z-index: 2000;
-    padding-top: 20rpx;
-    display: flex;
-    justify-content: center;
-    color: #fff;
-  }
-  
-  .guan {
-    font-size: 24rpx;
-  }
-  
-  .fon {
-    font-size: 24rpx;
-  }
-  
-  .line {
-    line-height: 60rpx;
-  }
-  
-  .guanyu {
-    width: 400rpx;
-    height: 400rpx;
-    background: #fff;
-  }
-  
-  .flex {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .center {
-    width: 100%;
-    text-align: center;
-  }
-  
-  .left {
-    width: 100%;
-    text-align: left;
-  }
-  
-  .solid {
-    width: 100%;
-    height: 1px;
-    background-color: #666;
-  }
-  
-  .mag {
-    margin: 10px 0;
-  }
-  
-  .tex {
-    margin-left: 50rpx;
-  }
-  
-  .guanyu_img {
-    width: 400rpx;
-    height: 400rpx;
-    display: block;
-  }
-  
-  .img_auto {
-    width: 50rpx;
-    height: 50rpx;
-    display: block;
-    float: right;
-  }
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.8;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff;
+}
+
+/*对话框 */
+.commodity_attr_box {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 280rpx;
+  left: 0;
+  z-index: 2000;
+  padding-top: 20rpx;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+}
+
+.guan {
+  font-size: 24rpx;
+}
+
+.fon {
+  font-size: 24rpx;
+}
+
+.line {
+  line-height: 60rpx;
+}
+
+.guanyu {
+  width: 400rpx;
+  height: 400rpx;
+  background: #fff;
+}
+
+.flex {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.center {
+  width: 100%;
+  text-align: center;
+}
+
+.left {
+  width: 100%;
+  text-align: left;
+}
+
+.solid {
+  width: 100%;
+  height: 1px;
+  background-color: #666;
+}
+
+.mag {
+  margin: 10px 0;
+}
+
+.tex {
+  margin-left: 50rpx;
+}
+
+.guanyu_img {
+  width: 400rpx;
+  height: 400rpx;
+  display: block;
+}
+
+.img_auto {
+  width: 50rpx;
+  height: 50rpx;
+  display: block;
+  float: right;
+}
 
 
-  .modules {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 8rpx;
-    background-color: #fff;
-    font-size: 26rpx;
-  }
-  
-  .modules .box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-    padding: 20rpx;
-  }
-  
-  .modules .hr {
-    border-left: 2rpx #ccc solid;
-  }
-  
-  .modules .box image {
-    width:60rpx;
-    height:60rpx;
-    margin: 12rpx 0;
-    border-radius: 50%;
-  }
-  
-  .menu {
-    display: flex;
-    flex-wrap: wrap;
-  
-    font-size: 28rpx;
-    font-weight: bold;
-  }
-  
-  .menu .box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 23.6vw;
-    margin: 5rpx;
-    padding: 10rpx 0;
-    background-color: #fff;
-  }
-  
-  .menu button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 25vw;
-    margin: 20rpx 0;
-  }
-  
-  .menu button image{
-    width:50rpx;
-    height:50rpx;
-    margin: 12rpx 0;
-    padding: 10rpx;
-    border-radius: 50%;
-  }
-  
-  
-  .menu .box image {
-    width:50rpx;
-    height:50rpx;
-    margin: 12rpx 0;
-    padding: 10rpx;
-    border-radius: 50%;
-  }
+.modules {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 8rpx;
+  background-color: #fff;
+  font-size: 26rpx;
+}
+
+.modules .box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  padding: 20rpx;
+}
+
+.modules .hr {
+  border-left: 2rpx #ccc solid;
+}
+
+.modules .box image {
+  width: 60rpx;
+  height: 60rpx;
+  margin: 12rpx 0;
+  border-radius: 50%;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.menu .box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(25% - 2rpx);
+  background-color: #fff;
+  margin: 5rpx 0;
+  padding: 15rpx 0;
+}
+
+.menu .hr {
+  margin-right: 2rpx;
+}
+
+.menu button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25vw;
+  margin: 20rpx 0;
+}
+
+.menu button image {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 12rpx 0;
+  padding: 10rpx;
+  border-radius: 50%;
+}
+
+.menu .box image {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 12rpx 0;
+  padding: 10rpx;
+  border-radius: 50%;
+}

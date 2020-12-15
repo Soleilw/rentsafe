@@ -106,7 +106,7 @@ Page({
     toIndex(e) {
         var self = this;
         console.log(1,e);
-        app.globalData.typestring = e.currentTarget.dataset.typestring;
+        app.globalData.typeString = e.currentTarget.dataset.typestring;
         app.globalData.userType = e.currentTarget.dataset.type;
         app.globalData.isBuy = 'true';
         app.globalData.area_id = e.currentTarget.dataset.area_id;

@@ -75,3 +75,8 @@ button::after {
   text-align: center;
   font-size: 30rpx;
 }
+
+.tips {
+  text-align: center;
+  color: #993333;
+}
