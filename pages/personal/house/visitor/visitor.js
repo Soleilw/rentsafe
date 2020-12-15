@@ -103,7 +103,7 @@ Page({
             success(res) {
                 if (res.confirm) {
                     console.log('用户点击确定')
-                    infomation.delHousehold(id).then(res => {
+                    infomation.delHousehold(id, 1).then(res => {
                         wx.showToast({
                             icon: "none",
                             title: '删除成功'

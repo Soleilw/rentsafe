@@ -30,19 +30,14 @@ Page({
         room_id: '',
         showRoom: true, // 户主type为1不显示房屋编号
         showForm: true,
-        // return: '< 返回',
         search_detail: '',
         type: ''
     },
 
     onLoad(options) {
         this.getPro();
-        this.getCity();
-        this.getArea()
-
         this.setData({
             type: options.type
-
         })
         if (options.type === "1" || options.type === '4') {
             this.setData({
@@ -56,10 +51,12 @@ Page({
         console.log(e);
         
         if (self.data.type == 1) {
-            self.data.all_address = self.data.province + self.data.city + e.detail.value.area + e.detail.value.community + e.detail.value.detail;
+            self.data.all_address = e.detail.value.province + e.detail.value.city + e.detail.value.area + e.detail.value.community + e.detail.value.detail;
         } else {
-            self.data.all_address = self.data.province + self.data.city + e.detail.value.area + e.detail.value.community + e.detail.value.detail + e.detail.value.room;
+            self.data.all_address = e.detail.value.province + e.detail.value.city + e.detail.value.area + e.detail.value.community + e.detail.value.detail + e.detail.value.room;
         }
+        console.log('sumAddress', self.data.all_address);
+        
         var pages = getCurrentPages();
         var prevPage = pages[pages.length - 2];
         var address = 'userInfo.address';
@@ -82,8 +79,7 @@ Page({
             console.log('获取省级', res);
             
             self.setData({
-                // proList: res.data
-                province: res.data[0].title
+                proList: res.data
             })
         })
     },
@@ -105,8 +101,7 @@ Page({
         add.areas(1, 40000, 1).then(res => {
         console.log('获取市级', res);
             self.setData({
-                // cityList: res.data
-                city: res.data[0].title
+                cityList: res.data
             })
         })
     },
@@ -207,8 +202,7 @@ Page({
         });
         if (self.data.type == 1) {
             self.setData({
-                // all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail
-                all_address: self.data.province + self.data.city + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail
+                all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail
             })
         }
         self.getRoom(e.currentTarget.dataset.id);
@@ -237,8 +231,7 @@ Page({
         })
         if (self.data.roomList[e.detail.value].door_number) {
             self.setData({
-                // all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail + self.data.roomList[self.data.is_room].door_number
-                all_address: self.data.province + self.data.city + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail + self.data.roomList[self.data.is_room].door_number
+                all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail + self.data.roomList[self.data.is_room].door_number
             })
         }
         console.log(self.data.roomList[e.detail.value].door_number)
@@ -249,9 +242,7 @@ Page({
         var self = this;
         self.setData({
             // all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail + self.data.roomList[self.data.is_room].door_number
-            // all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail
-            all_address: self.data.province + self.data.city + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail
-
+            all_address: self.data.proList[self.data.is_pro].title + self.data.cityList[self.data.is_city].title + self.data.areaList[self.data.is_area].title + self.data.communityList[self.data.is_community].title + self.data.detail
         })
     },
 

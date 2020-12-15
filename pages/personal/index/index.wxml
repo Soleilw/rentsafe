@@ -15,7 +15,8 @@
 			<button size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo">立即登录</button>
 		</view>
 		<block wx:if="{{show}}">
-			<view wx:for="{{hasBuyList}}" class="tips" style="color: #fff">{{item.name}}将于{{item.expireTime}}到期<text wx:if="{{item.state == 1 ? true : false}}">, 请及时续费</text></view>
+			<view wx:for="{{hasBuyList}}" class="tips" style="color: #fff">{{item.name}}将于{{item.expireTime}}到期<text
+					wx:if="{{item.state == 1 ? true : false}}">, 请及时续费</text></view>
 			<view wx:if="{{hasBuyList.length == 0}}" class="tips">未购买任何服务</view>
 		</block>
 	</view>
@@ -76,6 +77,10 @@
 			<image src="/icon/visitor.png"></image>
 			<view>访客管理</view>
 		</view>
+		<!-- <view class="box hr" bindtap="passwordChange">
+			<image src="/icon/code.png"></image>
+			<view>访客码</view>
+		</view> -->
 		<view class="box hr" bindtap="toDoorNum" wx:if="{{userType !== 1 && typeString !== '物业'}}">
 			<image src="/icon/door.png"></image>
 			<view>修改门牌</view>
@@ -124,3 +129,25 @@
 		</view>
 	</view>
 </block>
+
+<!-- <view wx:if="{{showPassword}}" class="framesMask" bindtap='passwordChange'></view>
+<view wx:if="{{showPassword}}" class="framesBox ripple ">
+	<view class="framesTitle">
+		设置访客码
+		<image class="framesClose" src="/icon/close.png" bindtap='passwordChange'></image>
+	</view>
+	<view class="framesContent">
+		<text wx:if="{{password}}" class="passwordText">{{password}}</text>
+		<block wx:else>
+			<text class="framesTip">有效时间（单位：小时）</text>
+			<view class="framesInputBox">
+				<button data-type="0" bindtap='numChange' disabled='{{passwordTime <= 1}}'>-</button>
+				<input class="input" bindinput='numInput' bindblur='numInput' type="number" maxlength='3'
+					value='{{passwordTime}}'></input>
+				<button data-type="1" bindtap='numChange' disabled='{{passwordTime >= 168}}'>+</button>
+			</view>
+		</block>
+	</view>
+	<button class="framesBtn" wx:if="{{password}}" bindtap='copyCode'>复制通行码</button>
+	<button class="framesBtn" wx:else bindtap='getPassCode'>立即生成</button>
+</view> -->

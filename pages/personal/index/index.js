@@ -33,7 +33,10 @@ Page({
         renter_type: '',
         face_id: '',
         isExpireTime: false,
-        userType: null
+        userType: null,
+        showPassword: false, //是否显示通行码弹框
+        password: '', //通行码
+        passwordTime: '', //通行码有效时间(单位：小时)
     },
 
     onLoad: function (options) {
@@ -457,7 +460,7 @@ Page({
         var self = this;
         if (wx.getStorageSync('token')) {
             wx.showLoading({
-              title: '获取数据中...',
+                title: '获取数据中...',
             })
             infomation.idenInfo(wx.getStorageSync('token'), 1, 10000).then(res => {
                 wx.hideLoading()
@@ -544,6 +547,89 @@ Page({
                 showModalStatus: false
             })
         }.bind(this), 200)
+    },
+
+    // 显示隐藏通行码弹框
+    passwordChange: function (e) {
+        var self = this;
+        self.showPassword = !self.showPassword
+        self.passwordTime = 2
+        self.password = ''
+        self.setData({
+            showPassword: self.showPassword,
+            passwordTime: self.passwordTime,
+            password: self.password
+        })
+    },
+
+    // 通行有效时间输入
+    numInput: function (e) {
+        var self = this;
+        self.passwordTime = e.detail.value
+        self.setData({
+            passwordTime: self.passwordTime
+        })
+    },
+
+    // 通行有效时间变化
+    numChange: function (e) {
+        var self = this;
+        
+        if (e.currentTarget.dataset.type == 0) { //减
+            self.passwordTime--;
+        } else { //加
+            self.passwordTime++;
+        }
+        this.setData({
+            passwordTime: self.passwordTime
+        })
+        console.log('self.passwordTime', self.passwordTime);
+
+    },
+
+    // 复制通行码
+    copyCode: function () {
+        let self = this;
+        wx.setClipboardData({
+            data: JSON.stringify(self.data.password), //只能复制字符串
+            success(res) {
+                console.log(res)
+                self.passwordChange();
+            }
+        })
+    },
+
+    // 生成访客通行码
+    getPassCode: function () {
+        var self = this;
+        let timeText = Number(self.passwordTime)
+        if (timeText > 0 && timeText <= 168) {
+            console.log('生成访客通行码');
+            self.setData({
+                password: 4855
+            })
+            // app.showLoading('通行码生成中')
+            // let that = this,
+            //     data = {
+            //         uId: app.globalData.userInfo.uid,
+            //         wOpenid: app.globalData.token,
+            //         housr: this.passwordTime
+            //     }
+            // app.getPassCode(data, function (cbData) {
+            //     console.log(cbData)
+            //     if (cbData.code == 200) {
+            //         app.showSuccess('操作成功')
+            //         that.password = cbData.data
+            //         that.setData({
+            //             password: that.password
+            //         })
+            //     } else {
+            //         app.showTip(cbData.code);
+            //     }
+            // });
+        } else {
+            app.showTip('通行码有效时长错误，有效时长最多为168小时，请重新输入！');
+        }
     },
 
 })

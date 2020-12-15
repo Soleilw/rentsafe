@@ -191,6 +191,4 @@ Page({
             imageUrl: "../../../../icon/cover_img.png"
         }
     }
-
-
 })
