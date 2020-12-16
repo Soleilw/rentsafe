@@ -10,7 +10,7 @@
 			<view class="form-item">
 				<image class="left-icon" src="/icon/my1.png" />
 				<text>姓名</text>
-				<input class="input" type="text" maxlength='10' placeholder='请输入' name="name" value='{{userInfo.name}}' bindfocus="changeInfo" disabled="{{disabled}}"></input>
+				<input class="input {{disabled == true ? 'ban-color' : ''}}" type="text" maxlength='10' placeholder='请输入' name="name" value='{{userInfo.name}}' bindfocus="changeInfo" disabled="{{disabled}}"></input>
 			</view>
 			<!-- 性别 -->
 			<view class="form-item">
@@ -26,20 +26,20 @@
 				<image class="left-icon" src="/icon/ID.png" />
 				<text>证件类型</text>
 				<picker bindchange="IDChange" range="{{IDList}}" range-key="name" value="{{index}}" disabled="{{disabled}}">
-					<input class="input" placeholder="请选择证件类型" value="{{idType ? idType : IDList[index].name}}" disabled="{{disabled}}"></input>
+					<input class="input {{disabled == true ? 'ban-color' : ''}}" placeholder="请选择证件类型" value="{{idType ? idType : IDList[index].name}}" disabled="{{disabled}}"></input>
 				</picker>
 			</view>
 			<!-- 身份证号 -->
 			<view class="form-item" wx:if="{{showFace}}">
 				<image class="left-icon" src="/icon/ID.png" />
 				<text>身份证号</text>
-				<input class="input" disabled="{{disabled}}" type="text" maxlength='18' placeholder='请输入' bindblur="regIdentity" name="card_number" bindfocus="changeInfo" value='{{userInfo.card_number}}'></input>
+				<input class="input {{disabled == true ? 'ban-color' : ''}}" disabled="{{disabled}}" type="text" maxlength='18' placeholder='请输入' bindblur="regIdentity" name="card_number" bindfocus="changeInfo" value='{{userInfo.card_number}}'></input>
 			</view>
 			<!-- 手机 -->
 			<view class="form-item" wx:if="{{showFace}}">
 				<image class="left-icon" src="/icon/iphone.png" />
 				<text>手机</text>
-				<input class="input" disabled="{{disabled}}" type="number" maxlength='11' placeholder='请输入' bindblur="regPhone" name="phone" value='{{userInfo.phone}}' bindfocus="changeInfo"></input>
+				<input class="input {{disabled == true ? 'ban-color' : ''}}" disabled="{{disabled}}" type="number" maxlength='11' placeholder='请输入' bindblur="regPhone" name="phone" value='{{userInfo.phone}}' bindfocus="changeInfo"></input>
 			</view>
 
 

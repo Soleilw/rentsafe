@@ -21,6 +21,10 @@
     font-size: 35rpx;
 }
 
+.ban-color {
+    color: #ccc;
+}
+
 .form-item view {
     width: 400rpx;
     text-align: right;

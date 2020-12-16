@@ -14,13 +14,14 @@ Page({
             room_id: ''
         },
         id_card_select: '', // 身份类型选择
-        identityList: [{ // 身份类型列表
-                'name': '户主(房东)',
-                'type': 1
-            }, {
+        identityList: [{
                 'name': '租客',
                 'type': 2
             },
+            { // 身份类型列表
+                'name': '户主(房东)',
+                'type': 1
+            }, 
             // {
             //     'name': '家庭成员',
             //     'type': 3

@@ -196,7 +196,6 @@ Page({
                 })
             }
         }
-
         var id = self.data.userInfo.id ? self.data.userInfo.id : '';
         var name = e.detail.value.name;
         // var name = '安';
@@ -232,7 +231,7 @@ Page({
                                 // 初次注册
                                 wx.showToast({
                                     icon: "none",
-                                    title: '提交成功, 请联系户主(房东)审核',
+                                    title: '提交成功, 请继续添加身份',
                                     success() {
                                         setTimeout(function () {
                                             infomation.userInfo(wx.getStorageSync('token')).then(res => {
@@ -285,7 +284,7 @@ Page({
         } else {
             this.setData({
                 disabled: false,
-                showSubmit: true
+                showSubmit: true,
             })
         }
     },
@@ -301,6 +300,7 @@ Page({
     regIdentity(e) {
         var self = this;
         if (self.data.number_type == 1) {
+            console.log(e.detail.value);
             if (!reg.IDCard(e.detail.value)) {
                 wx.showToast({
                     icon: "none",
