@@ -222,13 +222,13 @@ Page({
                             console.log(res.encryptedData)
                             user.login(code, res.iv, res.encryptedData).then(res => {
                                 wx.setStorage({
-                                    data: res.token,
+                                    data: 'm4xmknm0ce',
                                     key: 'token',
                                 })
                                 // 全局
                                 var wxInfo = {
-                                    avatarUrl: res.info.avatarUrl,
-                                    nickName: res.info.nickName
+                                    avatarUrl: 'https://thirdwx.qlogo.cn/mmopen/vi_32/ow7qNctrInkvncIK5GhJz7MKLGYOqbDpdmqqaiaXLCAwrW8QAx2EVZqMTTHysOnYlwmGOgFF7bvILOWAeRM7oFQ/132',
+                                    nickName: 'A房联宝保利国际广场驻场LuLu'
                                 };
                                 wx.setStorageSync('wxInfo', wxInfo)
                                 self.setData({

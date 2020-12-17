@@ -203,7 +203,7 @@ Page({
         var token = wx.getStorageSync('token');
         var href = self.data.userInfo.href;
         // var href = 'https://tu.fengniaotuangou.cn/tmp_d0f51769f20cb338e48111b6440f478a.jpg'
-
+        
         if (phone && card_number && name && sex && href && self.data.number_type) {
             wx.showModal({
                 title: '提示',
@@ -260,10 +260,35 @@ Page({
                     }
                 }
             })
-        } else {
+        } else if (phone && card_number && sex && href && self.data.number_type) {
             wx.showToast({
                 icon: "none",
-                title: '请补充完整信息',
+                title: '请填写姓名',
+            })
+        } else if (phone && card_number && name && href && self.data.number_type) {
+            wx.showToast({
+                icon: "none",
+                title: '请选择性别',
+            })
+        } else if (phone && card_number && name && sex && href) {
+            wx.showToast({
+                icon: "none",
+                title: '请选择证件类型',
+            })
+        } else if (phone && name && sex && href && self.data.number_type) {
+            wx.showToast({
+                icon: "none",
+                title: '请填写有效身份证',
+            })
+        } else if (card_number && name && sex && href && self.data.number_type) {
+            wx.showToast({
+                icon: "none",
+                title: '请填写有效手机号',
+            })
+        } else if (phone && card_number && name && sex && self.data.number_typepe) {
+            wx.showToast({
+                icon: "none",
+                title: '请上传人脸',
             })
         }
     },
