@@ -26,7 +26,7 @@
 				<image class="left-icon" src="/icon/ID.png" />
 				<text>证件类型</text>
 				<picker bindchange="IDChange" range="{{IDList}}" range-key="name" value="{{index}}" disabled="{{disabled}}">
-					<input class="input {{disabled == true ? 'ban-color' : ''}}" placeholder="请选择证件类型" value="{{idType ? idType : IDList[index].name}}" disabled="{{disabled}}"></input>
+					<input class="input {{disabled == true ? 'ban-color' : ''}}" placeholder="请选择证件类型" value="{{idType ? idType : IDList[index].name}}" disabled="true"></input>
 				</picker>
 			</view>
 			<!-- 身份证号 -->
