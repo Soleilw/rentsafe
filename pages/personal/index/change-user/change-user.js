@@ -117,6 +117,7 @@ Page({
         app.globalData.id = e.currentTarget.dataset.id;
         app.globalData.renter_type = e.currentTarget.dataset.renter_type;
         app.globalData.face_id = e.currentTarget.dataset.face_id;
+        app.globalData.payState = e.currentTarget.dataset.paystate;
 
         wx.switchTab({
             url: '/pages/personal/index/index'

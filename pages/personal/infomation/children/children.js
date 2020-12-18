@@ -229,7 +229,8 @@ Page({
         var self = this;
         self.setData({
             index: e.detail.value,
-            number_type: Number(e.detail.value) + 1
+            number_type: Number(e.detail.value) + 1,
+            idType: self.data.IDList[e.detail.value].name
         })
         console.log(self.data.number_type);
 

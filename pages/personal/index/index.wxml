@@ -17,7 +17,7 @@
 		<block wx:if="{{show}}">
 			<view wx:for="{{hasBuyList}}" class="tips" style="color: #fff">{{item.name}}将于{{item.expireTime}}到期<text
 					wx:if="{{item.state == 1 ? true : false}}">, 请及时续费</text></view>
-			<view wx:if="{{hasBuyList.length == 0}}" class="tips">未购买任何服务</view>
+			<view wx:if="{{hasBuyList.length == 0 && isPay}}" class="tips">未购买任何服务</view>
 		</block>
 	</view>
 
@@ -100,7 +100,7 @@
 	</view>
 </view>
 
-<view class="supportText">安域智慧安防提供技术支持v1.0.33</view>
+<view class="supportText">安域智慧安防提供技术支持v1.0.35</view>
 <block>
 	<!-- 屏幕背景变暗的背景 -->
 	<view class="commodity_screen" wx:if="{{showModalStatus}}"></view>

@@ -71,7 +71,7 @@ Page({
         check: '',
         index: '',
         idType: '',
-        number_type: ''
+        number_type: '',
     },
 
     onLoad(options) {
@@ -147,10 +147,10 @@ Page({
         var self = this;
         self.setData({
             index: e.detail.value,
-            number_type: Number(e.detail.value) + 1
+            number_type: Number(e.detail.value) + 1,
+            idType: self.data.IDList[e.detail.value].name
         })
-        console.log(self.data.number_type);
-
+        console.log(self.data.idType);
     },
     subInfomation(e) {
         var self = this;
@@ -158,12 +158,12 @@ Page({
         // 验证手机号
         var phone = e.detail.value.phone;
         // var phone = '159765406547';
-        if (!REG_PHONE.test(phone)) {
-            wx.showToast({
-                icon: "none",
-                title: '请输入正确的手机号',
-            })
-        }
+        // if (!REG_PHONE.test(phone)) {
+        //     wx.showToast({
+        //         icon: "none",
+        //         title: '请输入正确的手机号',
+        //     })
+        // }
         // 验证身份证
         var card_number = e.detail.value.card_number;
         // var card_number = '440981199701285628';
@@ -204,7 +204,7 @@ Page({
         var href = self.data.userInfo.href;
         // var href = 'https://tu.fengniaotuangou.cn/tmp_d0f51769f20cb338e48111b6440f478a.jpg'
         
-        if (phone && card_number && name && sex && href && self.data.number_type) {
+        if (REG_PHONE.test(phone) && card_number && name && sex && href && self.data.number_type) {
             wx.showModal({
                 title: '提示',
                 content: '信息提交将无法修改, 请确保信息与身份证信息一致',
@@ -260,32 +260,33 @@ Page({
                     }
                 }
             })
-        } else if (phone && card_number && sex && href && self.data.number_type) {
+        } else if (REG_PHONE.test(phone) && card_number && sex && href && self.data.number_type) {
             wx.showToast({
                 icon: "none",
                 title: '请填写姓名',
             })
-        } else if (phone && card_number && name && href && self.data.number_type) {
+        } else if (REG_PHONE.test(phone) && card_number && name && href && self.data.number_type) {
             wx.showToast({
                 icon: "none",
                 title: '请选择性别',
             })
-        } else if (phone && card_number && name && sex && href) {
+        } else if (REG_PHONE.test(phone) && card_number && name && sex && href) {
             wx.showToast({
                 icon: "none",
                 title: '请选择证件类型',
             })
-        } else if (phone && name && sex && href && self.data.number_type) {
+        } else if (REG_PHONE.test(phone) && name && sex && href && self.data.number_type) {
             wx.showToast({
                 icon: "none",
                 title: '请填写有效身份证',
             })
-        } else if (card_number && name && sex && href && self.data.number_type) {
+        } 
+        else if (card_number && name && sex && href && self.data.number_type && !REG_PHONE.test(phone)) {
             wx.showToast({
                 icon: "none",
                 title: '请填写有效手机号',
             })
-        } else if (phone && card_number && name && sex && self.data.number_typepe) {
+        } else if (REG_PHONE.test(phone) && card_number && name && sex && self.data.number_typepe) {
             wx.showToast({
                 icon: "none",
                 title: '请上传人脸',
