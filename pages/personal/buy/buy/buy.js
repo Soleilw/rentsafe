@@ -2,6 +2,7 @@
 var buy = require('../../../../model/personal/buy')
 var infomation = require('../../../../model/personal/infomation')
 var app = getApp()
+let serviceName
 Page({
 
   /**
@@ -23,14 +24,15 @@ Page({
     globalShow: null,
     renter_type: '',
     face_id: '',
-    goodsNameL: ''
+    goodsNameL: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('buy', options);
+    console.log('buy', app.globalData.userName);
+    
     this.setData({
       areas_id: options.area_id,
       detailedAddress_id: options.detailedAddress_id,
@@ -77,6 +79,8 @@ Page({
         product_id: res.data[0].id,
         price: res.data[0].price
       })
+      serviceName = self.data.goodsList[0].title
+      console.log(serviceName);
     })
   },
 
@@ -85,46 +89,63 @@ Page({
     var self = this;
     // 创建订单
     console.log(self.data.renter_type);
-    wx.showLoading({
-      title: '正在创建订单...',
-    })
-    buy.order(self.data.user_id, self.data.areas_id, self.data.product_id, self.data.detailedAddress_id, self.data.price, self.data.face_id).then(res => {
-      console.log('createOeder', res);
-      wx.hideLoading()
-      self.setData({
-        order_id: res
-      })
-      // 支付
-      buy.buy(wx.getStorageSync('token'), self.data.order_id).then(res => {
-        console.log('支付', res);
-        wx.requestPayment({
-          timeStamp: res.timeStamp,
-          nonceStr: res.nonceStr,
-          package: res.package,
-          signType: 'MD5',
-          paySign: res.paySign,
-          success(res) {
-            console.log(111, res);
-            wx.showToast({
-              icon: "none",
-              title: '购买成功',
-            });
-          },
-          fail(res) {
-            console.log(222, res);
-            buy.cancelBuy(wx.getStorageSync('token'), self.data.order_id).then(res => {
-              console.log('取消支付', res);
-              if (res == 1) {
-                wx.showToast({
-                  icon: "none",
-                  title: '取消成功'
-                });
-              }
+    wx.showModal({
+      title: '支付提示',
+      content: '您是否要为用户--(' + app.globalData.userName +'), 开通(' + serviceName + ')',
+      cancelText: '取消',
+      confirmText: '确定',
+      success: function (res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '正在创建订单...',
+          })
+          buy.order(self.data.user_id, self.data.areas_id, self.data.product_id, self.data.detailedAddress_id, self.data.price, self.data.face_id).then(res => {
+            console.log('createOeder', res);
+            wx.hideLoading()
+            self.setData({
+              order_id: res
             })
-          }
-        })
-      })
+            // 支付
+            buy.buy(wx.getStorageSync('token'), self.data.order_id).then(res => {
+              console.log('支付', res);
+              wx.requestPayment({
+                timeStamp: res.timeStamp,
+                nonceStr: res.nonceStr,
+                package: res.package,
+                signType: 'MD5',
+                paySign: res.paySign,
+                success(res) {
+                  console.log(111, res);
+                  wx.showToast({
+                    icon: "none",
+                    title: '购买成功',
+                  });
+                },
+                fail(res) {
+                  console.log(222, res);
+                  buy.cancelBuy(wx.getStorageSync('token'), self.data.order_id).then(res => {
+                    console.log('取消支付', res);
+                    if (res == 1) {
+                      wx.showToast({
+                        icon: "none",
+                        title: '取消成功'
+                      });
+                    }
+                  })
+                }
+              })
+            })
+          })
+        } else if (res.cancel) {
+          wx.showToast({
+            icon: "none",
+            title: '取消成功',
+            duration: 4000,
+          })
+        }
+      }
     })
+
   },
 
   goodsChange(e) {
@@ -139,7 +160,7 @@ Page({
         price: res.data[e.detail.value].price
       })
     })
-
+    serviceName = self.data.goodsList[e.detail.value].title
   },
 
   /**

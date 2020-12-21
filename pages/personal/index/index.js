@@ -234,7 +234,7 @@ Page({
                                 // 全局
                                 var wxInfo = {
                                     avatarUrl: res.info.avatarUrl,
-                                    nickName: res.info.nickname
+                                    nickName: res.info.nickName
                                 };
                                 wx.setStorageSync('wxInfo', wxInfo)
                                 self.setData({
