@@ -6,7 +6,7 @@
 				<image class="right-icon" src="/icon/right.png" />
 			</view>
 		</button>
-		<button wx:if="{{item.state == 2}}" class="iden-btn" data-opendoor="{{item.address.open_door}}" data-type="{{item.type}}"  data-typestring="{{item.typeString}}" data-address="{{item.address.address}}" data-area_id="{{item.address.area_id}}" data-addresses_id="{{item.address.id}}" data-add="{{item.address_id}}" data-roomId="{{item.room_id}}" data-renter_type="{{item.type}}" data-id="{{item.id}}" data-face_id="{{item.face_id}}" data-payState="{{item.address.state}}" data-userName="{{item.snapshot.name}}"  bindtap="toIndex">
+		<button wx:if="{{item.state == 2}}" class="iden-btn" data-opendoor="{{item.address.open_door}}" data-type="{{item.type}}"  data-typestring="{{item.typeString}}" data-address="{{item.address.address}}" data-area_id="{{item.address.area_id}}" data-addresses_id="{{item.address.id}}" data-add="{{item.address_id}}" data-roomId="{{item.room_id}}" data-renter_type="{{item.type}}" data-id="{{item.id}}" data-face_id="{{item.face_id}}" data-payState="{{item.address.state}}" data-userName="{{item.snapshot.name}}" data-addressId="{{item.address.address_id}}"  bindtap="toIndex">
 			<view class="tableviewcell" >
 				<text class="adress" wx:if="{{item.state == 2}}"><text style="color: #2a9f93">{{item.typeString}}</text><text wx:if="{{item.type == 3}}">-{{item.snapshot.name}}</text>/{{item.address.address}}<text style="color: #2a9f93">(已通过)</text></text>	
 				<image class="right-icon" src="/icon/right.png" />

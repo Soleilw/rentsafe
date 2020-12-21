@@ -100,6 +100,7 @@ App({
     face_id: null,
     userType: null,
     payState: null,
-    userName: null
+    userName: null,
+    passAddressId: null
   }
 })

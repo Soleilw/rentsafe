@@ -52,6 +52,7 @@ const url = {
     "Visitor": '/visitor', // 新增访客
     "Visitors": '/visitors', // 获取用户访客
     "CheckVisitor": '/check/visitor', // 审核访客
+    "PassCode": '/create/pass/code', // 访客码
 
     // 修改
     "Amend": '/user/info/household', // 修改个人信息

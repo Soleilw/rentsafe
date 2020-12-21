@@ -378,4 +378,22 @@ infomation.modifyDoorNum = function (room_id, id) {
     })
 }
 
+// 访客码
+infomation.passCode = function (address_id, expire, face_id) {
+    return new Promise((resolve, reject) => {
+        api.post(api.baseUrl.host, api.url.PassCode, {
+            address_id: address_id,
+            expire: expire,
+            face_id: face_id
+        }, function (response) {
+            if (response.msg === 'ok') {
+                var res = response.data;
+                resolve(res);
+            } else {
+                reject(response);
+            }
+        })
+    })
+}
+
 module.exports = infomation;

@@ -39,7 +39,8 @@ Page({
     },
 
     onLoad: function (options) {
-
+        console.log(app.globalData.passAddressId);
+        
         this.setData({
             typeString: app.globalData.typeString,
             userType: app.globalData.userType,
@@ -559,7 +560,7 @@ Page({
     passwordChange: function (e) {
         var self = this;
         self.showPassword = !self.showPassword
-        self.passwordTime = 2
+        self.passwordTime = 1
         self.password = ''
         self.setData({
             showPassword: self.showPassword,
@@ -596,6 +597,8 @@ Page({
     // 复制通行码
     copyCode: function () {
         let self = this;
+        console.log(self.data.password);
+        
         wx.setClipboardData({
             data: JSON.stringify(self.data.password), //只能复制字符串
             success(res) {
@@ -608,33 +611,17 @@ Page({
     // 生成访客通行码
     getPassCode: function () {
         var self = this;
-        let timeText = Number(self.passwordTime)
+        let timeText = Number(self.passwordTime);
+        let passCode = app.globalData.passAddressId
         if (timeText > 0 && timeText <= 168) {
             console.log('生成访客通行码');
-            self.setData({
-                password: 4855
+            infomation.passCode(passCode, self.passwordTime, self.data.face_id).then(res => {
+                console.log(res);
+                self.password = res.data
+                self.setData({
+                  password: self.password
+                })
             })
-            // app.showLoading('通行码生成中')
-            // let that = this,
-            //     data = {
-            //         uId: app.globalData.userInfo.uid,
-            //         wOpenid: app.globalData.token,
-            //         housr: this.passwordTime
-            //     }
-            // app.getPassCode(data, function (cbData) {
-            //     console.log(cbData)
-            //     if (cbData.code == 200) {
-            //         app.showSuccess('操作成功')
-            //         that.password = cbData.data
-            //         that.setData({
-            //             password: that.password
-            //         })
-            //     } else {
-            //         app.showTip(cbData.code);
-            //     }
-            // });
-        } else {
-            app.showTip('通行码有效时长错误，有效时长最多为168小时，请重新输入！');
         }
     },
 
