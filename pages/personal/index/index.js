@@ -39,7 +39,7 @@ Page({
     },
 
     onLoad: function (options) {
-        console.log(app.globalData.passAddressId);
+        console.log(app.globalData.detailedAddress_id);
         
         this.setData({
             typeString: app.globalData.typeString,
@@ -612,7 +612,7 @@ Page({
     getPassCode: function () {
         var self = this;
         let timeText = Number(self.passwordTime);
-        let passCode = app.globalData.passAddressId
+        let passCode = app.globalData.detailedAddress_id
         if (timeText > 0 && timeText <= 168) {
             console.log('生成访客通行码');
             infomation.passCode(passCode, self.passwordTime, self.data.face_id).then(res => {

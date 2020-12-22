@@ -109,10 +109,11 @@ buy.cancelBuy =  function (token, order_id) {
     })
 }
 
-buy.orders = function (user_id) {
+buy.orders = function (user_id, face_id) {
     return new Promise((resolve, reject) => {
         api.get(api.baseUrl.host, api.url.Orders, {
             user_id: user_id,
+            face_id: face_id
         }, function (response) {
             if (response.msg === 'ok') {
                 var res = response.data

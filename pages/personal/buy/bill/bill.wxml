@@ -3,13 +3,14 @@
 <view class="bill" wx:for="{{recordList}}" wx:key="{{index}}">
 	<view class="goods">
 		<text class="g_name">商品：{{item.name}}</text>
-		<text>{{item.created_at}}</text>
+		<text class="time">{{item.created_at}}</text>
 	</view>
 	<view class="price">
 		<text class="amount orange" wx:if="{{item.status == 1}}">￥{{item.price}}</text>
 		<text class="amount green" wx:elif="{{item.status == 2}}">￥{{item.price}}</text>
 		<text class="amount red" wx:else="{{item.status == 3}}">￥{{item.price}}</text>
 		<text class="orange" wx:if="{{item.status == 1}}">待支付</text>
+		<text class="button" size="mini" wx:if="{{item.status == 1}}" bindtap="resetPay" data-id="{{item.id}}">去支付</text>
 		<text class="green" wx:elif="{{item.status == 2}}">交易成功</text>
 		<text class="red" wx:else="{{item.status == 3}}">交易关闭</text>
 	</view>

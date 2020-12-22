@@ -18,10 +18,16 @@ page {
   display: flex;
   flex-direction: column;
   width: 80vw;
+  position: relative;
+
 }
 
 .bill .goods .g_name {
   color: #000;
+}
+.bill .goods .time {
+  position: absolute;
+  bottom: 0;
 }
 
 .bill .price {
@@ -45,6 +51,11 @@ page {
 .bill .price .red {
   color: red;
   font-weight: bold;
+}
+
+.bill .button {
+  color: #2a9f93;
+  border-bottom: #2a9f93 2rpx solid;
 }
 
 .bill .price .orange {

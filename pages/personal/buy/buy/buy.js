@@ -25,6 +25,7 @@ Page({
     renter_type: '',
     face_id: '',
     goodsNameL: '',
+    recordList: []
   },
 
   /**
@@ -32,7 +33,7 @@ Page({
    */
   onLoad: function (options) {
     console.log('buy', app.globalData.userName);
-    
+
     this.setData({
       areas_id: options.area_id,
       detailedAddress_id: options.detailedAddress_id,
@@ -53,7 +54,7 @@ Page({
   toBill() {
     var self = this;
     wx.navigateTo({
-      url: '../bill/bill?user_id=' + self.data.user_id + '&detailedAddress_id=' + self.data.detailedAddress_id
+      url: '../bill/bill?user_id=' + self.data.user_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&face_id=' + self.data.face_id
     })
   },
 
@@ -65,6 +66,7 @@ Page({
       self.setData({
         user_id: res.user_id,
       })
+      self.getRecordList(self.data.user_id, self.data.face_id);
     })
   },
 
@@ -84,6 +86,66 @@ Page({
     })
   },
 
+  // 获取订单列表
+  getRecordList(order_id, face_id) {
+    var self = this;
+    var orderArr = []
+    buy.orders(order_id, face_id).then(res => {
+      console.log('getRecordList', res);
+      self.setData({
+        recordList: res
+      })
+      res.forEach(item => {
+        if (item.status == 1) {
+          orderArr.push(item)
+          wx.showModal({
+            title: '待支付订单',
+            content: '您有' + orderArr.length + '笔待付款订单',
+            cancelText: '稍后查看',
+            confirmText: '查看详情',
+            success: (res) => {
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: '../bill/bill?user_id=' + self.data.user_id + '&detailedAddress_id=' + self.data.detailedAddress_id + '&face_id=' + face_id,
+                })
+                // buy.buy(wx.getStorageSync('token'), self.data.order_id).then(res => {
+                //   console.log('支付', res);
+                //   wx.requestPayment({
+                //     timeStamp: res.timeStamp,
+                //     nonceStr: res.nonceStr,
+                //     package: res.package,
+                //     signType: 'MD5',
+                //     paySign: res.paySign,
+                //     success(res) {
+                //       console.log(111, res);
+                //       wx.showToast({
+                //         icon: "none",
+                //         title: '购买成功',
+                //       });
+                //     },
+                //     fail(res) {
+                //       console.log(222, res);
+                //     }
+                //   })
+                // })
+              } else if (res.cancel) {
+                // buy.cancelBuy(wx.getStorageSync('token'), order_id).then(res => {
+                //   console.log('取消支付', res);
+                //   if (res == 1) {
+                //     wx.showToast({
+                //       icon: "none",
+                //       title: '取消成功'
+                //     });
+                //   }
+                // })
+              }
+            }
+          })
+        }
+      })
+    })
+  },
+
   // 支付
   purchase() {
     var self = this;
@@ -91,7 +153,7 @@ Page({
     console.log(self.data.renter_type);
     wx.showModal({
       title: '支付提示',
-      content: '您是否要为用户--(' + app.globalData.userName +'), 开通(' + serviceName + ')',
+      content: '您是否要为用户--(' + app.globalData.userName + '), 开通(' + serviceName + ')',
       cancelText: '取消',
       confirmText: '确定',
       success: function (res) {
@@ -123,15 +185,10 @@ Page({
                 },
                 fail(res) {
                   console.log(222, res);
-                  buy.cancelBuy(wx.getStorageSync('token'), self.data.order_id).then(res => {
-                    console.log('取消支付', res);
-                    if (res == 1) {
-                      wx.showToast({
-                        icon: "none",
-                        title: '取消成功'
-                      });
-                    }
-                  })
+                  wx.showToast({
+                    icon: "none",
+                    title: '取消成功',
+                  });
                 }
               })
             })

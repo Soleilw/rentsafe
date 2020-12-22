@@ -119,7 +119,7 @@ Page({
         app.globalData.face_id = e.currentTarget.dataset.face_id;
         app.globalData.payState = e.currentTarget.dataset.paystate;
         app.globalData.userName = e.currentTarget.dataset.username;
-        app.globalData.passAddressId = e.currentTarget.dataset.addressid;
+        // app.globalData.passAddressId = e.currentTarget.dataset.addressid;
 
         wx.switchTab({
             url: '/pages/personal/index/index'
