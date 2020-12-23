@@ -40,7 +40,7 @@ Page({
 
     onLoad: function (options) {
         console.log(app.globalData.detailedAddress_id);
-        
+
         this.setData({
             typeString: app.globalData.typeString,
             userType: app.globalData.userType,
@@ -559,14 +559,22 @@ Page({
     // 显示隐藏通行码弹框
     passwordChange: function (e) {
         var self = this;
-        self.showPassword = !self.showPassword
-        self.passwordTime = 1
-        self.password = ''
-        self.setData({
-            showPassword: self.showPassword,
-            passwordTime: self.passwordTime,
-            password: self.password
-        })
+        if (!wx.getStorageSync('token')) {
+            wx.showToast({
+                icon: "none",
+                title: '请先登录'
+            });
+        } else {
+            self.showPassword = !self.showPassword
+            self.passwordTime = 1
+            self.password = ''
+            self.setData({
+                showPassword: self.showPassword,
+                passwordTime: self.passwordTime,
+                password: self.password
+            })
+        }
+
     },
 
     // 通行有效时间输入
@@ -598,7 +606,7 @@ Page({
     copyCode: function () {
         let self = this;
         console.log(self.data.password);
-        
+
         wx.setClipboardData({
             data: JSON.stringify(self.data.password), //只能复制字符串
             success(res) {
@@ -619,7 +627,7 @@ Page({
                 console.log(res);
                 self.password = res.data
                 self.setData({
-                  password: self.password
+                    password: self.password
                 })
             })
         }
