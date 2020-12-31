@@ -131,12 +131,10 @@ Page({
                     }
                 })
             } else if (res.length > 0 && app.globalData.payState == 1) {
-                var time = res[0].expireTime;
-                time = time.replace(/-/g, '/');
-                if (res[0].state == 1) {
-                    self.setData({
-                        isPay: true
-                    })
+                self.setData({
+                    isPay: true
+                })
+                if (res[0].state == 3) {
                     wx.showModal({
                         title: '续费提示',
                         content: '您开通的服务已过期, 无法刷脸进出, 请重新开通服务',
@@ -156,7 +154,7 @@ Page({
                             }
                         }
                     })
-                } else if (new Date(time).getTime() - 7 * 24 * 60 * 60 * 1000 < new Date().getTime()) {
+                } else if (res[0].state == 1) {
                     wx.showModal({
                         title: '续费提示',
                         content: '您开通的服务即将到期, 请及时续费',
