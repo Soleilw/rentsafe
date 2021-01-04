@@ -66,7 +66,7 @@ Page({
                 icon: "none",
                 title: '取消成功'
               });
-              // self.getRecordList()
+              self.getRecordList()
             }
           })
         }
