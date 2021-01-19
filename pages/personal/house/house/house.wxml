@@ -19,4 +19,9 @@
 		<text>缴费情况列表</text>
 		<image class="right-icon" src="/icon/right.png" />
 	</view>
+	<view bindtap="toAuth" class="tableviewcell" wx:if="{{showFace}}">
+		<image class="left-icon" src="/icon/qb.png" />
+		<text>授权列表</text>
+		<image class="right-icon" src="/icon/right.png" />
+	</view>
 </view>

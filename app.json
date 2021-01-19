@@ -23,7 +23,8 @@
     "pages/personal/house/visitor/visitors/visitors",
     "pages/personal/infomation/infomation-amend/infomation-amend",
     "pages/personal/house/door-number/door-number",
-    "pages/personal/house/renter-pay/renter-pay"
+    "pages/personal/house/renter-pay/renter-pay",
+    "pages/personal/house/authorized/authorized"
   ],
   "window": {
     "backgroundTextStyle": "light",

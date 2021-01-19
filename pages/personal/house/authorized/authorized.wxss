@@ -1,0 +1,124 @@
+/* pages/personal/children/index/index.wxss */
+.info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100vw;
+  padding: 2vw;
+  box-shadow: -2rpx 2rpx 15rpx #bbb;
+  color: #2a9f93
+}
+
+.info .avatar {
+  width: 26vw;
+  /* text-align: center; */
+}
+
+.info .avatar image {
+  width: 26vw;
+  height: 26vw;
+  border-radius: 50%;
+  /* border: 5rpx solid #bbb; */
+  /* box-shadow: 0rpx 2rpx 15rpx #bbb; */
+}
+
+.info .item {
+  width: 60vw;
+  margin: 0 0 0 20rpx;
+  font-size: 30rpx;
+}
+
+.info .item view {
+  margin: 20rpx 0;
+}
+
+.info .item .name {
+  font-weight: bold;
+}
+
+.info .item image {
+  width: 28rpx;
+  height: 28rpx;
+  margin: 0 15rpx;
+}
+
+.info .handle {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  width: 30vw;
+}
+
+.info .handle .button {
+  width: 22vw;
+  margin: 1vw 4vw 1vw 0;
+  padding: 2vw;
+  border-radius: 25rpx;
+  background-color: #2a9f93;
+  color: #fff;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.info .handle .button image {
+  width: 25rpx;
+  height: 25rpx;
+  margin: 0 10rpx;
+}
+
+/* 邀请 */
+.invite {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  color: #999;
+
+}
+
+.invite .item {
+  width: 19vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20rpx;
+}
+
+.invite button {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background-color: #999;
+  color: #fff;
+}
+
+.invite image {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
+
+.add {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20vw;
+  font-size: 4.667vw;
+  font-weight: bold;
+  color: #2a9f93;
+}
+
+.add image {
+  width: 17.333vw;
+  height: 17.333vw;
+}
+
+.foot {
+  text-align: center;
+  font-size: 24rpx;
+  color: #666;
+  padding: 20rpx;
+}

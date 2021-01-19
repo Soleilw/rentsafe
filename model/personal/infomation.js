@@ -200,6 +200,24 @@ infomation.serverUser = function (address_id, page, limit) {
     })
 },
 
+// 用户授权列表
+infomation.authList = function (address_id, page, limit) {
+    return new Promise((resolve, reject) => {
+        api.get(api.baseUrl.host, api.url.AuthList, {
+            address_id: address_id,
+            page: page,
+            limit: limit
+        }, function (response) {
+            if (response.msg === 'ok') {
+                var res = response.data;
+                resolve(res);
+            } else {
+                reject(response);
+            }
+        })
+    })
+},
+
 // 审核访客
 infomation.auditVisitor = function (token, id, state) {
     return new Promise((resolve, reject) => {

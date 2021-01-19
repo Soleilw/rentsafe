@@ -60,5 +60,11 @@ Page({
         wx.navigateTo({
             url: '../address-manage/show/address'
         })
-    }
+    },
+    toAuth() {
+        var self = this;
+        wx.navigateTo({
+            url: '../authorized/authorized?detailedAddress_id=' + self.data.detailedAddress_id + '&typeString=' + self.data.typeString
+        })
+    },
 })

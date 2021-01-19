@@ -41,6 +41,7 @@ const url = {
     "CancelBuy": '/pay/cancel', // 取消支付
     "Orders": '/orders', // 获取服务订单列表
     "ServerUser": '/serve/user', // 已购买服务列表
+    "AuthList": '/mandate/user', // 授权列表
 
     // 一键开门
     "AllowOpen": '/allow/open', // 允许开门
