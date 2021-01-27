@@ -1,4 +1,5 @@
 <view class="list">
+	<official-account></official-account>
 	<block wx:for="{{idenInfoList}}" wx:key="{{index}}">
 		<button wx:if="{{item.state == 1}}" class="iden-btn" disabled="true">
 			<view class="tableviewcell" >
@@ -24,3 +25,33 @@
 	<button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="new-user">注册新身份</button>
 	<button open-type="getUserInfo" class="new-user" bindtap="visitorApply"  wx:if="{{showFace}}">访客申请</button>
 </view>
+
+<block>
+	<!-- 屏幕背景变暗的背景 -->
+	<view class="commodity_screen" wx:if="{{showModalStatus}}"></view>
+	<!-- 弹出框 -->
+	<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+		<view class="guan">
+			<view class="close">
+				<image src="/icon/close1.png" class="img_auto" bindtap="hideQrcode"></image>
+			</view>
+			<view class="flex">
+				<view class="guanyu">
+					<image src="/icon/qrcode.jpg" show-menu-by-longpress="true" class="guanyu_img" />
+				</view>
+			</view>
+			<view class="center mag">您未授权, 无法接收信息, 请先授权</view>
+			<view class="center mag">长按保存图片 用微信扫一扫关注公众号</view>
+			<view class="center mag">即可接收服务到期推送消息</view>
+			<view class="flex mag">
+				<view class="flex line solid"></view>
+			</view>
+			<view class="center fon mag">您还可以</view>
+			<view class="flex">
+				<view class="left line tex">
+					<view>在微信中搜索并关注公众号 '安域智慧系统'</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</block>

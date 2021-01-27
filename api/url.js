@@ -7,6 +7,7 @@ const url = {
     // 个人信息
     'Household': '/household', // post提交个人信息,get获取个人信息
     'MyHouseholds': '/my/households', // post提交个人信息,get获取个人信息
+    'UserMandate': '/is/user/mandate', // 是否授权
 
     'Households': '/households', // 获取审核列表
     'CheckHousehold': '/check/household', // 审核租客
@@ -60,6 +61,8 @@ const url = {
     
     // 判断家庭成员
     "FamilyType": '/exist',
+
+    "UserRegister": '/is/user/register', // 是否有新用户
     
 };
 

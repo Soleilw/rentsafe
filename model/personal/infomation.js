@@ -414,4 +414,37 @@ infomation.passCode = function (address_id, expire, face_id) {
     })
 }
 
+// 授权
+infomation.userMandate = function (token) {
+    return new Promise((resolve, reject) => {
+        api.get(api.baseUrl.host, api.url.UserMandate, {
+            token: token
+        }, function (response) {
+            if (response.msg === 'ok') {
+                var res = response.data;
+                resolve(res);
+            } else {
+                reject(response);
+            }
+        })
+    })
+}
+
+// 是否有新用户注册
+infomation.userRegister = function (token, address_id) {
+    return new Promise((resolve, reject) => {
+        api.get(api.baseUrl.host, api.url.UserRegister, {
+            token: token,
+            address_id: address_id
+        }, function (response) {
+            if (response.msg === 'ok') {
+                var res = response.data;
+                resolve(res);
+            } else {
+                reject(response);
+            }
+        })
+    })
+}
+
 module.exports = infomation;

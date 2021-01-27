@@ -5,10 +5,17 @@
         <image mode="aspectFill" src="{{item.snapshot.href}}"></image>
       </view>
       <view class="item">
-        <view>
-          <text class="name">{{item.snapshot.name}}</text>
-          <!-- <image mode="aspectFill" src="{{item.student.sex == 1 ? '/icon/boy.png' : '/icon/girl.png'}}"></image> -->
-          <text style="margin-left: 10rpx">{{item.typeString}}</text>
+        <view style="display: flex;justify-content: space-between;">
+          <view style="margin: 0;">
+            <text class="name">{{item.snapshot.name}}</text>
+            <!-- <image mode="aspectFill" src="{{item.student.sex == 1 ? '/icon/boy.png' : '/icon/girl.png'}}"></image> -->
+            <text style="margin-left: 10rpx">{{item.typeString}}</text>
+          </view>
+          <view style="margin: 0;" wx:if="{{item.type != 1 && item.type != 4 && item.room}}">
+            <text class="name">房号:</text>
+            <!-- <image mode="aspectFill" src="{{item.student.sex == 1 ? '/icon/boy.png' : '/icon/girl.png'}}"></image> -->
+            <text style="margin-left: 10rpx">{{item.room}}</text>
+          </view>
         </view>
         <view>身份证: {{item.snapshot.card_number}}</view>
         <!-- <view>服务天数: {{item.time}}</view> -->

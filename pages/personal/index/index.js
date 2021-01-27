@@ -40,6 +40,7 @@ Page({
 
     onLoad: function (options) {
         console.log(app.globalData.detailedAddress_id);
+        console.log(app.globalData.userType);
 
         this.setData({
             typeString: app.globalData.typeString,
@@ -55,6 +56,9 @@ Page({
             face_id: app.globalData.face_id,
         })
         this.getPersonalInfo();
+        if (app.globalData.userType == 1) {
+            this.getNewUser();
+        }
     },
     onShow() {
         this.getPersonalInfo();
@@ -72,6 +76,30 @@ Page({
             // this.allowOpen();
             this.getEquipment();
         }
+    },
+
+    // 是否有新用户
+    getNewUser() {
+        var self = this;
+        infomation.userRegister(wx.getStorageSync('token'), self.data.detailedAddress_id).then(res => {
+            if (res.is_register) {
+                wx.showModal({
+                    title: '审核通知',
+                    content: '有新用户注册, 是否前往审核',
+                    cancelText: '稍后',
+                    confirmText: '确定',
+                    success: (res) => {
+                        if (res.confirm) {
+                            wx.navigateTo({
+                                url: '../house/house/house?detailedAddress_id=' + self.data.detailedAddress_id + '&typeString=' + self.data.typeString
+                            })
+                        } else if (res.cancel) {
+                            console.log('取消');
+                        }
+                    }
+                })
+            }
+        })
     },
 
     // 添加家庭成员的身份
@@ -266,16 +294,13 @@ Page({
     // 去房屋管理
     toHouse() {
         var self = this
-        if (!wx.getStorageSync('token')) {
+        if (!wx.getStorageSync('token'), self.data.detailedAddress_id) {
             wx.showToast({
                 icon: "none",
                 title: '请先登录'
             });
             wx.removeStorageSync('wxInfo')
         } else {
-            console.log('房屋管理', self.data.detailedAddress_id);
-            console.log('房屋管理', self.data.typeString);
-
             wx.navigateTo({
                 url: '../house/house/house?detailedAddress_id=' + self.data.detailedAddress_id + '&typeString=' + self.data.typeString
             })

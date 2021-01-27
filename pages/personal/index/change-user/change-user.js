@@ -28,6 +28,7 @@ Page({
 
     onLoad(options) {
         this.getIdenInfo();
+        this.getAuth();
         if (wx.getStorageSync('openFace') == 'open') {
             this.setData({
                 showFace: true
@@ -69,6 +70,59 @@ Page({
         })
     },
 
+    getAuth() {
+        var self = this;
+        infomation.userMandate(wx.getStorageSync('token')).then(res => {
+            console.log(res);
+            if (!res.is_authorization) {
+                self.showQrcode()
+            }
+        })
+    },
+
+    //显示对话框
+    showQrcode: function () {
+        // 显示遮罩层
+        var animation = wx.createAnimation({
+            duration: 200,
+            timingFunction: "linear",
+            delay: 0
+        })
+        this.animation = animation
+        animation.translateY(300).step()
+        this.setData({
+            animationData: animation.export(),
+            showModalStatus: true
+        })
+        setTimeout(function () {
+            animation.translateY(0).step()
+            this.setData({
+                animationData: animation.export()
+            })
+        }.bind(this), 200)
+    },
+    //隐藏对话框
+    hideQrcode: function () {
+        // 隐藏遮罩层
+        var animation = wx.createAnimation({
+            duration: 200,
+            timingFunction: "linear",
+            delay: 0
+        })
+        this.animation = animation
+        animation.translateY(300).step()
+        this.setData({
+            animationData: animation.export(),
+        })
+        setTimeout(function () {
+            animation.translateY(0).step()
+            this.setData({
+                animationData: animation.export(),
+                showModalStatus: false
+            })
+        }.bind(this), 200)
+    },
+
     // 调用相机
     cameraDisable() {
         let self = this;
@@ -105,7 +159,7 @@ Page({
 
     toIndex(e) {
         var self = this;
-        console.log(1,e);
+        console.log(1, e);
         app.globalData.typeString = e.currentTarget.dataset.typestring;
         app.globalData.userType = e.currentTarget.dataset.type;
         app.globalData.isBuy = 'true';
