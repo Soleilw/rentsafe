@@ -28,7 +28,7 @@ Page({
 
     onLoad(options) {
         this.getIdenInfo();
-        this.getAuth();
+        // this.getAuth();
         if (wx.getStorageSync('openFace') == 'open') {
             this.setData({
                 showFace: true

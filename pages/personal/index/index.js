@@ -56,9 +56,9 @@ Page({
             face_id: app.globalData.face_id,
         })
         this.getPersonalInfo();
-        if (app.globalData.userType == 1) {
-            this.getNewUser();
-        }
+        // if (app.globalData.userType == 1) {
+        //     this.getNewUser();
+        // }
     },
     onShow() {
         this.getPersonalInfo();
@@ -294,17 +294,18 @@ Page({
     // 去房屋管理
     toHouse() {
         var self = this
-        if (!wx.getStorageSync('token'), self.data.detailedAddress_id) {
-            wx.showToast({
-                icon: "none",
-                title: '请先登录'
-            });
-            wx.removeStorageSync('wxInfo')
-        } else {
-            wx.navigateTo({
-                url: '../house/house/house?detailedAddress_id=' + self.data.detailedAddress_id + '&typeString=' + self.data.typeString
-            })
-        }
+        wx.navigateTo({
+            url: '../house/house/house?detailedAddress_id=' + self.data.detailedAddress_id + '&typeString=' + self.data.typeString
+        })
+        // if (!wx.getStorageSync('token'), self.data.detailedAddress_id) {
+        //     wx.showToast({
+        //         icon: "none",
+        //         title: '请先登录'
+        //     });
+        //     wx.removeStorageSync('wxInfo')
+        // } else {
+            
+        // }
     },
 
     // 绑定家庭成员

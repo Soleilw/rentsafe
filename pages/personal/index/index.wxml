@@ -100,7 +100,7 @@
 	</view>
 </view>
 
-<view class="supportText">安域智慧安防提供技术支持v1.0.41</view>
+<view class="supportText">中山市公安局沙溪分局联合研发v1.0.44</view>
 <block>
 	<!-- 屏幕背景变暗的背景 -->
 	<view class="commodity_screen" wx:if="{{showModalStatus}}"></view>

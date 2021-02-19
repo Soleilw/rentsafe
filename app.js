@@ -15,7 +15,7 @@ App({
       })
     }
     // 开关配置
-    var version = '1.0.41';
+    var version = '1.0.44';
     global.configs(version).then(res => {
       wx.setStorageSync('openFace', res.config_value);
     })
