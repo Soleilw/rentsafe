@@ -49,14 +49,14 @@ Page({
     sumAddress(e) {
         var self = this;
         console.log(e);
-        
-        if (self.data.type == 1) {
-            self.data.all_address = e.detail.value.province + e.detail.value.city + e.detail.value.area + e.detail.value.community + e.detail.value.detail;
-        } else {
+
+        if (self.data.type == 2) {
             self.data.all_address = e.detail.value.province + e.detail.value.city + e.detail.value.area + e.detail.value.community + e.detail.value.detail + e.detail.value.room;
+        } else {
+            self.data.all_address = e.detail.value.province + e.detail.value.city + e.detail.value.area + e.detail.value.community + e.detail.value.detail;
         }
         console.log('sumAddress', self.data.all_address);
-        
+
         var pages = getCurrentPages();
         var prevPage = pages[pages.length - 2];
         var address = 'userInfo.address';
@@ -67,9 +67,17 @@ Page({
             [address_id]: self.data.address_id,
             [room_id]: self.data.room_id,
         })
-        wx.navigateBack({
-            delta: 1
-        })
+        if ((e.detail.value.room && self.data.type == 2) || self.data.type != 2) {
+            wx.navigateBack({
+                delta: 1
+            })
+        } else {
+            wx.showToast({
+              title: '请选择门牌号',
+              icon: 'none'
+            })
+        }
+
     },
 
     // 获取省级
@@ -77,7 +85,7 @@ Page({
         var self = this;
         add.areas(1, 40000).then(res => {
             console.log('获取省级', res);
-            
+
             self.setData({
                 proList: res.data
             })
@@ -99,7 +107,7 @@ Page({
     getCity(val) {
         var self = this;
         add.areas(1, 40000, val).then(res => {
-        console.log('获取市级', res);
+            console.log('获取市级', res);
             self.setData({
                 cityList: res.data
             })
@@ -121,7 +129,7 @@ Page({
         var self = this;
         add.areas(1, 40000, val).then(res => {
             console.log('获取区级', res);
-            
+
             self.setData({
                 areaList: res.data
             })

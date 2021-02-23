@@ -301,9 +301,16 @@ Page({
 
     toChooseAddress() {
         if (this.data.disabled == false) {
-            wx.navigateTo({
-                url: '../address/address?type=' + this.data.userInfo.type
-            })
+            if (this.data.userInfo.type) {
+                wx.navigateTo({
+                    url: '../address/address?type=' + this.data.userInfo.type
+                })
+            } else {
+                wx.showToast({
+                  title: '请选择身份类型',
+                  icon: 'none'
+                })
+            }
         }
 
         // this.setData({

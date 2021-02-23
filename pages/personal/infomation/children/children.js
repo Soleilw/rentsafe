@@ -2,6 +2,7 @@ const qiniuUploader = require("../../../../utils/qiniu");
 var infomation = require('../../../../model/personal/infomation');
 const REG_PHONE = /^1[3-9]\d{9}$/;
 var reg = require('../../../../utils/reg')
+var add = require('../../../../model/personal/address')
 
 function getQiniuToken() {
     var options = {
@@ -43,20 +44,24 @@ Page({
         idType: '',
         number_type: '',
         IDList: [{ // 身份类型类型列表
-            'name': '中国居民身份证',
-            'type': 1
-        }, {
-            'name': '外国人永久居留身份证',
-            'type': 2
-        }, {
-            'name': '港澳台居民居住证',
-            'type': 3
-        },
-        {
-            'name': '护照',
-            'type': 4
-        }
-    ],
+                'name': '中国居民身份证',
+                'type': 1
+            }, {
+                'name': '外国人永久居留身份证',
+                'type': 2
+            }, {
+                'name': '港澳台居民居住证',
+                'type': 3
+            },
+            {
+                'name': '护照',
+                'type': 4
+            }
+        ],
+        roomList: [], // 门牌列表
+        room: '',
+        is_room: '',
+
     },
 
     onLoad(options) {
@@ -72,8 +77,10 @@ Page({
             wxInfo: wx.getStorageSync('wxInfo'),
             address_id: options.detailedAddress_id,
             address: options.address,
-            room_id: options.room_id
+            // room_id: options.room_id
         });
+
+        this.getRoom(this.data.address_id)
 
         // 初始化
         this.showCamera = false //是否显示照相机
@@ -235,6 +242,25 @@ Page({
         console.log(self.data.number_type);
 
     },
+
+    // 获取门牌号
+    getRoom(val) {
+        var self = this;
+        add.room(1, 30000, val).then(res => {
+            self.setData({
+                roomList: res.data
+            })
+        })
+    },
+    roomChange(e) {
+        var self = this;
+        self.setData({
+            is_room: e.detail.value,
+            room_id: self.data.roomList[e.detail.value].id
+        })
+        console.log(self.data.room_id);
+        
+    },
     subInfomations(e) {
         var self = this;
         console.log(e);
@@ -286,7 +312,7 @@ Page({
         var href = self.data.userInfo.href;
         // var href = 'https://tu.fengniaotuangou.cn/tmp_69eb9b8bfa246bfffcd2f1d7b1fe82e7.jpg';
 
-        if (phone && card_number && name && sex && href && self.data.number_type) {
+        if (phone && card_number && name && sex && href && self.data.number_type && self.data.room_id) {
             infomation.children(token, href, name, sex, address_id, address, room_id, card_number, phone, self.data.number_type).then(res => {
                 self.setData({
                     disabled: true

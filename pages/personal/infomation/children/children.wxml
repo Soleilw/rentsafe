@@ -35,6 +35,15 @@
 			<text>手机</text>
 			<input class="input" disabled="{{disabled}}" type="number" maxlength='11' placeholder='请输入' bindblur="regPhone" bindfocus="changeInfo" name="phone" value='{{userInfo.phone}}'></input>
 		</view>
+		<!-- 房屋编号 -->
+		<view class="form-item" wx:if="{{showFace}}">
+			<image class="left-icon" src="/icon/index1.png" />
+			<text>房屋编号</text>
+			<picker bindchange="roomChange" range="{{roomList}}" range-key="door_number" value="{{index}}">
+				<!-- <textarea class="textarea" name="detail" value="{{detail ? detail : detailList[is_detail].address}}" placeholder='请选择房屋编号' auto-height></textarea> -->
+				<input class="input" placeholder='请选择门牌号' name="room" value="{{room ? room : roomList[is_room].door_number}}" disabled="true"></input>
+			</picker>
+		</view>
 		<!-- 人脸上传 -->
 		<block wx:if="{{showFace}}">
 			<view class="form-item" style="border:none;justify-content: flex-start;">
