@@ -1,5 +1,5 @@
-<!--pages/home/socialInformation/socialInformation.wxml-->
-<!-- <text>pages/home/socialInformation/socialInformation.wxml</text> -->
+<!-- <import src="../../../wxParse/wxParse.wxml" /> -->
+
 <view class="v_box">
   <view class="classification">
   <view class="nav_active" wx:for="{{classFication}}" wx:key="{{index}}" data-id="{{item.id}}" data-index="{{index}}" bindtap='nav' class="{{index == num ? 'nav_active' : ''}}">
@@ -9,8 +9,11 @@
 
 <view class="box">
   <view class="content_box" wx:for="{{docList}}" data-id="{{item.id}}" wx:key="{{index}}" bindtap="openDetails">
+    <view class="title">
+      <view>{{item.title}}</view>
+      <!-- <view>{{item.updated_at}}</view> -->
+    </view>
     <image mode="aspectFit" src="{{item.cover}}"></image>
-    <view class="title">{{item.title}}</view>
   </view>
   <view class="cnt_box" wx:if="{{docList.length == 0}}">
     <image class="auto_img" src="../../../icon/not1.png"></image>

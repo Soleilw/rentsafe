@@ -1,4 +1,6 @@
 /* pages/home/socialInformation/socialInformation.wxss */
+/* @import "../../../wxParse/wxParse.wxss"; */
+
 page {
   background-color: #eee;
   height: 100%;
@@ -41,31 +43,41 @@ page {
 }
 
 .box {
-  display: flex;
+  /* display: flex; */
   padding-top: 100rpx;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   position: relative;
 }
 
 .box .content_box {
   /* margin: 0 10rpx 10rpx; */
-  margin-bottom: 10rpx;
-  width: 49%;
+  margin-top: 10rpx;
+  width: 100%;
+  display: flex;
   background-color: #fff;
   border-radius: 20rpx;
 }
 
-.box .content_box:nth-child(2n) {
+/* .box .content_box:nth-child(2n) {
   margin-left: 10rpx;
 
-}
+} */
 
 .box .content_box .title {
   font-size: 24rpx;
-  margin: 0 20rpx 20rpx;
-  text-overflow: ellipsis;
+  margin: 20rpx 20rpx;
+  /* text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
+  white-space: nowrap; */
+  width: calc(100% - 315rpx - 80rpx);
+}
+
+.box .content_box .title view{
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;  /*要显示的行数*/
+  -webkit-box-orient: vertical;
 }
 
 .box .content_box image {

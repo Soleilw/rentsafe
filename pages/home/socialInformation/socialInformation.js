@@ -1,6 +1,7 @@
 // pages/home/socialInformation/socialInformation.js
 var doc = require('../../../model/home/document')
 var areasId = require('../../../model/home/userAreas')
+// var WxParse = require('../../../wxParse/wxParse');
 
 Page({
 
