@@ -1,0 +1,21 @@
+<view class="list-box">
+  <view class="item" bindtap="toRecruitDetail">
+    <view class="title">
+      <view class="name">前端工程师</view>
+      <view class="money">8千-1.2万</view>
+    </view>
+    <view class="info">
+      <text>广州</text>
+      <text>1-2</text>
+      <text>学历不限</text>
+      <text>HTML</text>
+    </view>
+    <view class="intro">
+      广州图巴诺有限公司  10-20人
+    </view>
+    <view class="member">
+      <image src="/icon/recruit.png"></image>
+      <view>黄先生 / 人事经理</view>
+    </view>
+  </view>
+</view>

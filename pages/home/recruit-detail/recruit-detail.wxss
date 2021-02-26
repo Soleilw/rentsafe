@@ -1,0 +1,44 @@
+/* pages/home/recruit-detail/recruit-detail.wxss */
+@import "../../../wxParse/wxParse.wxss";
+
+page {
+  background-color: #eee;
+}
+
+.info-box .header {
+  padding: 20rpx;
+  background-color: #fff;
+  margin-bottom: 10rpx;
+}
+
+.info-box .header .title {
+  display: flex;
+  margin-bottom: 20rpx;
+}
+
+.info-box .header .title .name {
+  width: 70%;
+  font-weight: 700;
+}
+
+.info-box .header .title .money {
+  width: 30%;
+  color: #2a9f93;
+  text-align: right;
+}
+
+.info-box .header .info {
+  margin: 30rpx 0;
+  font-size: 24rpx;
+}
+
+.info-box .header .info text {
+  text-align: center;
+  margin-right: 20rpx;
+  padding: 0 20rpx;
+  background-color: #eee;
+}
+
+.info-box .content {
+  background-color: #fff;
+}

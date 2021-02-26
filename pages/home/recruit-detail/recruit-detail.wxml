@@ -1,0 +1,16 @@
+<import src="../../../wxParse/wxParse.wxml" />
+<view class="info-box">
+  <view class="header">
+    <view class="title">
+      <view class="name">前端工程师</view>
+      <view class="money">8千-1.2万</view>
+    </view>
+    <view class="info">
+      <text>广州</text>
+      <text>1-2</text>
+      <text>学历不限</text>
+      <text>HTML</text>
+    </view>
+  </view>
+  <view class="content"></view>
+</view>

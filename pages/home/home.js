@@ -146,4 +146,11 @@ Page({
     })
   },
 
+  // 人才招聘
+  toRecruit() {
+    wx.navigateTo({
+      url: './recruit/recruit',
+    })
+  },
+
 })

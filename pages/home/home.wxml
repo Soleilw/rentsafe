@@ -28,13 +28,17 @@
 
 	<view class='titleText'>智慧社区</view>
 	<view class="classification">
+		<view bindtap='toRecruit'>
+			<image mode='aspectFill' src="/icon/recruit.png" />
+			<text>人才招聘</text>
+		</view>
 		<view wx:for="{{classFication}}" wx:key="{{index}}" data-id="{{item.id}}" data-index="{{index}}" bindtap='openClassification'>
 			<image mode='aspectFill' src="{{item.href}}" />
 			<text>{{item.title}}</text>
 		</view>
-		<view class="tips_box" wx:if="{{classFication.length == 0}}">
+		<!-- <view class="tips_box" wx:if="{{classFication.length == 0}}">
 			<view class="sel_title">暂无数据</view>
-		</view>
+		</view> -->
 	</view>
 
 	<view class='titleText'>精选资讯</view>
