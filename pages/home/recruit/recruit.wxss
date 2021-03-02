@@ -28,6 +28,10 @@ page {
   text-align: right;
 }
 
+.list-box .item  {
+  margin-bottom: 10rpx;
+}
+
 .list-box .item .info {
   margin: 30rpx 0;
   font-size: 24rpx;
