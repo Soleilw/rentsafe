@@ -39,6 +39,36 @@ page {
   background-color: #eee;
 }
 
+.info-box .info-box {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 20rpx;
+  margin: 10rpx 0;
+}
+
+.info-box .info-box image {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
 .info-box .content {
   background-color: #fff;
+  padding: 20rpx;
+}
+
+.info-box .content .intro .title {
+  font-weight: 700;
+  padding: 20rpx 0;
+  /* border-bottom: 2rpx solid #eee; */
+}
+
+/* .info-box .content .card {
+  font-size: 28rpx;
+} */
+
+.info-box .content .card .des {
+  font-size: 28rpx;
 }

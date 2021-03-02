@@ -61,3 +61,10 @@ page {
   margin-left: 20rpx;
   font-size: 24rpx;
 }
+
+.foot {
+  text-align: center;
+  font-size: 24rpx;
+  color: #666;
+  padding: 20rpx;
+}

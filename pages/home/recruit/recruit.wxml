@@ -1,21 +1,25 @@
+<scroll-view scroll-y="true" lower-threshold="100" bindscrolltolower="scrollToLower" style="height: 100vh;">
 <view class="list-box">
-  <view class="item" bindtap="toRecruitDetail">
+  <view class="item" bindtap="toRecruitDetail" wx:for="{{listData}}" data-detail="{{item}}">
     <view class="title">
-      <view class="name">前端工程师</view>
-      <view class="money">8千-1.2万</view>
+      <view class="name">{{item.post_name}}</view>
+      <view class="money">{{item.salary}}</view>
     </view>
     <view class="info">
-      <text>广州</text>
-      <text>1-2</text>
-      <text>学历不限</text>
-      <text>HTML</text>
+      <text>{{item.work_city}}</text>
+      <text>{{item.work_experience}}</text>
+      <text>{{item.education}}</text>
     </view>
     <view class="intro">
-      广州图巴诺有限公司  10-20人
+      {{item.company_name}}
     </view>
     <view class="member">
-      <image src="/icon/recruit.png"></image>
-      <view>黄先生 / 人事经理</view>
+      <image src="{{item.href}}"></image>
+      <view>{{item.name}} / {{item.phone}}</view>
     </view>
   </view>
 </view>
+<view wx:if="{{showFoot}}" class="foot">
+		<text>没有更多数据了~ ╮（╯＿╰）╭</text>
+	</view>
+</scroll-view>

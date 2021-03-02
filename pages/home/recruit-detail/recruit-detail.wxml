@@ -2,15 +2,36 @@
 <view class="info-box">
   <view class="header">
     <view class="title">
-      <view class="name">前端工程师</view>
-      <view class="money">8千-1.2万</view>
+      <view class="name">{{detail.post_name}}</view>
+      <view class="money">{{detail.salary}}</view>
     </view>
     <view class="info">
-      <text>广州</text>
-      <text>1-2</text>
-      <text>学历不限</text>
-      <text>HTML</text>
+      <text>{{detail.work_city}}</text>
+      <text>{{detail.work_experience}}</text>
+      <text>{{detail.education}}</text>
     </view>
   </view>
-  <view class="content"></view>
+  <view class="info-box">
+      <image src="{{detail.href}}"></image>
+      <view>{{detail.company_name}}</view>
+    </view>
+  <view class="content">
+    <view class="intro">
+      <view class="card">
+        <view class="title">公司简介</view>
+        <view class="des">{{detail.company_intro}}</view>
+      </view>
+      <view class="card">
+        <view class="title">职位描述</view>
+        <view class="des" wx:for="{{worker_intro}}">{{item}}</view>
+      </view>
+      <view class="card">
+        <view class="title">联系信息</view>
+        <view class="des">联系人：{{detail.name}}</view>
+        <view class="des">手机号：{{detail.phone}}</view>
+        <view class="des">邮箱：{{detail.email}}</view>
+        <view class="des">地址：{{detail.work_place}}</view>
+      </view>
+    </view>
+  </view>
 </view>

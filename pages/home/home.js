@@ -115,6 +115,9 @@ Page({
   // 获取精选资讯
   getSelected() {
     var self = this;
+    wx.showLoading({
+      title: '数据加载中...',
+    })
     doc.documents(1, 100, 0).then(res => {
       console.log('getSelected', res);
       var list = [];
@@ -126,6 +129,9 @@ Page({
       }
       this.setData({
         docList: list
+      })
+      wx.hideLoading({
+        success: (res) => {},
       })
     })
   },

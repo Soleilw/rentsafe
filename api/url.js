@@ -63,6 +63,8 @@ const url = {
     "FamilyType": '/exist',
 
     "UserRegister": '/is/user/register', // 是否有新用户
+
+    "PostList": '/post/lists', // 是否有新用户
     
 };
 
