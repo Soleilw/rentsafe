@@ -32,12 +32,18 @@ Page({
       // 获取资讯详情
       getDetails() {
         var self = this;
+        wx.showLoading({
+          title: '数据加载中...',
+        })
         doc.docsDetails(self.data.id).then(res => {
           console.log('created_at', res.created_at);
           
           WxParse.wxParse('article', 'html', res.detail, self, 2);
           self.setData({
             details: res
+          })
+          wx.hideLoading({
+            success: (res) => {},
           })
         })
       },

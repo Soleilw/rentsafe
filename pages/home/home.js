@@ -25,8 +25,10 @@ Page({
   onLoad: function (options) {
     this.getAreas();
     this.getBanner();
-    this.getDoc();
     this.getSelected();
+    if (wx.getStorageSync('openFace') == 'open') {
+      this.getDoc();
+    }
   },
   onShow: function () {
 

@@ -9,11 +9,8 @@
 
 <view class="box">
   <view class="content_box" wx:for="{{docList}}" data-id="{{item.id}}" wx:key="{{index}}" bindtap="openDetails">
-    <view class="title">
-      <view>{{item.title}}</view>
-      <!-- <view>{{item.updated_at}}</view> -->
-    </view>
     <image mode="aspectFit" src="{{item.cover}}"></image>
+    <text>{{item.title}}{{item.title}}</text>
   </view>
   <view class="cnt_box" wx:if="{{docList.length == 0}}">
     <image class="auto_img" src="../../../icon/not1.png"></image>

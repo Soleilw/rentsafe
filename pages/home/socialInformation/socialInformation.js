@@ -85,10 +85,16 @@ Page({
   // 获取资讯
   getDocuments() {
     var self = this;
+    wx.showLoading({
+      title: '数据加载中...',
+    })
     doc.documents(1, 100, self.data.areas_id, self.data.class_id).then(res => {
       console.log('getDocuments res', res);
       self.setData({
         docList: res.data,
+      })
+      wx.hideLoading({
+        success: (res) => {},
       })
     })
   },
