@@ -11,7 +11,18 @@ Page({
     isPage: false,
     showFoot: false,
     hasMore: true,
-    address_id: ''
+    address_id: '',
+    num: 0,
+    classFication: [{
+      title: '户型',
+      index: 0
+    }, {
+      title: '租金',
+      index: 1
+    }, {
+      title: '地区',
+      index: 2
+    }, ]
   },
 
   /**

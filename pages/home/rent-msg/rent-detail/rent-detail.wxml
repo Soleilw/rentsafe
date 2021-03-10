@@ -29,6 +29,12 @@
       </view>
     </view>
   </view>
+  <!-- <view>
+    <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" controls="{{controls}}"
+      show-location="ture" bindcontroltap="controltap" markers="{{markers}}" circles="{{circles}}"
+      bindmarkertap="markertap" show-location style="width: 100%; height: 400rpx;">
+    </map>
+  </view> -->
   <view class="nav">
     <text class="enroll" bindtap='toPhone'>打电话</text>
   </view>

@@ -4,6 +4,10 @@ page {
 
 .list {
   padding: 15rpx;
+  position: relative;
+  top: 100rpx;
+  left: 0;
+  right: 0;
 }
 
 .list .item {
@@ -84,4 +88,35 @@ page {
   font-size: 24rpx;
   color: #666;
   padding: 20rpx;
+}
+
+.classification {
+  position: fixed;
+  left: 0rpx;
+  top: 0;
+  z-index: 100000;
+  background-color: #fff;
+  height: 100rpx;
+  width: 100%;
+  margin-bottom: 10rpx;
+  font-size: 30rpx;
+  overflow-x: auto;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.classification view {
+  position: relative;
+  /* formID按钮父元素 */
+  line-height: 100rpx;
+  text-align: center;
+  width: calc(100% / 3);
+  min-width: 187.5rpx;
+}
+
+.classification .nav_active {
+  color: #2a9f93;
+  border-bottom: 5rpx solid #2a9f93;
 }

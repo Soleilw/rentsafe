@@ -6,7 +6,9 @@ Page({
    */
   data: {
     detail: {},
-    rent_intro: []
+    rent_intro: [],
+    latitude: 22.93791,
+    longitude: 113.34135,
   },
 
   onLoad: function (options) {
