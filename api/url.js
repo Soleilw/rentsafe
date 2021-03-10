@@ -65,6 +65,11 @@ const url = {
     "UserRegister": '/is/user/register', // 是否有新用户
 
     "PostList": '/post/lists', // 是否有新用户
+
+    "IssueRent": '/creation/message/issue', // 发布出租屋
+    "IssueUserList": '/user/message/issues', // 获取个人招租列表--户主
+    "DelIssue": '/del/message/issue', // 删除
+    "IssueList": '/message/issues', // 获取招租列表
     
 };
 

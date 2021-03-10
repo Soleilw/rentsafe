@@ -161,4 +161,11 @@ Page({
     })
   },
 
+  // 租房信息
+  toRenting() {
+    wx.navigateTo({
+      url: './rent-msg/rent-msg',
+    })
+  },
+
 })

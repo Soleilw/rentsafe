@@ -1,0 +1,52 @@
+<form bindsubmit='toIssue'>
+  <view class="box">
+    <view class="info">
+    <view class="left">联系人:</view>
+    <input placeholder="请输入联系人" value='{{rentingInfo.name}}' name="name"></input>
+  </view>
+  <view class="info">
+    <view class="left">手机号:</view>
+    <input placeholder="请输入手机号" value='{{rentingInfo.phone}}' name="phone"></input>
+  </view>
+
+  <view class="info">
+    <view class="left">标题:</view>
+    <input placeholder="请输入标题" value='{{rentingInfo.title}}' name="title"></input>
+  </view>
+  <view class="info">
+    <view class="left">房屋地址:</view>
+    <input placeholder="请输入出租房屋地址" value='{{rentingInfo.address}}' name="address"></input>
+  </view>
+  <view class="info">
+    <view class="left">价格范围:</view>
+    <input placeholder="请输入价格范围" value='{{rentingInfo.price}}' name="price"></input>
+  </view>
+  <view class="info">
+    <view class="left">简介:</view>
+    <!-- <input placeholder="请输入简介" value='{{rentingInfo.intro}}' name="intro"></input> -->
+    <textarea placeholder="请输入简介" value='{{rentingInfo.intro}}' name="intro" bindblur="bindTextAreaBlur" auto-height />
+    </view>
+  <view class="info">
+    <view class="left">是否上架:</view>
+    <radio-group name='on_shelf'>
+      <radio value="1" checked="{{rentingInfo.on_shelf == 1 ? true : ''}}" />是
+      <radio value="2" checked="{{rentingInfo.on_shelf == 2 ? true : ''}}" />否
+    </radio-group>
+  </view>
+  <!-- 图片 -->
+  <view class="picture">
+    <view class="title">上传照片(最多9张)</view>
+    <view class="upLoad">
+      <view class="uplaodImgItem" wx:for="{{pic}}" wx:key="index">
+        <image src="{{item}}"></image>
+        <view class="deleteImg" bindtap="bindDeleteImg" data-index="{{index}}"><text class="icon-chahao">X</text></view>
+      </view>
+      <view class="uploadImg" bindtap="bindUpload"><text class="icon-xiangji">+</text></view>
+    </view>
+  </view>
+
+  <view class="submit">
+    <button form-type='submit'>发布</button>
+  </view>
+  </view>
+</form>

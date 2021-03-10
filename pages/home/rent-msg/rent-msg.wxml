@@ -1,0 +1,19 @@
+<scroll-view scroll-y="true" lower-threshold="100" bindscrolltolower="scrollToLower" style="height: 100vh;">
+  <view class="list">
+    <view class="item" wx:for="{{listData}}" data-detail="{{item}}" bindtap="toRentDetail">
+      <image src="{{item.images[0]}}"></image>
+      <view class="intro-box">
+        <view class="title">{{item.title}}</view>
+        <view class="intro">{{item.intro}}</view>
+        <view class="price">{{item.price}}
+          <text class="btn1" bindtap="toEdit" data-detail="{{item}}" wx:if="{{address_id != ''}}">编辑</text>
+          <text class="btn" bindtap="toDel" data-id="{{item.id}}" wx:if="{{address_id != ''}}">删除</text>
+          <!-- <image src="/icon/del.png"></image> -->
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{showFoot}}" class="foot">
+    <text>没有更多数据了~ ╮（╯＿╰）╭</text>
+  </view>
+</scroll-view>

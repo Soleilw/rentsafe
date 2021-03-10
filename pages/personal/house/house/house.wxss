@@ -1,7 +1,4 @@
 /* 列表 */
-page{
-    /* background-color:#f8f8f8; */
-  }
   .list {
     /* padding: 0 0 40rpx 40rpx; */
     padding: 0 10rpx 0 10rpx;

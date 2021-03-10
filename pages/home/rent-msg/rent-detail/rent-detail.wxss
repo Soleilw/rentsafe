@@ -1,0 +1,80 @@
+page {
+  background-color: #eee;
+}
+
+/* 轮播图 */
+.header {
+  position: relative;
+  width: 100vw;
+  height: 56.25vw;
+  background-color: #ddd;
+}
+
+.header .swiper {
+  width: 100vw;
+  height: 56.25vw;
+}
+
+.header .swiper .slide-image {
+  width: 100vw;
+  height: 56.25vw;
+}
+
+/* 卡片 */
+.info-card {
+  background-color: #fff;
+  padding: 20rpx;
+  margin-top: 10rpx;
+}
+
+.info-card .title {
+  /* overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical; */
+  font-weight: 700;
+  margin-bottom: 20rpx;
+}
+
+.info-card .price {
+  color: brown;
+}
+
+/* 内容 */
+.content {
+  background-color: #fff;
+  margin-top: 10rpx;
+  padding: 20rpx;
+}
+
+.content .intro .title {
+  font-weight: 700;
+  padding: 20rpx 0;
+}
+
+.content .card .des {
+  font-size: 28rpx;
+}
+
+.nav {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 150rpx;
+  height: 100rpx;
+  border-top: 1rpx solid #ddd;
+  color: #8a8a8a;
+  background-color: #fff;
+  display: flex;
+  justify-content: flex-end;
+}
+.nav .enroll {
+  width: 150rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 32rpx;
+  text-align: center;
+  background-color: #CC0033;
+  color: #fff;
+}

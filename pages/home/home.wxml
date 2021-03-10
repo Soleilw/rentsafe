@@ -2,14 +2,10 @@
 	<official-account></official-account>
 </view>
 <view class="choose-banner" wx:if="{{areasList.length > 0}}">
-	<!-- <text></text> -->
 	<view class="area">当前社区</view>
 	<input class="input" disabled="true" placeholder="请选择所在的社区" value="{{areas ? areas : areasList[areas_index].title}}"></input>
-	<!-- <input class="input" disabled="true" placeholder="请选择所在的社区"></input> -->
-
 	<picker bindchange="areasChange" range="{{areasList}}" range-key="title" value="{{index}}" class="picker">
 		<button>切换社区</button>
-		<!-- <image src="/icon/right.png"></image> -->
 	</picker>
 </view>
 <view class="box">
@@ -32,13 +28,14 @@
 			<image mode='aspectFill' src="/icon/recruit.png" />
 			<text>人才招聘</text>
 		</view>
+		<view bindtap='toRenting'>
+			<image mode='aspectFill' src="/icon/let_info.png" />
+			<text>租房信息</text>
+		</view>
 		<view wx:for="{{classFication}}" wx:key="{{index}}" data-id="{{item.id}}" data-index="{{index}}" bindtap='openClassification'>
 			<image mode='aspectFill' src="{{item.href}}" />
 			<text>{{item.title}}</text>
 		</view>
-		<!-- <view class="tips_box" wx:if="{{classFication.length == 0}}">
-			<view class="sel_title">暂无数据</view>
-		</view> -->
 	</view>
 
 	<view class='titleText'>精选资讯</view>

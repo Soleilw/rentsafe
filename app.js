@@ -2,9 +2,18 @@ App({
   onShow: function () {
     // this.getUserInfo();
     var global = require('./model/global');
-    var imfomation = require('./model/personal/infomation')
     var self = this;
+    
+    // 开关配置
+    var version = '1.0.46';
+    global.configs(version).then(res => {
+      wx.setStorageSync('openFace', res.config_value);
+    })
+  },
+  onLaunch: function () {
+    let self = this;
     // 获取用户信息
+    var imfomation = require('./model/personal/infomation')
     if (wx.getStorageSync('token')) {
       imfomation.userInfo(wx.getStorageSync('token')).then(res => {
         if (res) {
@@ -14,14 +23,6 @@ App({
         }
       })
     }
-    // 开关配置
-    var version = '1.0.46';
-    global.configs(version).then(res => {
-      wx.setStorageSync('openFace', res.config_value);
-    })
-  },
-  onLaunch: function () {
-    let self = this;
     if (wx.canIUse('getUpdateManager')) {
       const updateManager = wx.getUpdateManager()
       updateManager.onCheckForUpdate(function (res) {

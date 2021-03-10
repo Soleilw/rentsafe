@@ -1,0 +1,87 @@
+page {
+  background-color: #eee;
+}
+
+.list {
+  padding: 15rpx;
+}
+
+.list .item {
+  background-color: #fff;
+  display: flex;
+  padding: 20rpx;
+  margin-bottom: 15rpx;
+}
+
+.list .item image {
+  width: 200rpx;
+  height: 140rpx;
+  margin-right: 20rpx;
+}
+
+.list .item .intro-box {
+  width: calc(100% - 200rpx - 20rpx);
+}
+
+.list .item .intro-box .title {
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  font-size: 32rpx;
+}
+
+.list .item .intro-box .intro {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  font-size: 24rpx;
+  margin: 10rpx 0;
+}
+
+.list .item .intro-box .price {
+  color: brown;
+  position: relative;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 24rpx;
+}
+
+.list .item .intro-box .price .btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 20rpx;
+  width: 100rpx;
+  height: 50rpx;
+  text-align: center;
+  background-color: brown;
+  color: #fff;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+
+.list .item .intro-box .price .btn1 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 135rpx;
+  width: 100rpx;
+  height: 50rpx;
+  text-align: center;
+  background-color: #2a9f93;
+  color: #fff;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+
+.foot {
+  text-align: center;
+  font-size: 24rpx;
+  color: #666;
+  padding: 20rpx;
+}

@@ -56,9 +56,9 @@ Page({
             face_id: app.globalData.face_id,
         })
         this.getPersonalInfo();
-        // if (app.globalData.userType == 1) {
-        //     this.getNewUser();
-        // }
+        if (app.globalData.userType == 1) {
+            this.getNewUser();
+        }
     },
     onShow() {
         this.getPersonalInfo();
@@ -655,6 +655,12 @@ Page({
                 })
             })
         }
+    },
+
+    toRenting() {
+        wx.navigateTo({
+          url: '../house/rent-mag/index',
+        })
     },
 
 })

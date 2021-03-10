@@ -61,6 +61,10 @@
 			<image src="/icon/unit.png"></image>
 			<view>房屋管理</view>
 		</view>
+		<view class="box hr" wx:if="{{userType == 1}}" bindtap="toRenting">
+			<image src="/icon/renting.png"></image>
+			<view>租赁管理</view>
+		</view>
 		<view class="box hr" wx:if="{{showBuy}}" bindtap="toBuy">
 			<image src="/icon/buy.png"></image>
 			<view>缴费</view>

@@ -26,7 +26,11 @@
     "pages/personal/house/renter-pay/renter-pay",
     "pages/personal/house/authorized/authorized",
     "pages/home/recruit/recruit",
-    "pages/home/recruit-detail/recruit-detail"
+    "pages/home/recruit-detail/recruit-detail",
+    "pages/personal/house/rent-mag/renting/renting",
+    "pages/personal/house/rent-mag/index",
+    "pages/home/rent-msg/rent-msg",
+    "pages/home/rent-msg/rent-detail/rent-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -447,4 +447,78 @@ infomation.userRegister = function (token, address_id) {
     })
 }
 
+// 发布出租屋
+infomation.issueRent = function (token, name, phone, title, intro, images, address, price, on_shelf, address_id) {
+    return new Promise((resolve, reject) => {
+        api.post(api.baseUrl.host, api.url.IssueRent, {
+            token: token,
+            name: name,
+            phone: phone,
+            title: title,
+            intro: intro,
+            images: images,
+            address: address,
+            price: price,
+            on_shelf: on_shelf,
+            address_id: address_id
+        }, function (response) {
+            if (response.msg === 'ok') {
+                var res = response.data;
+                resolve(res);
+            } else {
+                reject(response);
+            }
+        })
+    })
+}
+
+// 删除
+infomation.delIssue = function (id) {
+    return new Promise((resolve, reject) => {
+        api.delete(api.baseUrl.host, api.url.DelIssue, {
+            id: id
+        }, function (response) {
+            if (response.msg === 'ok') {
+                var res = response.data;
+                resolve(res);
+            } else {
+                reject(response);
+            }
+        })
+    })
+}
+// 获取个人招租列表--户主
+infomation.issueUserList = function (page, limit, address_id) {
+    return new Promise((resolve, reject) => {
+        api.get(api.baseUrl.host, api.url.IssueUserList, {
+            page: page,
+            limit: limit,
+            address_id: address_id,
+        }, function (response) {
+            if (response.msg === 'ok') {
+                var res = response.data;
+                resolve(res);
+            } else {
+                reject(response);
+            }
+        })
+    })
+}
+// 获取招租列表
+infomation.issueList = function (page, limit) {
+    return new Promise((resolve, reject) => {
+        api.get(api.baseUrl.host, api.url.IssueList, {
+            page: page,
+            limit: limit
+        }, function (response) {
+            if (response.msg === 'ok') {
+                var res = response.data;
+                resolve(res);
+            } else {
+                reject(response);
+            }
+        })
+    })
+}
+
 module.exports = infomation;
