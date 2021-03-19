@@ -17,6 +17,7 @@ Page({
     areas_index: '', // 下标
     areas: '',
     areas_id: null, // 社区id,
+    show: false
   },
 
   /**
@@ -28,6 +29,9 @@ Page({
     this.getSelected();
     if (wx.getStorageSync('openFace') == 'open') {
       this.getDoc();
+      this.setData({
+        show: true
+      })
     }
   },
   onShow: function () {

@@ -5,7 +5,7 @@ App({
     var self = this;
     
     // 开关配置
-    var version = '1.0.46';
+    var version = '1.0.48';
     global.configs(version).then(res => {
       wx.setStorageSync('openFace', res.config_value);
     })

@@ -1,26 +1,88 @@
-<scroll-view scroll-y="true" lower-threshold="100" bindscrolltolower="scrollToLower" style="height: 100vh;">
-  <view class="classification">
-    <view class="nav_active" wx:for="{{classFication}}" wx:key="{{index}}" data-id="{{item.id}}" data-index="{{index}}"
-      bindtap='nav' class="{{index == num ? 'nav_active' : ''}}">
-      {{item.title}}
+<view class="classification" wx:if="{{address_id == ''}}">
+  <picker bindchange="houseTypeChange" range="{{houseTypeList}}" range-key="label" value="{{index}}">
+    <view>
+      户型
+      <image src="/icon/up2.png"></image>
     </view>
+  </picker>
+  <picker bindchange="rentChange" range="{{rentList}}" range-key="label" value="{{index}}">
+    <view>
+      租金
+      <image src="/icon/up2.png"></image>
+    </view>
+  </picker>
+  <view bindtap="showModal">
+    地区
+    <image src="/icon/up2.png"></image>
   </view>
-  <view class="list">
-    <view class="item" wx:for="{{listData}}" data-detail="{{item}}" bindtap="toRentDetail">
-      <image src="{{item.images[0]}}"></image>
-      <view class="intro-box">
-        <view class="title">{{item.title}}</view>
-        <view class="intro">{{item.intro}}</view>
-        <view class="price">{{item.price}}
-          <text class="btn1" bindtap="toEdit" data-detail="{{item}}" wx:if="{{address_id != ''}}">编辑</text>
-          <text class="btn" bindtap="toDel" data-id="{{item.id}}" wx:if="{{address_id != ''}}">删除</text>
-          <!-- <image src="/icon/del.png"></image> -->
-        </view>
+  <view bindtap="toReset">
+    重置
+    <image src="/icon/reset.png"></image>
+  </view>
+</view>
+<view class="{{address_id == '' ? 'list mt' : 'list'}}">
+  <view class="item" wx:for="{{listData}}" data-detail="{{item}}" data-id="{{item.id}}" bindtap="toRentDetail">
+    <image src="{{item.images[0]}}"></image>
+    <view class="intro-box">
+      <view class="title">{{item.title}}</view>
+      <view class="intro">{{item.house_type_text}} </view>
+      <view class="tag">
+        <text wx:if="{{item.house_type == 1}}">低楼层</text>
+        <text wx:if="{{item.house_type == 2}}">中楼层</text>
+        <text wx:if="{{item.house_type == 3}}">高楼层</text>
+        <text>{{item.pay_type}}</text>
+        <text>{{item.proportion}}㎡</text>
+      </view>
+      <view class="price">
+        {{item.price}}
+        <text class="tip">元/月</text>
+        <text class="time" wx:if="{{address_id == ''}}">{{item.updated_at}}</text>
+        <text class="btn1" bindtap="toEdit" data-detail="{{item}}" data-id="{{item.id}}"
+          wx:if="{{address_id != ''}}">编辑</text>
+        <text class="btn" bindtap="toDel" data-id="{{item.id}}" wx:if="{{address_id != ''}}">删除</text>
+        <!-- <image src="/icon/del.png"></image> -->
       </view>
     </view>
-    <view wx:if="{{showFoot}}" class="foot">
-      <text>没有更多数据了~ ╮（╯＿╰）╭</text>
-    </view>
   </view>
+  <view wx:if="{{showFoot}}" class="foot">
+    <text>没有更多数据了~ ╮（╯＿╰）╭</text>
+  </view>
+</view>
 
-</scroll-view>
+<view class="modals modals-bottom-dialog" hidden="{{hideModal}}">
+  <view class="modals-cancel" bindtap="hideModal"></view>
+  <view class="bottom-dialog-body bottom-pos" animation="{{animationData}}">
+    <view class="info-box">
+      <view class="info">
+        <text>省份: </text>
+        <picker bindchange="proChange" range="{{proList}}" range-key="title" value="{{index}}">
+          <input class="input" placeholder='请选择省份' disabled="true" name="province"
+            value="{{province ? province : proList[is_pro].title}}"></input>
+        </picker>
+      </view>
+      <view class="info">
+        <text>市级: </text>
+        <picker bindchange="cityChange" range="{{cityList}}" range-key="title" value="{{index}}">
+          <input class="input" placeholder='请选择市级' disabled="true" name="city"
+            value="{{city ? city : cityList[is_city].title}}"></input>
+        </picker>
+      </view>
+      <view class="info">
+        <text>区级: </text>
+        <picker bindchange="areaChange" range="{{areaList}}" range-key="title" value="{{index}}">
+          <input class="input" placeholder='请选择区级' disabled="true" name="area"
+            value="{{area ? area : areaList[is_area].title}}"></input>
+        </picker>
+      </view>
+      <view class="info">
+        <text>社区: </text>
+        <picker bindchange="communityChange" range="{{communityList}}" range-key="title" value="{{index}}">
+          <input class="input" placeholder='请选择社区' disabled="true" name="community"
+            value="{{community ? community : communityList[is_community].title}}"></input>
+        </picker>
+      </view>
+    </view>
+
+    <view class="btn" bindtap="toArea">确定</view>
+  </view>
+</view>

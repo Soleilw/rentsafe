@@ -1,25 +1,60 @@
 page {
   background-color: #eee;
+  position: relative;
 }
 
-.list {
-  padding: 15rpx;
-  position: relative;
-  top: 100rpx;
-  left: 0;
-  right: 0;
+/* 顶部筛选 */
+.classification {
+  position: fixed;
+  left: 0rpx;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+  height: 70rpx;
+  width: 100%;
+  margin-bottom: 10rpx;
+  font-size: 30rpx;
+  overflow-x: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
 }
+
+.classification view {
+  position: relative;
+  line-height: 70rpx;
+  text-align: center;
+  width: calc(100% / 3);
+  min-width: 187.5rpx;
+}
+
+.classification image {
+  width: 20rpx;
+  height: 20rpx;
+}
+
+/* 列表 */
+.list {
+  padding: 10rpx;
+  height: 93vh;
+}
+
+.mt {
+  margin-top: 70rpx;
+}
+
 
 .list .item {
   background-color: #fff;
   display: flex;
-  padding: 20rpx;
+  padding: 10rpx;
   margin-bottom: 15rpx;
+  box-shadow: 0rpx 2rpx 10rpx #ccc;
 }
 
 .list .item image {
   width: 200rpx;
-  height: 140rpx;
+  height: 170rpx;
   margin-right: 20rpx;
 }
 
@@ -47,12 +82,27 @@ page {
   margin: 10rpx 0;
 }
 
+.list .item .intro-box .tag {
+  font-size: 20rpx;
+}
+
+.list .item .intro-box .tag text {
+  padding: 5rpx;
+  background-color: #ccc;
+  color: #003366;
+  margin-right: 5rpx;
+}
+
 .list .item .intro-box .price {
   color: brown;
   position: relative;
   height: 50rpx;
   line-height: 50rpx;
-  font-size: 24rpx;
+}
+
+.list .item .intro-box .price .tip {
+  font-size: 20rpx;
+  line-height: 50rpx;
 }
 
 .list .item .intro-box .price .btn {
@@ -83,6 +133,18 @@ page {
   font-size: 24rpx;
 }
 
+.list .item .intro-box .price .time {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 10rpx;
+  height: 50rpx;
+  text-align: center;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  line-height: 70rpx;
+}
+
 .foot {
   text-align: center;
   font-size: 24rpx;
@@ -90,33 +152,75 @@ page {
   padding: 20rpx;
 }
 
-.classification {
+
+/*模态框*/
+.modals {
   position: fixed;
-  left: 0rpx;
+  z-index: 999;
   top: 0;
-  z-index: 100000;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.modals-cancel {
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.bottom-dialog-body {
+  position: absolute;
+  z-index: 10001;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30rpx;
+  height: 600rpx;
   background-color: #fff;
-  height: 100rpx;
-  width: 100%;
-  margin-bottom: 10rpx;
-  font-size: 30rpx;
-  overflow-x: auto;
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
 }
 
-.classification view {
-  position: relative;
-  /* formID按钮父元素 */
-  line-height: 100rpx;
+/*动画前初始位置*/
+.bottom-pos {
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+}
+
+.bottom-dialog-body .btn {
+  background-color: #CC0033;
+  color: #fff;
+  position: fixed;
+  bottom: 30rpx;
+  left: 0;
+  right: 0;
+  /* width: 80vh; */
+  margin: 0 30rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
-  width: calc(100% / 3);
-  min-width: 187.5rpx;
+  border-radius: 50rpx;
 }
 
-.classification .nav_active {
-  color: #2a9f93;
-  border-bottom: 5rpx solid #2a9f93;
+/* 选择 */
+.info-box {
+  width: 100%;
+  margin-top: 50rpx;
+}
+
+.info-box .info {
+  display: flex;
+  margin: 50rpx auto;
+}
+
+.info-box .info text {
+  width: 20%;
+  margin-right: 20rpx;
+}
+
+.info-box .info {
+  width: 70%
 }

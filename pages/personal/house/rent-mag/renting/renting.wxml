@@ -1,37 +1,108 @@
 <form bindsubmit='toIssue'>
   <view class="box">
     <view class="info">
-    <view class="left">联系人:</view>
-    <input placeholder="请输入联系人" value='{{rentingInfo.name}}' name="name"></input>
-  </view>
-  <view class="info">
-    <view class="left">手机号:</view>
-    <input placeholder="请输入手机号" value='{{rentingInfo.phone}}' name="phone"></input>
-  </view>
-
-  <view class="info">
-    <view class="left">标题:</view>
-    <input placeholder="请输入标题" value='{{rentingInfo.title}}' name="title"></input>
-  </view>
-  <view class="info">
-    <view class="left">房屋地址:</view>
-    <input placeholder="请输入出租房屋地址" value='{{rentingInfo.address}}' name="address"></input>
-  </view>
-  <view class="info">
-    <view class="left">价格范围:</view>
-    <input placeholder="请输入价格范围" value='{{rentingInfo.price}}' name="price"></input>
-  </view>
-  <view class="info">
-    <view class="left">简介:</view>
-    <!-- <input placeholder="请输入简介" value='{{rentingInfo.intro}}' name="intro"></input> -->
-    <textarea placeholder="请输入简介" value='{{rentingInfo.intro}}' name="intro" bindblur="bindTextAreaBlur" auto-height />
+      <view class="left">联系人:</view>
+      <input class="input" placeholder="请输入联系人" value='{{rentingInfo.name}}' name="name"></input>
     </view>
+    <view class="info">
+      <view class="left">手机号:</view>
+      <input class="input" placeholder="请输入手机号" value='{{rentingInfo.phone}}' name="phone" bindblur="regPhone"></input>
+    </view>
+
+    <view class="info">
+      <view class="left">房屋名称:</view>
+      <input class="input" placeholder="请输入房屋名称(如: xx房屋出租)" value='{{rentingInfo.title}}' name="title"></input>
+    </view>
+
+    <view class="info">
+      <view class="left">省份:</view>
+      <picker bindchange="proChange" range="{{proList}}" range-key="title" value="{{index}}">
+        <input class="input" placeholder='请选择省份' disabled="true" name="province"
+          value="{{province ? province : proList[is_pro].title}}"></input>
+      </picker>
+    </view>
+    <view class="info">
+      <view class="left">市级:</view>
+      <picker bindchange="cityChange" range="{{cityList}}" range-key="title" value="{{index}}">
+        <input class="input" placeholder='请选择市级' disabled="true" name="city"
+          value="{{city ? city : cityList[is_city].title}}"></input>
+      </picker>
+    </view>
+    <view class="info">
+      <view class="left">区级:</view>
+      <picker bindchange="areaChange" range="{{areaList}}" range-key="title" value="{{index}}">
+        <input class="input" placeholder='请选择区级' disabled="true" name="area"
+          value="{{area ? area : areaList[is_area].title}}"></input>
+      </picker>
+    </view>
+    <view class="info">
+      <view class="left">社区:</view>
+      <picker bindchange="communityChange" range="{{communityList}}" range-key="title" value="{{index}}">
+        <input class="input" placeholder='请选择社区' disabled="true" name="community"
+          value="{{community ? community : communityList[is_community].title}}"></input>
+      </picker>
+    </view>
+    <view class="info">
+      <view class="left">房屋地址:</view>
+      <view class="box2">
+        <input class="input" type="text" placeholder='点击图标选择地址' disabled="true"></input>
+        <image class="right-icon" src="/icon/address.png" bindtap='map'></image>
+      </view>
+      <!-- <input placeholder="请输入出租房屋地址" value='{{rentingInfo.address}}' name="address"></input> -->
+    </view>
+    <view class="info">
+      <textarea class="textarea" name="address" value="{{address}}" placeholder="点击选择地址或请在此处填写具体地址" auto-height
+        bindblur="addressBlur"></textarea>
+    </view>
+    <view class="info">
+      <view class="left">价格:</view>
+      <input placeholder="请输入价格(如: 500)" value='{{rentingInfo.price}}' name="price"></input>元
+    </view>
+    <view class="info">
+      <view class="left">房屋简介:</view>
+      <textarea class="input" placeholder="请输入房屋简介" value='{{rentingInfo.intro}}' name="intro" bindblur="bindTextAreaBlur"
+        auto-height />
+      </view>
   <view class="info">
-    <view class="left">是否上架:</view>
-    <radio-group name='on_shelf'>
-      <radio value="1" checked="{{rentingInfo.on_shelf == 1 ? true : ''}}" />是
-      <radio value="2" checked="{{rentingInfo.on_shelf == 2 ? true : ''}}" />否
-    </radio-group>
+    <view class="left">面积(㎡):</view>
+    <input placeholder="请输入面积(如: 120)" value='{{rentingInfo.proportion}}' name="proportion"></input>㎡
+  </view>
+  <view class="info">
+    <view class="left">楼层:</view>
+    <input placeholder="请输入楼层(如: 2)" value='{{rentingInfo.floor}}' name="floor"></input>楼
+  </view>
+  <view class="info">
+    <view class="left">楼层类型:</view>
+    <picker bindchange="floorChange" range="{{floorList}}" range-key="label" value="{{index}}">
+        <input class="input" placeholder='请选择楼层类型' disabled="true" name="floorNum"
+          value="{{floorNum ? floorNum : floorList[is_floor].label}}"></input>
+      </picker>
+  </view>
+  <view class="info">
+    <view class="left">户型:</view>
+    <input class="input" placeholder="请输入户型(如: 一室一厅)" value='{{rentingInfo.house_type_text}}' name="house_type_text"></input>
+  </view>
+  <view class="info">
+    <view class="left">房屋类型:</view>
+    <picker bindchange="houseTypeChange" range="{{houseTypeList}}" range-key="label" value="{{index}}">
+        <input class="input" placeholder='请选择房屋类型' disabled="true" name="houseType"
+          value="{{houseType ? houseType : houseTypeList[is_houseType].label}}"></input>
+      </picker>
+  </view>
+  <view class="info">
+    <view class="left">朝向:</view>
+    <picker bindchange="orientationChange" range="{{orientationList}}" range-key="label" value="{{index}}">
+        <input class="input" placeholder='请选择朝向' disabled="true" name="orientation"
+          value="{{orientation ? orientation : orientationList[is_orientation].label}}"></input>
+      </picker>
+  </view>
+  <view class="info">
+    <view class="left">支付类型:</view>
+    <picker bindchange="payTypeChange" range="{{payTypeList}}" range-key="label" value="{{index}}">
+        <input class="input" placeholder='请选择支付类型' disabled="true" name="payType"
+          value="{{payType ? payType : payTypeList[is_payType].label}}"></input>
+      </picker>
+    <!-- <input placeholder="请输入价格(如: 押一付一)" value='{{rentingInfo.pay_type}}' name="pay_type"></input> -->
   </view>
   <!-- 图片 -->
   <view class="picture">

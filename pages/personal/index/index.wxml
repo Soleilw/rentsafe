@@ -104,7 +104,7 @@
 	</view>
 </view>
 
-<view class="supportText">中山市公安局沙溪分局联合研发v1.0.46</view>
+<view class="supportText">中山市公安局沙溪分局联合研发v1.0.48</view>
 <block>
 	<!-- 屏幕背景变暗的背景 -->
 	<view class="commodity_screen" wx:if="{{showModalStatus}}"></view>

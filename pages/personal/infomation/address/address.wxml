@@ -32,7 +32,7 @@
 				<input class="input" placeholder='请选择社区' disabled="true" name="community" value="{{community ? community : communityList[is_community].title}}"></input>
 			</picker>
 		</view>
-		<view class="form-item" bindtap="">
+		<view class="form-item">
 			<text>详细地址</text>
 			<!-- <picker bindchange="detailChange" range="{{detailList}}" range-key="address" value="{{index}}"> -->
 			<!-- <textarea class="textarea" name="detail" value="{{detail ? detail : detailList[is_detail].address}}" placeholder='请选择详细地址' auto-height></textarea> -->

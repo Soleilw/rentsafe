@@ -2,9 +2,10 @@
 .box {
   margin-bottom: 20rpx;
 }
+
 .info {
   padding: 20rpx;
-  border-bottom: rgb(0,0,0,.2) 1rpx solid;
+  border-bottom: rgb(0, 0, 0, .2) 1rpx solid;
 
   display: flex;
   align-items: center;
@@ -35,11 +36,12 @@ radio .wx-radio-input.wx-radio-input-checked::before {
 }
 
 
-.info input {
+.info .input {
   width: 500rpx;
   height: 60rpx;
   line-height: 60rpx;
 }
+
 .info textarea {
   width: 500rpx;
 
@@ -66,7 +68,7 @@ radio .wx-radio-input.wx-radio-input-checked::before {
   margin-bottom: 16rpx;
   padding: 32rpx;
 }
- 
+
 .title {
   height: 36rpx;
   font-size: 28rpx;
@@ -77,25 +79,25 @@ radio .wx-radio-input.wx-radio-input-checked::before {
   line-height: 36rpx;
   margin-bottom: 24rpx;
 }
- 
+
 .upLoad {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
- 
+
 .uplaodImgItem {
   width: 160rpx;
   height: 160rpx;
   margin-right: 16rpx;
   position: relative;
 }
- 
+
 .uplaodImgItem image {
   width: 100%;
   height: 100%;
 }
- 
+
 .deleteImg {
   position: absolute;
   width: 32rpx;
@@ -107,12 +109,12 @@ radio .wx-radio-input.wx-radio-input-checked::before {
   text-align: right;
   line-height: 24rpx;
 }
- 
+
 .icon-chahao {
   color: #ffffff;
   font-size: 24rpx;
 }
- 
+
 .uploadImg {
   width: 160rpx;
   height: 160rpx;
@@ -121,10 +123,78 @@ radio .wx-radio-input.wx-radio-input-checked::before {
   background: #f7f8fa;
   border-radius: 4rpx;
 }
- 
+
 .icon-xiangji {
   color: #859db6;
   font-size: 42rpx;
   text-align: center;
 }
 
+.searchPage {
+  height: 100%;
+  z-index: 100;
+  background-color: #fff;
+}
+
+.search {
+  width: 92vw;
+  padding: 0 4vw;
+  height: 100rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 28rpx;
+  border-bottom: 2rpx solid #ddd;
+  background-color: #fff;
+}
+
+.return {
+  height: 60rpx;
+  line-height: 60rpx;
+  color: #fff;
+  background: #2a9f93;
+  border-radius: 0;
+  font-size: 28rpx;
+  margin-top: 1rpx;
+}
+
+.search input {
+  flex: 1;
+  /* width:500rpx; */
+}
+
+.search button {
+  color: #fff;
+  border-radius: 30rpx;
+  background-color: #2a9f93;
+}
+
+.no-address {
+  padding: 50rpx 0;
+  text-align: center;
+  font-size: 30rpx;
+}
+
+.search-item {
+  /* margin-left: 20rpx; */
+  margin-top: 20rpx;
+  padding: 5rpx 10rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  font-size: 30rpx;
+}
+
+.box2 {
+  width: 470rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.box2 image {
+  width: 45rpx;
+  height: 45rpx;
+}
+
+.textarea {
+  font-size: 28rpx;
+}

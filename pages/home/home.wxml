@@ -28,7 +28,7 @@
 			<image mode='aspectFill' src="/icon/recruit.png" />
 			<text>人才招聘</text>
 		</view>
-		<view bindtap='toRenting'>
+		<view bindtap='toRenting' wx:if="{{show}}">
 			<image mode='aspectFill' src="/icon/let_info.png" />
 			<text>租房信息</text>
 		</view>

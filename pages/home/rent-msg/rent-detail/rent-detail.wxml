@@ -13,7 +13,10 @@
   </view>
   <view class="info-card">
     <view class="title">{{detail.title}}</view>
-    <view class="price">{{detail.price}}</view>
+    <view class="price">￥{{detail.price}}
+      <text class="unit">元/月</text>
+      <text class="pay-type">{{detail.pay_type}}</text>
+    </view>
   </view>
   <view class="content">
     <view class="intro">
@@ -22,20 +25,41 @@
         <view class="des" wx:for="{{rent_intro}}">{{item}}</view>
       </view>
       <view class="card">
+        <view class="title">房屋信息</view>
+        <view class="des">户型: {{detail.house_type_text}}</view>
+        <view class="des">楼层: {{detail.floor}}楼</view>
+        <view class="des" wx:if="{{detail.orientation == 1}}">房屋朝向: 东</view>
+        <view class="des" wx:if="{{detail.orientation == 2}}">房屋朝向: 南</view>
+        <view class="des" wx:if="{{detail.orientation == 3}}">房屋朝向: 西</view>
+        <view class="des" wx:if="{{detail.orientation == 4}}">房屋朝向: 北</view>
+        <view class="des" wx:if="{{detail.house_type == 1}}">房屋类型: 自建房</view>
+        <view class="des" wx:if="{{detail.house_type == 2}}">房屋类型: 小区房</view>
+        <view class="des" wx:if="{{detail.house_type == 3}}">房屋类型: 别墅</view>
+        <view class="des">房屋面积: {{detail.proportion}}㎡</view>
+      </view>
+      <view class="card">
         <view class="title">联系信息</view>
         <view class="des">联系人：{{detail.name}}</view>
         <view class="des">手机号：{{detail.phone}}</view>
-        <view class="des">地址：{{detail.address}}</view>
+        <view class="des">地址：{{detail.address}} </view>
+        <view class="copy" bindtap="copyAdd">复制地址</view>
       </view>
     </view>
   </view>
-  <!-- <view>
+  <view class="map_box">
     <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" controls="{{controls}}"
       show-location="ture" bindcontroltap="controltap" markers="{{markers}}" circles="{{circles}}"
-      bindmarkertap="markertap" show-location style="width: 100%; height: 400rpx;">
+      bindmarkertap="markertap" show-loc ation style="width: 100%; height: 400rpx;">
     </map>
-  </view> -->
+    <button class="iden-btn" bindtap="map">
+      <view class="tableviewcell">
+        <text class="adress">去导航</text>
+        <image class="right-icon" src="/icon/right.png" />
+      </view>
+    </button>
+  </view>
   <view class="nav">
-    <text class="enroll" bindtap='toPhone'>打电话</text>
+    <button class="enroll cl1" open-type="share">分享</button>
+    <text class="enroll cl" bindtap='toPhone'>打电话</text>
   </view>
 </view>

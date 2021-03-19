@@ -7,7 +7,6 @@ page {
   position: relative;
   width: 100vw;
   height: 56.25vw;
-  background-color: #ddd;
 }
 
 .header .swiper {
@@ -28,17 +27,22 @@ page {
 }
 
 .info-card .title {
-  /* overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical; */
   font-weight: 700;
   margin-bottom: 20rpx;
 }
 
 .info-card .price {
   color: brown;
+}
+
+.info-card .price .unit {
+  color: brown;
+  font-size: 24rpx;
+}
+
+.info-card .price .pay-type {
+  color: #666;
+  margin-left: 50rpx;
 }
 
 /* 内容 */
@@ -57,24 +61,91 @@ page {
   font-size: 28rpx;
 }
 
+.content .card .copy {
+  font-size: 32rpx;
+  color: #2a9f93;
+  padding: 20rpx;
+  text-align: center;
+}
+
 .nav {
   position: fixed;
   right: 0;
   bottom: 0;
-  width: 150rpx;
-  height: 100rpx;
+  width: 300rpx;
+  height: 80rpx;
   border-top: 1rpx solid #ddd;
   color: #8a8a8a;
   background-color: #fff;
   display: flex;
   justify-content: flex-end;
 }
+
 .nav .enroll {
   width: 150rpx;
-  height: 100rpx;
-  line-height: 100rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   font-size: 32rpx;
   text-align: center;
-  background-color: #CC0033;
   color: #fff;
+  border-radius: 0;
+
+}
+
+.nav button::after {
+  border: none;
+  border-radius: 0;
+}
+
+.cl {
+  background-color: #CC0033;
+}
+.cl1 {
+  background-color: green;
+
+}
+
+.map_box {
+  margin-top: 10rpx;
+  padding: 30rpx 30rpx 80rpx;
+  background-color: #fff;
+}
+
+.iden-btn {
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: left;
+  margin-top: 10rpx;
+  background-color: #fff;
+}
+
+.tableviewcell {
+  position: relative;
+  border-bottom: 2rpx solid #fff;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 35rpx;
+}
+
+.tableviewcell .adress {
+  width: 90%;
+  font-size: 28rpx;
+  margin-left: 14rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tableviewcell .left-icon {
+  width: 40rpx;
+  height: 40rpx;
+  object-fit: cover;
+}
+
+.tableviewcell .right-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin: 0 0 0 10rpx;
 }

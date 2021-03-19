@@ -70,6 +70,7 @@ const url = {
     "IssueUserList": '/user/message/issues', // 获取个人招租列表--户主
     "DelIssue": '/del/message/issue', // 删除
     "IssueList": '/message/issues', // 获取招租列表
+    "MsgDetail": '/message/issue', // 获取招租列表详情
     
 };
 
