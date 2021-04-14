@@ -84,6 +84,10 @@ view{
     overflow:auto;
 }
 
+.ql-video {
+  width: 100%;
+}
+
 .wxParse-video{
     text-align: center;
     margin: 10px 0;
